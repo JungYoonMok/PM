@@ -1,0 +1,22 @@
+<?
+  $link = mysqli_connect('localhost', 'root', '', 'crud');
+
+  $filtered = array(
+    'id' => mysqli_real_escape_string($link, $_POST['id'])
+  );
+
+  $sql = "SELECT etc FROM gradeinfo WHERE id = {$filtered['id']}";
+  
+  // $sql = "
+  //   DELETE FROM gradeinfo
+  //   WHERE id = {$filtered['id']};
+  // ";
+
+  $result = mysqli_query($link, $sql);
+
+  if ($result === false) {
+    echo "디테일 정보를 가져오는 과정에서 문제가 발생했습니다.";
+  } else {
+    header("Location: ../read.php");
+  }
+?>
