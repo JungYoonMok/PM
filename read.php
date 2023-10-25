@@ -1,7 +1,7 @@
 <?
   include('link.php');
   //$link = mysqli_connect('localhost', 'root', '', 'crud');
-  $sql = 'SELECT * FROM gradeinfo';
+  $sql = 'SELECT * FROM gradeinfo;';
   $result = mysqli_query($link, $sql);
 ?>
 
@@ -23,7 +23,7 @@
   </script>
 
   <!-- 헤더 인클루드 -->
-  <? include('header.php') ?>
+  <!-- <? include('header.php') ?> -->
 
 </head>
 <body>

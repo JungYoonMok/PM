@@ -17,7 +17,7 @@
       name='{$filtered['name']}',
       python='{$filtered['python']}',
       java='{$filtered['java']}',
-      c='{$filtered['c']}'
+      c='{$filtered['c']}',
       etc='{$filtered['etc']}'
     WHERE
       id='{$filtered['id']}';
@@ -25,8 +25,16 @@
 
   $result = mysqli_query($link, $sql);
 
-  if ($result === false) {
+  // 값이 정상적으로 넘어오는지 확인
+  echo 
+    "<script>
+      console.log('전달값: ', '{$filtered['id']}', '{$filtered['name']}', '{$filtered['python']}', '{$filtered['java']}', '{$filtered['c']}', '{$filtered['etc']}')
+    </script>";
+
+  if ($result === false) {    
     echo "저장하는 과정에서 문제가 생겼습니다.";
+    echo '<br><br>';
+    printf("오류: %s ", mysqli_error($link));
   } else {
     header('Location: ../read.php');
   }

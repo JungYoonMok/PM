@@ -1,5 +1,6 @@
 <?
-  $link = mysqli_connect('localhost', 'root', '', 'crud');
+  include('link.php');
+  // $link = mysqli_connect('localhost', 'root', '', 'crud');
 
   $filtered = array(
     'id' => mysqli_real_escape_string($link, $_POST['id'])

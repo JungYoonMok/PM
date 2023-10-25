@@ -6,6 +6,9 @@
 
   if(!$result) {
     echo '<h4>실패</h4>';
+
+    // 쿼리 오류시 오류내용 출력
+    printf("오류: %s \n", mysqli_error($link));
   } else {
     // echo 
     //   "<script>

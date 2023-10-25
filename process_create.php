@@ -23,6 +23,7 @@
   ";
 
   $result = mysqli_query($link, $sql);
+  
   if($result === false){
     echo '장하는 과정에서 문제가 생겼습니다.';
   } else {
