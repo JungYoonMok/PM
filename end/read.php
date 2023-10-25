@@ -20,6 +20,11 @@
       document.getElementById('update_c').value = c;
       document.getElementById('update_etc').value = etc;
     }
+
+    // 상세보기 함수
+    function detail(dt) {
+      document.getElementById('detail_').value = dt;
+    }
   </script>
 
   <!-- 헤더 인클루드 -->
@@ -28,7 +33,7 @@
 </head>
 <body>
 
-  <div style="margin-top : 300px;">
+  <div style="margin-top : 200px;">
     <table border="1" style="margin : 0 auto;">
       <tr style='background-color: #D8D8D8; text-align : content;'>
         <td style='width : 70px;'>ID</td>
@@ -39,6 +44,7 @@
         <td style='width : 70px;'>ETC</td>
         <td style='width : 70px;'>수정</td>
         <td style='width : 70px;'>삭제</td>
+        <td style='width : 70px;'>상세</td>
       </tr>
 
     <?
@@ -71,17 +77,35 @@
           '<?=$filtered['etc']?>'
         )">
       </td>
-      <td>
+      <td>                 
         <form action="process_delete.php" method="post">
           <input type="hidden" name="id" value="<?=$filtered['id']?>">
           <input type="submit" value="삭제">
         </form>
+      </td>
+      <td>
+      <input type="button" name='' value='보기' 
+        onclick="update(
+          '<?=$filtered['id']?>',
+          '<?=$filtered['name']?>',
+          '<?=$filtered['python']?>',
+          '<?=$filtered['java']?>',
+          '<?=$filtered['c']?>',
+          '<?=$filtered['etc']?>'
+        )">
       </td>
     </tr>
     <?
       }
     ?>
     </table>
+  </div>
+
+  <!-- 상세보기 -->
+  <div>
+    <div style="margin-top : 10px; margin-bottom : 5px; text-align : center;">
+      <input type="text" name="dt" id="detail_" cols="30" rows="10" value="hi"></input>
+    </div>
   </div>
 
   <table style="margin: 0 auto;">
