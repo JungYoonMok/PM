@@ -14,10 +14,14 @@
       </tr>
     </thead>
     <tbody>
-      <?php foreach($members as $id => $name) :?>
+      <?php foreach($members as $member) :?>
         <tr>
-          <td><?=$id?></td>
-          <td><?=$name?></td>
+          <td><?=$member->id?></td>
+          <td><?=$member->name?></td>
+          <td><?=$member->python?></td>
+          <td><?=$member->java?></td>
+          <td><?=$member->c?></td>
+          <td><?=$member->etc?></td>
         </tr>
       <?php endforeach ?>
     </tbody>
