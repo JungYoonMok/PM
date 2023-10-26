@@ -25,9 +25,21 @@
       return $board;
     }
     
-    public function getAll()
+    public function getAll($type="all", $limit=3, $page=1)
     {
-      $board = $this->db->get('boards')->result();
+      // 전체 게시물 카운트 하는거
+      // 전체 게시물 가져오는거
+
+      if($type=="count")
+      {
+        // 내림순 올림순 - asc or desc
+        $board = $this->db->get('boards')->num_rows();
+      } else {
+        $this->db->limit($limit, $page);
+        $this->db->order_by('idx', 'asc');
+        $board = $this->db->get('boards')->result();
+      }
+      
       return $board;
     }
 

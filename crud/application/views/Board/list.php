@@ -2,6 +2,7 @@
 
 <table border="1">
   <tr>
+    <th>ID</th>
     <th>제목</th>
     <th>작성일</th>
     <th>관리</th>
@@ -12,6 +13,7 @@
   ?>
 
   <tr>
+    <td><?=$ls->idx;?></td>
     <td><?=$ls->title;?></td>
     <td><?=$ls->regdate;?></td>
     <td>
@@ -25,6 +27,11 @@
     }
   ?>
 
+  <tr>
+    <th colspan="3">
+      <?=$pages;?>
+    </th>
+  </tr>
 
 </table>
 

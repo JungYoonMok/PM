@@ -13,7 +13,22 @@
 
   public function index()
   {
-    $data['list'] = $this->board->getAll();
+    // 페이지네이션
+    $this->load->library('pagination');
+
+    $config['base_url'] = '/crud/board/';
+    $config['total_rows'] = $this->board->getAll('count', 0, 0);
+    $config['per_page'] = '10';
+    $config['uri_segment'] = '2';
+
+    $this->pagination->initialize($config);
+
+    $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
+
+    $data['pages'] = $this->pagination->create_links();
+
+    //
+    $data['list'] = $this->board->getAll('all', $config['per_page'], $page);
 
     // $this->load->view('board/list');
     $this->load->view('board/list', $data);
