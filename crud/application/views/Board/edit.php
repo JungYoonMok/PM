@@ -19,11 +19,11 @@
         <tr>
           <th style="padding : 10px;">내용</th>
             <td style="padding : 10px;">
-            <?
-              if($edit->file) {
-                echo "<img src='/crud/uploads/".$edit->file."' width='200' />";
-              }
-            ?>
+              <?
+                if($edit->file) {
+                  echo "<img src='/crud/uploads/".$edit->file."' width='200' />";
+                }
+              ?>
             <p>
               <input type="file" name="file_1" value="">
             </p>

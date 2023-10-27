@@ -65,16 +65,15 @@
 
       } else {
 
-        // $data = array('upload_data' => $this->upload->data());
         $file1 = $this->upload->data('file_name');
-        echo "file upload success :";//. print_r($data);
+        echo "file upload success";
 
       }
 
       $this->board->store($file1);
       redirect('/board');
     } else {
-      echo "Error";
+      echo "Error..";
     }
   }
 

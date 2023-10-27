@@ -28,11 +28,11 @@
       $board = $this->db->get_where('boards', [ 'idx' => $idx ])->row();
       return $board;
     }
-    
+
     public function getAll($type="all", $limit=3, $page=1)
     {
-      // 전체 게시물 카운트 하는거
-      // 전체 게시물 가져오는거
+      // 전체 게시물 카운트
+      // 전체 게시물 가져오기
 
       if($type=="count")
       {

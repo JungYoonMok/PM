@@ -30,10 +30,10 @@
         </tr>
         <tr>
           <th class="flex gap-3" colspan="2">
-            <a class="mt-5 bg-[#1f1f1f] hover:bg-[#2f2f2f] text-gray-50 px-10 py-5 rounded w-full cursor-pointer" href="/crud/board">
+            <a class="mt-5 bg-[#1f1f1f] hover:bg-[#2f2f2f] hover:animate-pulse text-gray-50 px-10 py-5 rounded w-full cursor-pointer" href="/crud/board">
               취소
             </a>
-            <input class="mt-5 bg-blue-400 text-gray-50 px-10 py-5 rounded w-full cursor-pointer hover:animate-bounce" type="submit" value=" 저장 ">
+            <input class="mt-5 bg-blue-400 text-gray-50 px-10 py-5 rounded w-full cursor-pointer hover:animate-pulse" type="submit" value=" 저장 ">
           </th>
         </tr>
       </table>
