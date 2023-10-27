@@ -1,7 +1,7 @@
 <div style="position : relative; width : 400px; height : 300px; margin : auto;">
   <div style="position : absolute; margin : 0 auto; top : 50%; left : 65%; transform: translate(-50%, -50%); width : 700px; height : 0px;">
     <table border="1">
-      <tr >
+      <tr>
         <th style="padding : 10px;">ID</th>
         <th style="padding : 10px;">제목</th>
         <th style="padding : 10px;">파일</th>
