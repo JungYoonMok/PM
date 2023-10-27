@@ -32,11 +32,11 @@
 
       if($type=="count")
       {
-        // 내림순 올림순 - asc or desc
         $board = $this->db->get('boards')->num_rows();
       } else {
         $this->db->limit($limit, $page);
-        $this->db->order_by('idx', 'asc');
+        // 내림순 올림순 - asc or desc
+        $this->db->order_by('idx', 'desc');
         $board = $this->db->get('boards')->result();
       }
       

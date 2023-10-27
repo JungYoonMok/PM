@@ -38,7 +38,7 @@
 
       <tr>
         <th colspan="3" style="padding : 10px;">
-          <?=$pages;?>
+          <? echo $pages;?>
         </th>
       </tr>
 
