@@ -7,13 +7,17 @@
       $this->load->helper('url');
     }
 
-    public function store()
+    public function store($file1="")
     {
       $data = [
         'title' => $this->input->post('title'),
         'contens' => $this->input->post('contens'),
         'regdate' => date("Y-m-d H:i:s")
       ];
+
+      if( $file1 != "") {
+        $this->db->set('file', $file1, TRUE);
+      }
 
       $result = $this->db->insert('boards', $data);
       return $result;
@@ -43,12 +47,16 @@
       return $board;
     }
 
-    public function update($idx)
+    public function update($idx, $file1="")
     {
       $data = [
         'title' => $this->input->post('title'),
         'contens' => $this->input->post('contens')
       ];
+
+      if( $file1 != "") {
+        $this->db->set('file', $file1, TRUE);
+      }
 
       $result = $this->db->where('idx', $idx)->update('boards', $data);
       return $result;

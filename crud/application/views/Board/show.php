@@ -10,6 +10,16 @@
         <td style="padding : 10px;"><?=$view->contens;?></td>
       </tr>
       <tr>
+        <th style="padding : 10px;">파일</th>
+        <td style="padding : 10px;">
+          <?
+            if($view->file) {
+              echo "<img src='/crud/uploads/".$view->file."' width='200' />";
+            }
+          ?>
+        </td>
+      </tr>
+      <tr>
         <th style="padding : 10px;">작성일</th>
         <td style="padding : 10px;"><?=$view->regdate;?></td>
       </tr>

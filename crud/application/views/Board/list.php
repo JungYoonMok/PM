@@ -13,6 +13,7 @@
       <tr >
         <th style="padding : 10px;">ID</th>
         <th style="padding : 10px;">제목</th>
+        <th style="padding : 10px;">파일</th>
         <th style="padding : 10px;">작성일</th>
         <th style="padding : 10px;">관리</th>
       </tr>
@@ -24,6 +25,16 @@
       <tr>
         <td style="padding : 10px;"><?=$ls->idx;?></td>
         <td style="padding : 10px;"><?=$ls->title;?></td>
+        <!-- <td style="padding : 10px;"><?=$ls->file;?></td> -->
+        <td style="padding : 10px;">
+          <?
+            if($ls->file) {
+              echo "<img src='./uploads/".$ls->file."' width='50' />";
+            } else {
+              echo "<p style='text-align : center;'>-</p>";
+            }
+          ?>
+        </td>
         <td style="padding : 10px;"><?=$ls->regdate;?></td>
         <td style="padding : 10px;">
           <a href="/crud/board/show/<?=$ls->idx;?>">상세</a>

@@ -25,7 +25,7 @@
             <p class="text-gray-100 mt-5 mb-1 text-lg">
               파일
             </p>
-            <input type="file" class="bg-[#3f3f3f] w-[400px] min-h-[50px] rounded outline-none text-gray-50 p-5" name="file_1" />
+            <input type="file" class="bg-[#3f3f3f] w-[400px] min-h-[50px] rounded outline-none text-gray-50 p-5" name="file_1" value=""/>
           </td>
         </tr>
         <tr>
