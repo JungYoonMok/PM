@@ -16,7 +16,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <div class="flex justify-around w-full text-gray-50">
 
         <div class="w-[220px] pt-3">
-          <button onclick="window.location.reload();" class="font-['Nosifer'] text-xl text-yellow-500">
+          <button 
+          onclick="window.location.reload();" 
+          class="font-['Nosifer'] text-xl text-yellow-500 hover:scale-90 duration-200">
             YoonMok Cafe
           </button>
         </div>
