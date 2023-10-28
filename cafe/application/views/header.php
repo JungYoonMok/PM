@@ -1,5 +1,5 @@
 <?
-defined('BASEPATH') OR exit('No direct script access allowed');
+  defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 
 <script src="https://cdn.tailwindcss.com"></script>
@@ -15,20 +15,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       
       <div class="flex justify-around w-full text-gray-50">
 
-        <div class="w-[220px] pt-3">
-          <button 
-          onclick="window.location.reload();" 
-          class="font-['Nosifer'] text-xl text-yellow-500 hover:scale-90 duration-200">
+        <div class="w-[220px] pt-3 hover:scale-90 duration-200">
+          <!-- onclick="window.location.reload();"  -->
+          <a href="/cafe" class="font-['Nosifer'] text-xl text-yellow-400">
             YoonMok Cafe
-          </button>
+          </a>
         </div>
 
         <p class="py-2 text-gray-500 text-lg">|</p>
 
         <div class="flex gap-6 text-gray-200">
-          <a class="hover:bg-[#3f3f3f] py-3 px-5 rounded hover:scale-90 duration-100" href="#">홈</a>
+          <a class="hover:bg-[#3f3f3f] py-3 px-5 rounded hover:scale-90 duration-100" href="/cafe">홈</a>
           <a class="hover:bg-[#3f3f3f] py-3 px-5 rounded hover:scale-90 duration-100" href="#">공지사항</a>
-          <a class="hover:bg-[#3f3f3f] py-3 px-5 rounded hover:scale-90 duration-100" href="#">게시판</a>
+          <a class="hover:bg-[#3f3f3f] py-3 px-5 rounded hover:scale-90 duration-100" href="/cafe/board">게시판</a>
           <a class="hover:bg-[#3f3f3f] py-3 px-5 rounded hover:scale-90 duration-100" href="#">문의하기</a>
           <a class="hover:bg-[#3f3f3f] py-3 px-5 rounded hover:scale-90 duration-100" href="#">개인정보</a>
         </div>
@@ -36,8 +35,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <p class="py-2 text-gray-500 text-lg">|</p>
         
         <div class="flex gap-6">
-          <a class="hover:bg-[#3f3f3f] py-3 px-5 rounded hover:scale-90 duration-100" href="#">로그인</a>
-          <a class="hover:bg-[#3f3f3f] py-3 px-5 rounded hover:scale-90 duration-100" href="#">회원가입</a>
+          <a class="hover:bg-[#3f3f3f] py-3 px-5 rounded hover:scale-90 duration-100" href="/cafe/login">
+            로그인
+          </a>
+
+          <a class="hover:bg-[#3f3f3f] py-3 px-5 rounded hover:scale-90 duration-100" href="/cafe/register">
+            회원가입
+          </a>
         </div>
 
       </div>
@@ -46,3 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   
   </div>
 </div>
+
+<script>
+
+</script>

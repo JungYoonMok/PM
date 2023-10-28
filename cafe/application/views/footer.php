@@ -1,6 +1,6 @@
 <div class="bg-[#3f3f3f] text-gray-50">
   
-  <div class="w-full mt-[0px] h-[80px] bg-[#4f4f4f]">
+  <div class="w-full mt-[0px] h-[80px] bg-[#4f4f4f] rounded-t drop-shadow-2xl">
   
     <div class="text-center grid place-items-center">
       
@@ -12,7 +12,7 @@
             src="https://pds.saramin.co.kr/workenv-bg/202303/09/rr8njw_y8e6-w09k06_workenv-bg.png" 
             width="70px" 
             alt="로고" />
-          <p>비드코칭연구소</p>
+          <p>비드코칭연구소(주)</p>
         </div>
   
         <div class="flex gap-3">
