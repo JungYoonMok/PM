@@ -1,6 +1,6 @@
 <div class="bg-[#3f3f3f] text-gray-50">
   
-  <div class="w-full mt-[0px] h-[80px] bg-[#4f4f4f] rounded-t drop-shadow-2xl">
+  <div class="w-full h-[80px] bg-[#4f4f4f] rounded-t drop-shadow-2xl">
   
     <div class="text-center grid place-items-center">
       
