@@ -1,40 +1,47 @@
-<div class="bg-[#3f3f3f] text-gray-50 w-full h-full">
+<div class="bg-[#3f3f3f] text-gray-50 w-full h-full pt-[140px] mt-[-140px]">
   
   <div class="py-20 grid place-items-center">
 
-    <div class="bg-[#2f2f2f] w-[600px] p-10 rounded flex flex-col gap-5 relative drop-shadow-2xl">
+    <div class="bg-[#2f2f2f] border border-gray-500 w-[500px] p-10 rounded flex flex-col gap-5 relative drop-shadow-2xl">
 
-      <div class="absolute top-[0px] left-0 text-left w-full">
+      <!-- 바 -->
+      <!-- <div class="absolute top-[0px] left-0 text-left w-full">
         <p class="bg-blue-500 rounded-t font-bold text-sm text-gray-50 w-full pl-10 h-[5px]">
-          <!-- 오늘도 방문해 주셔서 감사합니다 :) -->
         </p>
+      </div> -->
+
+      <!-- 계정 정보가 일치하지 않을시 -->
+      <div class="p-5 animate-pulse flex gap-3 border bg-red-500 w-full opacity-80 rounded -mt-2 mb-5">
+        <span class="material-symbols-outlined">error</span>
+        <p class="">계정 정보를 다시 확인해 주세요</p>
       </div>
 
-      <div class="flex flex-col gap-3">
+      <div class="flex flex-col gap-2">
         <h2>아이디</h2>
-        <input class="w-full duration-200 bg-[#3f3f3f] focus:border border-gray-500 hover:bg-[#4f4f4f] focus:bg-[#1f1f1f] p-3 h-[50px] rounded outline-none" type="text" />
+        <input class="w-full duration-100 bg-[#3f3f3f] focus:border border-blue-400 hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] p-3 h-[50px] rounded outline-none" type="text" />
       </div>
 
-      <div class="flex flex-col gap-3">
+      <div class="flex flex-col gap-2">
         <h2>비밀번호</h2>
-        <input class="w-full font-black duration-200 focus:border border-gray-500 bg-[#3f3f3f] hover:bg-[#4f4f4f] focus:bg-[#1f1f1f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none" type="password" />
-      </div>
-
-      <div class="flex place-content-end gap-3">
-        <input class="outline-none" id="check1" type="checkbox"></input>
-        <label class="text-md" for="check1">ID 기억하기</label>
+        <input class="w-full font-black duration-100 focus:border border-blue-400 bg-[#3f3f3f] hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none" type="password" />
+        <div class="flex place-content-end gap-1">
+          <input class="outline-none cursor-pointer hover:opacity-70" id="check1" type="checkbox" />
+          <label class="text-md cursor-pointer hover:opacity-70" for="check1">아이디 기억하기</label>
+        </div>
       </div>
 
       <div class="text-center">
-        <button class="bg-blue-500 duration-200 hover:opacity-80 p-4 rounded w-full outline-none">
+        <button class="bg-blue-500 font-bold duration-200 my-5 hover:opacity-80 p-4 rounded w-full outline-none">
           로그인
         </button>
       </div>
 
-      <div class="flex w-full mt-5 mb-3 gap-3 px-20 text-gray-300">
-        <div class="border-t w-full"></div>
-        <p class="-mt-3 text-sm font-bold">OR</p>
-        <div class="border-t w-full"></div>
+      <div class="flex w-full my-3 gap-3 px-20 text-gray-300">
+        <div class="border-t border-dashed border-slate-300 w-full"></div>
+          <p class="-mt-6 text-sm text-slate-600 font-bold bg-slate-200 p-3 rounded-[50%]">
+            OR
+          </p>
+        <div class="border-t border-dashed border-slate-300 w-full"></div>
       </div>
 
       <div class="text-center">
@@ -59,18 +66,18 @@
           </button>
         </div>
       </div>
-
       
-      <div class="absolute bottom-[0px] left-0 text-left w-full">
+      <!-- 바 -->
+      <!-- <div class="absolute bottom-[0px] left-0 text-left w-full">
         <p class="bg-blue-500 rounded-b font-bold text-sm text-gray-50 w-full pl-10 h-[5px]">
-          <!-- 오늘도 방문해 주셔서 감사합니다 :) -->
         </p>
-      </div>
+      </div> -->
       
     </div>
 
-    <div class="p-5 bg-yellow-500 w-[600px] opacity-80 rounded mt-5">
-      <p class="">공개된 장소에서는 개인정보 유출에 유념해주시길 바랍니다</p>
+    <div class="p-5 flex gap-3 bg-blue-500 w-[500px] opacity-80 rounded mt-5">
+      <span class="material-symbols-outlined">error</span>
+      <p class="">공개된 장소에서는 개인정보 유출에 주의해 주세요</p>
     </div>
 
   </div>

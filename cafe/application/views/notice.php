@@ -5,9 +5,9 @@
     <div class="bg-[#2f2f2f] border border-gray-500 w-[500px] p-10 rounded flex flex-col gap-5 relative drop-shadow-2xl">
   
       <div>
-        <h2>보드 페이지입니다</h2>
+        <h2>공지사항 페이지입니다</h2>
       </div>
-
+      
     </div>
 
   </div>

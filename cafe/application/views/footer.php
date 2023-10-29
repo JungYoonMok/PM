@@ -1,10 +1,10 @@
-<div class="bg-[#3f3f3f] text-gray-50">
+<div class="bg-[#3f3f3f] text-gray-50 w-full place-content-center">
   
-  <div class="w-full h-[80px] bg-[#4f4f4f] rounded-t drop-shadow-2xl">
+  <div class="w-full w-full h-[80px] flex place-content-center bg-[#4f4f4f] rounded-t drop-shadow-2xl">
   
-    <div class="text-center grid place-items-center">
+    <div class="max-w-[1400px] grid place-items-center">
       
-      <div class="mt-7 flex justify-around w-full text-gray-50">
+      <div class="mt-3 flex gap-5 w-full text-gray-50">
   
         <div class="flex gap-3">
           <img 
@@ -13,6 +13,12 @@
             width="70px" 
             alt="로고" />
           <p>비드코칭연구소(주)</p>
+        </div>
+
+        <div>
+          <p>
+            Copyright okEMS. All Right Reserved
+          </p>
         </div>
   
         <div class="flex gap-3">
