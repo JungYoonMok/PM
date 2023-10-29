@@ -1,4 +1,6 @@
 <?
+  defined('BASEPATH') OR exit('No direct script access allowed');
+
   class Board extends CI_Controller
   {
 

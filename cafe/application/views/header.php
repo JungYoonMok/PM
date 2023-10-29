@@ -12,7 +12,7 @@
 
 <div class="bg-[#3f3f3f] text-gray-50 w-full">
 
-  <div class="w-full h-[60px] bg-[#4f4f4f] rounded-b drop-shadow-xl flex place-content-center">
+  <div class="w-full h-[60px] bg-[#4f4f4f] border-b border-gray-500 rounded-b drop-shadow-xl flex place-content-center">
   
     <div class="text-center max-w-[1400px] place-items-center pt-1.5">
       

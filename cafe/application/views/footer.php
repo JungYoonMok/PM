@@ -1,6 +1,6 @@
-<div class="bg-[#3f3f3f] text-gray-50 w-full place-content-center">
+<div class="bg-[#3f3f3f] text-gray-50 w-full">
   
-  <div class="w-full w-full h-[80px] flex place-content-center bg-[#4f4f4f] rounded-t drop-shadow-2xl">
+  <div class="w-full w-full h-[80px] border-t border-gray-500 flex place-content-center bg-[#4f4f4f] rounded-t drop-shadow-2xl">
   
     <div class="max-w-[1400px] grid place-items-center">
       

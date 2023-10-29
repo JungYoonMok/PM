@@ -8,6 +8,15 @@
         <h2>보드 페이지입니다</h2>
       </div>
 
+      <div>
+        <?php foreach($members as $member) :?>
+          <tr>
+            <td><?=$member->idx?></td>
+            <td><?=$member->title?></td>
+          </tr>
+        <?php endforeach ?>
+      </div>
+
     </div>
 
   </div>
