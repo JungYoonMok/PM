@@ -92,9 +92,13 @@
     </div>
 
     <!-- 글쓰기 및 채팅 -->
-    <div class="flex flex-col gap-3">
-      <button class="p-2 w-full hover:text-white hover:underline rounded hover:opacity-80 font-bold duration-150 bg-[#3f3f3f]">카페 글쓰기</button>
-      <button class="p-2 w-full hover:text-white hover:underline rounded hover:opacity-80 font-bold duration-150 bg-[#7f7f7f]">카페 채팅</button>
+    <div class="flex flex-col gap-3 text-center">
+      <a href="/board_create" class="p-2 w-full hover:text-white hover:underline rounded hover:opacity-80 font-bold duration-150 bg-[#3f3f3f]">
+        카페 글쓰기
+      </a>
+      <button class="p-2 w-full hover:text-white hover:underline rounded hover:opacity-80 font-bold duration-150 bg-[#7f7f7f]">
+        카페 채팅
+      </button>
     </div>
 
     <!-- 검색 -->
