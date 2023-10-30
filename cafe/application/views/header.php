@@ -12,34 +12,34 @@
 
 <div class="bg-[#3f3f3f] text-gray-50 w-full">
 
-  <div class="w-full h-[60px] bg-[#4f4f4f] border-b border-gray-500 rounded-b drop-shadow-xl flex place-content-center">
+  <div class="w-full h-[60px] bg-[#4f4f4f] flex place-content-around border-b border-gray-500 rounded-b drop-shadow-xl">
   
-    <div class="text-center max-w-[1400px] place-items-center pt-1.5">
+    <div class="max-w-[1400px] pt-1.5">
       
-      <div class="flex justify-around w-full text-gray-50">
+      <div class="flex w-full text-gray-50 place-content-around">
 
-        <div class="w-[220px] pt-3 hover:scale-90 duration-200">
-          <a href="/cafe" class="font-['Nosifer'] text-xl text-yellow-400">
-            Bid_Cafe
+        <div class="w-[220px] pt-3 hover:translate-y-1 hover:scale-[95%] duration-200">
+          <a href="/" class="font-['Nosifer'] text-xl text-yellow-400">
+            site_title
           </a>
         </div>
 
         <p class="py-2 text-gray-500 text-lg">|</p>
 
         <div class="flex gap-6 text-gray-200">
-          <a class="hover:bg-[#3f3f3f] py-3 px-5 rounded hover:scale-90 duration-100" href="/cafe/notice">공지사항</a>
-          <a class="hover:bg-[#3f3f3f] py-3 px-5 rounded hover:scale-90 duration-100" href="#">가입인사</a>
-          <a class="hover:bg-[#3f3f3f] py-3 px-5 rounded hover:scale-90 duration-100" href="/cafe/board">자유게시판</a>
+          <a class="hover:bg-[#3f3f3f] py-3 px-5 rounded hover:scale-90 duration-100" href="/notice">공지사항</a>
+          <a class="hover:bg-[#3f3f3f] py-3 px-5 rounded hover:scale-90 duration-100" href="/hellow">가입인사</a>
+          <a class="hover:bg-[#3f3f3f] py-3 px-5 rounded hover:scale-90 duration-100" href="/board">자유게시판</a>
         </div>
         
         <p class="py-2 text-gray-500 text-lg">|</p>
         
         <div class="flex gap-6 text-gray-200">
-          <a class="hover:bg-[#3f3f3f] py-3 px-5 rounded hover:scale-90 duration-100" href="/cafe/login">
+          <a class="hover:bg-[#3f3f3f] py-3 px-5 rounded hover:scale-90 duration-100" href="/login">
             로그인
           </a>
 
-          <a class="hover:bg-[#3f3f3f] py-3 px-5 rounded hover:scale-90 duration-100" href="/cafe/register">
+          <a class="hover:bg-[#3f3f3f] py-3 px-5 rounded hover:scale-90 duration-100" href="/register">
             회원가입
           </a>
         </div>

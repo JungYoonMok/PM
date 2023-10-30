@@ -1,6 +1,6 @@
 <div class="bg-[#3f3f3f] text-gray-50 w-full h-full pt-[140px] mt-[-140px]">
   
-  <div class="py-20 grid place-items-center">
+  <div class="py-10 grid place-items-center">
 
     <div class="bg-[#2f2f2f] border border-gray-500 w-[500px] p-10 rounded flex flex-col gap-5 relative drop-shadow-2xl">
 
@@ -46,22 +46,22 @@
 
       <div class="text-center">
         <div class="flex place-content-center gap-3">
-          <button onclick=snsBtn() class="cursor-not-allowed hover:scale-95 hover:opacity-90 duration-200 w-16 h-14 bg-green-500 text-4xl font-black rounded">
+          <button onclick=snsBtn() class="cursor-not-allowed hover:border hover:border-slate-500 hover:scale-95 hover:opacity-90 duration-100 w-16 h-14 bg-green-500 text-4xl font-black rounded">
             N
           </button>
-          <button onclick=snsBtn() class="cursor-not-allowed hover:scale-95 hover:opacity-90 duration-200 w-16 h-14 bg-yellow-500 font-black rounded">
+          <button onclick=snsBtn() class="cursor-not-allowed hover:border hover:border-slate-500 hover:scale-95 hover:opacity-90 duration-100 w-16 h-14 bg-yellow-500 font-black rounded">
             kakao
           </button>
-          <button onclick=snsBtn() class="cursor-not-allowed hover:scale-95 hover:opacity-90 duration-200 w-16 h-14 bg-red-500 font-black rounded">
+          <button onclick=snsBtn() class="cursor-not-allowed hover:border hover:border-slate-500 hover:scale-95 hover:opacity-90 duration-100 w-16 h-14 bg-red-500 font-black rounded">
             Google
           </button>
-          <button onclick=snsBtn() class="cursor-not-allowed hover:scale-95 hover:opacity-90 duration-200 w-16 h-14 bg-black opacity-80 font-black rounded">
+          <button onclick=snsBtn() class="cursor-not-allowed hover:border hover:border-slate-500 hover:scale-95 hover:opacity-90 duration-100 w-16 h-14 bg-black opacity-80 font-black rounded">
             Apple
           </button>
-          <button onclick=snsBtn() class="cursor-not-allowed hover:scale-95 hover:opacity-90 duration-200 w-16 h-14 bg-sky-500 text-4xl font-black rounded">
+          <button onclick=snsBtn() class="cursor-not-allowed hover:border hover:border-slate-500 hover:scale-95 hover:opacity-90 duration-100 w-16 h-14 bg-sky-500 text-4xl font-black rounded">
             t
           </button>
-          <button onclick=snsBtn() class="cursor-not-allowed hover:scale-95 hover:opacity-90 duration-200 w-16 h-14 bg-blue-500 text-4xl font-black rounded">
+          <button onclick=snsBtn() class="cursor-not-allowed hover:border hover:border-slate-500 hover:scale-95 hover:opacity-90 duration-100 w-16 h-14 bg-blue-500 text-4xl font-black rounded">
             f
           </button>
         </div>

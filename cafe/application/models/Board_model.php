@@ -1,6 +1,6 @@
 <?
 
-class Board_medel extends CI_Model
+class Board_model extends CI_Model
 {
 
   public function __construct()
@@ -8,7 +8,7 @@ class Board_medel extends CI_Model
     parent::__construct();
   }
 
-  public function GetMembers()
+  public function GetBoardList()
   {
     $this->load->database();
     $result = $this->db->query('SELECT * FROM boards')->result();
@@ -17,6 +17,12 @@ class Board_medel extends CI_Model
     return $result;
   }
 
+  public function GetBoardTotal()
+  {
+    $this->load->database();
+    $result = $this->db->query('SELECT idx FROM boards')->num_rows();
+    return $result;
+  }
 }
 
 

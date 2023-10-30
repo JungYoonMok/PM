@@ -1,7 +1,7 @@
 <?
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-  class Notice extends CI_Controller
+  class Hellow extends CI_Controller
   {
 
     public function __construct()
@@ -11,12 +11,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     public function index()
     {
-      $this->load->model('notice_model');
-      $data['list'] = $this->notice_model->GetBoardList();
-      $data['total'] = $this->notice_model->GetBoardTotal();
+      $this->load->model('hellow_model');
+      $data['list'] = $this->hellow_model->GetBoardList();
+      $data['total'] = $this->hellow_model->GetBoardTotal();
       
       $this->load->view('header');
-      $this->load->view('board/notice_board', $data);
+      $this->load->view('board/hellow_board', $data);
       $this->load->view('footer');
     }
 
