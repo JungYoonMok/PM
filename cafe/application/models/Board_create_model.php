@@ -17,7 +17,6 @@
         'regdate' => date("Y-m-d H:i:s")
       ];
 
-
       $result = $this->db->insert('boards', $data);
       return $result;
     }

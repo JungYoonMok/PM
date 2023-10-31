@@ -155,15 +155,17 @@
     <!-- 구분선 -->
     <div class="border-b my-3 border-gray-400"></div>
 
+    
+
     <!-- 알림 -->
-    <div class="p-3 bg-blue-500 flex gap-2 place-content-center">
+    <!-- <div class="p-3 bg-blue-500 flex gap-2 place-content-center">
       <span class="material-symbols-outlined animate-spin text-yellow-500">
         stars
       </span>
       <p class="decoration-4 decoration-dashed underline-offset-4 decoration-yellow-500 underline font-bold">
         게시판은 3개만 운영합니다
       </p>
-    </div>
+    </div> -->
 
   </div>
 

@@ -8,12 +8,12 @@
 
         <!-- 최상단 최하단 이동 -->
         <div class="flex flex-col gap-3 absolute right-5 bottom-[100px] drop-shadow-2xl">
-          <button onclick=upBtn() class="p-5 border border-gray-400 hover:animate-pulse hover:border-4 border-2 hover:text-blue-500 hover:bg-[#2f2f2f] hover:border-blue-500 hover:opacity-80 duration-100 bg-blue-500 w-12 flex place-content-center h-12 rounded-[50%]">
+          <button onclick=upBtn() class="p-5 border border-gray-400 hover:animate-pulse border-2 hover:text-yellow-500 hover:bg-[#2f2f2f] hover:border-yellow-500 hover:opacity-80 duration-100 bg-[#2f2f2f] w-12 flex place-content-center h-12 rounded-[50%]">
             <span class="material-symbols-outlined -mt-[8px] duration-100">
               arrow_upward
             </span>
           </button>
-          <button onclick=downBtn() class="p-5 border border-gray-400 hover:animate-pulse hover:border-4 border-2 hover:text-blue-500 hover:bg-[#2f2f2f] hover:border-blue-500 hover:opacity-80 duration-100 bg-blue-500 w-12 flex place-content-center h-12 rounded-[50%]">
+          <button onclick=downBtn() class="p-5 border border-gray-400 hover:animate-pulse border-2 hover:text-yellow-500 hover:bg-[#2f2f2f] hover:border-yellow-500 hover:opacity-80 duration-100 bg-[#2f2f2f] w-12 flex place-content-center h-12 rounded-[50%]">
             <span class="material-symbols-outlined -mt-[8px] duration-100">
               arrow_downward
             </span>
