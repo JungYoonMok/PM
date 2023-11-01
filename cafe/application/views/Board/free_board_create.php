@@ -1,6 +1,6 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
 
-<div class="bg-[#3f3f3f] text-gray-50 w-full h-full pt-[140px] mt-[-140px]">
+<div class="bg-[#3f3f3f] text-gray-50 w-full h-full">
   
   <!-- 메인 틀 -->
   <div class="flex h-full w-full">
@@ -62,6 +62,7 @@
 
     ckfinder: {
       uploadUrl: '/board_create/store_file',
+      // uploadUrl: './uploads',
       // openerMethod: 'popup'
     }
 

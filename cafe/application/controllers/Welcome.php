@@ -24,8 +24,9 @@ class Welcome extends CI_Controller {
 		$data['list'] = $this->welcome_model->GetBoardList();
 		$data['total'] = $this->welcome_model->GetBoardTotal();
 
-		$this->load->view('header');
+		// $this->load->view('sidebar');
+		// $this->load->view('header');
 		$this->load->view('welcome_message', $data);
-		$this->load->view('footer');
+		// $this->load->view('footer');
 	}
 }

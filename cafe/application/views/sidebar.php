@@ -1,4 +1,4 @@
-<div class="h-full w-[300px] bg-[#2f2f2f] p-5 text-gray-300 left-0 drop-shadow-2xl">
+<div class="flex flex-col h-full w-[300px] bg-[#2f2f2f] p-5 text-gray-300 left-0 drop-shadow-2xl">
   
   <!-- 사이드 여닫기 -->
   <div class="text-right mb-3 p-3">
