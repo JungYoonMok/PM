@@ -1,8 +1,8 @@
-<div class="flex flex-col h-full w-[300px] bg-[#2f2f2f] p-5 text-gray-100 left-0 drop-shadow-2xl border-r border-[#3f3f3f]">
+<div id="open" class="flex flex-col h-full w-[300px] bg-[#2f2f2f] p-5 text-gray-100 left-0 drop-shadow-2xl border-r border-[#3f3f3f]">
   
   <!-- 사이드 여닫기 -->
   <div class="text-right mb-3 p-3">
-    <button class="material-symbols-outlined">
+    <button onclick=test() class="material-symbols-outlined">
       menu_open
     </button>
   </div>
@@ -170,3 +170,24 @@
   </div>
 
 </div>
+
+<script>
+
+  function test() {
+    // 활용
+    let elm = document.getElementById('menu'); 
+
+    if(elm.getElementById === 'open'){ 
+      elm.getElementById = 'close'; 
+      var styleTest = document.createElement('style');
+      styleTest.innerHTML="#open{height:30px;} #open{display: none;}";
+      document.head.appendChild(styleTest);
+    } else { 
+      elm.getElementById = 'open';
+      var styleTest = document.createElement('style');
+      styleTest.innerHTML="#open{height:30px;} #open{display: none;}";
+      document.head.appendChild(styleTest);
+};
+  }
+
+</script>

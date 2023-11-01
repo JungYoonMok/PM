@@ -9,7 +9,7 @@
       arrow_upward
     </span>
   </button>
-  <button onclick=downBtn() class="p-5 border border-gray-500 hover:animate-pulse border-2 hover:text-[#6f6f6f] hover:bg-[#2f2f2f] hover:border-yellow-500 hover:opacity-80 duration-100 bg-[#2f2f2f] w-12 flex place-content-center h-12 rounded-[50%]">
+  <button onclick=downBtn() class="p-5 border border-gray-500 hover:animate-pulse target:bg-red-500 border-2 hover:text-[#6f6f6f] hover:bg-[#2f2f2f] hover:border-yellow-500 hover:opacity-80 duration-100 bg-[#2f2f2f] w-12 flex place-content-center h-12 rounded-[50%]">
     <span class="material-symbols-outlined -mt-[10px] duration-100">
       arrow_downward
     </span>
