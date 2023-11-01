@@ -1,4 +1,4 @@
-<div class="flex flex-col h-full w-[300px] bg-[#2f2f2f] p-5 text-gray-300 left-0 drop-shadow-2xl">
+<div class="flex flex-col h-full w-[300px] bg-[#2f2f2f] p-5 text-gray-100 left-0 drop-shadow-2xl border-r border-[#3f3f3f]">
   
   <!-- 사이드 여닫기 -->
   <div class="text-right mb-3 p-3">
@@ -96,7 +96,7 @@
       <a href="/board_create" class="p-2 w-full hover:text-white hover:underline rounded hover:opacity-80 font-bold duration-150 bg-[#3f3f3f]">
         카페 글쓰기
       </a>
-      <button class="p-2 w-full hover:text-white hover:underline rounded hover:opacity-80 font-bold duration-150 bg-[#7f7f7f]">
+      <button class="p-2 w-full hover:text-white hover:underline rounded hover:opacity-80 font-bold duration-150 bg-[#4f4f4f]">
         카페 채팅
       </button>
     </div>

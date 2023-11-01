@@ -1,3 +1,8 @@
+<? 
+  // 글로벌 스크립트 등 공유
+  $this->load->view('../common');
+?>
+
 <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
 
 <div class="bg-[#3f3f3f] text-gray-50 w-full h-full">
