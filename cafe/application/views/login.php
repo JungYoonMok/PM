@@ -1,3 +1,8 @@
+<? 
+  // 글로벌 공유
+  $this->load->view('../common');
+?>
+
 <div class="bg-[#3f3f3f] text-gray-50 w-full h-full pt-[140px] mt-[-140px]">
   
   <div class="py-10 grid place-items-center">
@@ -77,7 +82,7 @@
 
     <div class="p-5 flex gap-3 bg-blue-500 w-[500px] opacity-80 rounded mt-5">
       <span class="material-symbols-outlined">error</span>
-      <p class="">공개된 장소에서는 개인정보 유출에 주의해 주세요</p>
+      <p class="text-center font-bold">sns 로그인은 디자인 예시입니다 : )</p>
     </div>
 
   </div>

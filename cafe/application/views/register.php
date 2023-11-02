@@ -1,3 +1,8 @@
+<? 
+  // 글로벌 공유
+  $this->load->view('../common');
+?>
+
 <div class="bg-[#3f3f3f] text-gray-50 w-full h-full pt-[140px] mt-[-140px]">
   
   <div class="py-10 grid place-items-center">

@@ -112,21 +112,31 @@
       <!-- 구분선 -->
       <div class="border-b border-gray-400"></div>
 
-      <a href="/notice" class="deration-500 hover:bg-[#4f4f4f] duration-100 p-2 rounded hover:text-gray-100">
+      <a href="/notice" class="deration-500 relative hover:bg-[#4f4f4f] w-full duration-100 p-2 rounded hover:text-gray-100">
         <span class="w-full h-full flex gap-5" >
           <span class="material-symbols-outlined">
             notifications
           </span>
-          <p>공지사항</p>
+          <div class="flex place-content-around">
+            <p class="">공지사항</p>
+            <p class="duration-200 border border-blue-400 opacity-80 drop-shadow-2xl animate-pulse absolute right-2 bg-blue-500 px-2 py-1 rounded text-xs flex place-content-center">
+              3
+            </p>
+          </div>
         </span>
       </a>
 
-      <a href="/hellow" class="deration-500 hover:bg-[#4f4f4f] duration-100 p-2 rounded hover:text-gray-100">
-        <span class="w-full h-full flex gap-5" >
+      <a href="/hellow" class="deration-500 relative hover:bg-[#4f4f4f] w-full duration-100 p-2 rounded hover:text-gray-100">
+      <span class="w-full h-full flex gap-5" >
           <span class="material-symbols-outlined">
-            waving_hand
+            border_color
           </span>
-          <p>가입인사</p>
+          <div class="flex place-content-around">
+            <p class="">가입안사</p>
+            <p class="duration-200 border border-blue-400 opacity-80 drop-shadow-2xl animate-pulse absolute right-2 bg-blue-500 px-2 py-1 rounded text-xs flex place-content-center">
+              13
+            </p>
+          </div>
         </span>
       </a>
 
@@ -137,7 +147,7 @@
           </span>
           <div class="flex place-content-around">
             <p class="">자유게시판</p>
-            <p class="duration-200 border border-red-400 opacity-70 drop-shadow-2xl animate-pulse absolute right-2 bg-red-500 px-2 py-1 rounded text-xs flex place-content-center">
+            <p class="duration-200 border border-blue-400 opacity-80 drop-shadow-2xl animate-pulse absolute right-2 bg-blue-500 px-2 py-1 rounded text-xs flex place-content-center">
               23
             </p>
           </div>
