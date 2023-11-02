@@ -1,13 +1,15 @@
-<div id="open" class="flex flex-col h-full w-[300px] bg-[#2f2f2f] p-5 text-gray-100 left-0 drop-shadow-2xl border-r border-[#3f3f3f]">
+<div class="flex flex-col h-full duration-200 w-full bg-[#2f2f2f] p-5 text-gray-100 left-0 drop-shadow-2xl border-r border-[#3f3f3f]">
+<!-- <div id="menu" class="flex flex-col h-full duration-200 w-[300px] bg-[#2f2f2f] p-5 text-gray-100 left-0 drop-shadow-2xl border-r border-[#3f3f3f]"> -->
   
   <!-- 사이드 여닫기 -->
-  <div class="text-right mb-3 p-3">
+  <!-- <div class="text-right mb-3 p-3">
     <button onclick=test() class="material-symbols-outlined">
       menu_open
     </button>
-  </div>
+  </div> -->
 
   <div class="flex flex-col gap-3">
+  <!-- <div id="main" class="flex flex-col gap-3"> -->
 
     <!-- 구분선 -->
     <div class="border-b border-gray-400"></div>
@@ -145,7 +147,7 @@
           </span>
           <div class="flex place-content-around">
             <p class="">자유게시판</p>
-            <p class="duration-200 border border-red-400 opacity-80 drop-shadow-2xl animate-pulse absolute right-2 bg-red-500 px-2 py-1 rounded text-xs flex place-content-center">
+            <p class="duration-200 border border-red-400 opacity-70 drop-shadow-2xl animate-pulse absolute right-2 bg-red-500 px-2 py-1 rounded text-xs flex place-content-center">
               23
             </p>
           </div>
@@ -161,23 +163,39 @@
 
 </div>
 
-<script>
+<!-- <script>
 
   function test() {
     // 활용
     let elm = document.getElementById('menu'); 
+    let elm2 = document.getElementById('main'); 
 
     if(elm.getElementById === 'open'){ 
+
       elm.getElementById = 'close'; 
-      var styleTest = document.createElement('style');
-      styleTest.innerHTML="#open{height:30px;} #open{display: none;}";
-      document.head.appendChild(styleTest);
+      var style = document.createElement('style');
+      style.innerHTML="#menu{width:300px;} #menu{padding-right:-300px;}";
+      document.head.appendChild(style);
+
+      elm2.getElementById = 'show'; 
+      var style2 = document.createElement('style');
+      style2.innerHTML="#main{display: inherit;}";
+      document.head.appendChild(style2);
+
+      // styleTest.innerHTML="#menu{height:30px;} #menu{display: none;}";
     } else { 
+
       elm.getElementById = 'open';
-      var styleTest = document.createElement('style');
-      styleTest.innerHTML="#open{height:30px;} #open{display: none;}";
-      document.head.appendChild(styleTest);
+      var style = document.createElement('style');
+      style.innerHTML="#menu{width:100px;}";
+      document.head.appendChild(style);
+
+      elm2.getElementById = 'disible'; 
+      var style2 = document.createElement('style');
+      style2.innerHTML="#main{display: none;}";
+      document.head.appendChild(style2);
+
 };
   }
 
-</script>
+</script> -->

@@ -4,11 +4,22 @@
 ?>
 
 <!-- 메인 틀 -->
-<div class="flex justify-between bg-[#3f3f3f] text-gray-50 pl-[300px] w-full h-[200%] relative">
+<div id="base" class="flex justify-between bg-[#3f3f3f] text-gray-50 pl-[300px] w-full h-[200%] relative">
+<!-- <div class="flex justify-between bg-[#3f3f3f] text-gray-50 pl-[300px] w-full h-[200%] relative"> -->
 
   <!-- 사이드 -->
-  <div class="fixed h-full left-0">
-    <?$this->load->view('sidebar');?>
+  <div id="menu" class="fixed h-full left-0 w-[300px] duration-200">
+    <!-- 사이드 여닫기 -->
+    <div  class="text-right bg-[#2f2f2f] pr-5 pt-5">
+      <button onclick=test() class="material-symbols-outlined">
+        menu_open
+      </button>
+    </div>
+    <div class="h-full bg-[#2f2f2f]">
+      <div id="main" class="">
+        <?$this->load->view('sidebar');?>
+      </div>
+    </div>
   </div>
 
   <!-- 메인 베이스 -->
@@ -71,3 +82,49 @@
   </div>
 
 </div>
+
+<script>
+
+function test() {
+  // 활용
+  let elm = document.getElementById('menu'); 
+  let elm2 = document.getElementById('main'); 
+
+  if(elm.getElementById === 'open'){ 
+
+    elm.getElementById = 'close'; 
+    var style = document.createElement('style');
+    style.innerHTML="#menu{width:300px;}";
+    document.head.appendChild(style);
+
+    elm2.getElementById = 'show'; 
+    var style2 = document.createElement('style');
+    style2.innerHTML="#main{display: inherit;}";
+    document.head.appendChild(style2);
+
+    elm3.getElementById = 'p'; 
+    var style3 = document.createElement('style');
+    style3.innerHTML="#base{padding-right: -200px;}";
+    document.head.appendChild(style3);
+
+    // styleTest.innerHTML="#menu{height:30px;} #menu{display: none;}";
+  } else { 
+
+    elm.getElementById = 'open';
+    var style = document.createElement('style');
+    style.innerHTML="#menu{width:100px;} #menu{hight:100%;}";
+    document.head.appendChild(style);
+
+    elm2.getElementById = 'disible'; 
+    var style2 = document.createElement('style');
+    style2.innerHTML="#main{display: none;} #{hight:100%;}";
+    document.head.appendChild(style2);
+
+    elm3.getElementById = 'm'; 
+    var style3 = document.createElement('style');
+    style3.innerHTML="#base{display: inherit;}";
+    document.head.appendChild(style3);
+  }
+}
+
+</script>
