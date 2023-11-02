@@ -1,16 +1,6 @@
-<div class="flex flex-col h-full duration-200 w-full bg-[#2f2f2f] p-5 text-gray-100 left-0 drop-shadow-2xl border-r border-[#3f3f3f]">
-<!-- <div id="menu" class="flex flex-col h-full duration-200 w-[300px] bg-[#2f2f2f] p-5 text-gray-100 left-0 drop-shadow-2xl border-r border-[#3f3f3f]"> -->
-  
-  <!-- 사이드 여닫기 -->
-  <!-- <div class="text-right mb-3 p-3">
-    <button onclick=test() class="material-symbols-outlined">
-      menu_open
-    </button>
-  </div> -->
+<div class="flex flex-col h-full duration-200 w-full min-w-[300px] bg-[#2f2f2f] p-5 text-gray-100 left-0 drop-shadow-2xl border-r border-[#3f3f3f]">
 
   <div class="flex flex-col gap-3">
-  <!-- <div id="main" class="flex flex-col gap-3"> -->
-
     <!-- 구분선 -->
     <div class="border-b border-gray-400"></div>
 
@@ -162,40 +152,3 @@
   </div>
 
 </div>
-
-<!-- <script>
-
-  function test() {
-    // 활용
-    let elm = document.getElementById('menu'); 
-    let elm2 = document.getElementById('main'); 
-
-    if(elm.getElementById === 'open'){ 
-
-      elm.getElementById = 'close'; 
-      var style = document.createElement('style');
-      style.innerHTML="#menu{width:300px;} #menu{padding-right:-300px;}";
-      document.head.appendChild(style);
-
-      elm2.getElementById = 'show'; 
-      var style2 = document.createElement('style');
-      style2.innerHTML="#main{display: inherit;}";
-      document.head.appendChild(style2);
-
-      // styleTest.innerHTML="#menu{height:30px;} #menu{display: none;}";
-    } else { 
-
-      elm.getElementById = 'open';
-      var style = document.createElement('style');
-      style.innerHTML="#menu{width:100px;}";
-      document.head.appendChild(style);
-
-      elm2.getElementById = 'disible'; 
-      var style2 = document.createElement('style');
-      style2.innerHTML="#main{display: none;}";
-      document.head.appendChild(style2);
-
-};
-  }
-
-</script> -->
