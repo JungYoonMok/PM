@@ -24,18 +24,18 @@
         
         
         <div class="flex gap-3 text-gray-200">
-          <!-- 구분선 -->
-          <p class="py-2 text-gray-500 text-lg">|</p>
           
           <a class="hover:bg-[#3f3f3f] py-3 px-5 rounded hover:scale-90 duration-100" href="/login">
             로그인
           </a>
+
+          <!-- 구분 -->
+          <p class="py-2 text-gray-500 text-lg">|</p>
           
           <a class="hover:bg-[#3f3f3f] py-3 px-5 rounded hover:scale-90 duration-100" href="/register">
             회원가입
           </a>
 
-          <p class="py-2 text-gray-500 text-lg">|</p>
         </div>
 
       </div>

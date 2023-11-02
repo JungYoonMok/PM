@@ -96,9 +96,6 @@
       <a href="/board_create" class="p-2 w-full hover:text-white hover:underline rounded hover:opacity-80 font-bold duration-150 bg-[#3f3f3f]">
         카페 글쓰기
       </a>
-      <button class="p-2 w-full hover:text-white hover:underline rounded hover:opacity-80 font-bold duration-150 bg-[#4f4f4f]">
-        카페 채팅
-      </button>
     </div>
 
     <!-- 검색 -->
@@ -141,12 +138,17 @@
         </span>
       </a>
 
-      <a href="/board" class="deration-500 hover:bg-[#4f4f4f] duration-100 p-2 rounded hover:text-gray-100">
+      <a href="/board" class="deration-500 relative hover:bg-[#4f4f4f] w-full duration-100 p-2 rounded hover:text-gray-100">
         <span class="w-full h-full flex gap-5" >
           <span class="material-symbols-outlined">
             border_color
           </span>
-          <p>자유게시판</p>
+          <div class="flex place-content-around">
+            <p class="">자유게시판</p>
+            <p class="duration-200 border border-red-400 opacity-80 drop-shadow-2xl animate-pulse absolute right-2 bg-red-500 px-2 py-1 rounded text-xs flex place-content-center">
+              23
+            </p>
+          </div>
         </span>
       </a>
 
@@ -154,19 +156,7 @@
 
     <!-- 구분선 -->
     <div class="border-b my-3 border-gray-400"></div>
-
     
-
-    <!-- 알림 -->
-    <!-- <div class="p-3 bg-blue-500 flex gap-2 place-content-center">
-      <span class="material-symbols-outlined animate-spin text-yellow-500">
-        stars
-      </span>
-      <p class="decoration-4 decoration-dashed underline-offset-4 decoration-yellow-500 underline font-bold">
-        게시판은 3개만 운영합니다
-      </p>
-    </div> -->
-
   </div>
 
 </div>
