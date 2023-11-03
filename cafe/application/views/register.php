@@ -3,7 +3,7 @@
   $this->load->view('../common');
 ?>
 
-<div class="bg-[#3f3f3f] duration-200 text-gray-50 w-full h-full pt-[140px] mt-[-140px]">
+<div class="bg-[#3f3f3f] duration-200 text-gray-50 w-full h-full pt-[140px] mt-[-140px] mb-10">
   
   <div class="py-10 grid place-items-center">
     

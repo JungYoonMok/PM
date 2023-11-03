@@ -76,7 +76,7 @@
             <!-- <td class="<?= $li->idx === '1' ? "bg-red-500" : "py-2 px-1" ?>"><?=$li->idx?></td> -->
 
             <?foreach($list as $li):?>
-              <tr class="border-b text-center border-[#4f4f4f]">
+              <tr class="border-b text-center border-[#4f4f4f] text-sm">
                 <!-- <td class="py-2 px-1"><?=$li->idx?></td> -->
                 <td class="py-2 w-[50%] px-1 pl-5 hover:cursor-pointer hover:underline hover:opacity-70 text-start">
                   <div class="flex flex-col gap-1">
@@ -121,7 +121,7 @@
               <!-- <td class="<?= $li->idx === '1' ? "bg-red-500" : "py-2 px-1" ?>"><?=$li->idx?></td> -->
 
               <?foreach($list as $li):?>
-                <tr class="border-b text-center border-[#4f4f4f]">
+                <tr class="border-b text-center border-[#4f4f4f] text-sm">
                   <!-- <td class="py-2 px-1"><?=$li->idx?></td> -->
                   <td class="py-2 w-[50%] px-1 pl-5 hover:cursor-pointer hover:underline hover:opacity-70 text-start">
                     <div class="flex flex-col gap-1">
@@ -164,7 +164,7 @@
               <!-- <td class="<?= $li->idx === '1' ? "bg-red-500" : "py-2 px-1" ?>"><?=$li->idx?></td> -->
 
               <?foreach($list as $li):?>
-                <tr class="border-b text-center border-[#4f4f4f]">
+                <tr class="border-b text-center border-[#4f4f4f] text-sm">
                   <!-- <td class="py-2 px-1"><?=$li->idx?></td> -->
                   <td class="py-2 w-[50%] px-1 pl-5 hover:cursor-pointer hover:underline hover:opacity-70 text-start">
                     <div class="flex flex-col gap-1">
@@ -210,7 +210,7 @@
               <!-- <td class="<?= $li->idx === '1' ? "bg-red-500" : "py-2 px-1" ?>"><?=$li->idx?></td> -->
 
               <?foreach($list as $li):?>
-                <tr class="border-b text-center border-[#4f4f4f]">
+                <tr class="border-b text-center border-[#4f4f4f] text-sm">
                   <!-- <td class="py-2 px-1"><?=$li->idx?></td> -->
                   <td class="py-2 w-[50%] px-1 pl-5 hover:cursor-pointer hover:underline hover:opacity-70 text-start">
                     <div class="flex flex-col gap-1">
@@ -253,7 +253,7 @@
               <!-- <td class="<?= $li->idx === '1' ? "bg-red-500" : "py-2 px-1" ?>"><?=$li->idx?></td> -->
 
               <?foreach($list as $li):?>
-                <tr class="border-b text-center border-[#4f4f4f]">
+                <tr class="border-b text-center border-[#4f4f4f] text-sm">
                   <!-- <td class="py-2 px-1"><?=$li->idx?></td> -->
                   <td class="py-2 w-[50%] px-1 pl-5 hover:cursor-pointer hover:underline hover:opacity-70 text-start">
                     <div class="flex flex-col gap-1">
