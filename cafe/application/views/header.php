@@ -4,8 +4,8 @@
   
     <div class="relative top-0 max-w-[1400px] pt-1.5 w-full flex text-gray-50 px-10">
 
-      <div class="w-[220px] pt-3 hover:translate-y-1 hover:scale-[95%] duration-200">
-        <a href="/" class="font-['Nosifer'] text-xl text-yellow-400">
+      <div class="w-[220px] pt-3 focus:translate-y-1 hover:scale-[95%] duration-200">
+        <a href="/" class="font-['Nosifer'] text-xl text-[#fff] drop-shadow-2xl">
           hellow world
         </a>
       </div>

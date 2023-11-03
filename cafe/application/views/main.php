@@ -30,7 +30,24 @@
       <?$this->load->view('header');?>
     </div>
 
-    <!-- 메인 -->
+    <!-- 이미지 배너 및 스와이프 -->
+    <div class="border border-[#5f5f5f] bg-[#2f2f2f] shadow p-10 mx-5 mt-5 rounded-md ">
+      <div class="animate-pulse flex space-x-4">
+        <div class="rounded-full bg-[#5f5f5f] h-14 w-14"></div>
+        <div class="flex-1 space-y-6 py-1">
+          <div class="h-2 bg-[#5f5f5f] rounded"></div>
+          <div class="space-y-3">
+            <div class="grid grid-cols-3 gap-4">
+              <div class="h-2 bg-[#5f5f5f] rounded col-span-2"></div>
+              <div class="h-2 bg-[#5f5f5f] rounded col-span-1"></div>
+            </div>
+            <div class="h-2 bg-[#5f5f5f] rounded"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 최근 게시글, 최근 댓글, 자유게시판, -->
     <div class="h-full w-full p-5 flex gap-5">
 
       <!-- 최근 게시물 -->

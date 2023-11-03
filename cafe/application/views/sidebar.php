@@ -119,7 +119,7 @@
           </span>
           <div class="flex place-content-around">
             <p class="">공지사항</p>
-            <p class="duration-200 border border-blue-400 opacity-80 drop-shadow-2xl animate-pulse absolute right-2 bg-blue-500 px-2 py-1 rounded text-xs flex place-content-center">
+            <p class="w-8 duration-200 border border-blue-400 opacity-80 drop-shadow-2xl animate-pulse absolute right-2 bg-blue-500 px-2 py-1 rounded text-xs flex place-content-center">
               3
             </p>
           </div>
@@ -133,8 +133,8 @@
           </span>
           <div class="flex place-content-around">
             <p class="">가입안사</p>
-            <p class="duration-200 border border-blue-400 opacity-80 drop-shadow-2xl animate-pulse absolute right-2 bg-blue-500 px-2 py-1 rounded text-xs flex place-content-center">
-              13
+            <p class="w-8 duration-200 border border-blue-400 opacity-80 drop-shadow-2xl animate-pulse absolute right-2 bg-blue-500 px-2 py-1 rounded text-xs flex place-content-center">
+              17
             </p>
           </div>
         </span>
@@ -147,7 +147,7 @@
           </span>
           <div class="flex place-content-around">
             <p class="">자유게시판</p>
-            <p class="duration-200 border border-blue-400 opacity-80 drop-shadow-2xl animate-pulse absolute right-2 bg-blue-500 px-2 py-1 rounded text-xs flex place-content-center">
+            <p class="w-8 duration-200 border border-blue-400 opacity-80 drop-shadow-2xl animate-pulse absolute right-2 bg-blue-500 px-2 py-1 rounded text-xs flex place-content-center">
               23
             </p>
           </div>
