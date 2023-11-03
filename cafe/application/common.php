@@ -3,6 +3,9 @@
 ?>
 
 <style>
+  body {
+    background : #3f3f3f;
+  }
   /* scrollbar */
   *::-webkit-scrollbar {
     width: 15px;
