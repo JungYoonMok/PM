@@ -1,10 +1,10 @@
-<div class="bg-[#3f3f3f] text-gray-50 w-full">
+<div class="bg-[#3f3f3f] text-gray-50 w-full relative">
   
-  <div class="w-full w-full h-[80px] border-t border-gray-500 flex place-content-center bg-[#2f2f2f] drop-shadow-2xl">
+  <div class="w-full h-[80px] border-t border-gray-500 flex place-content-center bg-[#2f2f2f] drop-shadow-2xl">
   
     <div class="max-w-[1400px] grid place-items-center">
       
-      <div class="mt-3 flex gap-5 w-full text-gray-300">
+      <div class="mt-3 flex gap-5 w-full text-gray-300 absolute flex place-content-start">
 
         <div class="flex gap-3">
           <img 

@@ -1,6 +1,7 @@
 <div class="flex flex-col h-full duration-200 w-full min-w-[300px] bg-[#2f2f2f] p-5 text-gray-100 left-0 drop-shadow-2xl border-r border-[#3f3f3f]">
 
   <div class="flex flex-col gap-3">
+    
     <!-- 구분선 -->
     <div class="border-b border-gray-400"></div>
 

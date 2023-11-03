@@ -8,7 +8,7 @@
 
       $this->load->view('header');
       $this->load->view('register');
-      $this->load->view('footer');
+      // $this->load->view('footer');
       
     }
 

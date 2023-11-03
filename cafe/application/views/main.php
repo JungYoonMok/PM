@@ -23,7 +23,7 @@
   </div>
 
   <!-- 메인 베이스 -->
-  <div class="flex h-full flex-col w-full">
+  <div class="flex flex-col justify-between w-full h-full">
 
     <!-- 헤더 -->
     <div class="">
@@ -48,7 +48,7 @@
     </div>
 
     <!-- 메인 -->
-    <div class="h-full w-full p-5 flex flex-col gap-5">
+    <div class="w-full p-5 flex flex-col gap-5">
 
       <!-- 공지사항 -->
       <div class="w-full drop-shadow-xl">
@@ -59,14 +59,14 @@
             <h2>건</h2>
           </div>
           <div class="p-3">
-            <a href="#" class="hover:opacity-80 hover:underline">더보기 〉</a>
+            <a href="#" class="hover:text-white text-gray-300 hover:underline">더보기 〉</a>
           </div>
         </div>
 
         <div class="bg-[#2f2f2f] p-5 border border-[#4f4f4f] rounded flex gap-5 relative drop-shadow-2xl">
 
-          <table class="text-gray-50 w-full">
-            <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">ID</th>
+          <table class="text-gray-50 w-full whitespace-nowrap">
+            <!-- <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">ID</th> -->
             <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">제목</th>
             <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">작성자</th>
             <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">작성일</th>
@@ -77,15 +77,15 @@
 
             <?foreach($list as $li):?>
               <tr class="border-b text-center border-[#4f4f4f]">
-                <td class="py-2 px-1"><?=$li->idx?></td>
-                <td class="py-2 px-1 pl-5 hover:cursor-pointer hover:underline hover:opacity-70 text-start">
+                <!-- <td class="py-2 px-1"><?=$li->idx?></td> -->
+                <td class="py-2 w-[50%] px-1 pl-5 hover:cursor-pointer hover:underline hover:opacity-70 text-start">
                   <div class="flex flex-col gap-1">
                     <?=$li->title?>
                   </div>
                 </td>
-                <td class="w-52 py-2 px-1 hover:cursor-pointer hover:underline hover:opacity-70">정윤목</td>
-                <td class="w-52 py-2 px-1"><?=$li->regdate?></td>
-                <td class="w-52 py-2 px-1">100</td>
+                <td class="w-[10%] py-2 px-1 hover:cursor-pointer hover:underline hover:opacity-70">정윤목</td>
+                <td class="w-[10%] py-2 px-1"><?=substr($li->regdate, 5, 5)?></td>
+                <td class="w-[10%] py-2 px-1">100</td>
               </tr>
             <?endforeach?>
           </table>
@@ -104,14 +104,14 @@
               <h2>건</h2>
             </div>
             <div class="p-3">
-              <a href="#" class="hover:opacity-80 hover:underline">더보기 〉</a>
+              <a href="#" class="hover:text-white text-gray-300 hover:underline">더보기 〉</a>
             </div>
           </div>
 
           <div class="bg-[#2f2f2f] p-5 border border-[#4f4f4f] rounded flex gap-5 relative drop-shadow-2xl">
 
-            <table class="text-gray-50 w-full">
-              <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">ID</th>
+            <table class="text-gray-50 w-full whitespace-nowrap">
+              <!-- <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">ID</th> -->
               <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">제목</th>
               <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">작성자</th>
               <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">작성일</th>
@@ -122,15 +122,15 @@
 
               <?foreach($list as $li):?>
                 <tr class="border-b text-center border-[#4f4f4f]">
-                  <td class="py-2 px-1"><?=$li->idx?></td>
-                  <td class="py-2 px-1 pl-5 hover:cursor-pointer hover:underline hover:opacity-70 text-start">
+                  <!-- <td class="py-2 px-1"><?=$li->idx?></td> -->
+                  <td class="py-2 w-[50%] px-1 pl-5 hover:cursor-pointer hover:underline hover:opacity-70 text-start">
                     <div class="flex flex-col gap-1">
                       <?=$li->title?>
                     </div>
                   </td>
-                  <td class="w-52 py-2 px-1 hover:cursor-pointer hover:underline hover:opacity-70">정윤목</td>
-                  <td class="w-52 py-2 px-1"><?=$li->regdate?></td>
-                  <td class="w-52 py-2 px-1">100</td>
+                  <td class="w-[10%] py-2 px-1 hover:cursor-pointer hover:underline hover:opacity-70">정윤목</td>
+                  <td class="w-[10%] py-2 px-1"><?=substr($li->regdate, 5, 5)?></td>
+                  <td class="w-[10%] py-2 px-1">100</td>
                 </tr>
               <?endforeach?>
             </table>
@@ -147,14 +147,14 @@
               <h2>건</h2>
             </div>
             <div class="p-3">
-              <a href="#" class="hover:opacity-80 hover:underline">더보기 〉</a>
+              <a href="#" class="hover:text-white text-gray-300 hover:underline">더보기 〉</a>
             </div>
           </div>
 
           <div class="bg-[#2f2f2f] p-5 border border-[#4f4f4f] rounded flex gap-5 relative drop-shadow-2xl">
 
-            <table class="text-gray-50 w-full">
-              <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">ID</th>
+            <table class="text-gray-50 w-full whitespace-nowrap">
+              <!-- <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">ID</th> -->
               <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">제목</th>
               <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">작성자</th>
               <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">작성일</th>
@@ -165,15 +165,15 @@
 
               <?foreach($list as $li):?>
                 <tr class="border-b text-center border-[#4f4f4f]">
-                  <td class="py-2 px-1"><?=$li->idx?></td>
-                  <td class="py-2 px-1 pl-5 hover:cursor-pointer hover:underline hover:opacity-70 text-start">
+                  <!-- <td class="py-2 px-1"><?=$li->idx?></td> -->
+                  <td class="py-2 w-[50%] px-1 pl-5 hover:cursor-pointer hover:underline hover:opacity-70 text-start">
                     <div class="flex flex-col gap-1">
                       <?=$li->title?>
                     </div>
                   </td>
-                  <td class="w-52 py-2 px-1 hover:cursor-pointer hover:underline hover:opacity-70">정윤목</td>
-                  <td class="w-52 py-2 px-1"><?=$li->regdate?></td>
-                  <td class="w-52 py-2 px-1">100</td>
+                  <td class="w-[10%] py-2 px-1 hover:cursor-pointer hover:underline hover:opacity-70">정윤목</td>
+                  <td class="w-[10%] py-2 px-1"><?=substr($li->regdate, 5, 5)?></td>
+                  <td class="w-[10%] py-2 px-1">100</td>
                 </tr>
               <?endforeach?>
             </table>
@@ -183,7 +183,7 @@
       </div>
 
       <!-- 자유게시판, 가입인사 -->
-      <div class="flex w-full gap-5">
+      <div class="flex w-full gap-5 mb-[100px]">
         <!-- 자유게시판 -->
         <div class="w-full drop-shadow-xl">
           <div class="flex bg-[#1f1f1f] rounded mb-3 drop-shadow-2xl items-center place-content-between">
@@ -193,14 +193,14 @@
               <h2>건</h2>
             </div>
             <div class="p-3">
-              <a href="#" class="hover:opacity-80 hover:underline">더보기 〉</a>
+              <a href="#" class="hover:text-white text-gray-300 hover:underline">더보기 〉</a>
             </div>
           </div>
 
           <div class="bg-[#2f2f2f] p-5 border border-[#4f4f4f] rounded flex gap-5 relative drop-shadow-2xl">
 
-            <table class="text-gray-50 w-full">
-              <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">ID</th>
+            <table class="text-gray-50 w-full whitespace-nowrap">
+              <!-- <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">ID</th> -->
               <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">제목</th>
               <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">작성자</th>
               <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">작성일</th>
@@ -211,15 +211,15 @@
 
               <?foreach($list as $li):?>
                 <tr class="border-b text-center border-[#4f4f4f]">
-                  <td class="py-2 px-1"><?=$li->idx?></td>
-                  <td class="py-2 px-1 pl-5 hover:cursor-pointer hover:underline hover:opacity-70 text-start">
+                  <!-- <td class="py-2 px-1"><?=$li->idx?></td> -->
+                  <td class="py-2 w-[50%] px-1 pl-5 hover:cursor-pointer hover:underline hover:opacity-70 text-start">
                     <div class="flex flex-col gap-1">
                       <?=$li->title?>
                     </div>
                   </td>
-                  <td class="w-52 py-2 px-1 hover:cursor-pointer hover:underline hover:opacity-70">정윤목</td>
-                  <td class="w-52 py-2 px-1"><?=$li->regdate?></td>
-                  <td class="w-52 py-2 px-1">100</td>
+                  <td class="w-[10%] py-2 px-1 hover:cursor-pointer hover:underline hover:opacity-70">정윤목</td>
+                  <td class="w-[10%] py-2 px-1"><?=substr($li->regdate, 5, 5)?></td>
+                  <td class="w-[10%] py-2 px-1">100</td>
                 </tr>
               <?endforeach?>
             </table>
@@ -236,14 +236,14 @@
               <h2>건</h2>
             </div>
             <div class="p-3">
-              <a href="#" class="hover:opacity-80 hover:underline">더보기 〉</a>
+              <a href="#" class="hover:text-white text-gray-300 hover:underline">더보기 〉</a>
             </div>
           </div>
 
           <div class="bg-[#2f2f2f] p-5 border border-[#4f4f4f] rounded flex gap-5 relative drop-shadow-2xl">
 
-            <table class="text-gray-50 w-full">
-              <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">ID</th>
+            <table class="text-gray-50 w-full whitespace-nowrap">
+              <!-- <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">ID</th> -->
               <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">제목</th>
               <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">작성자</th>
               <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">작성일</th>
@@ -254,15 +254,15 @@
 
               <?foreach($list as $li):?>
                 <tr class="border-b text-center border-[#4f4f4f]">
-                  <td class="py-2 px-1"><?=$li->idx?></td>
-                  <td class="py-2 px-1 pl-5 hover:cursor-pointer hover:underline hover:opacity-70 text-start">
+                  <!-- <td class="py-2 px-1"><?=$li->idx?></td> -->
+                  <td class="py-2 w-[50%] px-1 pl-5 hover:cursor-pointer hover:underline hover:opacity-70 text-start">
                     <div class="flex flex-col gap-1">
                       <?=$li->title?>
                     </div>
                   </td>
-                  <td class="w-52 py-2 px-1 hover:cursor-pointer hover:underline hover:opacity-70">정윤목</td>
-                  <td class="w-52 py-2 px-1"><?=$li->regdate?></td>
-                  <td class="w-52 py-2 px-1">100</td>
+                  <td class="w-[10%] py-2 px-1 hover:cursor-pointer hover:underline hover:opacity-70">정윤목</td>
+                  <td class="w-[10%] py-2 px-1"><?=substr($li->regdate, 5, 5)?></td>
+                  <td class="w-[10%] py-2 px-1">100</td>
                 </tr>
               <?endforeach?>
             </table>
@@ -274,7 +274,7 @@
     </div>
 
     <!-- 푸터 -->
-    <div>
+    <div class="fixed bottom-0 w-full">
       <?$this->load->view('footer');?>
     </div>
 
