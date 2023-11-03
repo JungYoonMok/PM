@@ -112,7 +112,7 @@
       <!-- 구분선 -->
       <div class="border-b border-gray-400"></div>
 
-      <a href="/notice" class="deration-500 relative hover:bg-[#4f4f4f] w-full duration-100 p-2 rounded hover:text-gray-100">
+      <a href="/notice" class="deration-500 hover:last-child:bg-red-500 relative hover:bg-[#4f4f4f] w-full duration-100 p-2 rounded hover:text-gray-100">
         <span class="w-full h-full flex gap-5" >
           <span class="material-symbols-outlined">
             notifications

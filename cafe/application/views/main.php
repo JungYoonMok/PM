@@ -31,7 +31,7 @@
     </div>
 
     <!-- 이미지 배너 및 스와이프 -->
-    <div class="border border-[#5f5f5f] bg-[#2f2f2f] shadow p-10 mx-5 mt-5 rounded-md ">
+    <div class="border border-[#5f5f5f] bg-[#2f2f2f] drop-shadow-xl p-10 mx-5 mt-5 rounded-md ">
       <div class="animate-pulse flex space-x-4">
         <div class="rounded-full bg-[#5f5f5f] h-14 w-14"></div>
         <div class="flex-1 space-y-6 py-1">
@@ -51,7 +51,7 @@
     <div class="h-full w-full p-5 flex flex-col gap-5">
 
       <!-- 공지사항 -->
-      <div class="w-full">
+      <div class="w-full drop-shadow-xl">
         <div class="flex bg-[#1f1f1f] rounded mb-3 drop-shadow-2xl items-center place-content-between">
           <div class="opacity-90 p-3 flex gap-1">
             <h2>공지사항 - 등록</h2>
@@ -96,7 +96,7 @@
       <!-- 최근 게시물, 최근 댓글 -->
       <div class="flex w-full gap-5">
         <!-- 최근 게시물 -->
-        <div class="w-full">
+        <div class="w-full drop-shadow-xl">
           <div class="flex bg-[#1f1f1f] rounded mb-3 drop-shadow-2xl items-center place-content-between">
             <div class="opacity-90 p-3 flex gap-1">
               <h2>최근 게시글 - 등록</h2>
@@ -139,7 +139,7 @@
         </div>
 
         <!-- 최근 댓글 -->
-        <div class="w-full">
+        <div class="w-full drop-shadow-xl">
           <div class="flex bg-[#1f1f1f] rounded mb-3 drop-shadow-2xl items-center place-content-between">
             <div class="opacity-90 p-3 flex gap-1">
               <h2>최근 댓글  - 등록</h2>
@@ -185,7 +185,7 @@
       <!-- 자유게시판, 가입인사 -->
       <div class="flex w-full gap-5">
         <!-- 자유게시판 -->
-        <div class="w-full">
+        <div class="w-full drop-shadow-xl">
           <div class="flex bg-[#1f1f1f] rounded mb-3 drop-shadow-2xl items-center place-content-between">
             <div class="opacity-90 p-3 flex gap-1">
               <h2>자유게시판 - 등록</h2>
@@ -228,7 +228,7 @@
         </div>
 
         <!-- 가입인사 -->
-        <div class="w-full">
+        <div class="w-full drop-shadow-xl">
           <div class="flex bg-[#1f1f1f] rounded mb-3 drop-shadow-2xl items-center place-content-between">
             <div class="opacity-90 p-3 flex gap-1">
               <h2>가입인사  - 등록</h2>

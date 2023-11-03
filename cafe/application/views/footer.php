@@ -8,7 +8,7 @@
 
         <div class="flex gap-3">
           <img 
-            class="mt-[-8px] hover:scale-[2] duration-200 hover:rounded hover:-rotate-6" 
+            class="mt-[-8px] hover:scale-[2] hover:border hover:border-[#5f5f5f] hover:border-2 duration-200 hover:rounded hover:-rotate-6 opacity-70 hover:opacity-100" 
             src="https://pds.saramin.co.kr/workenv-bg/202303/09/rr8njw_y8e6-w09k06_workenv-bg.png" 
             width="70px" 
             alt="로고" />
