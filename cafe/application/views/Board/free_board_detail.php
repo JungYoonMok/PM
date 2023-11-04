@@ -36,7 +36,7 @@
       <div class="bg-[#2f2f2f] p-5 flex flex-col gap-5 border border-gray-500 rounded">
         
         <div class="">
-          <p>게시글 디테일</p>
+          <p>게시글 디테일 입니다</p>
         </div>
 
         <!-- 구분선 -->
