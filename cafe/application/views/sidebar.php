@@ -86,7 +86,7 @@
 
     <!-- 글쓰기 및 채팅 -->
     <div class="flex flex-col gap-3 text-center">
-      <a href="/board_create" class="p-2 w-full hover:text-white hover:underline rounded hover:opacity-80 font-bold duration-150 bg-[#3f3f3f]">
+      <a href="/free_board_create" class="p-2 w-full hover:text-white hover:underline rounded hover:opacity-80 font-bold duration-150 bg-[#3f3f3f]">
         카페 글쓰기
       </a>
     </div>
@@ -112,7 +112,7 @@
 
       <!-- 구분선 -->
       <div class="border-b border-gray-400"></div>
-
+      
       <a href="/notice" class="deration-500 hover:last-child:bg-red-500 relative hover:bg-[#4f4f4f] w-full duration-100 p-2 rounded hover:text-gray-100">
         <span class="w-full h-full flex gap-5" >
           <span class="material-symbols-outlined">
@@ -126,22 +126,8 @@
           </div>
         </span>
       </a>
-
-      <a href="/hellow" class="deration-500 relative hover:bg-[#4f4f4f] w-full duration-100 p-2 rounded hover:text-gray-100">
-      <span class="w-full h-full flex gap-5" >
-          <span class="material-symbols-outlined">
-            border_color
-          </span>
-          <div class="flex place-content-around">
-            <p class="">가입안사</p>
-            <p class="w-8 duration-200 border border-blue-400 opacity-80 drop-shadow-2xl animate-pulse absolute right-2 bg-blue-500 px-2 py-1 rounded text-xs flex place-content-center">
-              17
-            </p>
-          </div>
-        </span>
-      </a>
-
-      <a href="/board" class="deration-500 relative hover:bg-[#4f4f4f] w-full duration-100 p-2 rounded hover:text-gray-100">
+      
+      <a href="/free_board_view" class="deration-500 relative hover:bg-[#4f4f4f] w-full duration-100 p-2 rounded hover:text-gray-100">
         <span class="w-full h-full flex gap-5" >
           <span class="material-symbols-outlined">
             border_color
@@ -155,11 +141,25 @@
         </span>
       </a>
 
+      <a href="/hellow" class="deration-500 relative hover:bg-[#4f4f4f] w-full duration-100 p-2 rounded hover:text-gray-100">
+        <span class="w-full h-full flex gap-5" >
+          <span class="material-symbols-outlined">
+            border_color
+          </span>
+          <div class="flex place-content-around">
+            <p class="">가입인사</p>
+            <p class="w-8 duration-200 border border-blue-400 opacity-80 drop-shadow-2xl animate-pulse absolute right-2 bg-blue-500 px-2 py-1 rounded text-xs flex place-content-center">
+              17
+            </p>
+          </div>
+        </span>
+      </a>
+      
     </div>
-
+    
     <!-- 구분선 -->
     <div class="border-b my-3 border-gray-400"></div>
     
   </div>
-
+  
 </div>

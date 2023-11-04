@@ -53,4 +53,6 @@ $route['default_controller'] = 'main';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-// $route['board_create/store']['post'] = 'board_create/store';
+// 라우터 커스텀
+$route['freeboard']= 'free_board_view';
+$route['freeboard/(:num)']= 'free_board_detail/show/$1';

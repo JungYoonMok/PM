@@ -36,7 +36,7 @@
       <div class="bg-[#2f2f2f] p-5 flex flex-col gap-5 border border-gray-500 rounded">
         
         <div class="">
-          <p>글쓰기</p>
+          <p>게시글 디테일</p>
         </div>
 
         <!-- 구분선 -->
@@ -44,7 +44,10 @@
         
         <div class="flex flex-col gap-5">
 
-          <form class="flex flex-col gap-5" action="/free_Board_create/create" method="post">
+          <!-- 데이터 전송 폼 -->
+          <form class="flex flex-col gap-5" action="" method="post">
+          <!-- <form class="flex flex-col gap-5" action="/free_board_detail/update/<?=$edit->idx;?>" method="post"> -->
+          <!-- <input type="hidden" name="_method" value="PUT" /> -->
             
             <!-- 게시판 선택 및 제목 -->
             <div class="bg-[#2f2f2f] flex gap-5">
@@ -63,13 +66,15 @@
     
               <!-- 제목입력 -->
               <div class="w-[70%]">
-                <input class="w-full outline-none text-whith rounded bg-[#4f4f4f] p-3" required name="title" type="text" placeholder="제목을 입력해주세요"/>
+                <input class="w-full outline-none text-whith rounded bg-[#4f4f4f] p-3" required name="title" value="<?=$detail->title;?>" type="text" placeholder="제목을 입력해주세요"/>
               </div>
     
             </div>
 
             <!-- 게시글 내용 작성 -->
-            <textarea class="outline-none bg-[#4f4f4f] w-full p-3" required name="contents" id="" cols="30" rows="10"></textarea>
+            <textarea class="outline-none bg-[#4f4f4f] w-full p-3" required name="contents" cols="30" rows="10">
+              <?=$detail->contents;?>
+            </textarea>
 
             <!-- 공개/비공개 -->
             <div class="flex flex-col gap-2 w-full">
@@ -97,7 +102,7 @@
 
             <!-- 게시글 등록 -->
             <div class="w-full text-right">
-              <input type="submit" class="p-3 w-[400px] rounded bg-blue-500 duration-200 hover:opacity-80" value="게시글 등록"></input>
+              <input type="submit" class="p-3 w-[400px] rounded bg-blue-500 duration-200 hover:opacity-80" value="디테일페이지"></input>
             </div>
 
           </form>
@@ -109,14 +114,13 @@
     </div>
     <!-- 메인끝 -->
 
-  </div>
-  <!-- 메인 베이스 끝 -->
-
-  <!-- 최상단 최하단 버튼 -->
-  <div class="fixed right-5 bottom-5 mb-20">
-    <?$this->load->view('tb_btn');?>
-  </div>
+    <!-- 최상단 최하단 버튼 -->
+    <div class="fixed right-5 bottom-5 mb-20">
+      <?$this->load->view('tb_btn');?>
+    </div>
     
+  </div>
+
 </div>
 
 <script>

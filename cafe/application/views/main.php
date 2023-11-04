@@ -4,7 +4,7 @@
 ?>
 
 <!-- 메인 틀 -->
-<div id="base" class="flex duration-200 justify-between bg-[#3f3f3f] text-gray-50 pl-[300px] w-full relative">
+<div id="base" class="duration-200 bg-[#3f3f3f] text-gray-50 pl-[300px] relative">
 
   <!-- 사이드 -->
   <div id="menu" class="fixed h-full left-0 w-[301px] duration-200">
@@ -48,7 +48,7 @@
     </div>
 
     <!-- 메인 -->
-    <div class="w-full p-5 flex flex-col gap-5">
+    <div class="md:mb-20 w-full p-5 flex flex-col gap-5">
 
       <!-- 공지사항 -->
       <div class="w-full drop-shadow-xl">
@@ -66,26 +66,26 @@
         <div class="bg-[#2f2f2f] p-5 border border-[#4f4f4f] rounded flex gap-5 relative drop-shadow-2xl">
 
           <table class="text-gray-50 w-full whitespace-nowrap">
-            <!-- <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">ID</th> -->
+            <th class="opacity-70 pb-3 border-b border-[#4f4f4f] pl-5 text-start">ID</th>
             <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">제목</th>
-            <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">작성자</th>
-            <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">작성일</th>
-            <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">조회</th>
+            <th class="opacity-70 pb-3 border-b border-[#4f4f4f] text-end pr-5">작성자</th>
+            <th class="opacity-70 pb-3 border-b border-[#4f4f4f] text-end pr-5">작성일</th>
+            <th class="opacity-70 pb-3 border-b border-[#4f4f4f] text-end pr-5">조회</th>
 
             <!-- php 삼항연산자 -->
             <!-- <td class="<?= $li->idx === '1' ? "bg-red-500" : "py-2 px-1" ?>"><?=$li->idx?></td> -->
 
             <?foreach($list as $li):?>
               <tr class="border-b text-center border-[#4f4f4f] text-sm">
-                <!-- <td class="py-2 px-1"><?=$li->idx?></td> -->
-                <td class="py-2 w-[50%] px-1 pl-5 hover:cursor-pointer hover:underline hover:opacity-70 text-start">
+                <td class="w-[5%] text-start pl-5 py-2 px-1"><?=$li->idx?></td>
+                <td class="py-2 w-[50%] px-1 hover:cursor-pointer hover:underline hover:opacity-70 text-start">
                   <div class="flex flex-col gap-1">
                     <?=$li->title?>
                   </div>
                 </td>
-                <td class="w-[10%] py-2 px-1 hover:cursor-pointer hover:underline hover:opacity-70">정윤목</td>
-                <td class="w-[10%] py-2 px-1"><?=substr($li->regdate, 5, 5)?></td>
-                <td class="w-[10%] py-2 px-1">100</td>
+                <td class="w-[5%] text-end pr-5 py-2 px-1 hover:cursor-pointer hover:underline hover:opacity-70">정윤목</td>
+                <td class="w-[5%] text-end pr-5 py-2 px-1"><?=substr($li->regdate, 5, 5)?></td>
+                <td class="w-[5%] text-end pr-5 py-2 px-1">100</td>
               </tr>
             <?endforeach?>
           </table>
@@ -183,7 +183,7 @@
       </div>
 
       <!-- 자유게시판, 가입인사 -->
-      <div class="flex w-full gap-5 mb-[100px]">
+      <div class="flex w-full gap-5">
         <!-- 자유게시판 -->
         <div class="w-full drop-shadow-xl">
           <div class="flex bg-[#1f1f1f] rounded mb-3 drop-shadow-2xl items-center place-content-between">
@@ -274,9 +274,9 @@
     </div>
 
     <!-- 푸터 -->
-    <div class="fixed bottom-0 w-full">
+    <!-- <div class="">
       <?$this->load->view('footer');?>
-    </div>
+    </div> -->
 
     <!-- 최상단 최하단 버튼 -->
     <div class="fixed right-5 bottom-5 mb-20">
