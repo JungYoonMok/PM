@@ -26,6 +26,9 @@
   }
 </style>
 
+<!-- jquery -->
+<script src="https://code.jquery.com/jquery.min.js"></script>
+
 <!-- font -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

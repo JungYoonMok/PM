@@ -68,7 +68,7 @@
         <div class="flex flex-col gap-5">
 
           <!-- 데이터 전송 폼 -->
-          <form class="flex flex-col gap-5" action="" method="post">
+          <!-- <form class="flex flex-col gap-5" action="" method="post"> -->
             
             <!-- 작성자 -->
             <div class="flex justify-between place-items-center opacity-80">
@@ -112,7 +112,7 @@
               </div>
             </div>
 
-            <!-- 게시글 내용 작성 -->
+            <!-- 게시글 내용 -->
             <div class="outline-none rounded w-full p-3" required name="contents" cols="30" rows="10">
               <p class="min-h-[500px]">
                 <?=$post->contents;?>
@@ -120,7 +120,7 @@
             </div>
 
             <!-- 좋아요 및 싫어요 -->
-            <div class="flex justify-center gap-5 py-5">
+            <div class="flex justify-center gap-5 py-5 opacity-80">
               <div>
                 <button class="material-symbols-outlined text-3xl hover:text-yellow-500 duration-200">
                   thumb_up
@@ -144,8 +144,8 @@
             <!-- 구분선 -->
             <div class="border-b border-gray-500"></div>
 
-          <!-- 댓글 목록 및 작성 -->
-            <div class="flex gap-3 text-sm">
+            <!-- 댓글 리스트 -->
+            <div class="flex gap-3 text-sm whitespace-nowrap">
               <!-- 작성자 -->
               <div class="flex gap-3 place-content-start">
                 <div class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border border-gray-500 h-14 w-14 bg-[#3f3f3f]">
@@ -157,23 +157,34 @@
                 </div>
                 <div>
                   <a href="#" class="font-bold hover:underline hover:opacity-80 duration-200">
-                    <?=$comment->user_id;?>(등급)
+                    <!-- <?= $post->idx === $comment->board_id ? '있다' : '없다'; ?> -->
+                    <?= $comment->user_id == '' || null ? '없는뎁셔' : $comment->contents ?>
+                    <!-- <?= $post->files == '' || null ? 'hidden' : $post->files ?> -->
                   </a>
                   <div>
                     hi
                   </div>
                 </div>
               </div>
-              <!-- 내용 -->
-              <div class="flex flex-col shadow-xl bg-[#4f4f4f] p-3 rounded-tl-none rounded rounded-bl-xl ">
 
-                <p><?= $comment->contents; ?></p>
+              <!-- 작성된 댓글 -->
+              <div class="flex flex-col shadow-xl bg-[#4f4f4f] py-3 px-5 rounded-tl-none rounded rounded-bl-xl ">
 
-                <!-- 하단, 작성시간 및 답글쓰기 -->
-                <div class="text-sm flex mt-5 justify-end gap-3 opacity-80 text-gray-300 whitespace-nowrap">
-                  <p class="-mr-3"><?=substr($comment->regdate, 0, 16);?></p></p>
-                  <p>|</p>
-                  <button class="hover:underline hover:opacity-80 duration-200" onclick='#'>답글쓰기</button>
+                <!-- 내용 -->
+                <div class="">
+                  <p>
+                    <!-- <?= $comment->idx !== '' ? $comment->contents : 'null'; ?> -->
+                  </p>
+                </div>
+
+                <!-- 작성시간 및 답글쓰기 -->
+                <div class="text-sm flex mt-5 justify-between gap-3 opacity-80 text-gray-300 whitespace-nowrap">
+                  <p class="-mr-3">
+                    <!-- <?=substr($comment->idx, 0, 16);?> -->
+                  </p>
+                  <button class="hover:underline hover:opacity-80 duration-200" onclick='#'>
+                    답글쓰기
+                  </button>
                 </div>
 
               </div>
@@ -192,7 +203,7 @@
               <p>댓글</p>
             </div>
 
-          </form>
+          <!-- </form> -->
 
         </div>
 

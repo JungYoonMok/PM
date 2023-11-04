@@ -13,7 +13,8 @@
 
     public function get_comments($idx)
     {
-      $comment = $this->db->get_where('freeboard_comments', [ 'board_id' => $idx ] )->row();
+      // $comment = $this->db->get_where('freeboard_comments', [ 'board_id' => $idx ] )->row();
+      $comment = $this->db->get_where('freeboard_comments', [ 'board_id' => $idx ] )->result();
       return $comment;
     }
 
@@ -27,13 +28,13 @@
         'regdate' => date("Y-m-d H:i:s")
       ];
 
-      $result = $this->db->insert('boards', $data);
+      $result = $this->db->insert('freeboard', $data);
       return $result;
     }
 
     public function get($idx)
     {
-      $board = $this->db->get_where('boards', [ 'idx' => $idx ] )->row();
+      $board = $this->db->get_where('freeboard', [ 'idx' => $idx ] )->row();
       return $board;
     }
 
@@ -46,7 +47,7 @@
     public function GetBoardList()
     {
       $this->load->database();
-      $result = $this->db->query('SELECT * FROM boards')->result();
+      $result = $this->db->query('SELECT * FROM freeboard')->result();
       $this->db->close();
       
       return $result;
@@ -55,7 +56,7 @@
     public function GetBoardTotal()
     {
       $this->load->database();
-      $result = $this->db->query('SELECT idx FROM boards')->num_rows();
+      $result = $this->db->query('SELECT idx FROM freeboard')->num_rows();
       $this->db->close();
       
       return $result;
