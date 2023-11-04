@@ -213,9 +213,9 @@
                 <tr class="border-b text-center border-[#4f4f4f] text-sm">
                   <!-- <td class="py-2 px-1"><?=$li->idx?></td> -->
                   <td class="py-2 w-[50%] px-1 pl-5 hover:cursor-pointer hover:underline hover:opacity-70 text-start">
-                    <div class="flex flex-col gap-1">
+                    <a href="/freeboard/<?=$li->idx?>" class="flex flex-col gap-1">
                       <?=$li->title?>
-                    </div>
+                    </a>
                   </td>
                   <td class="w-[10%] py-2 px-1 hover:cursor-pointer hover:underline hover:opacity-70">정윤목</td>
                   <td class="w-[10%] py-2 px-1"><?=substr($li->regdate, 5, 5)?></td>

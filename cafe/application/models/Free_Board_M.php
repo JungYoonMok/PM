@@ -11,6 +11,12 @@
       $this->load->helper('url');
     }
 
+    public function get_comments($idx)
+    {
+      $comment = $this->db->get_where('freeboard_comments', [ 'board_id' => $idx ] )->row();
+      return $comment;
+    }
+
     public function create()
     {
       // form action 에서 name 값이 동일한 입력 값을 data 변수에 저장

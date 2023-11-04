@@ -53,7 +53,7 @@
               <div class="w-[30%]">
                 <!-- <label for="lang">Language</label> -->
                 <select name="board_type" id="lang" required class="outline-none w-full text-whith rounded bg-[#4f4f4f] p-3">
-                  <option value="" disabled selected>게시판 선택</option>
+                  <option class="hidden" value="" disabled selected>게시판 선택</option>
                   <option value="공지사항">공지사항</option>
                   <option value="자유게시판">자유게시판</option>
                   <option value="가입인사">가입인사</option>

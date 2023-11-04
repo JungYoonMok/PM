@@ -15,7 +15,7 @@
       $data['list'] = $this->FBM->GetBoardList();
       $data['total'] = $this->FBM->GetBoardTotal();
       
-      $this->load->view('header');
+      // $this->load->view('header');
       $this->load->view('board/free_board_view', $data);
       // $this->load->view('footer');
     }

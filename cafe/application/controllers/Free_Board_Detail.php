@@ -11,7 +11,8 @@
     
     public function show($idx)
     {
-      $data['detail'] = $this->FBM->get($idx);
+      $data['post'] = $this->FBM->get($idx);
+      $data['comment'] = $this->FBM->get_comments($idx);
 
       $this->load->view('board/free_board_detail', $data);
     }
