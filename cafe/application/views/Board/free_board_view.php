@@ -66,7 +66,7 @@
     <!-- 메인끝 -->
 
     <!-- 최상단 최하단 버튼 -->
-    <div class="fixed right-5 bottom-5 mb-20">
+    <div class="fixed right-5 bottom-5 mb-[1%]">
       <?$this->load->view('tb_btn');?>
     </div>
     

@@ -44,7 +44,7 @@
         
         <div class="flex flex-col gap-5">
 
-          <form class="flex flex-col gap-5" action="/free_Board_create/create" method="post">
+          <form class="flex flex-col gap-5" action="/free_board_create/create" method="post">
             
             <!-- 게시판 선택 및 제목 -->
             <div class="bg-[#2f2f2f] flex gap-5">
@@ -113,7 +113,7 @@
   <!-- 메인 베이스 끝 -->
 
   <!-- 최상단 최하단 버튼 -->
-  <div class="fixed right-5 bottom-5 mb-20">
+  <div class="fixed right-5 bottom-5 mb-[1%]">
     <?$this->load->view('tb_btn');?>
   </div>
     

@@ -249,9 +249,6 @@
               <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">작성일</th>
               <th class="opacity-70 pb-3 border-b border-[#4f4f4f]">조회</th>
 
-              <!-- php 삼항연산자 -->
-              <!-- <td class="<?= $li->idx === '1' ? "bg-red-500" : "py-2 px-1" ?>"><?=$li->idx?></td> -->
-
               <?foreach($list as $li):?>
                 <tr class="border-b text-center border-[#4f4f4f] text-sm">
                   <!-- <td class="py-2 px-1"><?=$li->idx?></td> -->
@@ -279,7 +276,7 @@
     </div> -->
 
     <!-- 최상단 최하단 버튼 -->
-    <div class="fixed right-5 bottom-5 mb-20">
+    <div class="fixed right-5 bottom-5 mb-[1%]">
       <?$this->load->view('tb_btn');?>
     </div>
     

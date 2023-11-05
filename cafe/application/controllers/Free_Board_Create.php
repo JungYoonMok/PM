@@ -1,4 +1,5 @@
 <?
+  date_default_timezone_set('Asia/Seoul');
   defined('BASEPATH') OR exit('No direct script access allowed');
 
   class Free_Board_Create extends CI_Controller {
@@ -14,14 +15,11 @@
     
     public function index()
     {
-      // $this->load->view('header');
       $this->load->view('board/free_board_create');
-      // $this->load->view('footer');
     }
 
     public function create()
     {
-
       // 폼 벨리데이션으로 폼의 필수값을 지정
       $this->form_validation->set_rules('board_type', 'Board_type', 'required');
       $this->form_validation->set_rules('title', 'Title', 'required');
