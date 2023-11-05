@@ -35,18 +35,23 @@
     <!-- 메인 -->
     <div class="md:mb-20 w-full p-5 flex flex-col gap-5 drop-shadow-2xl">
 
-      <!-- 이전, 다음, 목록 -->
-      <div class="flex place-content-end gap-3 opacity-90">
-        <a href="" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">이전글</a>
-        <a href="" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">다음글</a>
-        <a href="/freeboard" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">목록</a>
+      <!-- 수정하기, 이전, 다음, 목록 -->
+      <div class="flex justify-between gap-3 opacity-90">
+        <div>
+          <a href="#" class="bg-blue-500 duration-200 hover:bg-[#2f2f2f] border border-blue-400 px-3 py-2 rounded">수정하기</a>
+        </div>
+        <div>
+          <a href="#" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">이전글</a>
+          <a href="#" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">다음글</a>
+          <a href="/freeboard" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">목록</a>
+        </div>
       </div>
 
       <div class="bg-[#2f2f2f] p-5 flex flex-col gap-5 border border-gray-500 rounded">
         
         <!-- 게시글 타입, 제목, 작성날짜-->
-        <div class="flex justify-between">          
-          <div class="flex gap-5">
+        <div class="flex justify-between">
+          <div class="flex gap-5  place-items-center">
             <span class="material-symbols-outlined">
               location_on
             </span>
@@ -54,7 +59,7 @@
               <?=$post->board_type?>
             </a>
             <p>〉</p>
-            <p><?=$post->title?></p>
+            <button class="font-bold text-lg duration-200 hover:translate-y-1" onclick=location.reload(true);><?=$post->title?></button>
           </div>
           <div class="flex place-items-center gap-3 opacity-80 text-sm">
             <span class="material-symbols-outlined">
@@ -102,6 +107,20 @@
                   </span>
                   <p>8</p>
                 </div>
+                <div class="flex gap-2">
+                  <span class="material-symbols-outlined">
+                    thumb_up
+                  </span>
+                  <p>
+                    22
+                  </p>
+                </div>
+                <div class="flex gap-2">
+                  <span class="material-symbols-outlined">
+                    thumb_down
+                  </span>
+                  <p>1</p>
+                </div>
                 <input type="text" id="link" value="http://localhost/freeboard/<?=$post->idx;?>" class="hidden"/>
                 <button onclick=urlCopy() class="flex gap-2 hover:opacity-80 duration-200">
                   <span class="material-symbols-outlined">
@@ -122,12 +141,12 @@
             <!-- 좋아요 및 싫어요 -->
             <div class="flex justify-center gap-5 py-5 opacity-80">
               <div>
-                <button class="material-symbols-outlined text-3xl hover:text-yellow-500 duration-200">
+                <button class="duration-200 hover:-translate-y-1 material-symbols-outlined text-3xl hover:text-white hover:bg-gray-500 w-16 h-16 rounded-[50%] duration-200">
                   thumb_up
                 </button>
               </div>
               <div>
-                <button class="material-symbols-outlined text-3xl hover:text-yellow-500 duration-200">
+                <button class="duration-200 hover:translate-y-1 material-symbols-outlined text-3xl hover:text-white hover:bg-gray-500 w-16 h-16 rounded-[50%] duration-200">
                   thumb_down
                 </button>
               </div>
@@ -298,7 +317,7 @@
 
     <!-- 최상단 최하단 버튼 -->
     <!-- <div class="fixed right-5 bottom-5 mb-[1%]"> -->
-    <div class="fixed right-5 bottom-5 mb-[30%]">
+    <div class="fixed right-5 bottom-5 mb-[1%]">
       <?$this->load->view('tb_btn');?>
     </div>
     
