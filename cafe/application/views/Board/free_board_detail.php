@@ -33,7 +33,7 @@
     </div>
 
     <!-- 메인 -->
-    <div class="md:mb-20 w-full p-5 flex flex-col gap-5 drop-shadow-2xl">
+    <div class="md:mb-20 w-full p-10 flex flex-col gap-5 drop-shadow-2xl">
 
       <!-- 수정하기, 이전, 다음, 목록 -->
       <div class="flex justify-between gap-3 opacity-90">
@@ -122,7 +122,7 @@
                   <p>1</p>
                 </div>
                 <input type="text" id="link" value="http://localhost/freeboard/<?=$post->idx;?>" class="hidden"/>
-                <button onclick=urlCopy() class="flex gap-2 hover:opacity-80 duration-200">
+                <button onclick=urlCopy() class="flex gap-2 hover:opacity-70 duration-200 hover:translate-y-1">
                   <span class="material-symbols-outlined">
                     link
                   </span>
@@ -141,12 +141,12 @@
             <!-- 좋아요 및 싫어요 -->
             <div class="flex justify-center gap-5 py-5 opacity-80">
               <div>
-                <button class="duration-200 hover:-translate-y-1 material-symbols-outlined text-3xl hover:text-white hover:bg-gray-500 w-16 h-16 rounded-[50%] duration-200">
+                <button class="duration-200 hover:-translate-y-1 material-symbols-outlined text-3xl hover:text-white hover:bg-[#1f1f1f] w-16 h-16 rounded-[50%] duration-200">
                   thumb_up
                 </button>
               </div>
               <div>
-                <button class="duration-200 hover:translate-y-1 material-symbols-outlined text-3xl hover:text-white hover:bg-gray-500 w-16 h-16 rounded-[50%] duration-200">
+                <button class="duration-200 hover:translate-y-1 material-symbols-outlined text-3xl hover:text-white hover:bg-[#1f1f1f] w-16 h-16 rounded-[50%] duration-200">
                   thumb_down
                 </button>
               </div>
@@ -317,7 +317,7 @@
 
     <!-- 최상단 최하단 버튼 -->
     <!-- <div class="fixed right-5 bottom-5 mb-[1%]"> -->
-    <div class="fixed right-5 bottom-5 mb-[1%]">
+    <div class="fixed right-4 bottom-5 mb-[1%]">
       <?$this->load->view('tb_btn');?>
     </div>
     
