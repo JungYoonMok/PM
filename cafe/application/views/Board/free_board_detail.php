@@ -3,6 +3,8 @@
   $this->load->view('../common');
 ?>
 
+<title>카페 | <?=$post->title?></title>
+
 <!-- 메인 틀 -->
 <div id="base" class="flex duration-200 bg-[#3f3f3f] text-gray-50 pl-[300px] w-full relative">
 
@@ -166,7 +168,7 @@
                   </div>
 
                   <!-- 작성된 댓글 -->
-                  <div class="flex flex-col shadow-xl py-3 px-5 rounded-tl-none rounded rounded-bl-xl <?= $com->user_id !== 'Duckey' ? 'border border-gray-500' : 'bg-[#3f3f3f] border border-gray-500'; ?>">
+                  <div class="flex flex-col shadow-xl py-3 px-5 rounded-tl-none rounded rounded-bl-xl <?= $com->user_id !== 'Duckey' ? 'border border-yellow-500' : 'bg-[#3f3f3f] border border-gray-500'; ?>">
 
                     <!-- 내용 -->
                     <div class="">
@@ -226,6 +228,7 @@
                 <!-- 내용 -->
                 <div>
                   <input name="board_id" type="number" hidden value="<?=$post->idx?>"></input>
+                  <input name="board_type" type="text" hidden value="<?=$post->board_type?>"></input>
                   <input name="user_id" type="text" hidden value="Duckey"></input>
                   <textarea name="contents" required cols="30" rows="5" class="w-full rounded bg-[#2f2f2f] p-3 outline-none"></textarea>
                 </div>
@@ -236,7 +239,7 @@
                     기능들
                   </div>
                   <div class="">
-                    <button type="submit" class="bg-[#3f3f3f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-5 py-3 rounded w-40">등록</button>
+                    <button type="submit" class="bg-[#3f3f3f] outline-none duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-5 py-3 rounded w-40">등록</button>
                   </div>
                 </div>
 
@@ -262,28 +265,33 @@
       </div>
 
       <!-- 해당 게시판 최근 리스트 -->
-      <div class="bg-[#2f2f2f] border border-gray-500 w-[500px] p-10 rounded flex flex-col gap-5 relative drop-shadow-2xl">
-
-      <div>
-        <table class="text-gray-50 w-full">
+      <div class="bg-[#2f2f2f] border w-full border-gray-500 p-5 rounded flex flex-col gap-5 drop-shadow-2xl">
+        <table class="text-gray-50 text-center">
+          <th>번호</th>
           <th>ID</th>
+          <th>분류</th>
           <th>제목</th>
-          <th>날짜</th>
+          <th>작성자</th>
+          <th>작성날짜</th>
+          <?$numCount = 0;?>
           <?foreach($list as $li):?>
             <tr class="border-b border-gray-500">
+              <td class="p-2">
+                <?=$numCount += 1?>
+              </td>
               <td class="p-2"><?=$li->idx?></td>
-              <td class="">
+              <td class="p-2"><?=$li->board_type?></td>
+              <td class="text-left">
                 <a href="/freeboard/<?=$li->idx?>">
                   <?=$li->title?>
                 </a>
               </td>
+              <td><?=$li->user_id?></td>
               <td class=""><?=$li->regdate?></td>
             </tr>
           <?endforeach?>
         </table>
       </div>
-
-    </div>
       
     </div>
     <!-- 메인끝 -->

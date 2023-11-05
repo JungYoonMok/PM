@@ -17,6 +17,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       $data['post'] = $this->FBM->get($idx);
       $data['comment'] = $this->FBM->get_comments($idx);
 
+      // $data['list'] = $this->db->query('SELECT * FROM freeboard')->result();
+      $data['list'] = $this->db->get_where('freeboard', [ 'board_type' => '자유게시판' ] )->result();
+      // $data['list'] = $this->db->get_where('freeboard', [ 'board_type' => $this->FBM->comment_board_type() ] )->result();
+
       $this->load->view('board/free_board_detail', $data);
     }
 
@@ -24,6 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     {
       // 폼 벨리데이션으로 폼의 필수값을 지정
       $this->form_validation->set_rules('board_id', 'Board_id', 'required');
+      $this->form_validation->set_rules('board_type', 'Board_type', 'required');
       $this->form_validation->set_rules('contents', 'Contents', 'required');
       $this->form_validation->set_rules('user_id', 'User_id', 'required');
 

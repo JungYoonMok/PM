@@ -24,6 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       // form action 에서 name 값이 동일한 입력 값을 data 변수에 저장
       $data = [
         'board_id' => $this->input->post('board_id'),
+        'board_type' => $this->input->post('board_type'),
         'contents' => $this->input->post('contents'),
         'user_id' => $this->input->post('user_id'),
         'regdate' => date("Y-m-d H:i:s")
@@ -31,6 +32,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
       $result = $this->db->insert('freeboard_comments', $data);
       return $result;
+    }
+
+    public function comment_board_type()
+    {
+      return $this->input->post('board_type');
     }
 
     public function create()
