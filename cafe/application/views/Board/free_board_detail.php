@@ -377,17 +377,18 @@
   function reply_btn(num)
   {
     let reply = document.getElementById('reply_onoff' + num); 
+    document.getElementById('reply_onoff' + num).classList.remove('hidden');
     if(reply.getElementById === 'open'){
       reply.getElementById = 'close';
-      document.getElementById('reply_onoff' + num).classList.remove('hidden');
-      document.getElementById('reply_onoff' + num).className += ' inline';
+      
+      document.getElementById('reply_onoff' + num).classList.remove('inline');
+      document.getElementById('reply_onoff' + num).className += ' hidden';
       
     } else {
       reply.getElementById = 'open';
-      document.getElementById('reply_onoff' + num).classList.remove('inline');
-      document.getElementById('reply_onoff' + num).className += ' hidden';
+      
+      document.getElementById('reply_onoff' + num).className += ' inline';
     }
-    console.log(reply);
   }
 
   function urlCopy()
