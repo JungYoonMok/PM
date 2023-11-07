@@ -48,25 +48,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     
     public function reply_comment_create()
     {
-      // 폼 벨리데이션으로 폼의 필수값을 지정
-      $this->form_validation->set_rules('board_id', 'Board_id', 'required');
-      $this->form_validation->set_rules('board_type', 'Board_type', 'required');
-      $this->form_validation->set_rules('contents', 'Contents', 'required');
-      $this->form_validation->set_rules('user_id', 'User_id', 'required');
-
-      if($this->form_validation->run())
-      {
-        // board 라는 별칭 안에 store를 실행
-        $this->FBM->comments_create();
-        // 정상적이면 리다이렉트 실행
-        redirect('/freeboard');
-        
-      } else {
-        echo "Board Create Error..";
-        // $this->db->_error_message();
-        // echo $this->db->_error_number(); 
-      }
+      // $this->FBM->comments_create();
+      $this->FBM->reply_create();
     }
+
   }
 
 ?>

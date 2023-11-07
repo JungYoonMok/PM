@@ -15,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     public function get_comments($idx)
     {
-      $comment = $this->db->get_where('boards_comment', [ 'group_idx' => $idx ] )->result();
+      $comment = $this->db->get_where('boards_comment', [ 'boards_idx' => $idx ] )->result();
       return $comment;
     }
 
@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     {
       // form action 에서 name 값이 동일한 입력 값을 data 변수에 저장
       $data = [
-        'group_idx' => $this->input->post('board_id'),
+        'boards_idx' => $this->input->post('board_id'),
         // 'board_type' => $this->input->post('board_type'),
         'content' => $this->input->post('contents'),
         'user_id' => $this->input->post('user_id'),
@@ -34,19 +34,52 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       return $result;
     }
     
-    public function reply_comments_create()
+    public function reply_create()
     {
       // form action 에서 name 값이 동일한 입력 값을 data 변수에 저장
       $data = [
-        'group_idx' => $this->input->post('board_id'),
+        'boards_idx' => $this->input->post('board_id'),
         // 'board_type' => $this->input->post('board_type'),
         'content' => $this->input->post('contents'),
         'user_id' => $this->input->post('user_id'),
         'regdate' => date("Y-m-d H:i:s")
       ];
+      
+      // 'UPDATE posts SET ori_id = (select last_insert_id()) WHERE id = (select last_insert_id());'
+      // $this->db->where('group_order', $idx)->update('boards_comment', $data2);
+      
+      // $data2 = [ 'group_idx' => '2' ];
+      // $this->db->where('group_idx', '2')->update('boards_comment', $data2);
 
-      $result = $this->db->insert('boards_comment', $data);
-      return $result;
+      // $qry = "SELECT SEQ, TITLE, CONTENTS, USER_ID, VIEW_CNT FROM BOARD_TB WHERE SEQ='".$h_seq."' AND USER_ID='".$h_user_id."'";
+      // return $this->db->query($qry)->result();
+
+///
+      // $qry = "'UPDATE boards_comment SET group_idx = (select last_insert_idx()) WHERE group_idx = (select last_insert_idx());";
+      // $this->db->query($qry)->result();
+      
+      // 업데이트
+      // $sql2 = "insert into boards_comment( boards_idx, content, group_idx, group_order, depth ) values(".$this->input->post('board_id').", ".$this->input->post('contents').", (select last_insert_id()+1), 1, 0)";
+
+      // $qry = $this->db->query($sql2);
+      
+      // return $qry;
+
+      $sql1 = "insert into boards_comment( boards_idx, content, group_idx, group_order, depth ) values(".$this->input->post('board_id').", ".$this->input->post('contents').", (select last_insert_id()+1), 1, 0)";
+      $this->db->query($sql1);
+      
+
+///
+
+// 코드이그나이터 update 쿼리문
+//   $data = array('pdt_tot' => $pdt_tot);
+//   $this->db->where('planid', $planid);
+//   $this->db->where('pdt_seq', $pdt_seq);
+//   $this->db->update('tb_inferior_log', $data);
+// update tb_inferior_log set pd_tot=$pdt_tot where planid=$planid and pdt_seq=$pdt_seq
+
+      // $result = $this->db->insert('boards_comment', $data);
+      // return $result;
     }
 
     public function comment_board_type()

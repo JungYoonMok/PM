@@ -225,7 +225,7 @@
                   <div class="border-b border-gray-500"></div>
 
                   <!-- 댓글 메인 -->
-                  <form action="/free_board_detail/comment_create" method="post" class="flex flex-col gap-3">
+                  <form action="/free_board_detail/reply_comment_create" method="post" class="flex flex-col gap-3">
 
                     <!-- 내용 -->
                     <div>
