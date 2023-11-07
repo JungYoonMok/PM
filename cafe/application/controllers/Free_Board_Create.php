@@ -30,7 +30,7 @@
         // board 라는 별칭 안에 store를 실행
         $this->FBM->create();
         // 정상적이면 리다이렉트 실행
-        redirect('/free_board_list');
+        redirect('/freeboard');
       } else {
         echo "Board Create Error..";
         // $this->db->_error_message();

@@ -15,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     public function get_comments($idx)
     {
-      $comment = $this->db->get_where('freeboard_comments', [ 'board_id' => $idx ] )->result();
+      $comment = $this->db->get_where('boards_comment', [ 'group_idx' => $idx ] )->result();
       return $comment;
     }
 
@@ -23,14 +23,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     {
       // form action 에서 name 값이 동일한 입력 값을 data 변수에 저장
       $data = [
-        'board_id' => $this->input->post('board_id'),
-        'board_type' => $this->input->post('board_type'),
-        'contents' => $this->input->post('contents'),
+        'group_idx' => $this->input->post('board_id'),
+        // 'board_type' => $this->input->post('board_type'),
+        'content' => $this->input->post('contents'),
         'user_id' => $this->input->post('user_id'),
         'regdate' => date("Y-m-d H:i:s")
       ];
 
-      $result = $this->db->insert('freeboard_comments', $data);
+      $result = $this->db->insert('boards_comment', $data);
+      return $result;
+    }
+    
+    public function reply_comments_create()
+    {
+      // form action 에서 name 값이 동일한 입력 값을 data 변수에 저장
+      $data = [
+        'group_idx' => $this->input->post('board_id'),
+        // 'board_type' => $this->input->post('board_type'),
+        'content' => $this->input->post('contents'),
+        'user_id' => $this->input->post('user_id'),
+        'regdate' => date("Y-m-d H:i:s")
+      ];
+
+      $result = $this->db->insert('boards_comment', $data);
       return $result;
     }
 
@@ -45,17 +60,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       $data = [
         'board_type' => $this->input->post('board_type'),
         'title' => $this->input->post('title'),
-        'contents' => $this->input->post('contents'),
+        'content' => $this->input->post('contents'),
         'regdate' => date("Y-m-d H:i:s")
       ];
 
-      $result = $this->db->insert('freeboard', $data);
+      $result = $this->db->insert('boards', $data);
       return $result;
     }
 
     public function get($idx)
     {
-      $board = $this->db->get_where('freeboard', [ 'idx' => $idx ] )->row();
+      $board = $this->db->get_where('boards', [ 'idx' => $idx ] )->row();
       return $board;
     }
 
@@ -68,7 +83,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     public function GetBoardList()
     {
       $this->load->database();
-      $result = $this->db->query('SELECT * FROM freeboard')->result();
+      $result = $this->db->query('SELECT * FROM boards')->result();
       $this->db->close();
       
       return $result;
@@ -77,7 +92,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     public function GetBoardTotal()
     {
       $this->load->database();
-      $result = $this->db->query('SELECT idx FROM freeboard')->num_rows();
+      $result = $this->db->query('SELECT idx FROM boards')->num_rows();
       $this->db->close();
       
       return $result;

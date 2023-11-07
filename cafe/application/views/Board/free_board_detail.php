@@ -134,7 +134,7 @@
             <!-- 게시글 내용 -->
             <div class="outline-none rounded w-full p-3" required name="contents" cols="30" rows="10">
               <p class="min-h-[500px]">
-                <?=$post->contents;?>
+                <?=$post->content;?>
               </p>
             </div>
 
@@ -160,7 +160,6 @@
               </div>
             </div>
 
-            
             <!-- 구분선 -->
             <div class="border-b border-gray-500"></div>
             
@@ -192,7 +191,7 @@
 
                     <!-- 내용 -->
                     <div class="">
-                      <?= empty($com->contents) ? null : $com->contents; ?>
+                      <?= empty($com->content) ? null : $com->content; ?>
                     </div>
 
                     <!-- 작성시간 및 답글쓰기 -->
@@ -213,7 +212,7 @@
                 <div id="reply_onoff<?=$com->idx?>" class="w-full text-sm flex flex-col gap-5 bg-[#1f1f1f] p-5 border border-gray-500 hidden">
                   <div class="flex justify-between">
                     <div class="flex gap-5 flex">
-                      <p><?=$com->contents?></p>
+                      <p><?=$com->content?></p>
                       <p> 〉</p>
                       <p>리플 작성</p>
                     </div>
