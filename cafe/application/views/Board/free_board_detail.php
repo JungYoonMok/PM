@@ -169,6 +169,14 @@
               <? foreach($comment as $com): ?>
                 
                 <div class="flex gap-3 text-sm whitespace-nowrap">
+                
+                <!-- 답글일 경우 -->
+                <div class="flex justify-center place-items-center <?=$com->group_idx !== '0' ? 'inline' : 'hidden'?>">
+                  <span class="material-symbols-outlined text-4xl rotate-180 mb-10 ml-5 text-[#4f4f4f]">
+                    arrow_top_left
+                  </span>
+                </div>
+
                   <!-- 작성자 -->
                   <div class="flex gap-3">
                     <div class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border border-gray-500 h-14 w-14 bg-[#3f3f3f]">

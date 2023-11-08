@@ -15,6 +15,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     public function get_comments($idx)
     {
+      // $this->db->order_by('idx', 'asc');
+      $this->db->order_by('group_idx', 'desc');
+      $this->db->order_by('group_order', 'asc');
+      // $this->db->order_by('depth', 'desc');
+
       $comment = $this->db->get_where('boards_comment', [ 'boards_idx' => $idx ] )->result();
       return $comment;
     }
@@ -36,6 +41,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     
     public function reply_create()
     {
+      $data = [
+        'boards_idx' => $this->input->post('board_id'),
+        'content' => $this->input->post('contents'),
+        'group_idx' => $this->input->post('comment_id'),
+        'user_id' => $this->input->post('user_id'),
+        'regdate' => date("Y-m-d H:i:s")
+      ];
+
+      $idx = $this->input->post('comment_id');
+      $board_id = $this->input->post('board_id');
+      $group_idx = $this->input->post('group_idx');
+      $group_order = $this->input->post('group_idx');
+      $depth = $this->input->post('group_idx');
+
+      // 등록
+      $this->db->insert('boards_comment', $data);
+      
+      // 수정
+      $this->db->query(
+        "UPDATE boards_comment SET 
+        group_order = ".$group_order." +1, depth = ".$depth." +1 WHERE group_idx = ".$idx.";");
+        // WHERE group_idx = ".$this->input->post('group_idx').";");
+
+
+      // $this->db->query("UPDATE boards_comment SET group_order = ".$this->input->post('group_order')." +1, depth = ".$this->input->post('depth')." +1, group_idx = ".$this->input->post('group_idx')." WHERE group_idx = ".$this->input->post('group_idx'));
+      // $this->db->query("UPDATE boards_comment SET group_order = group_order +1 WHERE group_idx = ".$this->input->post('comment_id')." AND group_order  > 0");
+      redirect("/freeboard//".$this->input->post('board_id'));
+
       // form action 에서 name 값이 동일한 입력 값을 data 변수에 저장
       // $data = [
       //   'boards_idx' => $this->input->post('board_id'),
@@ -74,26 +107,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       // $this->db->query($sql1);
 
       
-      $data = [
-        'boards_idx' => $this->input->post('board_id'),
-        'content' => $this->input->post('contents'),
-        'group_idx' => $this->input->post('comment_id'),
-        'group_order' => 1,
-        'depth' => 0,
-        'user_id' => $this->input->post('user_id'),
-        'regdate' => date("Y-m-d H:i:s")
-      ];
-
-      $this->db->insert('boards_comment', $data);
       
-      $this->db->query(
-        "UPDATE boards_comment SET group_order = ".$this->input->post('group_order')." +1,
-        depth = ".$this->input->post('depth')." +1, 
-        group_idx = ".$this->input->post('group_idx')." 
-        WHERE group_idx = ".$this->input->post('group_idx').";");
-      // $this->db->query("UPDATE boards_comment SET group_order = ".$this->input->post('group_order')." +1, depth = ".$this->input->post('depth')." +1, group_idx = ".$this->input->post('group_idx')." WHERE group_idx = ".$this->input->post('group_idx'));
-      // $this->db->query("UPDATE boards_comment SET group_order = group_order +1 WHERE group_idx = ".$this->input->post('comment_id')." AND group_order  > 0");
-      redirect("/freeboard//".$this->input->post('board_id'));
       
       // $result = $this->db->insert('boards_comment', $data);
       // return $result;
