@@ -144,7 +144,7 @@
       <a href="/hellow" class="deration-500 relative hover:bg-[#4f4f4f] w-full duration-100 p-2 rounded hover:text-gray-100">
         <span class="w-full h-full flex gap-5" >
           <span class="material-symbols-outlined">
-            border_color
+            waving_hand
           </span>
           <div class="flex place-content-around">
             <p class="">가입인사</p>

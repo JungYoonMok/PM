@@ -37,13 +37,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     public function reply_create()
     {
       // form action 에서 name 값이 동일한 입력 값을 data 변수에 저장
-      $data = [
-        'boards_idx' => $this->input->post('board_id'),
-        // 'board_type' => $this->input->post('board_type'),
-        'content' => $this->input->post('contents'),
-        'user_id' => $this->input->post('user_id'),
-        'regdate' => date("Y-m-d H:i:s")
-      ];
+      // $data = [
+      //   'boards_idx' => $this->input->post('board_id'),
+      //   // 'board_type' => $this->input->post('board_type'),
+      //   'content' => $this->input->post('contents'),
+      //   'user_id' => $this->input->post('user_id'),
+      //   'regdate' => date("Y-m-d H:i:s")
+      // ];
       
       // 'UPDATE posts SET ori_id = (select last_insert_id()) WHERE id = (select last_insert_id());'
       // $this->db->where('group_order', $idx)->update('boards_comment', $data2);
@@ -54,7 +54,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       // $qry = "SELECT SEQ, TITLE, CONTENTS, USER_ID, VIEW_CNT FROM BOARD_TB WHERE SEQ='".$h_seq."' AND USER_ID='".$h_user_id."'";
       // return $this->db->query($qry)->result();
 
-///
+      ///
       // $qry = "'UPDATE boards_comment SET group_idx = (select last_insert_idx()) WHERE group_idx = (select last_insert_idx());";
       // $this->db->query($qry)->result();
       
@@ -65,18 +65,48 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       
       // return $qry;
 
-      $sql1 = "insert into boards_comment( boards_idx, content, group_idx, group_order, depth ) values(".$this->input->post('board_id').", ".$this->input->post('contents').", (select last_insert_id()+1), 1, 0)";
-      $this->db->query($sql1);
+      // $sql1 = "
+      // insert into boards_comment( boards_idx, content, group_idx, group_order, depth ) 
+      // values
+      // (".$this->input->post('board_id').", ".$this->input->post('contents').", 
+      // (select last_insert_id()+1), 1, 0)
+      // ";
+      // $this->db->query($sql1);
+
+      
+      $data = [
+        'boards_idx' => $this->input->post('board_id'),
+        'content' => $this->input->post('contents'),
+        'group_idx' => $this->input->post('comment_id'),
+        'group_order' => 1,
+        'depth' => 0,
+        'user_id' => $this->input->post('user_id'),
+        'regdate' => date("Y-m-d H:i:s")
+      ];
+
+      $this->db->insert('boards_comment', $data);
+      
+      $this->db->query(
+        "UPDATE boards_comment SET group_order = ".$this->input->post('group_order')." +1,
+        depth = ".$this->input->post('depth')." +1, 
+        group_idx = ".$this->input->post('group_idx')." 
+        WHERE group_idx = ".$this->input->post('group_idx').";");
+      // $this->db->query("UPDATE boards_comment SET group_order = ".$this->input->post('group_order')." +1, depth = ".$this->input->post('depth')." +1, group_idx = ".$this->input->post('group_idx')." WHERE group_idx = ".$this->input->post('group_idx'));
+      // $this->db->query("UPDATE boards_comment SET group_order = group_order +1 WHERE group_idx = ".$this->input->post('comment_id')." AND group_order  > 0");
+      redirect("/freeboard//".$this->input->post('board_id'));
+      
+      // $result = $this->db->insert('boards_comment', $data);
+      // return $result;
       
 
-///
+      ///
 
-// 코드이그나이터 update 쿼리문
-//   $data = array('pdt_tot' => $pdt_tot);
-//   $this->db->where('planid', $planid);
-//   $this->db->where('pdt_seq', $pdt_seq);
-//   $this->db->update('tb_inferior_log', $data);
-// update tb_inferior_log set pd_tot=$pdt_tot where planid=$planid and pdt_seq=$pdt_seq
+      // 코드이그나이터 update 쿼리문
+      //   $data = array('pdt_tot' => $pdt_tot);
+      //   $this->db->where('planid', $planid);
+      //   $this->db->where('pdt_seq', $pdt_seq);
+      //   $this->db->update('tb_inferior_log', $data);
+      // update tb_inferior_log set pd_tot=$pdt_tot where planid=$planid and pdt_seq=$pdt_seq
 
       // $result = $this->db->insert('boards_comment', $data);
       // return $result;

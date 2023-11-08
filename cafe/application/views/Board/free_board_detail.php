@@ -76,7 +76,7 @@
         <div class="flex flex-col gap-5">
 
             <!-- 작성자 -->
-            <div class="flex justify-between place-items-center opacity-80">
+            <div class="flex justify-between place-items-center">
               <div class="w-full flex gap-3 place-content-start">
                 <div class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border border-gray-500 h-14 w-14 bg-[#3f3f3f]">
                   <img 
@@ -87,7 +87,8 @@
                 </div>
                 <div>
                   <a href="#" class="font-bold hover:underline hover:opacity-80 duration-200">
-                    <?=$post->user_id;?>(등급)
+                    <!-- <?=$post->user_id;?>(등급) -->
+                    Duckey (등급)
                   </a>
                   <div>
                     hi
@@ -182,7 +183,7 @@
                         <a href="#" class="font-bold hover:underline hover:opacity-80 duration-200">
                           <?= empty($com->user_id) ? null : $com->user_id; ?>
                         </a>
-                        <p>hi</p>
+                        <p>No: <?=$com->idx?></p>
                       </div>
                   </div>
 
@@ -229,6 +230,11 @@
 
                     <!-- 내용 -->
                     <div>
+                      <input name="comment_id" type="number" hidden value="<?=$com->idx?>"></input>
+                      <input name="group_idx" type="number" hidden value="<?=$com->group_idx?>"></input>
+                      <input name="group_order" type="number" hidden value="<?=$com->group_order?>"></input>
+                      <input name="depth" type="number" hidden value="<?=$com->depth?>"></input>
+
                       <input name="board_id" type="number" hidden value="<?=$post->idx?>"></input>
                       <input name="board_type" type="text" hidden value="<?=$post->board_type?>"></input>
                       <input name="user_id" type="text" hidden value="Duckey"></input>

@@ -37,8 +37,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         // board 라는 별칭 안에 store를 실행
         $this->FBM->comments_create();
         // 정상적이면 리다이렉트 실행
-        redirect('/freeboard');
-        
+        redirect("/freeboard//".$this->input->post('board_id'));
       } else {
         echo "Board Create Error..";
         // $this->db->_error_message();
