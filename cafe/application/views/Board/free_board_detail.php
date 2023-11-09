@@ -171,7 +171,7 @@
                 <div class="flex gap-3 text-sm whitespace-nowrap">
                 
                 <!-- 답글일 경우 -->
-                <div class="flex justify-center place-items-center <?=$com->group_idx !== '0' ? 'inline' : 'hidden'?>">
+                <div class="flex justify-center place-items-center <?=$com->group_order !== '0' ? 'inline' : 'hidden'?>">
                   <span class="material-symbols-outlined text-4xl rotate-180 mb-10 ml-5 text-[#4f4f4f]">
                     arrow_top_left
                   </span>
@@ -234,7 +234,7 @@
                   <div class="border-b border-gray-500"></div>
 
                   <!-- 댓글 메인 -->
-                  <form action="/free_board_detail/reply_comment_create" method="post" class="flex flex-col gap-3">
+                  <form action="/free_board_detail/comment_create" method="post" class="flex flex-col gap-3">
 
                     <!-- 내용 -->
                     <div>

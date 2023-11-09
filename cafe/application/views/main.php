@@ -1,7 +1,3 @@
-<? 
-  // 글로벌 공유
-  $this->load->view('../common');
-?>
 
 <!-- 메인 틀 -->
 <div id="base" class="duration-200 bg-[#3f3f3f] text-gray-50 pl-[300px] relative">
@@ -269,11 +265,6 @@
       </div>
 
     </div>
-
-    <!-- 푸터 -->
-    <!-- <div class="">
-      <?$this->load->view('footer');?>
-    </div> -->
 
     <!-- 최상단 최하단 버튼 -->
     <div class="fixed right-5 bottom-5 mb-[1%]">

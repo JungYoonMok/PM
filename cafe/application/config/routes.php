@@ -6,6 +6,8 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 // 라우터 커스텀
-$route['freeboard']= 'free_board_view';
-$route['freeboard/(:num)']= 'free_board_detail/show/$1';
+$route['freeboard'] = 'free_board_view';
+$route['freeboard/(:num)'] = 'free_board_detail/show/$1';
+
+$route['register'] = '/register_C';
 ?>
