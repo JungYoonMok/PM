@@ -30,7 +30,8 @@
   </style>
 
   <!-- jquery -->
-  <script src="https://code.jquery.com/jquery.min.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery.min.js"></script> -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
   <!-- font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">

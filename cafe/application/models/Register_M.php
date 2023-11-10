@@ -22,7 +22,7 @@ include('./password.php');
       $Password_1 = $this->input->post('user_password_1');
       $Password_2 = $this->input->post('user_password_2');
 
-      $Phone_1 = $this->input->post('user_phone_1');
+      $Phone_1 = "010";
       $Phone_2 = $this->input->post('user_phone_2');
       $Phone_3 = $this->input->post('user_phone_3');
 
@@ -44,15 +44,15 @@ include('./password.php');
       $this->db->insert('members', $data);
     }
 
-    public function username_check($id)
+    // 유저 아이디 중복 체크
+    public function userid_check($ID)
     {
-      if ($id) {
-        $result = array();
-        $sql = "SELECT * FROM members WHERE user_id = '".$id."';";
-        $query = $this->db->query($sql);
-        $result = @$query->row();
+      if ($ID) {
+        // $result = array();
+        $sql = "SELECT user_id FROM members WHERE user_id = '".$ID."';";
+        $result = $this->db->query($sql)->row();
         if ($result) {
-          $this->form_validation->set_message('userid_check',  $id.'은(는) 중복된 아이디 입니다.');
+          $this->form_validation->set_message('userid_check',  $ID.'은(는) 중복된 아이디 입니다.');
           return FALSE;
         } else  {
           return TRUE;
