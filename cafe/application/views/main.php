@@ -1,30 +1,9 @@
 
 <!-- 메인 틀 -->
-<div id="base" class="duration-200 bg-[#3f3f3f] text-gray-50 pl-[300px] relative">
-
-  <!-- 사이드 -->
-  <div id="menu" class="fixed h-full left-0 w-[301px] duration-200">
-    <!-- 사이드 여닫기 -->
-    <div class="text-right bg-[#2f2f2f] pr-5 pt-5 text-center">
-      <button id="munu_name" onclick=SideBarTab() 
-      class="material-symbols-outlined hover:scale-[98%] duration-200 hover:opacity-80">
-        menu
-      </button>
-    </div>
-    <div class="h-full bg-[#2f2f2f]">
-      <div id="main" class="">
-        <?$this->load->view('sidebar');?>
-      </div>
-    </div>
-  </div>
+<div id="base" class="duration-200 h-full bg-[#3f3f3f] text-gray-50">
 
   <!-- 메인 베이스 -->
   <div class="flex flex-col justify-between w-full h-full">
-
-    <!-- 헤더 -->
-    <div class="">
-      <?$this->load->view('header');?>
-    </div>
 
     <!-- 이미지 배너 및 스와이프 -->
     <div class="border border-[#5f5f5f] bg-[#2f2f2f] drop-shadow-xl p-10 mx-5 mt-5 rounded-md ">
@@ -265,43 +244,8 @@
       </div>
 
     </div>
-
-    <!-- 최상단 최하단 버튼 -->
-    <div class="fixed right-5 bottom-5 mb-[1%]">
-      <?$this->load->view('tb_btn');?>
-    </div>
     
   </div>
 
 </div>
 
-<script>
-
-function SideBarTab() {
-  let elm = document.getElementById('main'); 
-  if(elm.getElementById === 'open'){
-    elm.getElementById = 'close';
-    document.getElementById('main').className += ' duration-200 delay-100';
-
-    document.getElementById('menu').classList.remove('w-[65px]');
-    document.getElementById('menu').className += ' w-[301px]';
-    
-    document.getElementById('main').classList.remove('hidden');
-    document.getElementById('main').className += ' inline';
-    
-    document.getElementById('base').classList.remove('pl-[65px]');
-    document.getElementById('base').className += ' pl-[300px]';
-  } else {
-    elm.getElementById = 'open';
-    document.getElementById('menu').classList.remove('w-[301px]');
-    document.getElementById('menu').className += ' w-[65px]';
-    
-    document.getElementById('main').className += ' hidden';
-    document.getElementById('main').classList.remove('inline');
-    
-    document.getElementById('base').classList.remove('pl-[300px]');
-    document.getElementById('base').className += ' pl-[65px]';
-  }
-}
-
-</script>

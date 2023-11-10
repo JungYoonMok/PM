@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>레이아웃</title>
+  <title>카페 | 메인</title>
 
   <style>
     body {
@@ -46,19 +46,20 @@
 </head>
   <body>
 
-    <div class="flex">
+    <!-- 베이스 -->
+    <div id="base" class="w-full h-full flex relative duration-200 pl-[300px]">
 
       <!-- 사이드 -->
-      <div>
-        <div id="menu" class="fixed h-full left-0 w-[301px] duration-200">
+      <div id="menu" class="fixed left-0 w-[300px] h-full">
+        <div class="w-full duration-200 h-full">
           <!-- 사이드 여닫기 -->
           <div class="text-right bg-[#2f2f2f] pr-5 pt-5 text-center">
             <button id="munu_name" onclick=SideBarTab() 
-            class="material-symbols-outlined hover:scale-[98%] duration-200 hover:opacity-80">
+            class="material-symbols-outlined text-gray-300 hover:scale-[98%] duration-200 hover:opacity-80">
               menu
             </button>
           </div>
-          <div class="h-full bg-[#2f2f2f]">
+          <div class="bg-[#2f2f2f] h-full">
             <div id="main" class="">
               <?$this->load->view('sidebar');?>
             </div>
@@ -67,14 +68,16 @@
       </div>
       
       <!-- 메인 -->
-      <div class="flex flex-col justify-between w-full h-full">
+      <div class="flex flex-col w-full h-full">
 
-        <div class="">
+        <!-- 헤더 -->
+        <div class="w-full">
           <?$this->load->view('header');?>
         </div>
           
+        <!-- 컨텐츠 -->
         <div>
-          <?= $contente ?>
+          <?= $contents ?>
         </div>
 
         <!-- 최상단 최하단 버튼 -->
@@ -88,3 +91,34 @@
 
   </body>
 </html>
+
+<script>
+
+function SideBarTab() {
+  let elm = document.getElementById('main'); 
+  if(elm.getElementById === 'open'){
+    elm.getElementById = 'close';
+    document.getElementById('main').className += ' duration-200 delay-100';
+
+    document.getElementById('menu').classList.remove('w-[65px]');
+    document.getElementById('menu').className += ' w-[300px]';
+    
+    document.getElementById('main').classList.remove('hidden');
+    document.getElementById('main').className += ' inline';
+    
+    document.getElementById('base').classList.remove('pl-[65px]');
+    document.getElementById('base').className += ' pl-[300px]';
+  } else {
+    elm.getElementById = 'open';
+    document.getElementById('menu').classList.remove('w-[300px]');
+    document.getElementById('menu').className += ' w-[65px]';
+    
+    document.getElementById('main').className += ' hidden';
+    document.getElementById('main').classList.remove('inline');
+    
+    document.getElementById('base').classList.remove('pl-[300px]');
+    document.getElementById('base').className += ' pl-[65px]';
+  }
+}
+
+</script>

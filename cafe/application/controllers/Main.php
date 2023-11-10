@@ -17,6 +17,6 @@ class Main extends CI_Controller {
 		$data['list'] = $this->main_model->GetBoardList();
 		$data['total'] = $this->main_model->GetBoardTotal();
 
-		$this->layout->test_view('main', $data, false);
+		$this->layout->test_view('main', $data);
 	}
 }
