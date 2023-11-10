@@ -1,39 +1,13 @@
-<? 
-  // 글로벌 공유
-  $this->load->view('../common');
-?>
-
 <title>카페 | <?=$post->title?></title>
 
 <!-- 메인 틀 -->
-<div id="base" class="flex duration-200 bg-[#3f3f3f] text-gray-50 pl-[300px] w-full relative">
-
-  <!-- 사이드 -->
-  <div id="menu" class="fixed h-full left-0 w-[301px] duration-200">
-    <!-- 사이드 여닫기 -->
-    <div class="text-right bg-[#2f2f2f] pr-5 pt-5 text-center">
-      <button id="munu_name" onclick=SideBarTab() 
-      class="material-symbols-outlined hover:scale-[98%] duration-200 hover:opacity-80">
-        menu
-      </button>
-    </div>
-    <div class="h-full bg-[#2f2f2f]">
-      <div id="main" class="">
-        <?$this->load->view('sidebar');?>
-      </div>
-    </div>
-  </div>
+<div class="flex duration-200 bg-[#3f3f3f] text-gray-50 w-full relative">
 
   <!-- 메인 베이스 -->
   <div class="flex flex-col justify-between w-full h-full">
 
-    <!-- 헤더 -->
-    <div class="">
-      <?$this->load->view('header');?>
-    </div>
-
     <!-- 메인 -->
-    <div class="md:mb-20 w-full p-10 flex flex-col gap-5 drop-shadow-2xl">
+    <div class="md:mb-20 w-full p-5 flex flex-col gap-5 drop-shadow-2xl">
 
       <!-- 수정하기, 이전, 다음, 목록 -->
       <div class="flex justify-between gap-3 opacity-90">
@@ -332,13 +306,23 @@
       <!-- 글쓰기, 답글, 이전, 다음, 목록 -->
       <div class="flex justify-between gap-3 opacity-90">
         <div>
-          <a href="#" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">글쓰기</a>
-          <a href="#" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">답글</a>
+          <a href="#" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">
+            글쓰기
+          </a>
+          <a href="#" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">
+            답글
+          </a>
         </div>
         <div>
-          <a href="#" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">이전글</a>
-          <a href="#" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">다음글</a>
-          <a href="/freeboard" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">목록</a>
+          <a href="#" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">
+            이전글
+          </a>
+          <a href="#" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">
+            다음글
+          </a>
+          <a href="/freeboard" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">
+            목록
+          </a>
         </div>
       </div>
 
@@ -374,69 +358,6 @@
     </div>
     <!-- 메인끝 -->
 
-    <!-- 최상단 최하단 버튼 -->
-    <div class="fixed right-4 bottom-5 mb-[1%]">
-      <?$this->load->view('tb_btn');?>
-    </div>
-    
   </div>
 
 </div>
-
-<script>
-
-  function reply_btn(num)
-  {
-    let reply = document.getElementById('reply_onoff' + num); 
-    document.getElementById('reply_onoff' + num).classList.remove('hidden');
-    if(reply.getElementById === 'open'){
-      reply.getElementById = 'close';
-      
-      document.getElementById('reply_onoff' + num).classList.remove('inline');
-      document.getElementById('reply_onoff' + num).className += ' hidden';
-      
-    } else {
-      reply.getElementById = 'open';
-      
-      document.getElementById('reply_onoff' + num).className += ' inline';
-    }
-  }
-
-  function urlCopy()
-  {
-    var url = document.getElementById('link');
-    url.style.display='block';    // 숨겨둔 input 태그 block처리
-    url.select();    // 복사할 text 블럭
-    document.execCommand('copy');    // 드레그된 text 클립보드에 복사
-    url.style.display='none';    // 다시 숨기기
-    alert('URL이 복사 되었습니다 : )');
-  }
-
-  function SideBarTab() {
-    let elm = document.getElementById('main'); 
-    if(elm.getElementById === 'open'){
-      elm.getElementById = 'close';
-      document.getElementById('main').className += ' duration-200 delay-100';
-
-      document.getElementById('menu').classList.remove('w-[65px]');
-      document.getElementById('menu').className += ' w-[301px]';
-      
-      document.getElementById('main').classList.remove('hidden');
-      document.getElementById('main').className += ' inline';
-      
-      document.getElementById('base').classList.remove('pl-[65px]');
-      document.getElementById('base').className += ' pl-[300px]';
-    } else {
-      elm.getElementById = 'open';
-      document.getElementById('menu').classList.remove('w-[301px]');
-      document.getElementById('menu').className += ' w-[65px]';
-      
-      document.getElementById('main').className += ' hidden';
-      document.getElementById('main').classList.remove('inline');
-      
-      document.getElementById('base').classList.remove('pl-[300px]');
-      document.getElementById('base').className += ' pl-[65px]';
-    }
-  }
-
-</script>

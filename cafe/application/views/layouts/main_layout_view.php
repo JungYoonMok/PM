@@ -51,18 +51,17 @@
 
       <!-- 사이드 -->
       <div id="menu" class="fixed left-0 w-[300px] h-full">
-        <div class="w-full duration-200 h-full">
-          <!-- 사이드 여닫기 -->
-          <div class="text-right bg-[#2f2f2f] pr-5 pt-5 text-center">
-            <button id="munu_name" onclick=SideBarTab() 
-            class="material-symbols-outlined text-gray-300 hover:scale-[98%] duration-200 hover:opacity-80">
-              menu
-            </button>
-          </div>
-          <div class="bg-[#2f2f2f] h-full">
-            <div id="main" class="">
-              <?$this->load->view('sidebar');?>
-            </div>
+        <!-- 여닫기 -->
+        <div class="text-right bg-[#2f2f2f] pr-5 pt-5 text-center">
+          <button id="munu_name" onclick=SideBarTab() 
+          class="material-symbols-outlined text-gray-200 hover:scale-[98%] duration-200 hover:opacity-80">
+            menu
+          </button>
+        </div>
+        <!-- 메뉴 -->
+        <div class="bg-[#2f2f2f] h-full">
+          <div id="main" class="">
+            <?$this->load->view('sidebar');?>
           </div>
         </div>
       </div>
@@ -82,7 +81,7 @@
 
         <!-- 최상단 최하단 버튼 -->
         <div class="fixed right-5 bottom-5 mb-[1%]">
-          <?$this->load->view('tb_btn');?>
+          <?$this->load->view('side_btn');?>
         </div>
         
       </div>

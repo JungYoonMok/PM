@@ -1,5 +1,6 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+	date_default_timezone_set('Asia/Seoul');
+	defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Main extends CI_Controller {
 
@@ -17,6 +18,6 @@ class Main extends CI_Controller {
 		$data['list'] = $this->main_model->GetBoardList();
 		$data['total'] = $this->main_model->GetBoardTotal();
 
-		$this->layout->test_view('main', $data);
+		$this->layout->custom_view('main', $data);
 	}
 }

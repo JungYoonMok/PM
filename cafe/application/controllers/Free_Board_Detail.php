@@ -10,6 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
       $this->load->model('Free_Board_M', 'FBM');
       $this->load->library('form_validation');
+      $this->load->library('layout');
     }
     
     public function show($idx)
@@ -21,7 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       $data['list'] = $this->db->get_where('boards', [ 'board_type' => '자유게시판' ] )->result();
       // $data['list'] = $this->db->get_where('freeboard', [ 'board_type' => $this->FBM->comment_board_type() ] )->result();
 
-      $this->load->view('board/free_board_detail', $data);
+      $this->layout->custom_view('board/free_board_detail', $data);
     }
 
     public function comment_create()

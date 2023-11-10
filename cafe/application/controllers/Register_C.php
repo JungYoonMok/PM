@@ -3,15 +3,17 @@
   class Register_C extends CI_Controller
   {
 
-    public function index()
+    public function __construct()
     {
-
-      $this->load->view('header');
-      $this->load->view('register_V');
-
+      parent::__construct();
+      $this->load->library('layout');
       $this->load->library('form_validation');
       $this->load->model('register_M', 'r_m');
-      
+    }
+
+    public function index()
+    {
+      $this->layout->custom_view('register_V');
     }
 
     public function register()

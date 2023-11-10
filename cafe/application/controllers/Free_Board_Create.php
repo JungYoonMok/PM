@@ -8,6 +8,7 @@
     {
       parent::__construct();
       $this->load->library('form_validation');
+      $this->load->library('layout');
 
       // 불러옴과 동시에 별칭 지정 Board_create_model -> board
       $this->load->model('Free_Board_M', 'FBM');
@@ -15,7 +16,7 @@
     
     public function index()
     {
-      $this->load->view('board/free_board_create');
+      $this->layout->custom_view('board/free_board_create');
     }
 
     public function create()

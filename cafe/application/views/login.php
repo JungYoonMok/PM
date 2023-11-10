@@ -1,19 +1,8 @@
-<? 
-  // 글로벌 공유
-  $this->load->view('../common');
-?>
-
-<div class="bg-[#3f3f3f] text-gray-50 w-full h-full pt-[140px] mt-[-140px]">
+<div class="bg-[#3f3f3f] text-gray-50 w-full h-full my-5">
   
   <div class="py-10 grid place-items-center">
 
     <div class="bg-[#2f2f2f] border border-gray-500 w-[500px] p-10 rounded flex flex-col gap-5 relative drop-shadow-2xl">
-
-      <!-- 바 -->
-      <!-- <div class="absolute top-[0px] left-0 text-left w-full">
-        <p class="bg-blue-500 rounded-t font-bold text-sm text-gray-50 w-full pl-10 h-[5px]">
-        </p>
-      </div> -->
 
       <!-- 계정 정보가 일치하지 않을시 -->
       <div class="p-5 animate-pulse flex gap-3 border bg-red-500 w-full opacity-80 rounded -mt-2 mb-5">
