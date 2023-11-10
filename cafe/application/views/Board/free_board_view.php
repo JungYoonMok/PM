@@ -14,31 +14,29 @@
       </div>
 
       <div class="bg-[#2f2f2f] border border-gray-500 w-full p-5 rounded flex flex-col gap-5 relative drop-shadow-2xl">
-
-      <div>
-        <table class="text-gray-50 w-full text-center">
-          <th>번호</th>
-          <th>ID</th>
-          <th>제목</th>
-          <th>작성자</th>
-          <th>작성날짜</th>
-          <? $board_count = 0; ?>
-          <?foreach($list as $li):?>
-            <tr class="border-b border-gray-500">
-              <td class="p-2"><?=$board_count += 1;?></td>
-              <td class="p-2"><?=$li->idx?></td>
-              <td class="">
-                <a href="/freeboard/<?=$li->idx?>">
-                  <?=$li->title?>
-                </a>
-              </td>
-              <td class=""><?=$li->user_id?></td>
-              <td class=""><?=$li->regdate?></td>
-            </tr>
-          <?endforeach?>
-        </table>
-      </div>
-
+        <div>
+          <table class="text-gray-50 w-full text-center">
+            <th>번호</th>
+            <th>ID</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성날짜</th>
+            <? $board_count = 0; ?>
+            <?foreach($list as $li):?>
+              <tr class="border-b border-gray-500">
+                <td class="p-2"><?=$board_count += 1;?></td>
+                <td class="p-2"><?=$li->idx?></td>
+                <td class="">
+                  <a href="/freeboard/<?=$li->idx?>">
+                    <?=$li->title?>
+                  </a>
+                </td>
+                <td class=""><?=$li->user_id?></td>
+                <td class=""><?=$li->regdate?></td>
+              </tr>
+            <?endforeach?>
+          </table>
+        </div>
       </div>
       
     </div>

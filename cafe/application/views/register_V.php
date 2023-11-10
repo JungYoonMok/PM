@@ -2,7 +2,7 @@
   
   <div class="py-10 grid place-items-center">
     
-    <form action="/register_C/register" method="post" class="bg-[#2f2f2f] border border-gray-500 w-[600px] p-5 rounded flex flex-col gap-5 relative drop-shadow-2xl">
+    <form action="/register_C/register" method="post" class="bg-[#2f2f2f] border border-[#4f4f4f] w-[600px] p-5 rounded flex flex-col gap-5 relative drop-shadow-2xl">
 
       <!-- 프로필사진 -->
       <div class="flex gap-5 place-items-center justify-center p-3 bg-[#4f4f4f] rounded">
@@ -20,7 +20,10 @@
         </div>
         <div class="flex flex-col gap-2">
           <h2>별명(닉네임)</h2>
-          <input name='nickname' class="duration-200 border border-gray-500 bg-[#3f3f3f] hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none" type="password" />
+          <div>
+            <input name='nickname' value="<?= set_value('nickname'); ?>" class="duration-200 border border-gray-500 bg-[#3f3f3f] hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none" type="text" />
+            <button class="p-3 rounded bg-blue-500">사용</button>
+          </div>
         </div>
       </div>
 
@@ -31,7 +34,11 @@
       <div class="flex gap-2 w-full">
         <div class="w-full flex flex-col gap-2">
           <h2>아이디</h2>
-          <input name='user_id' class="w-full font-black duration-200 border border-gray-500 bg-[#3f3f3f] hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none" type="text" />
+          <input name='user_id' value="<?= set_value('user_id'); ?>" class="w-full font-black duration-200 border border-gray-500 bg-[#3f3f3f] hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none" type="text" />
+        </div>
+        <div class="w-full flex flex-col gap-2">
+          <h2>성함</h2>
+          <input name='user_name' value="<?= set_value('user_name'); ?>" class="w-full font-black duration-200 border border-gray-500 bg-[#3f3f3f] hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none" type="text" />
         </div>
       </div>
       
@@ -39,33 +46,51 @@
       <div class="flex gap-2">
         <div class="w-full flex flex-col gap-2">
           <h2>비밀번호</h2>
-          <input name="user_password_1" class="w-full font-black duration-200 border border-gray-500 bg-[#3f3f3f] hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none" type="password" />
+          <input name="user_password_1" value="<?= set_value('user_password_1'); ?>" class="w-full font-black duration-200 border border-gray-500 bg-[#3f3f3f] hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none" type="password" />
         </div>
         <div class="w-full flex flex-col gap-2">
           <h2>비밀번호 확인</h2>
-          <input name="user_password_2" class="w-full font-black duration-200 border border-gray-500 bg-[#3f3f3f] hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none" type="password" />
+          <input name="user_password_2" value="<?= set_value('user_password_2'); ?>" class="w-full font-black duration-200 border border-gray-500 bg-[#3f3f3f] hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none" type="password" />
         </div>
       </div>
 
-      <div class="flex w-full flex-col gap-2">
+      <div class="flex flex-col gap-2">
         <h2>연락처</h2>
-        <input name="user_phone" class="w-full font-black duration-100 border border-gray-500 bg-[#3f3f3f] hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none" type="password" />
+        <div class="flex gap-3">
+          <div class="flex w-full flex-col gap-2">
+            <input name="user_phone_1" value="<?= set_value('user_phone_1'); ?>" class="w-full font-black duration-100 border border-gray-500 bg-[#3f3f3f] hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none" type="number" />
+          </div>
+          <div class="flex w-full flex-col gap-2">
+            <input name="user_phone_2" value="<?= set_value('user_phone_2'); ?>" class="w-full font-black duration-100 border border-gray-500 bg-[#3f3f3f] hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none" type="number" />
+          </div>
+          <div class="flex w-full flex-col gap-2">
+            <input name="user_phone_3" value="<?= set_value('user_phone_3'); ?>" class="w-full font-black duration-100 border border-gray-500 bg-[#3f3f3f] hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none" type="number" />
+          </div>
+        </div>
       </div>
 
       <div class="flex w-full flex-col gap-2">
         <h2>이메일</h2>
-        <input name="user_email" class="w-full font-black duration-100 border border-gray-500 bg-[#3f3f3f] hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none" type="password" />
+        <input name="user_email" value="<?= set_value('user_email'); ?>" class="w-full font-black duration-100 border border-gray-500 bg-[#3f3f3f] hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none" type="email" />
       </div>
       
       <div class="flex w-full flex-col gap-2">
-        <h2>소게(간단하게 자기를 소개해보세요)</h2>
-        <textarea name="user_memo" rows="3" class="w-full font-black duration-100 border border-gray-500 bg-[#3f3f3f] hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 rounded outline-none"></textarea>
+        <h2>소개 - 간단하게 자기를 소개해보세요 : )</h2>
+        <textarea name="user_memo" rows="3" 
+        class="w-full font-black duration-100 border border-gray-500 bg-[#3f3f3f] hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 rounded outline-none"><?= set_value('user_memo'); ?></textarea>
+      </div>
+
+      <!-- 에러 메시지 -->
+      <div>
+        <p>Error Message</p>
+        <p id="error_message">- <?= validation_errors(); ?></p>
+        <p id="userid_check"></p>
       </div>
 
       <!-- 회원가입 버튼 -->
       <div>
         <div class="text-center">
-          <button class="bg-blue-500 duration-200 hover:opacity-80 my-5 p-4 rounded w-full outline-none">
+          <button class="bg-[#1f1f1f] border border-gray-500 hover:border-[#1f1f1f] duration-200 hover:opacity-80 my-5 p-4 rounded w-full outline-none">
             회원가입
           </button>
         </div>
@@ -76,9 +101,3 @@
   </div>
 
 </div>
-
-<script>
-  function snsBtn() {
-    alert('SNS');
-  }
-</script>

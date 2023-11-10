@@ -12,7 +12,6 @@ class Main extends CI_Controller {
 		$this->load->library('layout');
 	}
 	
-
 	public function index()
 	{
 		$data['list'] = $this->main_model->GetBoardList();

@@ -9,6 +9,7 @@
       $this->load->library('layout');
       $this->load->library('form_validation');
       $this->load->model('register_M', 'r_m');
+      $this->load->helper('url');
     }
 
     public function index()
@@ -19,20 +20,23 @@
     public function register()
     {
       // 폼 벨리데이션으로 폼의 필수값을 지정
-      $this->form_validation->set_rules('board_type', 'Board_type', 'required');
-      $this->form_validation->set_rules('title', 'Title', 'required');
-      $this->form_validation->set_rules('contents', 'Contents', 'required');
+      $this->form_validation->set_rules('nickname', 'NickName', 'required');
+      $this->form_validation->set_rules('user_id', 'ID', 'required');
+      $this->form_validation->set_rules('user_name', 'Name', 'required');
+      $this->form_validation->set_rules('user_password_1', 'Password', 'required|matches[user_password_2]');
+      $this->form_validation->set_rules('user_password_2', 'Password Check', 'required');
+      $this->form_validation->set_rules('user_phone_1', 'Phone_1', 'required');
+      $this->form_validation->set_rules('user_phone_2', 'Phone_2', 'required');
+      $this->form_validation->set_rules('user_phone_3', 'Phone_3', 'required');
+      $this->form_validation->set_rules('user_email', 'Email', 'required|valid_email');
 
       if($this->form_validation->run())
       {
-        // board 라는 별칭 안에 store를 실행
         $this->r_m->register();
-        // 정상적이면 리다이렉트 실행
         redirect('/login');
       } else {
-        echo "Board Create Error..";
-        // $this->db->_error_message();
-        // echo $this->db->_error_number(); 
+        // echo "정보 검증 실패.";
+        $this->form_validation->set_message('error_message',  '폼 검증 실패.');
       }
     }
 
