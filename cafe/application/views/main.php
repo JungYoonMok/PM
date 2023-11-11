@@ -1,4 +1,3 @@
-
 <!-- 메인 틀 -->
 <div id="base" class="duration-200 h-full bg-[#3f3f3f] text-gray-50">
 

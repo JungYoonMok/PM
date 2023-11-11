@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.5"
+  },
+  "name": "cafe",
+  "description": "What is CodeIgniter\r ###################",
+  "version": "1.0.0",
+  "main": "index.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-css": "npx tailwindcss -i input.css -o styles.css --watch"
+  },
+  "author": "",
+  "license": "ISC"
+}
