@@ -37,7 +37,8 @@ include('./password.php');
         'user_phone' => $Phone_1."-".$Phone_2."-".$Phone_3,
         'user_memo' => $Memo,
         'user_id' => $ID,
-        'user_password' => $Password_1 === $Password_2 ? password_hash($Password_1, PASSWORD_DEFAULT) : "Erorr: Pssword Fake",
+        // 'user_password' => $Password_1 === $Password_2 ? password_hash($Password_1, PASSWORD_DEFAULT) : "Erorr: Pssword Fake",
+        'user_password' => $Password_1 === $Password_2 ? $Password_1 : "Erorr: Pssword Fake",
         'regdate' => date("Y-m-d H:i:s")
       ];
       

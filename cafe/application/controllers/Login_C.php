@@ -5,7 +5,7 @@
     {
       parent::__construct();
       $this->load->library('layout');
-      $this->load->model('login_M');
+      $this->load->model('login_M', 'login_model');
     }
 
     public function index()
@@ -38,6 +38,14 @@
 
       // 로그인 결과를 클라이언트에게 전송
       $this->output->set_content_type('application/json')->set_output(json_encode($result));
+    }
+
+    public function ajax_login() {
+      $user_id = $this->input->post('user_id');
+      $user_password = $this->input->post('user_pw');
+
+      $result = $this->login_model->verify_member($user_id, $user_password);
+      echo json_encode(array('result' => $result));
     }
 
   }

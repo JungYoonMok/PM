@@ -12,8 +12,7 @@ include('./password.php');
       $this->load->database();
     }
 
-    public function get_data_fr
-    om_db() {
+    public function get_data_from_db() {
       $query = $this->db->get('members');
 
       // 결과를 배열로 반환
@@ -52,13 +51,23 @@ include('./password.php');
       // 사용자 인증 로직을 구현합니다.
       // 실제로는 비밀번호 해싱 및 데이터베이스에서의 확인이 필요합니다.
       // 여기서는 간단한 예시로 사용자가 존재하면 사용자 정보를 반환합니다.
-      $user = $this->db->where('user_id', $username)
-                      ->where('user_password', $password)
-                      ->get('members')
-                      ->row_array();
+      $user = $this->db->where('user_id', $username)->where('user_password', $password)->get('members')->row_array();
 
       return $user;
-  }
+    }
+
+    public function verify_member($user_id, $user_password) {
+      $this->db->where('user_id', $user_id);
+      $this->db->where('user_password', $user_password);
+      // $this->db->where('user_password', md5($user_pw)); // 비밀번호는 해시 처리
+      $query = $this->db->get('members');
+
+      if ($query->row() == 1) {
+          return true; // 사용자 찾음
+      } else {
+          return false; // 사용자 없음
+      }
+    }
 
   }
 

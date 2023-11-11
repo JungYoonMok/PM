@@ -136,20 +136,21 @@
             </div>
 
             <!-- 구분선 -->
-            <div class="border-b border-gray-500"></div>
+            <div id="comments" class="border-b border-gray-500"></div>
             
             <!-- 댓글 리스트 있을때 and 리플 -->
+            <!-- <div id="commentsContainer" class="flex flex-col gap-5 <?= empty($comment) ? 'hidden' : '' ?>"> -->
             <div class="flex flex-col gap-5 <?= empty($comment) ? 'hidden' : '' ?>">
               <? foreach($comment as $com): ?>
                 
                 <div class="flex gap-3 text-sm whitespace-nowrap">
                 
-                <!-- 답글일 경우 -->
-                <div class="flex justify-center place-items-center <?=$com->group_order !== '0' ? 'inline' : 'hidden'?>">
-                  <span class="material-symbols-outlined text-4xl rotate-180 mb-10 ml-5 text-[#4f4f4f]">
-                    arrow_top_left
-                  </span>
-                </div>
+                  <!-- 답글일 경우 -->
+                  <div style="margin-left: <?= (20 * ($com->depth - 1)) ?>px;" class="flex justify-center place-items-center <?=$com->group_order !== '0' ? 'inline' : 'hidden'?>">
+                    <span class="material-symbols-outlined text-4xl rotate-180 mb-10 ml-5 text-[#4f4f4f]">
+                      arrow_top_left
+                    </span>
+                  </div>
 
                   <!-- 작성자 -->
                   <div class="flex gap-3">
@@ -167,77 +168,77 @@
                         </a>
                         <p>No: <?=$com->idx?></p>
                       </div>
-                  </div>
-
-                  <!-- 작성된 댓글 -->
-                  <div class="flex flex-col shadow-xl py-3 px-5 rounded-tl-none rounded rounded-bl-xl <?= $com->user_id !== 'Duckey' ? 'border border-yellow-500' : 'bg-[#3f3f3f] border border-gray-500'; ?>">
-
-                    <!-- 내용 -->
-                    <div class="">
-                      <?= empty($com->content) ? null : $com->content; ?>
                     </div>
 
-                    <!-- 작성시간 및 답글쓰기 -->
-                    <div class="text-sm gap-9 flex mt-5 justify-between gap-3 opacity-80 text-gray-300 whitespace-nowrap">
-                      <p class="-mr-3">
-                        <?= empty($com->regdate) ? null : substr($com->regdate, 0, 16); ?>
-                      </p>
-                      <button class="hover:underline hover:opacity-80 duration-200" onclick='reply_btn(<?=$com->idx?>)'>
-                        리플 작성
-                      </button>
+                    <!-- 작성된 댓글 -->
+                    <div class="flex flex-col shadow-xl py-3 px-5 rounded-tl-none rounded rounded-bl-xl <?= $com->user_id !== 'Duckey' ? 'border border-yellow-500' : 'bg-[#3f3f3f] border border-gray-500'; ?>">
+
+                      <!-- 내용 -->
+                      <div class="">
+                        <?= empty($com->content) ? null : $com->content; ?>
+                      </div>
+
+                      <!-- 작성시간 및 답글쓰기 -->
+                      <div class="text-sm gap-9 flex mt-5 justify-between gap-3 opacity-80 text-gray-300 whitespace-nowrap">
+                        <p class="-mr-3">
+                          <?= empty($com->regdate) ? null : substr($com->regdate, 0, 16); ?>
+                        </p>
+                        <button class="hover:underline hover:opacity-80 duration-200" onclick='reply_btn(<?=$com->idx?>)'>
+                          리플 작성
+                        </button>
+                      </div>
+                      
                     </div>
                     
                   </div>
-                  
-                </div>
 
-                <!-- 리플 작성 -->
-                <div id="reply_onoff<?=$com->idx?>" class="w-full text-sm flex flex-col gap-5 bg-[#1f1f1f] p-5 border border-gray-500 hidden">
-                  <div class="flex justify-between">
-                    <div class="flex gap-5 flex">
-                      <p><?=$com->content?></p>
-                      <p> 〉</p>
-                      <p>리플 작성</p>
-                    </div>
-                    <div>
-                      <p class="text-gray-300">타인에게 상처주는 언행은 삼가해 주세요 : )</p>
-                    </div>
-                  </div>
-
-                  <!-- 구분선 -->
-                  <div class="border-b border-gray-500"></div>
-
-                  <!-- 댓글 메인 -->
-                  <form action="/free_board_detail/comment_create" method="post" class="flex flex-col gap-3">
-
-                    <!-- 내용 -->
-                    <div>
-                      <input name="comment_id" type="number" hidden value="<?=$com->idx?>"></input>
-                      <input name="group_idx" type="number" hidden value="<?=$com->group_idx?>"></input>
-                      <input name="group_order" type="number" hidden value="<?=$com->group_order?>"></input>
-                      <input name="depth" type="number" hidden value="<?=$com->depth?>"></input>
-
-                      <input name="board_id" type="number" hidden value="<?=$post->idx?>"></input>
-                      <input name="board_type" type="text" hidden value="<?=$post->board_type?>"></input>
-                      <input name="user_id" type="text" hidden value="Duckey"></input>
-                      <textarea name="contents" required cols="30" rows="5" class="w-full rounded bg-[#2f2f2f] p-3 outline-none"></textarea>
-                    </div>
-
-                    <!-- 기능 -->
-                    <div class="flex gap-3 justify-between place-items-center">
+                  <!-- 리플 작성 -->
+                  <div id="reply_onoff<?=$com->idx?>" class="w-full text-sm flex flex-col gap-5 bg-[#1f1f1f] p-5 border border-gray-500 hidden">
+                    <div class="flex justify-between">
+                      <div class="flex gap-5 flex">
+                        <p><?=$com->content?></p>
+                        <p> 〉</p>
+                        <p>리플 작성</p>
+                      </div>
                       <div>
-                        기능들
-                      </div>
-                      <div class="">
-                        <button type="submit" class="bg-[#3f3f3f] outline-none duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-5 py-3 rounded w-40">
-                          리플 등록
-                        </button>
+                        <p class="text-gray-300">타인에게 상처주는 언행은 삼가해 주세요 : )</p>
                       </div>
                     </div>
 
-                  </form>
+                    <!-- 구분선 -->
+                    <div class="border-b border-gray-500"></div>
 
-                </div>
+                    <!-- 댓글 메인 -->
+                    <form action="/free_board_detail/reply_comment_create" method="post" class="flex flex-col gap-3">
+
+                      <!-- 내용 -->
+                      <div>
+                        <input name="comment_id" type="number" hidden value="<?=$com->idx?>"></input>
+                        <input name="group_idx" type="number" hidden value="<?=$com->group_idx?>"></input>
+                        <input name="group_order" type="number" hidden value="<?=$com->group_order?>"></input>
+                        <input name="depth" type="number" hidden value="<?=$com->depth?>"></input>
+
+                        <input name="board_id" type="number" hidden value="<?=$post->idx?>"></input>
+                        <input name="board_type" type="text" hidden value="<?=$post->board_type?>"></input>
+                        <input name="user_id" type="text" hidden value="Duckey"></input>
+                        <textarea name="contents" required cols="30" rows="5" class="w-full rounded bg-[#2f2f2f] p-3 outline-none"></textarea>
+                      </div>
+
+                      <!-- 기능 -->
+                      <div class="flex gap-3 justify-between place-items-center">
+                        <div>
+                          기능들
+                        </div>
+                        <div class="">
+                          <button type="submit" class="bg-[#3f3f3f] outline-none duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-5 py-3 rounded w-40">
+                            리플 등록
+                          </button>
+                        </div>
+                      </div>
+
+                    </form>
+
+                  </div>
 
               <? endforeach ?>
             </div>
@@ -273,7 +274,7 @@
               <div class="border-b border-gray-500"></div>
 
               <!-- 댓글 메인 -->
-              <form action="/free_board_detail/comment_create" method="post" class="flex flex-col gap-3">
+              <form id="test" action="/free_board_detail/comment_create" method="post" class="flex flex-col gap-3">
 
                 <!-- 내용 -->
                 <div>
@@ -296,7 +297,7 @@
                 </div>
 
               </form>
-
+              
             </div>
 
         </div>
@@ -361,3 +362,50 @@
   </div>
 
 </div>
+
+<script>
+
+  // 댓글 등록시 댓글 화면으로 이동 (구분선쪽)
+  window.location = window.location.href.split('#')[0] + '#comments';
+
+  // 댓글등록 ajax
+  // 문서 준비가 끝나면 실행
+  // $(document).ready(function() {
+  //   // 댓글 폼 제출 이벤트 핸들러
+  //   $('#test').on('submit', function(e) {
+  //     e.preventDefault(); // 기본 제출 이벤트 방지
+
+  //     // AJAX 요청
+  //     $.ajax({
+  //       url: '/free_board_detail/comment_create', // 댓글 생성 URL
+  //       type: 'POST',
+  //       data: $(this).serialize(), // 폼 데이터 직렬화
+  //       success: function(response) {
+  //         // 성공 시 UI 업데이트
+  //         console.log('댓글이 추가되었습니다.');
+  //         location.reload();
+  //         // 댓글 리스트에 새 댓글을 추가하는 코드
+  //         },
+  //       error: function(xhr, status, error) {
+  //         // 에러 처리
+  //         console.error('댓글 추가에 실패했습니다.');
+  //       }
+  //       });
+  //     });
+  // });
+
+  function reply_btn(num)
+  {
+    let reply = document.getElementById('reply_onoff' + num); 
+    document.getElementById('reply_onoff' + num).classList.remove('hidden');
+    if(reply.getElementById === 'open'){
+      reply.getElementById = 'close';
+      document.getElementById('reply_onoff' + num).classList.remove('inline');
+      document.getElementById('reply_onoff' + num).className += ' hidden';
+    } else {
+      reply.getElementById = 'open';
+
+      document.getElementById('reply_onoff' + num).className += ' inline';
+    }
+  }
+</script>

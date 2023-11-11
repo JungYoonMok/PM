@@ -13,12 +13,12 @@
       <div class="flex flex-col gap-5">
         <div class="flex flex-col gap-2">
           <h2>아이디</h2>
-          <input id="user_id" class="w-full duration-100 bg-[#3f3f3f] focus:border border-blue-400 hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] p-3 h-[50px] rounded outline-none" type="text" />
+          <input name="user_id" id="user_id" class="w-full duration-100 bg-[#3f3f3f] focus:border border-blue-400 hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] p-3 h-[50px] rounded outline-none" type="text" />
         </div>
 
         <div class="flex flex-col gap-2">
           <h2>비밀번호</h2>
-          <input id="user_pw" class="w-full font-black duration-100 focus:border border-blue-400 bg-[#3f3f3f] hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none" type="password" />
+          <input name="user_pw" id="user_pw" class="w-full font-black duration-100 focus:border border-blue-400 bg-[#3f3f3f] hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none" type="password" />
           <div class="flex place-content-end gap-1">
             <input class="outline-none cursor-pointer hover:opacity-70" id="check1" type="checkbox" />
             <label class="text-md cursor-pointer hover:opacity-70" for="check1">아이디 기억하기</label>
@@ -27,7 +27,7 @@
       </div>
 
       <div class="text-center">
-        <button onclick=attemptLogin() id="login_btn" class="bg-blue-500 font-bold duration-200 my-5 hover:opacity-80 p-4 rounded w-full outline-none">
+        <button onclick=submitLogin() class="bg-blue-500 font-bold duration-200 my-5 hover:opacity-80 p-4 rounded w-full outline-none">
           로그인
         </button>
       </div>
@@ -94,4 +94,26 @@
       }
     });
   }
+
+  function submitLogin() {
+    console.log($('#user_id').val(), $('#user_pw').val());
+    
+    $.ajax({
+      url: '/login_C/ajax_login',
+      type: 'POST',
+      data: {
+        user_id: $('#user_id').val(),
+        user_password: $('#user_pw').val()
+      },
+      success: function(response) {
+        var result = JSON.parse(response);
+        if(result.result) {
+          console.log("로그인 성공!");
+        } else {
+          console.log("로그인 실패.");
+        }
+      }
+    });
+}
+
 </script>
