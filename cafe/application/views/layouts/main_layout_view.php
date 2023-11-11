@@ -27,16 +27,12 @@
       /* border-radius: 10px; */
       /* box-shadow: inset 0px 0px 5px gray; */
     }
-
-    
   </style>
 
   <!-- tailwind -->
-  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
   <link rel="stylesheet" href="/styles.css">
 
   <!-- jquery -->
-  <!-- <script src="https://code.jquery.com/jquery.min.js"></script> -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
   <!-- font -->
@@ -56,7 +52,7 @@
       <!-- 사이드 -->
       <div id="menu" class="fixed left-0 w-[300px] h-full">
         <!-- 여닫기 -->
-        <div class="text-right bg-[#2f2f2f] pr-5 pt-5 text-center">
+        <div class="bg-[#2f2f2f] pr-5 pt-5 text-center">
           <button id="munu_name" onclick=SideBarTab() 
           class="material-symbols-outlined text-gray-200 hover:scale-[98%] duration-200 hover:opacity-80">
             menu

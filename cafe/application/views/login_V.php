@@ -18,7 +18,7 @@
 
         <div class="flex flex-col gap-2">
           <h2>비밀번호</h2>
-          <input name="user_pw" id="user_pw" class="w-full font-black duration-100 focus:border border-blue-400 bg-[#3f3f3f] hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none" type="password" />
+          <input name="user_pw" id="user_pw" class="w-full font-black duration-100 focus:border border-blue-400 hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none" type="password" />
           <div class="flex place-content-end gap-1">
             <input class="outline-none cursor-pointer hover:opacity-70" id="check1" type="checkbox" />
             <label class="text-md cursor-pointer hover:opacity-70" for="check1">아이디 기억하기</label>
