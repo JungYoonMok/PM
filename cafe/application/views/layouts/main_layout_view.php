@@ -52,7 +52,7 @@
       <!-- 사이드 -->
       <div id="menu" class="fixed left-0 w-[300px] h-full">
         <!-- 여닫기 -->
-        <div class="bg-[#2f2f2f] pr-5 pt-5 text-center">
+        <div class="bg-[#2f2f2f] pr-5 pt-5 text-right">
           <button id="munu_name" onclick=SideBarTab() 
           class="material-symbols-outlined text-gray-200 hover:scale-[98%] duration-200 hover:opacity-80">
             menu

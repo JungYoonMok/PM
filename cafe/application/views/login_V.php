@@ -10,7 +10,8 @@
         <p class="">계정 정보를 다시 확인해 주세요</p>
       </div> -->
 
-      <div class="flex flex-col gap-5">
+      <form id="loginForm" class="flex flex-col gap-5">
+
         <div class="flex flex-col gap-2">
           <h2>아이디</h2>
           <input name="user_id" id="user_id" class="w-full duration-100 bg-[#3f3f3f] focus:border border-blue-400 hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] p-3 h-[50px] rounded outline-none" type="text" />
@@ -24,13 +25,14 @@
             <label class="text-md cursor-pointer hover:opacity-70" for="check1">아이디 기억하기</label>
           </div>
         </div>
-      </div>
 
-      <div class="text-center">
-        <button onclick=submitLogin() class="bg-blue-500 font-bold duration-200 my-5 hover:opacity-80 p-4 rounded w-full outline-none">
-          로그인
-        </button>
-      </div>
+        <div class="text-center">
+          <button type="submit" class="bg-blue-500 font-bold duration-200 my-5 hover:opacity-80 p-4 rounded w-full outline-none">
+            로그인
+          </button>
+        </div>
+
+      </form>
 
       <div class="flex w-full my-8 gap-3 px-20 text-gray-300">
         <div class="border-t border-dashed border-slate-300 w-full"></div>
@@ -70,50 +72,26 @@
 </div>
 
 <script>
-  function attemptLogin() {
-    var username = $('#user_id').val();
-    var password = $('#user_pw').val();
-
-    $.ajax({
-      url: "/login_C/login",
-      type: "POST",
-      data: {username: username, password: password},
-      dataType: "json",
-      success: function (data) {
-        if (data.status === 'success') {
-          console.log(data.message);
-          // alert(data.message);
-          // 로그인이 성공하면 리다이렉션 또는 다른 작업 수행
-        } else {
-          console.log(data.message);
-          // alert(data.message);
+  
+  // 로그인
+  $(document).ready(function() {
+    $('#loginForm').on('submit', function(e) {
+      var username = $('#user_id').val();
+      var password = $('#user_pw').val();
+      e.preventDefault();
+      $.ajax({
+        url: '/Login_C/login',
+        type: 'post',
+        dataType: 'json',
+        // data: $(this).serialize(),
+        data: { username, password },
+        success: function(response) {
+          if(response) {
+            console.log(response);
+          } 
         }
-      },
-      error: function () {
-        console.error("AJAX 요청 실패");
-      }
+      });
     });
-  }
-
-  function submitLogin() {
-    console.log($('#user_id').val(), $('#user_pw').val());
-    
-    $.ajax({
-      url: '/login_C/ajax_login',
-      type: 'POST',
-      data: {
-        user_id: $('#user_id').val(),
-        user_password: $('#user_pw').val()
-      },
-      success: function(response) {
-        var result = JSON.parse(response);
-        if(result.result) {
-          console.log("로그인 성공!");
-        } else {
-          console.log("로그인 실패.");
-        }
-      }
-    });
-}
+  });
 
 </script>

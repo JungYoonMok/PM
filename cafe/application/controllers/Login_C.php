@@ -1,52 +1,50 @@
 <?
-  class Login_C extends CI_Controller
+defined('BASEPATH') or exit('No direct script access allowed');
+
+class Login_C extends CI_Controller
+{
+  public function __construct()
   {
-    public function __construct()
-    {
-      parent::__construct();
-      $this->load->library('layout');
-      $this->load->model('login_M', 'login_model');
-    }
-
-    public function index()
-    {
-      $this->layout->custom_view('login_V');
-    }
-
-    public function get_data() {
-      $data = $this->login_M->get_data_from_db();
-
-      // JSON 형식으로 데이터를 반환합니다.
-      $this->output->set_content_type('application/json')->set_output(json_encode($data));
-    }
-    
-    public function user_data() {
-      $user_id = $this->input->post('user_id');
-      $data = $this->login_M->user($user_id);
-      $this->login_M->user();
-
-      // JSON 형식으로 데이터를 반환합니다.
-      $this->output->set_content_type('application/json')->set_output(json_encode($data));
-    }
-
-    public function login() {
-      $username = $this->input->post('user_id');
-      $password = $this->input->post('user_pw');
-
-      // 모델을 통해 로그인 검증
-      $result = $this->login_M->verify_login($username, $password);
-
-      // 로그인 결과를 클라이언트에게 전송
-      $this->output->set_content_type('application/json')->set_output(json_encode($result));
-    }
-
-    public function ajax_login() {
-      $user_id = $this->input->post('user_id');
-      $user_password = $this->input->post('user_pw');
-
-      $result = $this->login_model->verify_member($user_id, $user_password);
-      echo json_encode(array('result' => $result));
-    }
-
+    parent::__construct();
+    $this->load->library('layout');
+    $this->load->model('login_M', 'login_model');
   }
+
+  public function index()
+  {
+    $this->layout->custom_view('login_V');
+  }
+
+  public function login()
+  {
+    // $hashed_password = password_hash($Password_1, PASSWORD_DEFAULT);
+
+    $username = $this->input->post('username');
+    $password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
+
+    // $password = $this->input->post('password'); // 실제로는 해시 처리 필요
+
+    $user = $this->login_model->check_login($username, $password);
+    if ($user) {
+      echo json_encode(['status' => true, 'message' => '로그인 성공']);
+    } else {
+      echo json_encode(['status' => false, 'message' => '로그인 실패']);
+    }
+  }
+
+  public function check_login($username, $password)
+  {
+    $this->db->where('username', $username);
+    $query = $this->db->get('users');
+
+    if ($query->num_rows() == 1) {
+      $user = $query->row_array();
+      if (password_verify($password, $user['password'])) {
+        return $user; // 로그인 성공
+      }
+    }
+    return false; // 로그인 실패
+  }
+
+}
 ?>
