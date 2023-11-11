@@ -27,6 +27,10 @@
       /* border-radius: 10px; */
       /* box-shadow: inset 0px 0px 5px gray; */
     }
+    *::selection {
+      background: #9f9f9f;
+      color: #3f3f3f;
+    }
   </style>
 
   <!-- tailwind -->
@@ -52,16 +56,16 @@
       <!-- 사이드 -->
       <div id="menu" class="fixed left-0 w-[300px] h-full">
         <!-- 여닫기 -->
-        <div class="bg-[#2f2f2f] pr-5 pt-5 text-right">
+        <div class="bg-[#2f2f2f] pr-5 pt-5 text-right border-r border-[#5f5f5f]">
           <button id="munu_name" onclick=SideBarTab() 
           class="material-symbols-outlined text-gray-200 hover:scale-[98%] duration-200 hover:opacity-80">
             menu
           </button>
         </div>
         <!-- 메뉴 -->
-        <div class="bg-[#2f2f2f] h-full">
+        <div class="bg-[#2f2f2f] h-full border-r border-[#5f5f5f]">
           <div id="main" class="">
-            <?$this->load->view('sidebar');?>
+            <?$this->load->view('side_bar');?>
           </div>
         </div>
       </div>

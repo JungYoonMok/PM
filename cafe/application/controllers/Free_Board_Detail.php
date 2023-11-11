@@ -26,11 +26,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       
       // 전체 틀
       $config['full_tag_open'] = '<div class=
-      "pagination bg-blue-500 py-2 px-5 rounded flex place-items-center justify-center gap-5"
+      "pagination bg-[#2f2f2f] rounded flex place-items-center justify-center gap-5 duration-200"
       >';
       $config['full_tag_close'] = '</div>';
       // 현제 페이지
-      $config['cur_tag_open'] = "<div class='font-bold'>";
+      $config['cur_tag_open'] = "<div class='font-bold border py-2 px-5 rounded border-gray-500 bg-[#3f3f3f] shadow-xl'>";
       $config['cur_tag_close'] = "</div>";
       // 처음
       $config['first_link'] = '처음';

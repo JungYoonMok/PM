@@ -1,4 +1,4 @@
-<div class="flex flex-col h-full duration-200 w-full bg-[#2f2f2f] p-5 text-gray-100 border-r border-[#3f3f3f]">
+<div class="flex flex-col h-full duration-200 w-full bg-[#2f2f2f] p-5 text-gray-100">
 
   <div class="flex flex-col gap-3">
     
@@ -45,7 +45,7 @@
     <div class="border-b mb-3 border-gray-400"></div>
 
     <!-- 기타 -->
-    <div class="flex gap-1 flex-col text-sm">
+    <div class="flex gap-2 flex-col text-sm">
       <div class="flex place-content-between">
         <div class="flex gap-2">
           <span class="material-symbols-outlined text-green-500">
@@ -75,7 +75,7 @@
       </div>
       <div class="flex place-content-between">
         <div class="flex gap-2">
-          <span class="material-symbols-outlined">
+          <span class="material-symbols-outlined rotate-180">
             reply
           </span>
           <p>내가 쓴 댓글</p>
