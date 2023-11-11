@@ -135,7 +135,7 @@
               </div>
             </div>
 
-            <!-- 구분선 -->
+            <!-- 구분선 댓글 달릴시 이동되는 구간 -->
             <div id="comments" class="border-b border-gray-500"></div>
             
             <!-- 댓글 리스트 있을때 and 리플 -->
@@ -146,7 +146,7 @@
                 <div class="flex gap-3 text-sm whitespace-nowrap">
                 
                   <!-- 답글일 경우 -->
-                  <div style="margin-left: <?= (20 * ($com->depth - 1)) ?>px;" class="flex justify-center place-items-center <?=$com->group_order !== '0' ? 'inline' : 'hidden'?>">
+                  <div class="lg:ml-[<?= (20 * ($com->depth - 1)) ?>px;] flex justify-center place-items-center <?=$com->group_order !== '0' ? 'inline' : 'hidden'?>">
                     <span class="material-symbols-outlined text-4xl rotate-180 mb-10 ml-5 text-[#4f4f4f]">
                       arrow_top_left
                     </span>
@@ -241,6 +241,12 @@
                   </div>
 
               <? endforeach ?>
+
+            </div>
+
+            <!-- 뷰에서 페이지네이션 링크 출력 -->
+            <div>
+              <?= $links; ?> 
             </div>
 
             <!-- 댓글 리스트 없을때 -->
@@ -366,7 +372,7 @@
 <script>
 
   // 댓글 등록시 댓글 화면으로 이동 (구분선쪽)
-  window.location = window.location.href.split('#')[0] + '#comments';
+  // window.location = window.location.href.split('#')[0] + '#comments';
 
   // 댓글등록 ajax
   // 문서 준비가 끝나면 실행

@@ -11,12 +11,48 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       $this->load->model('Free_Board_M', 'FBM');
       $this->load->library('form_validation');
       $this->load->library('layout');
+
+      $this->load->library('pagination');
     }
     
     public function show($idx)
     {
+      // 페이지네이션
+      $config['base_url'] = "/freeboard/".$idx."/"; // 기본 URL 설정
+      $config['total_rows'] = $this->db->count_all('boards_comment'); // 전체 행의 수
+      $config['per_page'] = 10; // 페이지당 표시할 행의 수
+      $config['uri_segment'] = 3; // URL의 몇 번째 세그먼트에 페이지 번호가 포함될지 설정
+      $config['num_links'] = 1; // 현재 페이지 양쪽에 표시될 "숫자" 링크의 수
+      
+      // 전체 틀
+      $config['full_tag_open'] = '<div class=
+      "pagination bg-blue-500 py-2 px-5 rounded flex place-items-center justify-center gap-5"
+      >';
+      $config['full_tag_close'] = '</div>';
+      // 현제 페이지
+      $config['cur_tag_open'] = "<div class='font-bold'>";
+      $config['cur_tag_close'] = "</div>";
+      // 처음
+      $config['first_link'] = '처음';
+      $config['first_tag_open'] = '<div>';
+      $config['first_tag_close'] = '</div>';
+      // 마지막
+      $config['last_link'] = '마지막';
+      $config['last_tag_open'] = '<div>';
+      $config['last_tag_close'] = '</div>';
+      // 페이지 이동시 화면이동
+      // $config['suffix'] = '#comments';
+      // 첫 번째 페이지는 베이스 URL과 겹치므로 따로 추가
+      // $config['first_url'] = $config['base_url'].'1#comments';
+
+      $this->pagination->initialize($config); // 설정을 라이브러리에 초기화
+      
+      $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0; // 현재 페이지 번호
+      $data['links'] = $this->pagination->create_links(); // 페이지네이션 링크 생성
+      // 페이지네이션
+
       $data['post'] = $this->FBM->get($idx);
-      $data['comment'] = $this->FBM->get_comments($idx);
+      $data['comment'] = $this->FBM->get_comments($idx, $config['per_page'], $page);
       $data['list'] = $this->db->get_where('boards', [ 'board_type' => '자유게시판' ] )->result();
       $this->layout->custom_view('board/free_board_detail', $data);
     }
