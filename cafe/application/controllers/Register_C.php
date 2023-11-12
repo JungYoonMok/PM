@@ -6,10 +6,7 @@ class Register_C extends CI_Controller
   public function __construct()
   {
     parent::__construct();
-    $this->load->library('layout');
-    $this->load->library('form_validation');
     $this->load->model('register_M', 'register_model');
-    $this->load->helper('url');
   }
 
   public function index()
@@ -30,21 +27,10 @@ class Register_C extends CI_Controller
     // $this->form_validation->set_rules('user_phone_3', 'Phone_3', 'required');
     // $this->form_validation->set_rules('user_email', 'Email', 'required|valid_email');
 
-    // $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-    // if($this->form_validation->run())
-    // {
-    //   $this->r_m->register();
-    //   redirect('/login');
-    // } else {
-    //   echo "정보 검증 실패.";
-    // }
-
     if ($this->form_validation->run()) {
       // 유저 아이디 중복 체크
-      if ($this->register_model->userid_check($this->input->post('UserID'))) {
+      if ($this->register_model->userid_check($this->input->post('user_id'))) {
         $this->register_model->register();
-        redirect('/login');
       } else {
         echo $this->input->post('UserID') . " 아이디가 이미 존재합니다";
       }

@@ -6,43 +6,53 @@ class Login_C extends CI_Controller
   public function __construct()
   {
     parent::__construct();
-    $this->load->library('layout');
     $this->load->model('login_M', 'login_model');
+    // $this->load->library('session');
   }
 
   public function index()
   {
-    $this->layout->custom_view('login_V');
+    $ssData = array(
+      'user_id' => $this->session->userdata('user_id'),
+    );
+
+    $this->layout->custom_view('login_V', $ssData);
   }
 
   public function login()
   {
-    // $hashed_password = password_hash($Password_1, PASSWORD_DEFAULT);
-    // $password = $this->input->post('password'); // 실제로는 해시 처리 필요
+    $this->form_validation->set_rules('username', '아이디', 'required');
+    $this->form_validation->set_rules('password', '비밀번호', 'required');
 
     $username = $this->input->post('username');
-    $password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
-    
-    $user = $this->login_model->check_login($username, $password);
-    if ($user) {
-      echo json_encode(['status' => true, 'message' => '로그인 성공']);
-    } else {
-      echo json_encode(['status' => false, 'message' => '로그인 실패']);
-    }
-  }
+    $password = $this->input->post('password');
 
-  public function check_login($username, $password)
-  {
-    $this->db->where('username', $username);
-    $query = $this->db->get('users');
+    if($this->form_validation->run() == TRUE){
+      
+      $user = $this->login_model->check_login($username, $password);
+      if ($user) 
+      {
 
-    if ($query->num_rows() == 1) {
-      $user = $query->row_array();
-      if (password_verify($password, $user['password'])) {
-        return $user; // 로그인 성공
+        //로그인 성공시 session 생성
+        // 로그인 성공 후 사용자 정보를 가져오는 로직...
+        $user_data = [
+          'user_id' => 'test',
+          'username' => 'Duckey',
+          'logged_in' => TRUE
+        ];
+        $this->session->set_userdata($user_data);
+
+        $value = $this->session->userdata('userName'); // 세션에서 데이터 가져오기
+
+        echo json_encode(['status' => true, 'message' => '로그인 성공', 'ss_user_id' => $this->session->userdata('user_id')]);
+      } else {
+        echo json_encode(['status' => false, 'message' => '로그인 실패', 'ss_user_id' => $this->session->userdata('user_id')]);
       }
+      
+    } else {
+      echo json_encode(['status' => false, 'message' => '폼검증 실패', 'detail' => '아이디와 비밀번호를 확인해 주세요', 'ss_user_id' => $this->session->userdata('user_id')]);
     }
-    return false; // 로그인 실패
+    // print_r($this->session->userdata());
   }
 
 }

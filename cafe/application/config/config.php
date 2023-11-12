@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost:3000/';
+$config['base_url'] = 'http://localhost/';
 
 /*
 |--------------------------------------------------------------------------
@@ -368,12 +368,12 @@ $config['encryption_key'] = '';
 | except for 'cookie_prefix' and 'cookie_httponly', which are ignored here.
 |
 */
-$config['sess_driver'] = 'files';
+$config['sess_driver'] = 'database';
 $config['sess_cookie_name'] = 'ci_session';
 $config['sess_expiration'] = 7200;
-$config['sess_save_path'] = NULL;
+$config['sess_save_path'] = 'ci_sessions';
 $config['sess_match_ip'] = FALSE;
-$config['sess_time_to_update'] = 300;
+$config['sess_time_to_update'] = 1000;
 $config['sess_regenerate_destroy'] = FALSE;
 
 /*
@@ -423,7 +423,8 @@ $config['standardize_newlines'] = FALSE;
 |          for backwards compatibility purposes!
 |
 */
-$config['global_xss_filtering'] = FALSE;
+// $config['global_xss_filtering'] = FALSE;
+$config['global_xss_filtering'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------
@@ -439,12 +440,36 @@ $config['global_xss_filtering'] = FALSE;
 | 'csrf_regenerate' = Regenerate token on every submission
 | 'csrf_exclude_uris' = Array of URIs which ignore CSRF checks
 */
+
+/*  CSRF 방어를 사용할지 않할지 설정
+|   TRUE : 사용
+|   FALSE : 미사용
+*/ 
 $config['csrf_protection'] = FALSE;
-$config['csrf_token_name'] = 'csrf_test_name';
-$config['csrf_cookie_name'] = 'csrf_cookie_name';
-$config['csrf_expire'] = 7200;
+// $config['csrf_protection'] = TRUE;
+/*  CSRF 토큰의 이름을 설정
+|   input 요소의 속성 에서 name 에 해당되는 값이다.
+*/
+$config['csrf_token_name'] = 'csrf_Jung_YoonMok';
+/*  CSRF 쿠키의 이름을 설정 */
+$config['csrf_cookie_name'] = 'csrf_cookie_YoonMok';
+/*  CSRF 토큰의 생존기간이다.
+|   이 값은, csrf_regenerate 속성이 FALSE 일때만 유효하다.
+*/
+$config['csrf_expire'] = 2000;
+/*  CSRF 토큰의 갱신 설정 
+|  TRUE : 사용
+|  FALSE : 미사용
+|  이값을 TRUE 로 사용하면, 매 요청시마다 토큰값이 변경된다.
+*/
 $config['csrf_regenerate'] = TRUE;
-$config['csrf_exclude_uris'] = array();
+//이 설정을 FALSE 로 해두어도 공격자가 임의 사용자의 토큰값을 알지 못하기 때문에 매 요청시 새로운 값으로 갱신이 되지 않더라도, 방어를 할 수 있다. 
+/*  CSRF 방어에서 제외할 URI 를 배열로 설정
+|  ex) http://www.redinfo.co.kr/main/siteinfo
+|  url 이 위와 같다면 설정에는 아래와 같이 해주면 된다
+| $config['csrf_exclude_uris'] = array('main/siteinfo');
+*/
+$config['csrf_exclude_uris'] = array('');
 
 /*
 |--------------------------------------------------------------------------

@@ -14,7 +14,7 @@ class Main_model extends CI_Model
 
   public function GetBoardList()
   {
-    $result = $this->db->query('SELECT * FROM freeboard')->result();
+    $result = $this->db->query('SELECT * FROM boards')->result();
     $this->db->close();
     
     return $result;
@@ -22,7 +22,7 @@ class Main_model extends CI_Model
   
   public function GetBoardTotal()
   {
-    $result = $this->db->query('SELECT idx FROM freeboard')->num_rows();
+    $result = $this->db->query('SELECT idx FROM boards')->num_rows();
     $this->db->close();
 
     return $result;
