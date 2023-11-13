@@ -29,6 +29,12 @@ class Register_M extends CI_Model
 
     // 비밀번호 암호화
     $hashed_password = password_hash($Password_1, PASSWORD_DEFAULT);
+    // 비밀번호 일치 여부를 확인
+    if ($Password_1 !== $Password_2) {
+      // 비밀번호가 일치하지 않을 경우, 클라이언트에 오류 메시지를 반환하고 함수 종료
+      echo json_encode(['state' => false, 'message' => '비밀번호가 일치하지 않습니다.']);
+      return; // 이후 코드 실행 방지
+    }
 
     $data = [
       // 'user_name' => $Name,
@@ -42,13 +48,6 @@ class Register_M extends CI_Model
       'regdate' => date("Y-m-d H:i:s")
     ];
 
-    // 비밀번호 일치 여부를 확인
-    if ($Password_1 !== $Password_2) {
-      // 비밀번호가 일치하지 않을 경우, 클라이언트에 오류 메시지를 반환하고 함수 종료
-      echo json_encode(['state' => false, 'message' => '비밀번호가 일치하지 않습니다.']);
-      return; // 이후 코드 실행 방지
-    }
-
     $result = $this->db->insert('members', $data);
     if ($result) {
       echo json_encode(['state' => true, 'message' => '회원가입 성공']);
@@ -61,9 +60,14 @@ class Register_M extends CI_Model
   // 유저 아이디 중복 체크
   public function userid_check($ID) {
     if ($ID) {
-      // $result = array();
-      $sql = "SELECT user_id FROM members WHERE user_id = '" . $this->db->escape_str($ID) . "';";
-      $result = $this->db->query($sql)->row();
+      // 보안에 좋은 방법
+      $sql = "SELECT user_id FROM members WHERE user_id = ?";
+      $result = $this->db->query($sql, array($ID))->row();
+
+      // 내가 작성한거
+      // $sql = "SELECT user_id FROM members WHERE user_id = '" . $this->db->escape_str($ID) . "';";
+      // $result = $this->db->query($sql)->row();
+
       if ($result) {
         // $this->form_validation->set_message('userid_check', $ID . '은(는) 중복된 아이디 입니다.');
         return FALSE;
