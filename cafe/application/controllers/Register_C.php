@@ -41,21 +41,24 @@ class Register_C extends CI_Controller
     // $this->form_validation->set_rules('nickname', 'NickName', 'required');
     // $this->form_validation->set_rules('user_id', 'ID', 'required');
     // $this->form_validation->set_rules('user_name', 'Name', 'required');
-    $this->form_validation->set_rules('user_password_1', 'Password', 'required|matches[user_password_2]');
-    $this->form_validation->set_rules('user_password_2', 'Password Check', 'required');
+    $this->form_validation->set_rules('password_1', 'Password', 'required|matches[password_2]');
+    $this->form_validation->set_rules('password_2', 'Password Check', 'required');
     // $this->form_validation->set_rules('user_phone_2', 'Phone_2', 'required');
     // $this->form_validation->set_rules('user_phone_3', 'Phone_3', 'required');
     // $this->form_validation->set_rules('user_email', 'Email', 'required|valid_email');
 
     if ($this->form_validation->run()) {
       // 유저 아이디 중복 체크
-      if ($this->register_model->userid_check($this->input->post('user_id'))) {
+      $user_check = $this->register_model->userid_check($this->input->post('username'));
+      if ($user_check) {
         $this->register_model->register();
       } else {
-        echo $this->input->post('UserID') . " 아이디가 이미 존재합니다";
+        // echo $this->input->post('UserID') . " 아이디가 이미 존재합니다";
+        echo json_encode([ 'state' => FALSE, 'message' => '아이디가 이미 존재합니다' ]);
       }
     } else {
-      echo "정보 검증 실패";
+      echo json_encode([ 'state' => FALSE, 'message' => '정보 검증 실패' ]);
+      // echo "정보 검증 실패";
     }
   }
 

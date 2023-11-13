@@ -13,12 +13,12 @@ class Register_M extends CI_Model
   public function register()
   {
     $nickName = $this->input->post('nickname');
-    $ID = $this->input->post('user_id');
+    $ID = $this->input->post('username');
     $Name = $this->input->post('user_name');
     $Frofile = "없음"; // 나중에 구현
 
-    $Password_1 = $this->input->post('user_password_1');
-    $Password_2 = $this->input->post('user_password_2');
+    $Password_1 = $this->input->post('password_1');
+    $Password_2 = $this->input->post('password_2');
 
     $Phone_1 = "010";
     $Phone_2 = $this->input->post('user_phone_2');
@@ -58,7 +58,7 @@ class Register_M extends CI_Model
       $sql = "SELECT user_id FROM members WHERE user_id = '" . $ID . "';";
       $result = $this->db->query($sql)->row();
       if ($result) {
-        $this->form_validation->set_message('userid_check', $ID . '은(는) 중복된 아이디 입니다.');
+        // $this->form_validation->set_message('userid_check', $ID . '은(는) 중복된 아이디 입니다.');
         return FALSE;
       } else {
         return TRUE;

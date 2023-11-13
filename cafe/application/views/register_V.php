@@ -22,7 +22,7 @@
         <div class="flex flex-col gap-2">
           <h2>별명(닉네임)</h2>
           <div>
-            <input name='nickname' placeholder="김아무개"
+            <input name='nickname' id='nickname' placeholder="김아무개"
               class="duration-200 border border-gray-500 hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none"
               type="text" />
             <button class="p-3 rounded bg-blue-500">사용</button>
@@ -38,13 +38,13 @@
         <div class="w-full flex flex-col gap-2">
           <h2>아이디</h2>
           <!-- <input name='user_id' placeholder="abc123" class="w-full font-black duration-200 border border-gray-500 hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none" type="text" /> -->
-          <input name='user_id' placeholder="abc123"
+          <input name='user_id' id='user_id' placeholder="abc123"
             class="w-full font-black duration-200 border border-gray-500 hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none"
             type="text" />
         </div>
         <div class="w-full flex flex-col gap-2">
           <h2>성함</h2>
-          <input name='user_name' placeholder="홍길동"
+          <input name='user_name' name='user_name' placeholder="홍길동"
             class="w-full font-black duration-200 border border-gray-500 hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none"
             type="text" />
         </div>
@@ -54,13 +54,13 @@
       <div class="flex gap-2">
         <div class="w-full flex flex-col gap-2">
           <h2>비밀번호</h2>
-          <input name="user_password_1" id="user_password_1" placeholder="비밀번호 입력"
+          <input name="user_password_1" id='user_password_1' id="user_password_1" placeholder="비밀번호 입력"
             class="w-full font-black duration-200 border border-gray-500 hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none"
             type="password" />
         </div>
         <div class="w-full flex flex-col gap-2">
           <h2>비밀번호 확인</h2>
-          <input name="user_password_2" id="user_password_2" placeholder="비밀번호 입력"
+          <input name="user_password_2" id='user_password_2' id="user_password_2" placeholder="비밀번호 입력"
             class="w-full font-black duration-200 border border-gray-500 hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none"
             type="password" />
         </div>
@@ -70,17 +70,17 @@
         <h2>연락처</h2>
         <div class="flex gap-3">
           <div class="flex w-full flex-col gap-2">
-            <input name="user_phone_1" value="010" disabled
+            <input name="user_phone_1" id='user_phone_1' value="010" disabled
               class="w-full text-gray-400 font-black text-center duration-100 border border-[#3f3f3f] bg-[#2f2f2f] p-3 h-[50px] rounded outline-none"
               type="number" />
           </div>
           <div class="flex w-full flex-col gap-2">
-            <input name="user_phone_2" placeholder="1234"
+            <input name="user_phone_2" id='user_phone_2' placeholder="1234"
               class="w-full font-black duration-100 border text-center border-gray-500 hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none"
               type="number" />
           </div>
           <div class="flex w-full flex-col gap-2">
-            <input name="user_phone_3" placeholder="5678"
+            <input name="user_phone_3" id='user_phone_3' placeholder="5678"
               class="w-full font-black duration-100 border text-center border-gray-500 hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none"
               type="number" />
           </div>
@@ -89,14 +89,14 @@
 
       <div class="flex w-full flex-col gap-2">
         <h2>이메일</h2>
-        <input name="user_email" placeholder="abc@naver.com"
+        <input name="user_email" id='user_email' placeholder="abc@naver.com"
           class="w-full font-black duration-100 border border-gray-500 hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none"
           type="email" />
       </div>
 
       <div class="flex w-full flex-col gap-2">
         <h2>소개 - 간단하게 자기를 소개해보세요 : )</h2>
-        <textarea name="user_memo" rows="3" placeholder="안녕하세요? 저는 홍길동입니다"
+        <textarea name="user_memo" id='user_memo' rows="3" placeholder="안녕하세요? 저는 홍길동입니다"
           class="w-full font-black duration-100 border border-gray-500 hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 rounded outline-none"></textarea>
       </div>
 
@@ -128,18 +128,19 @@
 <script>
   // ajax 회원가입
   $(document).ready(function () {
-    $('#registerButton').click(function () {
+    $('#registerButton').click(function (e) {
+      e.preventDefault();
       $.ajax({
         url: '/Register_C/register',
         type: 'post',
         data: { 
-          username: $('#UserID').val(),
-          password_1: $('#user_passwprd_1').val(),
-          password_2: $('#user_passwprd_2').val() ,
+          username: $('#user_id').val(),
+          password_1: $('#user_password_1').val(),
+          password_2: $('#user_password_2').val() ,
         },
         dataType: 'json',
         success: function (response) {
-          alert(response.message);
+          console.log(response);
         }
       });
     });
