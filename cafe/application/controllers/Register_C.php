@@ -51,15 +51,16 @@ class Register_C extends CI_Controller
       // 유저 아이디 중복 체크
       $user_check = $this->register_model->userid_check($this->input->post('username'));
       if ($user_check) {
+        // Model의 register 함수 호출 (여기서 비밀번호 일치 여부를 확인함)
         $this->register_model->register();
       } else {
-        // echo $this->input->post('UserID') . " 아이디가 이미 존재합니다";
         echo json_encode([ 'state' => FALSE, 'message' => '아이디가 이미 존재합니다' ]);
       }
     } else {
-      echo json_encode([ 'state' => FALSE, 'message' => '정보 검증 실패' ]);
-      // echo "정보 검증 실패";
+      // 폼 벨리데이션 실패 시 오류 메시지 반환
+      echo json_encode([ 'state' => FALSE, 'message' => '정보 검증 실패!' ]);
     }
+    exit; // 추가 출력 방지
   }
 
 }

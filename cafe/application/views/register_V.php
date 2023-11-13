@@ -67,7 +67,7 @@
       </div>
 
       <div class="flex flex-col gap-2">
-        <h2>연락처</h2>
+        <h2>휴대폰</h2>
         <div class="flex gap-3">
           <div class="flex w-full flex-col gap-2">
             <input name="user_phone_1" id='user_phone_1' value="010" disabled
@@ -112,7 +112,7 @@
       <!-- 회원가입 버튼 -->
       <div>
         <div class="text-center">
-          <button id="registerButton"
+          <button id="registerButton" name="registerButton"
             class="bg-[#1f1f1f] border border-gray-500 hover:border-[#1f1f1f] duration-200 hover:opacity-80 p-4 rounded w-full outline-none">
             회원가입
           </button>
@@ -127,22 +127,28 @@
 
 <script>
   // ajax 회원가입
-  $(document).ready(function () {
     $('#registerButton').click(function (e) {
       e.preventDefault();
       $.ajax({
         url: '/Register_C/register',
         type: 'post',
+        dataType: 'json',
         data: { 
           username: $('#user_id').val(),
           password_1: $('#user_password_1').val(),
           password_2: $('#user_password_2').val() ,
         },
-        dataType: 'json',
         success: function (response) {
-          console.log(response);
+          if(response.state) {
+            alert('환영합니다, 회원가입이 완료되었습니다!');
+            location.href = '/login';
+          } else {
+            $('#error_message').text(response.message); // 에러 메시지 출력
+          }
+        },
+        error: function (response, s, e) {
+          console.log('에러', response, s, e);
         }
       });
     });
-  });
 </script>

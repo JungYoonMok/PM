@@ -117,6 +117,9 @@
             }
 
           }
+        },
+        error: (response, s, e) => {
+          console.log('실패', response, s, e);
         }
       });
     });
