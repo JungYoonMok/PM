@@ -43,10 +43,10 @@ class Register_M extends CI_Model
 
     $result = $this->db->insert('members', $data);
     if ($result) {
-      echo json_encode(['status' => true, 'message' => '회원가입 성공']);
+      echo json_encode(['state' => true, 'message' => '회원가입 성공']);
       redirect('/login');
     } else {
-      echo json_encode(['status' => false, 'message' => '회원가입 실패']);
+      echo json_encode(['state' => false, 'message' => '회원가입 실패']);
     }
   }
 

@@ -20,7 +20,6 @@ class Login_M extends CI_Model
     
     return $query->row_array();
   }
-
   public function check_login($username, $password)
   {
     $username_S = $this->db->escape_str($username);

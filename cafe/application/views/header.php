@@ -33,7 +33,7 @@
         <!-- 구분 -->
         <p class="py-2 text-gray-500 text-lg">|</p>
 
-        <a class="hover:bg-[#3f3f3f] font-bold py-3 px-5 rounded hover:scale-90 duration-100" href="/#">
+        <a id="logout_btn" class="hover:bg-[#3f3f3f] font-bold py-3 px-5 rounded hover:scale-90 duration-100" href="/#">
           로그아웃
         </a>
       </div>
@@ -43,3 +43,32 @@
   </div>
 
 </div>
+
+<script>
+  $('#logout_btn').click(function(e){
+    e.preventDefault();
+    if(confirm('로그아웃 하시겠습니까?')){
+
+    $.ajax({
+        url: '/Login_C/logout',
+        type: 'post',
+        dataType: 'json',
+        // data: $(this).serialize(),
+        // data: { 
+          // username: $('#user_id').val(),
+          // password: $('#user_pw').val(),
+        // },
+        success: function(response) {
+          console.log(response);
+          if(response.state){
+            location.href = '/login';
+          } else {
+            console.log(response.error);
+          }},
+        error: function(response) {
+          console.log('오류', response);
+        }
+      });
+    }
+  });
+</script>

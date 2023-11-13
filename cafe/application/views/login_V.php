@@ -2,8 +2,7 @@
 
   <div class="py-10 grid place-items-center">
 
-    <div
-      class="bg-[#2f2f2f] border border-gray-500 w-[500px] p-10 rounded flex flex-col gap-5 relative drop-shadow-2xl">
+    <div class="bg-[#2f2f2f] border border-[#4f4f4f] w-[500px] px-5 py-10 rounded flex flex-col gap-5 relative drop-shadow-2xl">
 
       <!-- 계정 정보가 일치하지 않을시 -->
       <!-- <div class="p-5 animate-pulse flex gap-3 border bg-red-500 w-full opacity-80 rounded -mt-2 mb-5">
@@ -35,12 +34,14 @@
 
         <!-- 폼 벨리데이션 에러 -->
         <div>
-          <p><?= validation_errors() ?></p>
+          <p>
+            <?= validation_errors() ?>
+          </p>
         </div>
 
         <div class="text-center">
           <button type="submit"
-            class="bg-blue-500 font-bold duration-200 my-5 hover:opacity-80 p-4 rounded w-full outline-none">
+            class="bg-[#4f4f4f] font-bold duration-200 my-5 hover:opacity-80 p-4 rounded w-full outline-none">
             로그인
           </button>
         </div>
@@ -54,7 +55,7 @@
         <div class="border-t border-dashed border-slate-300 w-full"></div>
       </div>
 
-      <div class="text-center">
+      <div class="text-center opacity-80">
         <div class="flex place-content-center gap-3">
           <button onclick=snsBtn()
             class="cursor-not-allowed hover:border hover:border-slate-500 hover:scale-95 hover:opacity-90 duration-100 w-16 h-14 bg-green-500 text-4xl font-black rounded">
@@ -92,22 +93,29 @@
 <script>
 
   // 로그인
-  $(document).ready(function () {
-    $('#loginForm').on('submit', function (e) {
+  $(document).ready(() => {
+    $('#loginForm').on('submit', e => {
       e.preventDefault();
+      const id = $('#user_id').val();
+      const pw = $('#user_pw').val();
       $.ajax({
         url: '/Login_C/login',
         type: 'post',
         dataType: 'json',
-        // data: $(this).serialize(),
-        data: { 
-          username: $('#user_id').val(),
-          password: $('#user_pw').val(),
-        },
-        success: function(response) {
-          console.log(response);
-          if(response.status){ // 로그인 성공시 메인페이지로 이동
-            location.href = '/';
+        data: { username: id, password: pw },
+        success: response => {
+          if (id < 1) {
+            alert('아이디를 입력해 주세요');
+          } else if (pw < 1) {
+            alert('비밀번호를 입력해 주세요');
+          } else {
+
+            if (response.state) { // 로그인 성공시 메인페이지로 이동
+              location.href = '/';
+            } else {
+              alert(response.message);
+            }
+
           }
         }
       });

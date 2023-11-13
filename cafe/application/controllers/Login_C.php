@@ -65,15 +65,38 @@ class Login_C extends CI_Controller
         ];
         
         $this->session->set_userdata($user_data);
-        echo json_encode([ 'status' => true, 'message' => '로그인 성공' ]);
+        echo json_encode([ 'state' => true, 'message' => '로그인 성공' ]);
       } else {
-        echo json_encode([ 'status' => false, 'message' => '로그인 실패' ]);
+        echo json_encode([ 'state' => false, 'message' => '로그인 정보를 다시 확인해 주세요' ]);
       }
       
     } else {
-      echo json_encode([ 'status' => false, 'message' => '폼검증 실패', 'detail' => '아이디와 비밀번호를 확인해 주세요' ]);
+      echo json_encode([ 'state' => false, 'message' => '폼검증 실패', 'detail' => '아이디와 비밀번호를 확인해 주세요' ]);
     }
+  }
+  
+  // 로그아웃 처리
+  public function logout()
+  {
+    try {
+      $this->session->unset_userdata('user_name');
+      $this->session->unset_userdata('user_nickname');
+      $this->session->unset_userdata('user_frofile');
+      $this->session->unset_userdata('user_email');
+      $this->session->unset_userdata('user_phone');
+      $this->session->unset_userdata('user_memo');
+      $this->session->unset_userdata('user_id');
+      $this->session->unset_userdata('last_login');
+      $this->session->unset_userdata('last_logout');
+      $this->session->unset_userdata('regdate');
+      $this->session->unset_userdata('login');
 
+      session_destroy();
+
+      echo json_encode([ 'state' => true, 'message' => '로그아웃 처리 성공' ]);
+    } catch (Exception $e) {
+      echo json_encode([ 'state' => false, 'message' => '로그아웃 처리 실패', 'Erorr: ' => $e.message ]);
+    }
   }
 
 }

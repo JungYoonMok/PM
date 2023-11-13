@@ -2,8 +2,15 @@
 
   <div class="relative">
     <!-- 비회원 전용 -->
-    <div class="<?= $this->session->userdata('user_id') ? 'hidden' : 'inline' ?> flex flex-col justify-center place-items-center h-full">
-      <p>로그인을 해주세요</p>
+    <div class="<?= $this->session->userdata('user_id') ? 'hidden' : 'inline' ?> flex flex-col justify-center place-items-center h-full w-full">
+      <div class="">
+        <span class="material-symbols-outlined">
+          account_circle_off
+        </span>
+      </div>
+      <div class="bg-[#4f4f4f] rounded px-2 py-3 text-sm w-full">
+        <p>계정이 있으시다면 로그인을 해주세요 비회원은 카페를 한정적으로 이용할 수 있습니다.</p>
+      </div>
     </div>
 
     <!-- 회원 전용 -->
@@ -34,13 +41,16 @@
           <div class="flex gap-3">
             <a class="font-bold hover:underline underline-offset-4 hover:scale-[97%] hover:opacity-90 duration-200 decoration-2 decoration-yellow-500"
               href="#">
-              Duckey
+              <?= $this->session->userdata('user_nickname') ?>
             </a>
-            <p class="bg-[#3f3f3f] px-1.5 py-0.5 rounded text-sm">일반</p>
+            <p class="bg-[#3f3f3f] px-1.5 py-0.5 rounded text-sm">
+              <!-- 등급은 미구현 -->
+              일반
+            </p>
           </div>
           <!-- 가입일자 -->
           <div>
-            <p class="text-sm">2023.10.30. 가입</p>
+            <p class="text-sm"><?= substr($this->session->userdata('regdate'), 0, 10) ?>. 가입</p>
           </div>
           <!-- 안내 -->
           <div>
@@ -62,8 +72,9 @@
             <p>소나무</p>
           </div>
           <a href="#"
-            class="hover:underline underline-offset-4 hover:scale-[97%] hover:opacity-90 duration-200 decoration-2 decoration-yellow-500">등급
-            안내</a>
+            class="hover:underline underline-offset-4 hover:scale-[97%] hover:opacity-90 duration-200 decoration-2 decoration-yellow-500">
+            등급 안내
+          </a>
         </div>
         <div class="flex place-content-between">
           <div class="flex gap-2">
