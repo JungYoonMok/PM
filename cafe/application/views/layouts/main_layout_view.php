@@ -65,7 +65,7 @@
         <!-- 메뉴 -->
         <div class="bg-[#2f2f2f] h-full border-r border-[#5f5f5f]">
           <div id="main" class="">
-            <?$this->load->view('side_bar');?>
+            <? $this->load->view('side_bar'); ?>
           </div>
         </div>
       </div>
@@ -75,7 +75,7 @@
 
         <!-- 헤더 -->
         <div class="w-full">
-          <?$this->load->view('header');?>
+          <? $this->load->view('header'); ?>
         </div>
           
         <!-- 컨텐츠 -->
@@ -85,7 +85,7 @@
 
         <!-- 최상단 최하단 버튼 -->
         <div class="fixed right-5 bottom-5 mb-[1%]">
-          <?$this->load->view('side_btn');?>
+          <? $this->load->view('side_btn'); ?>
         </div>
         
       </div>

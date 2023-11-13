@@ -11,7 +11,27 @@ class Register_C extends CI_Controller
 
   public function index()
   {
-    $this->layout->custom_view('register_V');
+    // 세션 데이터를 뷰 페이지로 전달
+    $ssData = [
+      'user_name' => $this->session->userdata('user_name'),
+      'user_nickname' => $this->session->userdata('user_nickname'),
+      'user_frofile' => $this->session->userdata('user_frofile'),
+      'user_email' => $this->session->userdata('user_email'),
+      'user_phone' => $this->session->userdata('user_phone'),
+      'user_memo' => $this->session->userdata('user_memo'),
+      'user_id' => $this->session->userdata('user_id'),
+      'last_login' => $this->session->userdata('last_login'),
+      'last_logout' => $this->session->userdata('last_logout'),
+      'regdate' => $this->session->userdata('regdate'),
+      'login' => TRUE
+    ];
+
+    // 세션에 로그인 상태일 때
+    if($ssData['user_id'] && $ssData['login'] == TRUE){
+      redirect('/');
+    } else {
+      $this->layout->custom_view('register_V', $ssData);
+    }
   }
 
   // 회원가입

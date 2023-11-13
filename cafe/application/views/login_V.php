@@ -27,7 +27,9 @@
             type="password" />
           <div class="flex place-content-end gap-1">
             <input class="outline-none cursor-pointer hover:opacity-70" id="check1" type="checkbox" />
-            <label class="text-md cursor-pointer hover:opacity-70" for="check1">아이디 기억하기</label>
+            <label class="text-md cursor-pointer hover:opacity-70" for="check1">
+              아이디 기억하기
+            </label>
           </div>
         </div>
 
@@ -43,9 +45,6 @@
           </button>
         </div>
       </form>
-
-      <p>1 : <?= htmlspecialchars($user_id); ?></p>
-      <p>2 : <?= htmlspecialchars($user_name); ?></p>
 
       <div class="flex w-full my-8 gap-3 px-20 text-gray-300">
         <div class="border-t border-dashed border-slate-300 w-full"></div>
@@ -106,11 +105,9 @@
           password: $('#user_pw').val(),
         },
         success: function(response) {
-          if(response.status)
-          {
-            console.log(response);
-          } else {
-            console.log(response);
+          console.log(response);
+          if(response.status){ // 로그인 성공시 메인페이지로 이동
+            location.href = '/';
           }
         }
       });

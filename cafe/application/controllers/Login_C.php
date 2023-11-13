@@ -21,13 +21,18 @@ class Login_C extends CI_Controller
       'user_phone' => $this->session->userdata('user_phone'),
       'user_memo' => $this->session->userdata('user_memo'),
       'user_id' => $this->session->userdata('user_id'),
-      'user_lastlogin' => $this->session->userdata('lastlogin'),
-      'user_lastlogout' => $this->session->userdata('lastlogout'),
+      'last_login' => $this->session->userdata('last_login'),
+      'last_logout' => $this->session->userdata('last_logout'),
       'regdate' => $this->session->userdata('regdate'),
       'login' => TRUE
     ];
 
-    $this->layout->custom_view('login_V', $ssData);
+    // 세션에 로그인 상태일 때
+    if($ssData['user_id'] && $ssData['login'] == TRUE){
+      redirect('/');
+    } else {
+      $this->layout->custom_view('login_V', $ssData);
+    }
   }
 
   public function login()
@@ -41,10 +46,9 @@ class Login_C extends CI_Controller
     if($this->form_validation->run() == TRUE){
       
       $user = $this->login_model->check_login($username, $password);
-      if ($user) 
-      {
-        
+      if ($user) {
         $data = $this->login_model->userInfo($username);
+        
         //로그인 성공시 session 생성 및 저장
         $user_data = [
           'user_name' => $data['user_name'],
@@ -54,14 +58,13 @@ class Login_C extends CI_Controller
           'user_phone' => $data['user_phone'],
           'user_memo' => $data['user_memo'],
           'user_id' => $data['user_id'],
-          'user_lastlogin' => $data['lastlogin'],
-          'user_lastlogout' => $data['lastlogout'],
+          'last_login' => $data['last_login'],
+          'last_logout' => $data['last_logout'],
           'regdate' => $data['regdate'],
           'login' => TRUE
         ];
         
         $this->session->set_userdata($user_data);
-        
         echo json_encode([ 'status' => true, 'message' => '로그인 성공' ]);
       } else {
         echo json_encode([ 'status' => false, 'message' => '로그인 실패' ]);

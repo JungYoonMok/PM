@@ -11,7 +11,7 @@
     {
 
       $layout_view_data = array(
-        "contents" => $this->obj->load->view($view, $page_view_data, true),
+        "contents" => $this->obj->load->view($view, $page_view_data, TRUE),
       );
 
       $this->obj->load->view("/layouts/main_layout_view", $layout_view_data);

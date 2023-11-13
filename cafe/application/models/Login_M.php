@@ -10,12 +10,14 @@ class Login_M extends CI_Model
     parent::__construct();
   }
 
+  // 로그인 성공시 사용자 정보 가져오기
   public function userInfo($ID)
   {
     $this->db->select('*');
     $this->db->from('members');
-    $this->db->where('user_id', $ID);
+    $this->db->where('user_id', $this->db->escape_str($ID));
     $query = $this->db->get();
+    
     return $query->row_array();
   }
 
