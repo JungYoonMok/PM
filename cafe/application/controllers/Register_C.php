@@ -49,7 +49,7 @@ class Register_C extends CI_Controller
 
     if ($this->form_validation->run()) {
       // 유저 아이디 중복 체크
-      $user_check = $this->register_model->userid_check($this->input->post('username'));
+      $user_check = $this->register_model->userid_check($this->input->post('user_id'));
       if ($user_check) {
         // Model의 register 함수 호출 (여기서 비밀번호 일치 여부를 확인함)
         $this->register_model->register();

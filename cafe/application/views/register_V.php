@@ -5,6 +5,12 @@
     <form id="registerForm" action="/register_C/register" method="post"
       class="bg-[#2f2f2f] border border-[#4f4f4f] w-[600px] p-5 rounded flex flex-col gap-5 relative drop-shadow-2xl">
 
+      <!-- 계정 정보가 일치하지 않을시 -->
+      <div id='error_form' class="duration-200 hidden p-5 animate-pulse flex gap-3 border bg-red-500 w-full opacity-80 rounded">
+        <span class="material-symbols-outlined">error</span>
+        <p id='error_txt' class=""><?= validation_errors(); ?></p>
+      </div>
+      
       <!-- 프로필사진 -->
       <div class="flex gap-5 place-items-center justify-center p-3 bg-[#4f4f4f] rounded">
         <div
@@ -100,15 +106,6 @@
           class="w-full font-black duration-100 border border-gray-500 hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 rounded outline-none"></textarea>
       </div>
 
-      <!-- 에러 메시지 -->
-      <div class="border border-red-500 p-3 rounded">
-        <p>Error Message</p>
-        <p id="">-
-          <?= validation_errors(); ?>
-        </p>
-        <p id="error_message"></p>
-      </div>
-
       <!-- 회원가입 버튼 -->
       <div>
         <div class="text-center">
@@ -125,30 +122,4 @@
 
 </div>
 
-<script>
-  // ajax 회원가입
-    $('#registerButton').click(function (e) {
-      e.preventDefault();
-      $.ajax({
-        url: '/Register_C/register',
-        type: 'post',
-        dataType: 'json',
-        data: { 
-          username: $('#user_id').val(),
-          password_1: $('#user_password_1').val(),
-          password_2: $('#user_password_2').val() ,
-        },
-        success: function (response) {
-          if(response.state) {
-            alert('환영합니다, 회원가입이 완료되었습니다!');
-            location.href = '/login';
-          } else {
-            $('#error_message').text(response.message); // 에러 메시지 출력
-          }
-        },
-        error: function (response, s, e) {
-          console.log('에러', response, s, e);
-        }
-      });
-    });
-</script>
+<script src="/javascript/user/register.js"></script>

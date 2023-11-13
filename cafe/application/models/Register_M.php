@@ -13,7 +13,7 @@ class Register_M extends CI_Model
   public function register()
   {
     // $nickName = $this->input->post('nickname');
-    $ID = $this->input->post('username');
+    $ID = $this->input->post('user_id');
     // $Name = $this->input->post('user_name');
     // $Frofile = "없음"; // 나중에 구현
 
@@ -27,6 +27,7 @@ class Register_M extends CI_Model
     // $Email = $this->input->post('user_email');
     // $Memo = $this->input->post('user_memo');
 
+    // 비밀번호 암호화
     $hashed_password = password_hash($Password_1, PASSWORD_DEFAULT);
 
     $data = [
@@ -58,8 +59,7 @@ class Register_M extends CI_Model
   }
 
   // 유저 아이디 중복 체크
-  public function userid_check($ID)
-  {
+  public function userid_check($ID) {
     if ($ID) {
       // $result = array();
       $sql = "SELECT user_id FROM members WHERE user_id = '" . $this->db->escape_str($ID) . "';";
@@ -74,7 +74,6 @@ class Register_M extends CI_Model
       return FALSE;
     }
   }
-
 }
 
 ?>
