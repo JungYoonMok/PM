@@ -14,6 +14,8 @@ class Login_C extends CI_Controller
   {
     $ssData = array(
       'user_id' => $this->session->userdata('user_id'),
+      'username' => $this->session->userdata('username'),
+      'login' => $this->session->userdata('login'),
     );
 
     $this->layout->custom_view('login_V', $ssData);
@@ -38,7 +40,7 @@ class Login_C extends CI_Controller
         $user_data = [
           'user_id' => 'test',
           'username' => 'Duckey',
-          'logged_in' => TRUE
+          'login' => TRUE
         ];
         $this->session->set_userdata($user_data);
 

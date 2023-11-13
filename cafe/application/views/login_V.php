@@ -43,8 +43,10 @@
           </button>
         </div>
       </form>
+
       <p>1 : <?= htmlspecialchars($user_id); ?></p>
-      <p>2 : <?= $this->session->userdata('user_id'); ?></p>
+      <p>2 : <?= $this->session->userdata('username'); ?></p>
+
       <div class="flex w-full my-8 gap-3 px-20 text-gray-300">
         <div class="border-t border-dashed border-slate-300 w-full"></div>
         <p class="-mt-6 text-sm text-slate-600 font-bold bg-slate-200 p-3 rounded-[50%]">
