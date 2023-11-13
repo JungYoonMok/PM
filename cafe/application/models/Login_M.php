@@ -10,6 +10,15 @@ class Login_M extends CI_Model
     parent::__construct();
   }
 
+  public function userInfo($ID)
+  {
+    $this->db->select('*');
+    $this->db->from('members');
+    $this->db->where('user_id', $ID);
+    $query = $this->db->get();
+    return $query->row_array();
+  }
+
   public function check_login($username, $password)
   {
     $username_S = $this->db->escape_str($username);

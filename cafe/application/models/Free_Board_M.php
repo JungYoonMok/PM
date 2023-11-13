@@ -8,9 +8,6 @@ class Free_Board_M extends CI_Model
   public function __construct()
   {
     parent::__construct();
-
-    $this->load->database();
-    $this->load->helper('url');
   }
 
   public function get_comments($idx, $limit, $start)
@@ -126,19 +123,13 @@ class Free_Board_M extends CI_Model
 
   public function GetBoardList()
   {
-    $this->load->database();
     $result = $this->db->query('SELECT * FROM boards')->result();
-    $this->db->close();
-    
     return $result;
   }
   
   public function GetBoardTotal()
   {
-    $this->load->database();
     $result = $this->db->query('SELECT idx FROM boards')->num_rows();
-    $this->db->close();
-    
     return $result;
   }
 

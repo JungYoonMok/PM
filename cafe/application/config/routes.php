@@ -1,4 +1,4 @@
-<?
+<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['default_controller'] = 'main';
@@ -12,4 +12,3 @@ $route['freeboard/(:num)/(:num)'] = 'free_board_detail/show/$1/$1';
 
 $route['login'] = '/login_C';
 $route['register'] = '/register_C';
-?>

@@ -45,7 +45,7 @@
       </form>
 
       <p>1 : <?= htmlspecialchars($user_id); ?></p>
-      <p>2 : <?= $this->session->userdata('username'); ?></p>
+      <p>2 : <?= htmlspecialchars($user_name); ?></p>
 
       <div class="flex w-full my-8 gap-3 px-20 text-gray-300">
         <div class="border-t border-dashed border-slate-300 w-full"></div>
