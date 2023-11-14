@@ -80,10 +80,10 @@
             </div>
 
             <!-- 첨부파일 -->
-            <div class="flex p-3 gap-5 bg-[#4f4f4f]">
-              <p>첨부파일</p>
-              <input type="file">
-            </div>
+            <form action="/free_board_create_c/upload_file2" method="post" enctype="multipart/form-data">
+              <input type="file" name="userfile" />
+              <input type="submit" value="업로드" />
+            </form>
             
             <!-- 구분선 -->
             <div class="border-b border-gray-500"></div>

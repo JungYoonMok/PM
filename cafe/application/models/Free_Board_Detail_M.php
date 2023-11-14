@@ -1,6 +1,6 @@
 <?
 date_default_timezone_set('Asia/Seoul');
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Free_Board_Detail_M extends CI_Model
 {
@@ -12,16 +12,16 @@ class Free_Board_Detail_M extends CI_Model
 
   public function get($idx)
   {
-    $board = $this->db->get_where('boards', [ 'idx' => $idx ] )->row();
+    $board = $this->db->get_where('boards', ['idx' => $idx])->row();
     return $board;
   }
-  
+
   public function get_comments($idx, $limit, $start)
   {
     $this->db->order_by('group_idx', 'asc');
     $this->db->order_by('group_order', 'asc');
     $this->db->limit($limit, $start);
-    $comment = $this->db->get_where('boards_comment', [ 'boards_idx' => $idx ] )->result();
+    $comment = $this->db->get_where('boards_comment', ['boards_idx' => $idx])->result();
     return $comment;
   }
 
@@ -44,7 +44,8 @@ class Free_Board_Detail_M extends CI_Model
     $this->db->update('boards_comment', ['group_idx' => $insert_id]);
   }
 
-  public function reply_create() {
+  public function reply_create()
+  {
     // POST 데이터로부터 필요한 정보를 가져옵니다.
     $board_id = $this->input->post('board_id');
     $parent_id = $this->input->post('comment_id'); // 상위 댓글 ID
@@ -64,9 +65,9 @@ class Free_Board_Detail_M extends CI_Model
 
     // 새 대댓글의 group_order를 위해 기존 댓글들의 group_order 값을 업데이트합니다.
     $this->db->set('group_order', 'group_order + 1', FALSE)
-            ->where('group_idx', $group_idx)
-            ->where('group_order >=', $new_group_order)
-            ->update('boards_comment');
+      ->where('group_idx', $group_idx)
+      ->where('group_order >=', $new_group_order)
+      ->update('boards_comment');
 
     // 새 대댓글 데이터를 준비합니다.
     $data = [
@@ -83,7 +84,7 @@ class Free_Board_Detail_M extends CI_Model
     $this->db->insert('boards_comment', $data);
 
     // 트랜잭션 상태를 확인하고 문제가 없으면 커밋합니다.
-    if ( ! $this->db->trans_status()) {
+    if (!$this->db->trans_status()) {
       // 문제가 있으면 롤백합니다.
       $this->db->trans_rollback();
       // 여기에 에러 처리 로직을 추가할 수 있습니다.
@@ -94,12 +95,23 @@ class Free_Board_Detail_M extends CI_Model
     }
 
     // 게시판 페이지로 리디렉션합니다.
-    redirect("/freeboard/".$board_id);
+    redirect("/freeboard/" . $board_id);
   }
 
   public function comment_board_type()
   {
     return $this->input->post('board_type');
+  }
+
+  public function board_like($data)
+  {
+    $result = $this->db->insert('board_like', $data);
+    if($result) {
+      return ['state' => true, 'message' => '성공'];
+    } else {
+      log_message('error', '좋아요 실패: ' . $this->db->error()['message']);
+      return ['state' => false, 'message' => '실패'];
+    }
   }
 
 }

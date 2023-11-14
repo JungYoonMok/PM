@@ -50,6 +50,6 @@
         echo json_encode([ 'state' => FALSE, 'message' => '게시글 등록을 실패했습니다' ]);
       }
     }
-
+    
   }
 ?>

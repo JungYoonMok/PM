@@ -5,9 +5,6 @@ $(document).ready( () => {
 
     // 새로고침 방지
     e.preventDefault();
-    
-    // console.log($('input[name=post_open]:checked').val());
-    // console.log($('input[name=comment_open]:checked').val());
 
     if(!$('#post_type').val()){ // 게시판 분류 검사
       // 클래스 제거
@@ -46,7 +43,7 @@ $(document).ready( () => {
       },
       success: response => {
         if(response.state) {
-          console.log(response);
+          // console.log(response);
           // alert('게시글 작성이 완료되었습니다.');
           location.href = '/freeboard';
         } else {
