@@ -61,8 +61,7 @@
                 </div>
                 <div>
                   <a href="#" class="font-bold hover:underline hover:opacity-80 duration-200">
-                    <!-- <?=$post->user_id;?>(등급) -->
-                    Duckey (등급)
+                    <?=$post->user_id;?>(등급)
                   </a>
                   <div>
                     hi
