@@ -245,7 +245,8 @@
             </div>
 
             <!-- 뷰에서 페이지네이션 링크 출력 -->
-            <div class="<?= empty($comment) ? 'hidden' : '' ?> my-5">
+            <!-- <div class="<?= empty($comment) ? 'hidden' : '' ?> my-5"> -->
+            <div class="my-5">
               <?= $links; ?> 
             </div>
 

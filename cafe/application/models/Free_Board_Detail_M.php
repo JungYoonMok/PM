@@ -2,7 +2,7 @@
 date_default_timezone_set('Asia/Seoul');
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Free_Board_M extends CI_Model
+class Free_Board_Detail_M extends CI_Model
 {
 
   public function __construct()
@@ -10,6 +10,12 @@ class Free_Board_M extends CI_Model
     parent::__construct();
   }
 
+  public function get($idx)
+  {
+    $board = $this->db->get_where('boards', [ 'idx' => $idx ] )->row();
+    return $board;
+  }
+  
   public function get_comments($idx, $limit, $start)
   {
     $this->db->order_by('group_idx', 'asc');
@@ -94,43 +100,6 @@ class Free_Board_M extends CI_Model
   public function comment_board_type()
   {
     return $this->input->post('board_type');
-  }
-
-  public function create()
-  {
-    // form action 에서 name 값이 동일한 입력 값을 data 변수에 저장
-    $data = [
-      'board_type' => $this->input->post('board_type'),
-      'title' => $this->input->post('title'),
-      'content' => $this->input->post('contents'),
-      'regdate' => date("Y-m-d H:i:s")
-    ];
-
-    $result = $this->db->insert('boards', $data);
-    return $result;
-  }
-
-  public function get($idx)
-  {
-    $board = $this->db->get_where('boards', [ 'idx' => $idx ] )->row();
-    return $board;
-  }
-
-  public function update()
-  {
-
-  }
-
-  public function GetBoardList()
-  {
-    $result = $this->db->query('SELECT * FROM boards')->result();
-    return $result;
-  }
-  
-  public function GetBoardTotal()
-  {
-    $result = $this->db->query('SELECT idx FROM boards')->num_rows();
-    return $result;
   }
 
 }

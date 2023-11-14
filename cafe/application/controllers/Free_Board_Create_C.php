@@ -2,21 +2,17 @@
   date_default_timezone_set('Asia/Seoul');
   defined('BASEPATH') OR exit('No direct script access allowed');
 
-  class Free_Board_Create extends CI_Controller {
+  class Free_Board_Create_C extends CI_Controller {
 
     public function __construct()
     {
       parent::__construct();
-      $this->load->library('form_validation');
-      $this->load->library('layout');
-
-      // 불러옴과 동시에 별칭 지정 Board_create_model -> board
-      $this->load->model('Free_Board_M', 'FBM');
+      $this->load->model('Free_Board_Create_M', 'FBM');
     }
     
     public function index()
     {
-      $this->layout->custom_view('board/free_board_create');
+      $this->layout->custom_view('board/free_board_create_v');
     }
 
     public function create()

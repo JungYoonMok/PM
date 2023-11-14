@@ -2,17 +2,13 @@
 date_default_timezone_set('Asia/Seoul');
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-  class Free_board_Detail extends CI_Controller
+  class Free_board_Detail_C extends CI_Controller
   {
 
     public function __construct() {
       parent::__construct();
 
-      $this->load->model('Free_Board_M', 'FBM');
-      $this->load->library('form_validation');
-      $this->load->library('layout');
-
-      $this->load->library('pagination');
+      $this->load->model('Free_Board_Detail_M', 'FBM');
     }
     
     public function show($idx)
@@ -54,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       $data['post'] = $this->FBM->get($idx);
       $data['comment'] = $this->FBM->get_comments($idx, $config['per_page'], $page);
       $data['list'] = $this->db->get_where('boards', [ 'board_type' => '자유게시판' ] )->result();
-      $this->layout->custom_view('board/free_board_detail', $data);
+      $this->layout->custom_view('board/free_board_detail_v', $data);
     }
 
     public function comment_create()
