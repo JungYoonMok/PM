@@ -13,7 +13,7 @@
       <div class="flex justify-between gap-3 opacity-90">
         <div>
           <a href="#"
-            class="bg-blue-500 duration-200 hover:bg-[#2f2f2f] border border-blue-400 px-3 py-2 rounded">수정하기</a>
+            class="<?= $this->session->userdata('user_id') ? '' : 'hidden' ?> bg-blue-500 duration-200 hover:bg-[#2f2f2f] border border-blue-400 px-3 py-2 rounded">수정하기</a>
         </div>
         <div>
           <a href="#"
@@ -136,7 +136,7 @@
           <div class="flex duration-200 place-items-center p-3 gap-5 <?= empty($post->files) ? 'hidden' : $post->files ?>">
             <p>첨부파일</p>
             <div class="">
-              
+
             </div>
           </div>
 
@@ -158,96 +158,93 @@
                   </span>
                 </div>
 
-                <!-- 작성자 -->
                 <div class="flex gap-3">
+                  <!-- 작성자 -->
+                  <div class="flex gap-3">
+                    <!-- 프로필 -->
+                    <div
+                      class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border border-gray-500 h-14 w-14 bg-[#3f3f3f]">
+                      <img width="100%"
+                        src="https://pds.saramin.co.kr/workenv-bg/202303/09/rr8njw_y8e6-w09k06_workenv-bg.png"
+                        class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400">
+                      </img>
+                    </div>
+                    <!-- 아이디 -->
+                    <div>
+                      <a href="#" class="font-bold hover:underline hover:opacity-80 duration-200">
+                        <?= empty($com->user_id) ? null : $com->user_id; ?>
+                      </a>
+                      <!-- <p>No: <?= $com->idx ?></p> -->
+                    </div>
+                  </div>
+
+                  <!-- 작성된 댓글 -->
                   <div
-                    class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border border-gray-500 h-14 w-14 bg-[#3f3f3f]">
-                    <img width="100%"
-                      src="https://pds.saramin.co.kr/workenv-bg/202303/09/rr8njw_y8e6-w09k06_workenv-bg.png"
-                      class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400">
-                    </img>
-                  </div>
-                  <!-- 아이디 -->
-                  <div>
-                    <a href="#" class="font-bold hover:underline hover:opacity-80 duration-200">
-                      <?= empty($com->user_id) ? null : $com->user_id; ?>
-                    </a>
-                    <p>No: <?= $com->idx ?></p>
-                  </div>
-                </div>
+                    class="flex flex-col shadow-xl py-3 px-5 rounded-tl-none rounded rounded-bl-xl <?= ($post->user_id == $com->user_id) ? 'border border-yellow-500' : 'bg-[#3f3f3f] border border-gray-500'; ?>">
 
-                <!-- 작성된 댓글 -->
-                <div
-                  class="flex flex-col shadow-xl py-3 px-5 rounded-tl-none rounded rounded-bl-xl <?= $com->user_id !== 'Duckey' ? 'border border-yellow-500' : 'bg-[#3f3f3f] border border-gray-500'; ?>">
+                    <!-- 내용 -->
+                    <div class="">
+                      <?= empty($com->content) ? null : $com->content; ?>
+                    </div>
 
-                  <!-- 내용 -->
-                  <div class="">
-                    <?= empty($com->content) ? null : $com->content; ?>
+                    <!-- 작성시간 및 답글쓰기 -->
+                    <div class="text-sm gap-9 flex mt-5 justify-between opacity-80 text-gray-300 whitespace-nowrap">
+                      <p class="-mr-3">
+                        <?= empty($com->regdate) ? null : substr($com->regdate, 0, 16); ?>
+                      </p>
+                      <button class="hover:underline hover:opacity-80 duration-200" onclick='reply_btn(<?= $com->idx ?>)'>
+                        답변 달기
+                      </button>
+                    </div>
+
                   </div>
-
-                  <!-- 작성시간 및 답글쓰기 -->
-                  <div class="text-sm gap-9 flex mt-5 justify-between gap-3 opacity-80 text-gray-300 whitespace-nowrap">
-                    <p class="-mr-3">
-                      <?= empty($com->regdate) ? null : substr($com->regdate, 0, 16); ?>
-                    </p>
-                    <button class="hover:underline hover:opacity-80 duration-200" onclick='reply_btn(<?= $com->idx ?>)'>
-                      리플 작성
-                    </button>
-                  </div>
-
                 </div>
 
               </div>
 
               <!-- 리플 작성 -->
-              <div id="reply_onoff<?= $com->idx ?>"
-                class="w-full text-sm flex flex-col gap-5 bg-[#1f1f1f] p-5 border border-gray-500 hidden">
-                <div class="flex justify-between">
-                  <div class="flex gap-5 flex">
-                    <p><?= $com->content ?></p>
-                    <p> 〉</p>
-                    <p>리플 작성</p>
-                  </div>
+              <div id="reply_onoff<?= $com->idx ?>" class="w-full rounded-md text-sm flex gap-5 p-3 hidden">
+                <div>
                   <div>
-                    <p class="text-gray-300">타인에게 상처주는 언행은 삼가해 주세요 : )</p>
+                    <span class="material-symbols-outlined">
+                    subdirectory_arrow_right
+                    </span>
                   </div>
                 </div>
+                <div class="w-full">
+                  <!-- 댓글 메인 -->
+                  <form action="/free_board_detail/reply_comment_create" method="post" class=" rounded p-3 drop-shadow-2xl border border-[#4f4f4f] bg-[#3f3f3f] flex flex-col gap-3">
 
-                <!-- 구분선 -->
-                <div class="border-b border-gray-500"></div>
-
-                <!-- 댓글 메인 -->
-                <form action="/free_board_detail/reply_comment_create" method="post" class="flex flex-col gap-3">
-
-                  <!-- 내용 -->
-                  <div>
-                    <input name="comment_id" type="number" hidden value="<?= $com->idx ?>"></input>
-                    <input name="group_idx" type="number" hidden value="<?= $com->group_idx ?>"></input>
-                    <input name="group_order" type="number" hidden value="<?= $com->group_order ?>"></input>
-                    <input name="depth" type="number" hidden value="<?= $com->depth ?>"></input>
-
-                    <input id='bd_id' name="board_id" type="number" hidden value="<?= $post->idx ?>"></input>
-                    <input name="board_type" type="text" hidden value="<?= $post->board_type ?>"></input>
-                    <input name="user_id" type="text" hidden value="Duckey"></input>
-                    <textarea name="contents" required cols="30" rows="5"
-                      class="w-full rounded bg-[#2f2f2f] p-3 outline-none"></textarea>
-                  </div>
-
-                  <!-- 기능 -->
-                  <div class="flex gap-3 justify-between place-items-center">
-                    <div>
-                      기능들
-                    </div>
+                    <!-- 내용 -->
                     <div class="">
-                      <button type="submit"
-                        class="bg-[#3f3f3f] outline-none duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-5 py-3 rounded w-40">
-                        리플 등록
-                      </button>
+                      <input name="comment_id" type="number" hidden value="<?= $com->idx ?>"></input>
+                      <input name="group_idx" type="number" hidden value="<?= $com->group_idx ?>"></input>
+                      <input name="group_order" type="number" hidden value="<?= $com->group_order ?>"></input>
+                      <input name="depth" type="number" hidden value="<?= $com->depth ?>"></input>
+
+                      <input id='bd_id' name="board_id" type="number" hidden value="<?= $post->idx ?>"></input>
+                      <input name="board_type" type="text" hidden value="<?= $post->board_type ?>"></input>
+                      <input name="user_id" type="text" hidden value="<?= $this->session->userdata('user_id') ?>"></input>
+
+                      <textarea name="contents" placeholder="답변을 적어주세요" required cols="30" rows="5" class="w-full rounded bg-[#3f3f3f] p-3 outline-none"></textarea>
                     </div>
-                  </div>
 
-                </form>
+                    <!-- 기능 -->
+                    <div class="flex gap-3 justify-between place-items-center">
+                      <div>
+                        기능들
+                      </div>
+                      <div class="">
+                        <button type="submit"
+                          class="outline-none duration-200 bg-[#2f2f2f] hover:bg-[#1f1f1f] border border-[#4f4f4f] px-5 py-3 rounded w-40">
+                          답변 등록
+                        </button>
+                      </div>
+                    </div>
 
+                  </form>
+
+                </div>
               </div>
 
             <? endforeach ?>
@@ -276,10 +273,13 @@
             </a>
           </div>
 
+          <!-- 구분선 -->
+          <div class="border-b border-gray-500"></div>
+
           <!-- 댓글 작성 -->
-          <div class="w-full text-sm flex flex-col gap-5 bg-[#1f1f1f] p-5 border border-gray-500">
+          <div class="<?= $this->session->userdata('user_id') ? '' : 'hidden' ?> w-full drop-shadow-2xl text-sm flex flex-col gap-5 bg-[#1f1f1f] p-5 border border-gray-500">
             <div class="flex justify-between">
-              <div class="flex gap-5 flex">
+              <div class="gap-5 flex">
                 <p><?= $post->title ?></p>
                 <p> 〉</p>
                 <p>댓글</p>
@@ -299,8 +299,8 @@
               <div>
                 <input name="board_id" type="number" hidden value="<?= $post->idx ?>"></input>
                 <input name="board_type" type="text" hidden value="<?= $post->board_type ?>"></input>
-                <input name="user_id" type="text" hidden value="Duckey"></input>
-                <textarea name="contents" required cols="30" rows="5"
+                <input name="user_id" type="text" hidden value="<?= $this->session->userdata('user_id') ?>"></input>
+                <textarea name="contents" placeholder="댓글을 적어주세요" required cols="30" rows="5"
                   class="w-full rounded bg-[#2f2f2f] p-3 outline-none"></textarea>
               </div>
 
@@ -327,7 +327,7 @@
 
       <!-- 글쓰기, 답글, 이전, 다음, 목록 -->
       <div class="flex justify-between gap-3 opacity-90">
-        <div>
+        <div class="<?= $this->session->userdata('user_id') ? '' : 'hidden' ?> ">
           <a href="#" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">
             글쓰기
           </a>
