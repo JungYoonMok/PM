@@ -6,12 +6,12 @@
       class="bg-[#2f2f2f] border border-[#4f4f4f] w-[600px] p-5 rounded flex flex-col gap-5 relative drop-shadow-2xl">
 
       <!-- 계정 정보가 일치하지 않을시 -->
-      <div id='error_form' class="duration-200 hidden p-5 animate-pulse flex gap-3 border bg-red-500 w-full opacity-80 rounded">
+      <div id='error_form' class="duration-200 hidden flex p-5 animate-pulse gap-3 border bg-red-500 w-full opacity-80 rounded">
         <span class="material-symbols-outlined">error</span>
         <p id='error_txt' class=""><?= validation_errors(); ?></p>
       </div>
       
-      <!-- 프로필사진 -->
+      <!-- 프로필사진 별명 -->
       <div class="flex gap-5 place-items-center justify-center p-3 bg-[#4f4f4f] rounded">
         <div
           class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border border-gray-500 h-20 w-20  bg-[#3f3f3f]">
@@ -25,10 +25,11 @@
             </a>
           </div>
         </div>
+        <!-- 별명 -->
         <div class="flex flex-col gap-2">
           <h2>별명(닉네임)</h2>
           <div>
-            <input name='nickname' id='nickname' placeholder="김아무개"
+            <input name='user_nickname' id='user_nickname' placeholder="김아무개"
               class="duration-200 border border-gray-500 hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none"
               type="text" />
             <button class="p-3 rounded bg-blue-500">사용</button>
@@ -43,14 +44,13 @@
       <div class="flex gap-2 w-full">
         <div class="w-full flex flex-col gap-2">
           <h2>아이디</h2>
-          <!-- <input name='user_id' placeholder="abc123" class="w-full font-black duration-200 border border-gray-500 hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none" type="text" /> -->
           <input name='user_id' id='user_id' placeholder="abc123"
             class="w-full font-black duration-200 border border-gray-500 hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none"
             type="text" />
         </div>
         <div class="w-full flex flex-col gap-2">
           <h2>성함</h2>
-          <input name='user_name' name='user_name' placeholder="홍길동"
+          <input name='user_name' id='user_name' placeholder="홍길동"
             class="w-full font-black duration-200 border border-gray-500 hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none"
             type="text" />
         </div>
@@ -72,6 +72,7 @@
         </div>
       </div>
 
+      <!-- 휴대폰 -->
       <div class="flex flex-col gap-2">
         <h2>휴대폰</h2>
         <div class="flex gap-3">
@@ -93,6 +94,7 @@
         </div>
       </div>
 
+      <!-- 이메일 -->
       <div class="flex w-full flex-col gap-2">
         <h2>이메일</h2>
         <input name="user_email" id='user_email' placeholder="abc@naver.com"
@@ -100,6 +102,7 @@
           type="email" />
       </div>
 
+      <!-- 소개 -->
       <div class="flex w-full flex-col gap-2">
         <h2>소개 - 간단하게 자기를 소개해보세요 : )</h2>
         <textarea name="user_memo" id='user_memo' rows="3" placeholder="안녕하세요? 저는 홍길동입니다"
@@ -107,13 +110,11 @@
       </div>
 
       <!-- 회원가입 버튼 -->
-      <div>
-        <div class="text-center">
-          <button id="registerButton" name="registerButton"
-            class="bg-[#1f1f1f] border border-gray-500 hover:border-[#1f1f1f] duration-200 hover:opacity-80 p-4 rounded w-full outline-none">
-            회원가입
-          </button>
-        </div>
+      <div class="text-center">
+        <button id="registerButton" name="registerButton"
+          class="bg-[#1f1f1f] border border-gray-500 hover:border-[#1f1f1f] duration-200 hover:opacity-80 p-4 rounded w-full outline-none">
+          회원가입
+        </button>
       </div>
 
     </form>

@@ -38,30 +38,31 @@ class Register_C extends CI_Controller
   public function register()
   {
     // 폼 벨리데이션으로 폼의 필수값을 지정
-    // $this->form_validation->set_rules('nickname', 'NickName', 'required');
-    // $this->form_validation->set_rules('user_id', 'ID', 'required');
-    // $this->form_validation->set_rules('user_name', 'Name', 'required');
+    $this->form_validation->set_rules('nName', 'NickName', 'required');
+    $this->form_validation->set_rules('id', 'ID', 'required');
+    $this->form_validation->set_rules('name', 'Name', 'required');
     $this->form_validation->set_rules('password_1', 'Password', 'required|matches[password_2]');
     $this->form_validation->set_rules('password_2', 'Password Check', 'required');
-    // $this->form_validation->set_rules('user_phone_2', 'Phone_2', 'required');
-    // $this->form_validation->set_rules('user_phone_3', 'Phone_3', 'required');
-    // $this->form_validation->set_rules('user_email', 'Email', 'required|valid_email');
+    $this->form_validation->set_rules('phone_1', 'Phone_1', 'required');
+    $this->form_validation->set_rules('phone_2', 'Phone_2', 'required');
+    $this->form_validation->set_rules('phone_3', 'Phone_3', 'required');
+    $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+    $this->form_validation->set_rules('memo', 'Memo', 'required');
 
     if ($this->form_validation->run()) {
-      // 유저 아이디 중복 체크
-      $user_check = $this->register_model->userid_check($this->input->post('user_id'));
-      if ($user_check) {
-        // 내가한거
-        // Model의 register 함수 호출 (여기서 비밀번호 일치 여부를 확인함)
-        // $this->register_model->register();
 
+      // 유저 아이디 중복 체크
+      $user_id = $this->input->post('id');
+      $user_check = $this->register_model->userid_check($user_id);
+
+      if ($user_check) {
         // 모델의 register 함수 호출
         $response = $this->register_model->register();
         echo json_encode($response);
-
       } else {
         echo json_encode([ 'state' => FALSE, 'message' => '아이디가 이미 존재합니다' ]);
       }
+
     } else {
       // 폼 벨리데이션 실패 시 오류 메시지 반환
       echo json_encode([ 'state' => FALSE, 'message' => '정보 검증 실패!' ]);
