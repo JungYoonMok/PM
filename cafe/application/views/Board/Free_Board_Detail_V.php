@@ -133,11 +133,10 @@
           </div>
 
           <!-- 첨부파일 -->
-          <div
-            class="flex duration-200 place-items-center p-3 gap-5 <?= empty($post->files) ? 'hidden' : $post->files ?>">
+          <div class="flex duration-200 place-items-center p-3 gap-5 <?= empty($post->files) ? 'hidden' : $post->files ?>">
             <p>첨부파일</p>
             <div class="">
-              <?= $post->files ?>
+              
             </div>
           </div>
 

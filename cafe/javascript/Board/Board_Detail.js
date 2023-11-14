@@ -4,7 +4,6 @@ $(document).ready( () => {
   $('#like_up').click( e => {
     // 새로고침 방지
     e.preventDefault();
-    console.log( '좋아요' );
     $.ajax({
       url: '/free_board_detail_c/board_like',
       type: 'post',

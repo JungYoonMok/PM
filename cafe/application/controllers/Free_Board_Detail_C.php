@@ -100,7 +100,18 @@ class Free_board_Detail_C extends CI_Controller
       'regdate' => date("Y-m-d H:i:s"),
     ];
 
-    $this->FBM-->board_like($data);
+    $check = $this->FBM->board_like_check($data);
+    if($check['state'] == false) {
+      echo json_encode([ 'state' => FALSE, 'message' => '컨트롤: 실패 - 한 번만 투표할 수 있습니다' ]);
+      return;
+    }
+
+    $result = $this->FBM->board_like($data);
+    if($result) {
+      echo json_encode([ 'state' => TRUE, 'message' => '컨트롤: 성공' ]);
+    } else {
+      echo json_encode([ 'state' => FALSE, 'message' => '컨트롤: 실패' ]);
+    }
   }
 
 }
