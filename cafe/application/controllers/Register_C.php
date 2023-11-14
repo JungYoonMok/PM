@@ -65,7 +65,7 @@ class Register_C extends CI_Controller
 
     } else {
       // 폼 벨리데이션 실패 시 오류 메시지 반환
-      echo json_encode([ 'state' => FALSE, 'message' => '정보 검증 실패!' ]);
+      echo json_encode([ 'state' => FALSE, 'message' => '정보 검증에 실패했습니다',  'detail' => '입력한 정보를 다시 확인해 주세요' ]);
     }
     exit; // 추가 출력 방지
   }

@@ -7,7 +7,6 @@ class Login_C extends CI_Controller
   {
     parent::__construct();
     $this->load->model('login_M', 'login_model');
-    // $this->load->library('session');
   }
 
   public function index()
@@ -47,6 +46,11 @@ class Login_C extends CI_Controller
       
       $user = $this->login_model->check_login($username, $password);
       if ($user) {
+
+        // 마지막 로그인 시간 업데이트
+        $ID = $this->input->post('username');
+        $this->login_model->last_login_logout($ID, 'login');
+
         $data = $this->login_model->userInfo($username);
         
         //로그인 성공시 session 생성 및 저장
@@ -65,6 +69,7 @@ class Login_C extends CI_Controller
         ];
         
         $this->session->set_userdata($user_data);
+
         echo json_encode([ 'state' => true, 'message' => '로그인 성공' ]);
       } else {
         echo json_encode([ 'state' => false, 'message' => '로그인 정보를 다시 확인해 주세요' ]);
@@ -78,6 +83,10 @@ class Login_C extends CI_Controller
   // 로그아웃 처리
   public function logout()
   {
+    // 마지막 로그아웃 시간 업데이트
+    $ID = $this->session->userdata('user_id');
+    $this->login_model->last_login_logout($ID, 'logout');
+
     try {
       $this->session->unset_userdata('user_name');
       $this->session->unset_userdata('user_nickname');

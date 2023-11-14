@@ -44,6 +44,14 @@ class Login_M extends CI_Model
     return false; // 로그인 실패
   }
 
+  // 마지막 로그인 시간 업데이트
+  public function last_login_logout($ID, $STATE = '')
+  {
+    $this->db->set($STATE === 'login' ? 'last_login' : 'last_logout', date("Y-m-d H:i:s"));
+    $this->db->where('user_id', $this->db->escape_str($ID));
+    $this->db->update('members');
+  }
+
 }
 
 ?>

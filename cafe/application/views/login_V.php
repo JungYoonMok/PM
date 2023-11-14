@@ -5,10 +5,10 @@
     <div class="bg-[#2f2f2f] border border-[#4f4f4f] w-[500px] px-5 py-10 rounded flex flex-col gap-5 relative drop-shadow-2xl">
 
       <!-- 계정 정보가 일치하지 않을시 -->
-      <!-- <div class="p-5 animate-pulse flex gap-3 border bg-red-500 w-full opacity-80 rounded -mt-2 mb-5">
+      <div id='error_form' class="duration-200 hidden flex p-5 animate-pulse gap-3 border bg-red-500 w-full opacity-80 rounded">
         <span class="material-symbols-outlined">error</span>
-        <p class="">계정 정보를 다시 확인해 주세요</p>
-      </div> -->
+        <p id='error_txt' class=""><?= validation_errors(); ?></p>
+      </div>
 
       <form id="loginForm" class="flex flex-col gap-5">
 
@@ -90,39 +90,4 @@
 
 </div>
 
-<script>
-
-  // 로그인
-  $(document).ready(() => {
-    $('#loginForm').on('submit', e => {
-      e.preventDefault();
-      const id = $('#user_id').val();
-      const pw = $('#user_pw').val();
-      $.ajax({
-        url: '/Login_C/login',
-        type: 'post',
-        dataType: 'json',
-        data: { username: id, password: pw },
-        success: response => {
-          if (id < 1) {
-            alert('아이디를 입력해 주세요');
-          } else if (pw < 1) {
-            alert('비밀번호를 입력해 주세요');
-          } else {
-
-            if (response.state) { // 로그인 성공시 메인페이지로 이동
-              location.href = '/';
-            } else {
-              alert(response.message);
-            }
-
-          }
-        },
-        error: (response, s, e) => {
-          console.log('실패', response, s, e);
-        }
-      });
-    });
-  });
-
-</script>
+<script src="/javascript/user/login.js"></script>
