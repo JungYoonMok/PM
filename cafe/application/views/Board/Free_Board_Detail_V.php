@@ -146,11 +146,19 @@
           <div class="flex flex-col gap-5 <?= empty($comment) ? 'hidden' : '' ?>">
             <? foreach ($comment as $com): ?>
 
-              <div class="flex gap-3 text-sm whitespace-nowrap">
+              <div class="flex gap-3 text-sm">
 
+              <?
+                $test = array(
+                  0 => "ml-0",
+                  1 => "ml-[20px]",
+                  2 => "ml-[40px]",
+                  3 => "ml-[60px]",
+                );
+              ?>
                 <!-- 답글일 경우 -->
-                <div
-                  class="lg:ml-[<?= (20 * ($com->depth - 1)) ?>px;] flex justify-center place-items-center <?= $com->group_order !== '0' ? 'inline' : 'hidden' ?>">
+                <div class="<?=$test[$com->depth - 1]?> flex justify-center place-items-center <?= $com->group_order !== '0' ? 'inline' : 'hidden' ?>">
+                <!-- <div class="=ml-[<? 20 * $com->depth - 1 ?>]px flex justify-center place-items-center <?= $com->group_order !== '0' ? 'inline' : 'hidden' ?>"> -->
                   <span class="material-symbols-outlined text-4xl rotate-180 mb-10 ml-5 text-[#4f4f4f]">
                     arrow_top_left
                   </span>
@@ -326,7 +334,7 @@
       <!-- 글쓰기, 답글, 이전, 다음, 목록 -->
       <div class="flex justify-between gap-3 opacity-90">
         <div class="flex gap-2 <?= $this->session->userdata('user_id') ? '' : 'hidden' ?> ">
-          <a href="#" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">
+          <a href="/free_board_create_c/" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">
             글쓰기
           </a>
           <a href="#" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">

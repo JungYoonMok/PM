@@ -34,7 +34,7 @@
   </style>
 
   <!-- tailwind -->
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/output.css">
 
   <!-- jquery -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -75,7 +75,7 @@
 
         <!-- 헤더 -->
         <div class="w-full">
-          <? $this->load->view('header'); ?>
+          <?= $header ?>
         </div>
           
         <!-- 컨텐츠 -->
