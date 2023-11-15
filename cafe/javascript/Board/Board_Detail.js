@@ -1,7 +1,7 @@
 // ajax 게시글 등록
 $(document).ready( () => {
 
-  $('#like_up').click( e => {
+  $('#like_up').click( e => { // 좋아요 버튼 클릭시
     // 새로고침 방지
     e.preventDefault();
     $.ajax({
@@ -11,6 +11,32 @@ $(document).ready( () => {
       data: { 
         boards_idx: $('#bd_id').val(),
         like_type: '1',
+      },
+      success: response => {
+        if(response.state) {
+          console.log(response);
+          // location.reload();
+        } else {
+          console.log(response);
+          $('#error_txt').text(response.message); // 에러 메시지 출력
+        }
+      },
+      error: ( response, s, e ) => {
+        console.log('에러', response, s, e);
+      }
+    });
+  });
+
+  $('#like_down').click( e => { // 싫어요 버튼 클릭시
+    // 새로고침 방지
+    e.preventDefault();
+    $.ajax({
+      url: '/free_board_detail_c/board_like',
+      type: 'post',
+      dataType: 'json',
+      data: { 
+        boards_idx: $('#bd_id').val(),
+        like_type: '0',
       },
       success: response => {
         if(response.state) {

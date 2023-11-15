@@ -51,6 +51,16 @@ class Free_board_Detail_C extends CI_Controller
     $data['post'] = $this->FBM->get($idx);
     $data['comment'] = $this->FBM->get_comments($idx, $config['per_page'], $page);
     $data['list'] = $this->db->get_where('boards', ['board_type' => '자유게시판'])->result();
+
+    // 게시글 정보 등
+    $board_info = [
+      'board_id' => $idx,
+      'user_id' => $this->session->userdata('user_id'),
+    ];
+    $this->FBM->board_hit_plus($idx); // 조회수 증가
+    $data['hit'] = $this->FBM->board_hit_get($idx); // 조회수 가져오기
+    $data['comment_count'] = $this->FBM->board_comment_count($idx); // 댓글 수 가져오기
+
     $this->layout->custom_view('board/free_board_detail_v', $data);
   }
 
@@ -91,6 +101,7 @@ class Free_board_Detail_C extends CI_Controller
     $this->FBM->reply_create();
   }
 
+  // 좋아요, 싫어요 클릭
   public function board_like()
   {
     $data = [
@@ -102,7 +113,7 @@ class Free_board_Detail_C extends CI_Controller
 
     $check = $this->FBM->board_like_check($data);
     if($check['state'] == false) {
-      echo json_encode([ 'state' => FALSE, 'message' => '컨트롤: 실패 - 한 번만 투표할 수 있습니다' ]);
+        echo json_encode([ 'state' => FALSE, 'message' => '컨트롤: 실패 - 한 번만 투표할 수 있습니다' ]);
       return;
     }
 

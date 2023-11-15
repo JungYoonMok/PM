@@ -103,6 +103,28 @@ class Free_Board_Detail_M extends CI_Model
     return $this->input->post('board_type');
   }
 
+  // 조회수 가져오기
+  public function board_hit_get($idx){
+    $comment = $this->db->get_where('boards', [ 'idx' => $idx ])->row();
+    return $comment;
+  }
+
+  // 조회수 증가
+  public function board_hit_plus($idx){
+    // 조회수 가져오기
+    $board_hit = $this->db->get_where('boards', [ 'idx' => $idx ])->row();
+    // 가져온 값에 +1
+    $this->db->where('idx', $idx);
+    $this->db->update('boards', [ 'hit' => $board_hit->hit+1 ]);
+  }
+
+  // 댓글 개수 가져오기
+  public function board_comment_count($idx){
+    $this->db->select('idx, count(*) as cnt');
+    $this->db->where('boards_idx', $idx);
+    $query = $this->db->get('boards_comment')->row();
+    return $query;
+  }
   
   // 이미 좋아요 및 싫어요를 눌렀는지 확인
   public function board_like_check($data)
@@ -120,7 +142,7 @@ class Free_Board_Detail_M extends CI_Model
   {
     $result = $this -> db -> insert('board_like', $this->db->escape_str($data));
     if($result) {
-      return [ 'state' => true, 'message' => '모델: 성공' ];
+      return [ 'state' => true, 'message' => '모델: 성공', 'type' => $data['like_type'] ];
     } else {
       log_message('error', '좋아요 실패: ' . $this->db->error()['message']);
       return [ 'state' => false, 'message' => '모델: 실패' ];

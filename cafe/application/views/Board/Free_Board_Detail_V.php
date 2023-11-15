@@ -54,7 +54,7 @@
         <!-- 컨텐츠 -->
         <div class="flex flex-col gap-5">
 
-          <!-- 작성자 -->
+          <!-- 작성자 및 게시글 정보 -->
           <div class="flex justify-between place-items-center">
             <div class="w-full flex gap-3 place-content-start">
               <div
@@ -77,13 +77,13 @@
                 <span class="material-symbols-outlined">
                   visibility
                 </span>
-                <p>139</p>
+                <p><?= $hit->hit; ?></p>
               </div>
               <div class="flex gap-2">
                 <span class="material-symbols-outlined">
                   chat_bubble
                 </span>
-                <p>8</p>
+                <p><?= $comment_count->cnt ?></p>
               </div>
               <div class="flex gap-2">
                 <span class="material-symbols-outlined">
@@ -226,7 +226,7 @@
                       <input name="board_type" type="text" hidden value="<?= $post->board_type ?>"></input>
                       <input name="user_id" type="text" hidden value="<?= $this->session->userdata('user_id') ?>"></input>
 
-                      <textarea name="contents" placeholder="답변을 적어주세요" required cols="30" rows="5" class="w-full rounded bg-[#3f3f3f] p-3 outline-none"></textarea>
+                      <textarea name="contents" placeholder="답변을 적어주세요" required cols="30" rows="5" class="w-full rounded duration-200 focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 outline-none"></textarea>
                     </div>
 
                     <!-- 기능 -->
@@ -327,7 +327,7 @@
 
       <!-- 글쓰기, 답글, 이전, 다음, 목록 -->
       <div class="flex justify-between gap-3 opacity-90">
-        <div class="<?= $this->session->userdata('user_id') ? '' : 'hidden' ?> ">
+        <div class="flex gap-2 <?= $this->session->userdata('user_id') ? '' : 'hidden' ?> ">
           <a href="#" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">
             글쓰기
           </a>
@@ -335,7 +335,7 @@
             답글
           </a>
         </div>
-        <div>
+        <div class="flex gap-2">
           <a href="#" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">
             이전글
           </a>
