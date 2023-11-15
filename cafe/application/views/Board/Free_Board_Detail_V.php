@@ -158,7 +158,6 @@
                   </span>
                 </div>
 
-                <div class="flex gap-3">
                   <!-- 작성자 -->
                   <div class="flex gap-3">
                     <!-- 프로필 -->
@@ -179,8 +178,7 @@
                   </div>
 
                   <!-- 작성된 댓글 -->
-                  <div
-                    class="flex flex-col shadow-xl py-3 px-5 rounded-tl-none rounded rounded-bl-xl <?= ($post->user_id == $com->user_id) ? 'border border-yellow-500' : 'bg-[#3f3f3f] border border-gray-500'; ?>">
+                  <div class="flex flex-col shadow-xl py-3 px-5 rounded-tl-none rounded rounded-bl-xl <?= ($post->user_id == $com->user_id) ? 'border border-yellow-500' : 'bg-[#3f3f3f] border border-gray-500'; ?>">
 
                     <!-- 내용 -->
                     <div class="">
@@ -198,9 +196,8 @@
                     </div>
 
                   </div>
-                </div>
 
-              </div>
+                </div>
 
               <!-- 리플 작성 -->
               <div id="reply_onoff<?= $com->idx ?>" class="w-full rounded-md text-sm flex gap-5 p-3 hidden">
