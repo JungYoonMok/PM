@@ -125,6 +125,24 @@ class Free_Board_Detail_M extends CI_Model
     $query = $this->db->get('boards_comment')->row();
     return $query;
   }
+
+  // 좋아요 및 싫어요 개수 가져오기 업
+  public function board_like_get1($idx){
+    $this->db->select('idx, count(*) as cnt');
+    $this->db->where('boards_idx', $idx);
+    $this->db->where('like_type', TRUE);
+    $query = $this->db->get('board_like')->row();
+    return $query;
+  }
+
+  // 좋아요 및 싫어요 개수 가져오기 다운
+  public function board_like_get2($idx){
+    $this->db->select('idx, count(*) as cnt');
+    $this->db->where('boards_idx', $idx);
+    $this->db->where('like_type', FALSE);
+    $query = $this->db->get('board_like')->row();
+    return $query;
+  }
   
   // 이미 좋아요 및 싫어요를 눌렀는지 확인
   public function board_like_check($data)

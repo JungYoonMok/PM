@@ -89,15 +89,13 @@
                 <span class="material-symbols-outlined">
                   thumb_up
                 </span>
-                <p>
-                  22
-                </p>
+                <p><?= $like_count1->cnt ?></p>
               </div>
               <div class="flex gap-2">
                 <span class="material-symbols-outlined">
                   thumb_down
                 </span>
-                <p>1</p>
+                <p><?= $like_count2->cnt ?></p>
               </div>
               <input type="text" id="link" value="http://localhost/freeboard/<?= $post->idx; ?>" class="hidden" />
               <button onclick=urlCopy() class="flex gap-2 hover:opacity-70 duration-200 hover:translate-y-1">

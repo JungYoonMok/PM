@@ -60,6 +60,8 @@ class Free_board_Detail_C extends CI_Controller
     $this->FBM->board_hit_plus($idx); // 조회수 증가
     $data['hit'] = $this->FBM->board_hit_get($idx); // 조회수 가져오기
     $data['comment_count'] = $this->FBM->board_comment_count($idx); // 댓글 수 가져오기
+    $data['like_count1'] = $this->FBM->board_like_get1($idx); // 좋아요 및 싫어요 가져오기
+    $data['like_count2'] = $this->FBM->board_like_get2($idx); // 좋아요 및 싫어요 가져오기
 
     $this->layout->custom_view('board/free_board_detail_v', $data);
   }
