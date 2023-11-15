@@ -98,11 +98,14 @@
                 <p><?= $like_count2->cnt ?></p>
               </div>
               <input type="text" id="link" value="http://localhost/freeboard/<?= $post->idx; ?>" class="hidden" />
-              <button onclick=urlCopy() class="flex gap-2 hover:opacity-70 duration-200 hover:translate-y-1">
+              <button onclick=CopyUrlToClipboard() class="flex gap-2 hover:opacity-70 duration-200 hover:translate-y-1">
                 <span class="material-symbols-outlined">
                   link
                 </span>
                 <p class="">URL 복사</p>
+                <div class="toastPopup hidden">
+                  <p>링크가 복사되었습니다.</p>
+                </div>
               </button>
             </div>
           </div>
@@ -148,17 +151,8 @@
 
               <div class="flex gap-3 text-sm">
 
-              <?
-                $test = array(
-                  0 => "ml-0",
-                  1 => "ml-[20px]",
-                  2 => "ml-[40px]",
-                  3 => "ml-[60px]",
-                );
-              ?>
                 <!-- 답글일 경우 -->
-                <div class="<?=$test[$com->depth - 1]?> flex justify-center place-items-center <?= $com->group_order !== '0' ? 'inline' : 'hidden' ?>">
-                <!-- <div class="=ml-[<? 20 * $com->depth - 1 ?>]px flex justify-center place-items-center <?= $com->group_order !== '0' ? 'inline' : 'hidden' ?>"> -->
+                <div style="margin-left: <?= 20 * $com -> depth - 1 ?>px;" class="flex justify-center place-items-center <?= $com->group_order !== '0' ? 'inline' : 'hidden' ?>">
                   <span class="material-symbols-outlined text-4xl rotate-180 mb-10 ml-5 text-[#4f4f4f]">
                     arrow_top_left
                   </span>
