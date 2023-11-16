@@ -5,7 +5,9 @@ $(document).ready( () => {
     // 새로고침 방지
     e.preventDefault();
 
-    if(confirm('좋아요를 누르시겠습니까? (변경은 불가능합니다)'));
+    if(!confirm('좋아요를 누르시겠습니까? (변경은 불가능합니다)')) {
+      return;
+    }
     
     $.ajax({
       url: '/free_board_detail_c/board_like',
@@ -34,7 +36,9 @@ $(document).ready( () => {
     // 새로고침 방지
     e.preventDefault();
 
-    if(confirm('싫어요를 누르시겠습니까? (변경은 불가능합니다)'));
+    if(!confirm('싫어요를 누르시겠습니까? (변경은 불가능합니다)')) {
+      return;
+    }
 
     $.ajax({
       url: '/free_board_detail_c/board_like',
@@ -64,7 +68,6 @@ $(document).ready( () => {
 // 댓글 수정
 function comment_update($idx){
   // e.preventDefault();
-
   
   $.ajax({
     url: '/free_board_detail_c/reply_update',

@@ -196,10 +196,10 @@ class Free_Board_Detail_M extends CI_Model
   {
     $result = $this -> db -> insert('board_like', $this->db->escape_str($data));
     if($result) {
-      return [ 'state' => true, 'message' => '모델: 성공', 'type' => $data['like_type'] ];
+      return [ 'state' => true, 'message' => '성공', 'type' => $data['like_type'] ];
     } else {
       log_message('error', '좋아요 실패: ' . $this->db->error()['message']);
-      return [ 'state' => false, 'message' => '모델: 실패' ];
+      return [ 'state' => false, 'message' => '실패' ];
     }
   }
 

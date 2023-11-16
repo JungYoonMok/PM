@@ -110,9 +110,9 @@ class Free_board_Detail_C extends CI_Controller
 
     $result = $this->FBM->reply_update($data);
     if($result) {
-      echo json_encode([ 'state' => TRUE, 'message' => '컨트롤: 댓글 수정 성공' ]);
+      echo json_encode([ 'state' => TRUE, 'message' => '댓글 수정 성공' ]);
     } else {
-      echo json_encode([ 'state' => FALSE, 'message' => '컨트롤: 댓글 수정 실패']);
+      echo json_encode([ 'state' => FALSE, 'message' => '댓글 수정 실패']);
     }
   }
 
@@ -121,9 +121,9 @@ class Free_board_Detail_C extends CI_Controller
     $idx = $this->input->post('idx');
     $result = $this->FBM->reply_delete($idx);
     if($result) {
-      echo json_encode([ 'state' => TRUE, 'message' => '컨트롤: 댓글 삭제 성공' ]);
+      echo json_encode([ 'state' => TRUE, 'message' => '댓글 삭제 성공' ]);
     } else {
-      echo json_encode([ 'state' => FALSE, 'message' => '컨트롤: 댓글 삭제 실패' ]);
+      echo json_encode([ 'state' => FALSE, 'message' => '댓글 삭제 실패' ]);
     }
   }
 
@@ -137,9 +137,9 @@ class Free_board_Detail_C extends CI_Controller
 
     $result = $this->FBM->reply_problem($data);
     if($result) {
-      echo json_encode([ 'state' => TRUE, 'message' => '컨트롤: 댓글 수정 성공' ]);
+      echo json_encode([ 'state' => TRUE, 'message' => '댓글 수정 성공' ]);
     } else {
-      echo json_encode([ 'state' => FALSE, 'message' => '컨트롤: 댓글 수정 실패']);
+      echo json_encode([ 'state' => FALSE, 'message' => '댓글 수정 실패']);
     }
   }
 

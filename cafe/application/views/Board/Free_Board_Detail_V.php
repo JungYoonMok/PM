@@ -42,10 +42,8 @@
           </div>
           <div class="flex place-items-center gap-3 opacity-80 text-sm">
             <span class="material-symbols-outlined">
-              <!-- edit_calendar -->
               <?= date("Y-m-d") == substr($post->regdate, 0, 10) ? 'schedule' : 'edit_calendar'; ?>
             </span>
-            <!-- <p class=""><?= substr($post->regdate, 0, 16); ?></p> -->
             <p class=""><?= (empty($post->regdate) ? '-' : date("Y-m-d") == substr($post->regdate, 0, 10)) ? substr($post->regdate, 10, 18) : substr($post->regdate, 0, 16); ?></p>
           </div>
         </div>
@@ -146,10 +144,10 @@
           <div id="comments" class="border-b border-gray-500"></div>
 
           <!-- 댓글 리스트 있을때 and 리플 -->
-          <div class="flex flex-col duration-200 gap-0 w-full <?= empty($comment) || !$post->board_comment ? 'hidden' : '' ?>">
+          <div class="flex flex-col duration-200 bg-[#1f1f1f] rounded-md py-10 px-5 gap-0 w-full <?= empty($comment) || !$post->board_comment ? 'hidden' : '' ?>">
             <? foreach ($comment as $com): ?>
 
-              <div class="flex gap-3 hover:bg-[#3f3f3f] text-sm w-full p-3 duration-200 rounded">
+              <div class="flex gap-3 text-sm w-full p-3 duration-200 rounded">
 
                 <!-- 답글일 경우 -->
                 <div class="ml-[<?= 20 * $com -> depth - 1 ?>px;] flex justify-center place-items-center <?= $com->group_order !== '0' ? 'inline' : 'hidden' ?>">
@@ -158,7 +156,7 @@
                   </span>
                 </div>
 
-                <div class="flex gap-3 w-full">
+                <div class="flex gap-3 w-full ">
                   <!-- 작성자 -->
                   <div class="flex gap-3 relative">
                     <!-- 프로필 -->
@@ -176,7 +174,7 @@
                   </div>
 
                     <!-- 댓글 -->
-                    <div class="flex flex-col gap-2 w-full">
+                    <div class="flex flex-col border border-gray-600 shadow-xl w-full rounded p-3 <?= ($post->user_id == $com->user_id) ? 'bg-[#2f2f2f]' : ''; ?>">
                       <!-- 아이디 -->
                       <div class="flex justify-between w-full px-1">
                         <div class="flex gap-1">
@@ -186,8 +184,8 @@
                           <p>(등급)</p>
                           <!-- <p>No: <?= $com->idx ?></p> -->
                         </div>
-                        <div class="flex gap-2 text-sm text-gray-400 pr-2">
-                          <p class="material-symbols-outlined text-sm">
+                        <div class="flex gap-2 text-sm font-bold text-gray-400 pr-2">
+                          <p class="material-symbols-outlined text-md">
                             <?= date("Y-m-d") == substr($com->regdate, 0, 10) ? 'schedule' : 'today'; ?>                            
                           </p>
                           <p class="">
@@ -199,7 +197,7 @@
                     <!-- 작성된 댓글 -->
                     <div class="duration-200">
                       <!-- 내용 -->
-                      <div class="shadow-xl py-5 px-5 rounded-tl-none rounded-xl <?= ($post->user_id == $com->user_id) ? 'border border-gray-500' : 'bg-[#3f3f3f] border border-gray-500'; ?>">
+                      <div class="py-5 px-5 rounded-tl-none rounded-xl <?= ($post->user_id == $com->user_id) ? '' : ''; ?>">
                         
                         <!-- 삭제된 댓글 -->
                         <p class="<?= $com -> delete_state ? 'inline-block' : 'hidden'; ?> text-md font-bold text-red-400 p-3">
@@ -236,7 +234,7 @@
 
                         <div class="bg-[#3f3f3f] flex gap-1 px-3 py-1 rounded <?= $this->session->userdata('user_id') && !$com->delete_state ? 'inline-block' : 'hidden' ?>">
                           <div class="<?= $com->user_id == $this->session->userdata('user_id') ? 'inline-block' : 'hidden' ?> flex gap-1">
-                            <button id="btn-update<?= $com->idx ?>" onclick='reply_update(<?= $com->idx ?>)' class="hover:underline hover:underline-offset-4 px-2 py-1 rounded">
+                            <button id="btn-update<?= $com->idx ?>" onclick="reply_update(<?= $com->idx ?>)" class="hover:underline hover:underline-offset-4 px-2 py-1 rounded">
                               수정
                             </button>
                             <button onclick='comment_delete(<?= $com->idx ?>)' class="hover:underline hover:underline-offset-4 px-2 py-1 rounded">
@@ -450,4 +448,4 @@
 
 </div>
 
-<script src='/javascript/board/board_detail.js'></script>
+<script src="/javascript/board/board_detail.js"></script>
