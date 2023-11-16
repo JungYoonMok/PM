@@ -143,28 +143,19 @@
 
           <!-- 댓글 리스트 있을때 and 리플 -->
           <!-- <div id="commentsContainer" class="flex flex-col gap-5 <?= empty($comment) ? 'hidden' : '' ?>"> -->
-          <div class="flex flex-col gap-5 <?= empty($comment) ? 'hidden' : '' ?>">
+          <div class="flex flex-col gap-1 w-full <?= empty($comment) ? 'hidden' : '' ?>">
             <? foreach ($comment as $com): ?>
 
-              <div class="flex gap-3 text-sm">
+              <div class="flex gap-3 text-sm w-full hover:bg-[#3f3f3f] p-3 duration-200 rounded">
 
-              <?
-                $test = array(
-                  0 => "ml-0",
-                  1 => "ml-[20px]",
-                  2 => "ml-[40px]",
-                  3 => "ml-[60px]",
-                );
-              ?>
                 <!-- 답글일 경우 -->
-                <div class="<?=$test[$com->depth - 1]?> flex justify-center place-items-center <?= $com->group_order !== '0' ? 'inline' : 'hidden' ?>">
-                <!-- <div class="=ml-[<? 20 * $com->depth - 1 ?>]px flex justify-center place-items-center <?= $com->group_order !== '0' ? 'inline' : 'hidden' ?>"> -->
-                  <span class="material-symbols-outlined text-4xl rotate-180 mb-10 ml-5 text-[#4f4f4f]">
+                <div class="ml-[<?= 20 * $com -> depth - 1 ?>px;] flex justify-center place-items-center <?= $com->group_order !== '0' ? 'inline' : 'hidden' ?>">
+                  <span class="material-symbols-outlined text-4xl rotate-180 mb-14 ml-5 text-[#4f4f4f]">
                     arrow_top_left
                   </span>
                 </div>
 
-                <div class="flex gap-3">
+                <div class="flex gap-3 w-full ">
                   <!-- 작성자 -->
                   <div class="flex gap-3">
                     <!-- 프로필 -->
@@ -175,35 +166,45 @@
                         class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400">
                       </img>
                     </div>
-                    <!-- 아이디 -->
-                    <div>
-                      <a href="#" class="font-bold hover:underline hover:opacity-80 duration-200">
-                        <?= empty($com->user_id) ? null : $com->user_id; ?>
-                      </a>
+                  </div>
+
+                    <!-- 댓글 -->
+                    <div class="flex flex-col gap-2 w-full">
                       <!-- <p>No: <?= $com->idx ?></p> -->
+                      <!-- 아이디 -->
+                      <div class="flex justify-between w-full">
+                        <a href="#" class="font-bold hover:underline hover:opacity-80 duration-200">
+                          <?= empty($com->user_id) ? null : $com->user_id; ?>
+                        </a>
+                        <p class="flex gap-2 text-xs place-items-center text-gray-400">
+                          <span class="material-symbols-outlined text-sm">
+                            schedule
+                          </span>
+                          <span class="">
+                            <?= empty($com->regdate) ? null : substr($com->regdate, 0, 16); ?>
+                          </span>
+                        </p>
+                      </div>
+
+                    <!-- 작성된 댓글 -->
+                    <div class="flex flex-col shadow-xl py-3 px-5 rounded-tl-none rounded-xl <?= ($post->user_id == $com->user_id) ? 'border border-yellow-500 opacity-80' : 'bg-[#3f3f3f] border border-gray-500'; ?>">
+
+                      <!-- 내용 -->
+                      <div class="">
+                        <?= empty($com->content) ? null : $com->content; ?>
+                      </div>
+
+                      <!-- 작성시간 및 답글쓰기 -->
+                      <div class="text-sm gap-9 flex mt-5 justify-between opacity-80 text-gray-300 whitespace-nowrap">
+                        <button class="hover:underline hover:opacity-80 duration-200" onclick='reply_btn(<?= $com->idx ?>)'>
+                          답변 달기
+                        </button>
+                      </div>
+
                     </div>
+
                   </div>
 
-                  <!-- 작성된 댓글 -->
-                  <div
-                    class="flex flex-col shadow-xl py-3 px-5 rounded-tl-none rounded rounded-bl-xl <?= ($post->user_id == $com->user_id) ? 'border border-yellow-500' : 'bg-[#3f3f3f] border border-gray-500'; ?>">
-
-                    <!-- 내용 -->
-                    <div class="">
-                      <?= empty($com->content) ? null : $com->content; ?>
-                    </div>
-
-                    <!-- 작성시간 및 답글쓰기 -->
-                    <div class="text-sm gap-9 flex mt-5 justify-between opacity-80 text-gray-300 whitespace-nowrap">
-                      <p class="-mr-3">
-                        <?= empty($com->regdate) ? null : substr($com->regdate, 0, 16); ?>
-                      </p>
-                      <button class="hover:underline hover:opacity-80 duration-200" onclick='reply_btn(<?= $com->idx ?>)'>
-                        답변 달기
-                      </button>
-                    </div>
-
-                  </div>
                 </div>
 
               </div>
