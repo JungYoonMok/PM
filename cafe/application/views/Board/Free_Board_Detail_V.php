@@ -103,9 +103,6 @@
                   link
                 </span>
                 <p class="">URL 복사</p>
-                <div class="toastPopup hidden">
-                  <p>링크가 복사되었습니다.</p>
-                </div>
               </button>
             </div>
           </div>
@@ -119,17 +116,19 @@
 
           <!-- 좋아요 및 싫어요 -->
           <div class="flex justify-center gap-5 py-5 opacity-80">
-            <div>
+            <div class="text-center text-sm">
               <button
-                id='like_up' name='like_up' class="hover:-translate-y-1 material-symbols-outlined text-3xl hover:text-white hover:bg-[#1f1f1f] w-16 h-16 rounded-[50%] duration-200">
+                id='like_up' name='like_up' class="hover:-translate-y-1 material-symbols-outlined text-3xl hover:text-white hover:bg-[#3f3f3f] w-16 h-16 rounded-[50%] duration-100">
                 thumb_up
               </button>
+              <p class='bg-[#3f3f3f] rounded p-1'>좋아요</p>
             </div>
-            <div>
+            <div class="text-center text-sm">
               <button
-              id='like_down' name='like_down' class="hover:translate-y-1 material-symbols-outlined text-3xl hover:text-white hover:bg-[#1f1f1f] w-16 h-16 rounded-[50%] duration-200">
-                thumb_down
-              </button>
+              id='like_down' name='like_down' class="hover:translate-y-1 material-symbols-outlined text-3xl hover:text-white hover:bg-[#3f3f3f] w-16 h-16 rounded-[50%] duration-100">
+              thumb_down
+            </button>
+            <p class='bg-[#3f3f3f] rounded p-1'>싫어요</p>
             </div>
           </div>
 
@@ -149,33 +148,29 @@
           <div class="flex flex-col gap-1 w-full <?= empty($comment) ? 'hidden' : '' ?>">
             <? foreach ($comment as $com): ?>
 
-              <div class="flex gap-3 text-sm w-full hover:bg-[#3f3f3f] p-3 duration-200 rounded">
+              <div class="flex gap-3 text-sm w-full hover:translate-y-1 hover:bg-[#3f3f3f] p-3 duration-200 rounded">
 
                 <!-- 답글일 경우 -->
-<<<<<<< HEAD
                 <div class="ml-[<?= 20 * $com -> depth - 1 ?>px;] flex justify-center place-items-center <?= $com->group_order !== '0' ? 'inline' : 'hidden' ?>">
-                  <span class="material-symbols-outlined text-4xl rotate-180 mb-14 ml-5 text-[#4f4f4f]">
-=======
-                <div style="margin-left: <?= 20 * $com -> depth - 1 ?>px;" class="flex justify-center place-items-center <?= $com->group_order !== '0' ? 'inline' : 'hidden' ?>">
-                  <span class="material-symbols-outlined text-4xl rotate-180 mb-10 ml-5 text-[#4f4f4f]">
->>>>>>> f8aa8f07160561e450d427f5788c44ac4b50b52a
+                  <span class="material-symbols-outlined text-4xl rotate-180 mb-24 ml-5 text-[#4f4f4f]">
                     arrow_top_left
                   </span>
                 </div>
 
-<<<<<<< HEAD
-                <div class="flex gap-3 w-full ">
-=======
->>>>>>> f8aa8f07160561e450d427f5788c44ac4b50b52a
+                <div class="flex gap-3 w-full">
                   <!-- 작성자 -->
-                  <div class="flex gap-3">
+                  <div class="flex gap-3 relative">
                     <!-- 프로필 -->
-                    <div
-                      class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border border-gray-500 h-14 w-14 bg-[#3f3f3f]">
-                      <img width="100%"
-                        src="https://pds.saramin.co.kr/workenv-bg/202303/09/rr8njw_y8e6-w09k06_workenv-bg.png"
+                    <div class="drop-shadow-2xl flex rounded-[50%] place-content-center border border-gray-500 h-14 w-14 bg-[#3f3f3f]">
+                      <img 
+                        width="100%" src="https://pds.saramin.co.kr/workenv-bg/202303/09/rr8njw_y8e6-w09k06_workenv-bg.png"
                         class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400">
                       </img>
+                    </div>
+                    <div class="<?= $post->user_id == $com->user_id ? 'inline-block' : 'hidden' ?> absolute top-12 w-full">
+                      <p class="text-xs text-center bg-blue-500 rounded px-1">
+                        작성자
+                      </p>
                     </div>
                   </div>
 
@@ -183,53 +178,68 @@
                     <div class="flex flex-col gap-2 w-full">
                       <!-- <p>No: <?= $com->idx ?></p> -->
                       <!-- 아이디 -->
-                      <div class="flex justify-between w-full">
-                        <a href="#" class="font-bold hover:underline hover:opacity-80 duration-200">
-                          <?= empty($com->user_id) ? null : $com->user_id; ?>
-                        </a>
-                        <p class="flex gap-2 text-xs place-items-center text-gray-400">
+                      <div class="flex justify-between w-full px-1">
+                        <div class="flex gap-1">
+                          <a href="#" class="font-bold hover:underline hover:opacity-80 duration-200">
+                            <?= empty($com->user_id) ? null : $com->user_id; ?>
+                          </a>
+                          <p>(등급)</p>
+                        </div>
+                        <p class="flex gap-2 text-xs place-items-center text-gray-400 pr-2">
                           <span class="material-symbols-outlined text-sm">
-                            schedule
+                            <?= date("Y-m-d") == substr($com->regdate, 0, 10) ? 'schedule' : 'today'; ?>                            
                           </span>
                           <span class="">
-                            <?= empty($com->regdate) ? null : substr($com->regdate, 0, 16); ?>
+                            <?= (empty($com->regdate) ? '-' : date("Y-m-d") == substr($com->regdate, 0, 10)) ? substr($com->regdate, 10, 18) : substr($com->regdate, 0, 16); ?>
                           </span>
                         </p>
                       </div>
 
-<<<<<<< HEAD
                     <!-- 작성된 댓글 -->
-                    <div class="flex flex-col shadow-xl py-3 px-5 rounded-tl-none rounded-xl <?= ($post->user_id == $com->user_id) ? 'border border-yellow-500 opacity-80' : 'bg-[#3f3f3f] border border-gray-500'; ?>">
-=======
-                  <!-- 작성된 댓글 -->
-                  <div class="flex flex-col shadow-xl py-3 px-5 rounded-tl-none rounded rounded-bl-xl <?= ($post->user_id == $com->user_id) ? 'border border-yellow-500' : 'bg-[#3f3f3f] border border-gray-500'; ?>">
->>>>>>> f8aa8f07160561e450d427f5788c44ac4b50b52a
-
+                    <div>
                       <!-- 내용 -->
-                      <div class="">
+                      <div class="shadow-xl py-5 px-5 rounded-tl-none rounded-xl <?= ($post->user_id == $com->user_id) ? 'border border-gray-500 opacity-80' : 'bg-[#3f3f3f] border border-gray-500'; ?>">
                         <?= empty($com->content) ? null : $com->content; ?>
                       </div>
 
                       <!-- 작성시간 및 답글쓰기 -->
-                      <div class="text-sm gap-9 flex mt-5 justify-between opacity-80 text-gray-300 whitespace-nowrap">
-                        <button class="hover:underline hover:opacity-80 duration-200" onclick='reply_btn(<?= $com->idx ?>)'>
-                          답변 달기
-                        </button>
+                      <div class="flex justify-between py-1 place-items-center text-sm text-gray-300 mt-3 whitespace-nowrap px-3">
+
+                        <div class="opacity-80">
+                          <button id='reply_btn' class="<?= $this->session->userdata('user_id') ? 'inline-block' : 'hidden' ?> font-bold hover:underline hover:opacity-80 duration-200" onclick='reply_btn(<?= $com->idx ?>)'>
+                            답변 달기
+                          </button>
+                        </div>
+
+                        <div class="bg-[#3f3f3f] px-3 py-1 rounded <?= $this->session->userdata('user_id') ? 'inline-block' : 'hidden' ?> flex gap-3">
+                          <div class="<?= $com->user_id == $this->session->userdata('user_id') ? 'inline-block' : 'hidden' ?> flex gap-3">
+                            <button onclick='#' class="hover:underline hover:underline-offset-4 px-2 py-1 rounded">
+                              수정
+                            </button>
+                            <button onclick='#' class="hover:underline hover:underline-offset-4 px-2 py-1 rounded">
+                              삭제
+                            </button>
+                            <p class="text-[5px] py-1 text-[#5f5f5f]">
+                              ●
+                            </p>
+                          </div>
+                          <button onclick='#' class="text-red-400 hover:underline hover:underline-offset-4 px-2 py-1 rounded">
+                            신고
+                          </button>
+                        </div>
+
                       </div>
 
                     </div>
 
                   </div>
-<<<<<<< HEAD
 
                 </div>
-=======
->>>>>>> f8aa8f07160561e450d427f5788c44ac4b50b52a
 
-                </div>
+              </div>
 
               <!-- 리플 작성 -->
-              <div id="reply_onoff<?= $com->idx ?>" class="w-full rounded-md text-sm flex gap-5 p-3 hidden">
+              <div id="reply_onoff<?= $com->idx ?>" class="w-full rounded-md text-sm flex gap-5 py-3 pl-3 hidden">
                 <div>
                   <div>
                     <span class="material-symbols-outlined">
@@ -304,6 +314,7 @@
 
           <!-- 댓글 작성 -->
           <div class="<?= $this->session->userdata('user_id') ? '' : 'hidden' ?> w-full drop-shadow-2xl text-sm flex flex-col gap-5 bg-[#1f1f1f] p-5 border border-gray-500">
+          
             <div class="flex justify-between">
               <div class="gap-5 flex">
                 <p><?= $post->title ?></p>

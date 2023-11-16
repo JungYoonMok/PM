@@ -93,7 +93,6 @@ $(document).ready( () => {
       document.getElementById('reply_onoff' + num).className += ' hidden';
     } else {
       reply.getElementById = 'open';
-
       document.getElementById('reply_onoff' + num).className += ' inline';
     }
   }
@@ -102,6 +101,7 @@ $(document).ready( () => {
 function CopyUrlToClipboard(){
   var dummy   = document.createElement("input");
   var text    = location.href;
+  // var text    = location.href;
   
   document.body.appendChild(dummy);
   dummy.value = text;
