@@ -17,6 +17,7 @@ class Free_board_Detail_C extends CI_Controller
     // 페이지네이션
     $config['base_url'] = "/freeboard/" . $idx . "/"; // 기본 URL 설정
     $config['total_rows'] = $this->db->count_all('boards_comment'); // 전체 행의 수
+    // $config['total_rows'] = $this->FBM->board_comment_count_pagination($idx); // 전체 행의 수
     $config['per_page'] = 10; // 페이지당 표시할 행의 수
     $config['uri_segment'] = 3; // URL의 몇 번째 세그먼트에 페이지 번호가 포함될지 설정
     $config['num_links'] = 1; // 현재 페이지 양쪽에 표시될 "숫자" 링크의 수
@@ -53,10 +54,6 @@ class Free_board_Detail_C extends CI_Controller
     $data['list'] = $this->db->get_where('boards', ['board_type' => '자유게시판'])->result();
 
     // 게시글 정보 등
-    $board_info = [
-      'board_id' => $idx,
-      'user_id' => $this->session->userdata('user_id'),
-    ];
     $this->FBM->board_hit_plus($idx); // 조회수 증가
     $data['hit'] = $this->FBM->board_hit_get($idx); // 조회수 가져오기
     $data['comment_count'] = $this->FBM->board_comment_count($idx); // 댓글 수 가져오기
@@ -66,7 +63,7 @@ class Free_board_Detail_C extends CI_Controller
     $this->layout->custom_view('board/free_board_detail_v', $data);
   }
 
-  public function comment_create()
+  public function comment_create() // 댓글 작성
   {
     // if (!$this->input->is_ajax_request()) {
     //   show_error('AJAX 요청만 가능합니다.', 403);
@@ -97,10 +94,53 @@ class Free_board_Detail_C extends CI_Controller
     }
   }
 
-  public function reply_comment_create()
+  public function reply_comment_create() // 댓글의 답글 작성
   {
     // $this->FBM->comments_create();
     $this->FBM->reply_create();
+  }
+
+  public function reply_update() // 댓글 수정
+  {
+    $data = [
+      'idx' => $this->input->post('idx'),
+      'content' => $this->input->post('content'),
+      'update_date' => date("Y-m-d H:i:s")
+    ];
+
+    $result = $this->FBM->reply_update($data);
+    if($result) {
+      echo json_encode([ 'state' => TRUE, 'message' => '컨트롤: 댓글 수정 성공' ]);
+    } else {
+      echo json_encode([ 'state' => FALSE, 'message' => '컨트롤: 댓글 수정 실패']);
+    }
+  }
+
+  public function reply_delete() // 댓글 삭제
+  {
+    $idx = $this->input->post('idx');
+    $result = $this->FBM->reply_delete($idx);
+    if($result) {
+      echo json_encode([ 'state' => TRUE, 'message' => '컨트롤: 댓글 삭제 성공' ]);
+    } else {
+      echo json_encode([ 'state' => FALSE, 'message' => '컨트롤: 댓글 삭제 실패' ]);
+    }
+  }
+
+  public function reply_problem() // 댓글 신고
+  {
+    $data = [
+      'idx' => $this->input->post('idx'),
+      'content' => $this->input->post('content'),
+      'update_date' => date("Y-m-d H:i:s")
+    ];
+
+    $result = $this->FBM->reply_problem($data);
+    if($result) {
+      echo json_encode([ 'state' => TRUE, 'message' => '컨트롤: 댓글 수정 성공' ]);
+    } else {
+      echo json_encode([ 'state' => FALSE, 'message' => '컨트롤: 댓글 수정 실패']);
+    }
   }
 
   // 좋아요, 싫어요 클릭
@@ -115,7 +155,7 @@ class Free_board_Detail_C extends CI_Controller
 
     $check = $this->FBM->board_like_check($data);
     if($check['state'] == false) {
-        echo json_encode([ 'state' => FALSE, 'message' => '컨트롤: 실패 - 한 번만 투표할 수 있습니다' ]);
+        echo json_encode([ 'state' => FALSE, 'message' => '계정당 한 번만 투표할 수 있습니다' ]);
       return;
     }
 

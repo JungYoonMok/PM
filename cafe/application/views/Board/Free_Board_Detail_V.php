@@ -145,14 +145,14 @@
 
           <!-- 댓글 리스트 있을때 and 리플 -->
           <!-- <div id="commentsContainer" class="flex flex-col gap-5 <?= empty($comment) ? 'hidden' : '' ?>"> -->
-          <div class="flex flex-col gap-1 w-full <?= empty($comment) ? 'hidden' : '' ?>">
+          <div class="flex flex-col duration-200 gap-0 w-full <?= empty($comment) ? 'hidden' : '' ?>">
             <? foreach ($comment as $com): ?>
 
-              <div class="flex gap-3 text-sm w-full hover:translate-y-1 hover:bg-[#3f3f3f] p-3 duration-200 rounded">
+              <div class="flex gap-3 hover:bg-[#3f3f3f] text-sm w-full p-3 duration-200 rounded">
 
                 <!-- 답글일 경우 -->
                 <div class="ml-[<?= 20 * $com -> depth - 1 ?>px;] flex justify-center place-items-center <?= $com->group_order !== '0' ? 'inline' : 'hidden' ?>">
-                  <span class="material-symbols-outlined text-4xl rotate-180 mb-24 ml-5 text-[#4f4f4f]">
+                  <span id="reply_arrow<?= $com->idx ?>" class="material-symbols-outlined text-4xl rotate-180 -mt-24 ml-5 text-[#4f4f4f]">
                     arrow_top_left
                   </span>
                 </div>
@@ -176,7 +176,6 @@
 
                     <!-- 댓글 -->
                     <div class="flex flex-col gap-2 w-full">
-                      <!-- <p>No: <?= $com->idx ?></p> -->
                       <!-- 아이디 -->
                       <div class="flex justify-between w-full px-1">
                         <div class="flex gap-1">
@@ -184,46 +183,69 @@
                             <?= empty($com->user_id) ? null : $com->user_id; ?>
                           </a>
                           <p>(등급)</p>
+                          <!-- <p>No: <?= $com->idx ?></p> -->
                         </div>
-                        <p class="flex gap-2 text-xs place-items-center text-gray-400 pr-2">
-                          <span class="material-symbols-outlined text-sm">
+                        <div class="flex justify-center place-items-center gap-2 text-sm text-gray-400 pr-2">
+                          <p class="material-symbols-outlined text-sm">
                             <?= date("Y-m-d") == substr($com->regdate, 0, 10) ? 'schedule' : 'today'; ?>                            
-                          </span>
-                          <span class="">
+                          </p>
+                          <p class="">
                             <?= (empty($com->regdate) ? '-' : date("Y-m-d") == substr($com->regdate, 0, 10)) ? substr($com->regdate, 10, 18) : substr($com->regdate, 0, 16); ?>
-                          </span>
-                        </p>
+                          </p>
+                        </div>
                       </div>
 
                     <!-- 작성된 댓글 -->
-                    <div>
+                    <div class="duration-200">
                       <!-- 내용 -->
-                      <div class="shadow-xl py-5 px-5 rounded-tl-none rounded-xl <?= ($post->user_id == $com->user_id) ? 'border border-gray-500 opacity-80' : 'bg-[#3f3f3f] border border-gray-500'; ?>">
-                        <?= empty($com->content) ? null : $com->content; ?>
+                      <div class="shadow-xl py-5 px-5 rounded-tl-none rounded-xl <?= ($post->user_id == $com->user_id) ? 'border border-gray-500' : 'bg-[#3f3f3f] border border-gray-500'; ?>">
+                        
+                        <!-- 삭제된 댓글 -->
+                        <p class="<?= $com -> delete_state ? 'inline-block' : 'hidden'; ?> text-md font-bold text-red-400 p-3">
+                          작성자에 의해 삭제된 댓글입니다
+                        </p>
+                        
+                        <p id="reply_value<?= $com->idx ?>" class="<?= $com->delete_state ? 'hidden' : '' ?> w-full h-full">
+                          <?= empty($com->content) ? null : $com->content; ?>
+                          <!-- 리플 수정 -->
+                          <div id="reply_update<?= $com->idx ?>" class="w-full h-full text-sm hidden duration-200">
+                            <!-- 원본 글 및 수정할 내용 -->
+                            <textarea id='comment_update_value<?= $com->idx ?>' class="text-white bg-[#2f2f2f] px-3 py-5 rounded w-full outline-none" rows="5"><?= empty($com->content) ? null : $com->content; ?></textarea>
+                            <div class="flex justify-between place-items-center">
+                              <p class="text-xs duration-200 animate-pulse">
+                                - 수정 내용은 <span class="bg-blue-500 rounded">`완료`</span> 버튼을 누르셔야 적용됩니다
+                              </p>
+                              <button id="reply_update_btn" onclick="comment_update(<?= $com->idx ?>)" class="bg-blue-500 outline-none px-5 py-1 rounded">
+                                완료
+                              </button>
+                            </div>
+                          </div>
+                        </p>
+
                       </div>
 
                       <!-- 작성시간 및 답글쓰기 -->
-                      <div class="flex justify-between py-1 place-items-center text-sm text-gray-300 mt-3 whitespace-nowrap px-3">
+                      <div class="flex bg-[#1f1f1f] rounded justify-between place-items-center text-sm text-gray-300 mt-3 whitespace-nowrap px-3">
 
-                        <div class="opacity-80">
-                          <button id='reply_btn' class="<?= $this->session->userdata('user_id') ? 'inline-block' : 'hidden' ?> font-bold hover:underline hover:opacity-80 duration-200" onclick='reply_btn(<?= $com->idx ?>)'>
+                        <div class="">
+                          <button id='reply_btn<?= $com->idx ?>' class="<?= $this->session->userdata('user_id') && !$com->delete_state ? 'inline-block' : 'hidden' ?> font-bold hover:underline hover:opacity-80 duration-200" onclick='reply_btn(<?= $com->idx ?>)'>
                             답변 달기
                           </button>
                         </div>
 
-                        <div class="bg-[#3f3f3f] px-3 py-1 rounded <?= $this->session->userdata('user_id') ? 'inline-block' : 'hidden' ?> flex gap-3">
+                        <div class=" px-3 py-1 rounded <?= $this->session->userdata('user_id') && !$com->delete_state ? 'inline-block' : 'hidden' ?> flex gap-3">
                           <div class="<?= $com->user_id == $this->session->userdata('user_id') ? 'inline-block' : 'hidden' ?> flex gap-3">
-                            <button onclick='#' class="hover:underline hover:underline-offset-4 px-2 py-1 rounded">
+                            <button id="btn-update<?= $com->idx ?>" onclick='reply_update(<?= $com->idx ?>)' class="hover:underline hover:underline-offset-4 px-2 py-1 rounded">
                               수정
                             </button>
-                            <button onclick='#' class="hover:underline hover:underline-offset-4 px-2 py-1 rounded">
+                            <button onclick='comment_delete(<?= $com->idx ?>)' class="hover:underline hover:underline-offset-4 px-2 py-1 rounded">
                               삭제
                             </button>
                             <p class="text-[5px] py-1 text-[#5f5f5f]">
                               ●
                             </p>
                           </div>
-                          <button onclick='#' class="text-red-400 hover:underline hover:underline-offset-4 px-2 py-1 rounded">
+                          <button onclick='comment_problem(<?= $com->idx ?>)' class="text-red-400 hover:underline hover:underline-offset-4 px-2 py-1 rounded">
                             신고
                           </button>
                         </div>
@@ -294,8 +316,7 @@
           </div>
 
           <!-- 댓글 리스트 없을때 -->
-          <div
-            class="flex justify-center bg-[#1f1f1f] p-5 border border-gray-500 <?= empty($comment) ? 'inline' : 'hidden' ?>">
+          <div class="flex justify-center bg-[#1f1f1f] p-5 border border-gray-500 <?= empty($comment) ? 'inline' : 'hidden' ?>">
             <p>
               댓글이 존재하지 않습니다
             </p>

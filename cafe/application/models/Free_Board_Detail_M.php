@@ -21,7 +21,8 @@ class Free_Board_Detail_M extends CI_Model
     $this->db->order_by('group_idx', 'asc');
     $this->db->order_by('group_order', 'asc');
     $this->db->limit($limit, $start);
-    $comment = $this->db->get_where('boards_comment', ['boards_idx' => $idx])->result();
+    $comment = $this->db->get_where('boards_comment', ['boards_idx' => $idx ]) -> result();
+    // $comment = $this->db->get_where('boards_comment', ['boards_idx' => $idx, 'delete_state' => FALSE ]) -> result();
     return $comment;
   }
 
@@ -98,6 +99,30 @@ class Free_Board_Detail_M extends CI_Model
     redirect("/freeboard/" . $board_id);
   }
 
+  public function reply_update($data)
+  {
+    try {
+      $this->db->where('idx', $data['idx']);
+      $this->db->update('boards_comment', $data);
+      return true;
+    } catch (Exception $e) {
+      log_message('error', '댓글 수정 실패: ' . $this->db->error()['message']);
+      return false;
+    }
+  }
+
+  public function reply_delete($idx)
+  {
+    try {
+      $this->db->where('idx', $idx);
+      $this->db->update('boards_comment', [ 'delete_state' => TRUE, 'delete_date' => date("Y-m-d H:i:s") ]);
+      return true;
+    } catch (Exception $e) {
+      log_message('error', '댓글 삭제 실패: ' . $this->db->error()['message']);
+      return false;
+    }
+  }
+
   public function comment_board_type()
   {
     return $this->input->post('board_type');
@@ -120,6 +145,17 @@ class Free_Board_Detail_M extends CI_Model
 
   // 댓글 개수 가져오기
   public function board_comment_count($idx){
+    $this->db->select('idx, count(*) as cnt');
+    $this->db->where('boards_idx', $idx);
+    $query = $this->db->get('boards_comment')->row();
+    return $query;
+  }
+
+  // 댓글 개수 가져오기 삭제된 댓글 제외(페이지네이션 전용)
+  public function board_comment_count_pagination($idx){
+    // 삭제 댓글 조회
+    $comment = $this->db->get_where('boards_comment', [ 'boards_idx' => $idx, 'delete_state' => FALSE ])->row();
+
     $this->db->select('idx, count(*) as cnt');
     $this->db->where('boards_idx', $idx);
     $query = $this->db->get('boards_comment')->row();
