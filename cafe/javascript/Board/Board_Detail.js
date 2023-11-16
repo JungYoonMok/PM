@@ -97,3 +97,16 @@ $(document).ready( () => {
       document.getElementById('reply_onoff' + num).className += ' inline';
     }
   }
+
+// 주소복사
+function CopyUrlToClipboard(){
+  var dummy   = document.createElement("input");
+  var text    = location.href;
+  
+  document.body.appendChild(dummy);
+  dummy.value = text;
+  dummy.select();
+  document.execCommand("copy");
+  document.body.removeChild(dummy);
+  alert('url이 복사 되었습니다.');
+}

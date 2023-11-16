@@ -98,11 +98,14 @@
                 <p><?= $like_count2->cnt ?></p>
               </div>
               <input type="text" id="link" value="http://localhost/freeboard/<?= $post->idx; ?>" class="hidden" />
-              <button onclick=urlCopy() class="flex gap-2 hover:opacity-70 duration-200 hover:translate-y-1">
+              <button onclick=CopyUrlToClipboard() class="flex gap-2 hover:opacity-70 duration-200 hover:translate-y-1">
                 <span class="material-symbols-outlined">
                   link
                 </span>
                 <p class="">URL 복사</p>
+                <div class="toastPopup hidden">
+                  <p>링크가 복사되었습니다.</p>
+                </div>
               </button>
             </div>
           </div>
@@ -149,13 +152,21 @@
               <div class="flex gap-3 text-sm w-full hover:bg-[#3f3f3f] p-3 duration-200 rounded">
 
                 <!-- 답글일 경우 -->
+<<<<<<< HEAD
                 <div class="ml-[<?= 20 * $com -> depth - 1 ?>px;] flex justify-center place-items-center <?= $com->group_order !== '0' ? 'inline' : 'hidden' ?>">
                   <span class="material-symbols-outlined text-4xl rotate-180 mb-14 ml-5 text-[#4f4f4f]">
+=======
+                <div style="margin-left: <?= 20 * $com -> depth - 1 ?>px;" class="flex justify-center place-items-center <?= $com->group_order !== '0' ? 'inline' : 'hidden' ?>">
+                  <span class="material-symbols-outlined text-4xl rotate-180 mb-10 ml-5 text-[#4f4f4f]">
+>>>>>>> f8aa8f07160561e450d427f5788c44ac4b50b52a
                     arrow_top_left
                   </span>
                 </div>
 
+<<<<<<< HEAD
                 <div class="flex gap-3 w-full ">
+=======
+>>>>>>> f8aa8f07160561e450d427f5788c44ac4b50b52a
                   <!-- 작성자 -->
                   <div class="flex gap-3">
                     <!-- 프로필 -->
@@ -186,8 +197,13 @@
                         </p>
                       </div>
 
+<<<<<<< HEAD
                     <!-- 작성된 댓글 -->
                     <div class="flex flex-col shadow-xl py-3 px-5 rounded-tl-none rounded-xl <?= ($post->user_id == $com->user_id) ? 'border border-yellow-500 opacity-80' : 'bg-[#3f3f3f] border border-gray-500'; ?>">
+=======
+                  <!-- 작성된 댓글 -->
+                  <div class="flex flex-col shadow-xl py-3 px-5 rounded-tl-none rounded rounded-bl-xl <?= ($post->user_id == $com->user_id) ? 'border border-yellow-500' : 'bg-[#3f3f3f] border border-gray-500'; ?>">
+>>>>>>> f8aa8f07160561e450d427f5788c44ac4b50b52a
 
                       <!-- 내용 -->
                       <div class="">
@@ -204,10 +220,13 @@
                     </div>
 
                   </div>
+<<<<<<< HEAD
 
                 </div>
+=======
+>>>>>>> f8aa8f07160561e450d427f5788c44ac4b50b52a
 
-              </div>
+                </div>
 
               <!-- 리플 작성 -->
               <div id="reply_onoff<?= $com->idx ?>" class="w-full rounded-md text-sm flex gap-5 p-3 hidden">
