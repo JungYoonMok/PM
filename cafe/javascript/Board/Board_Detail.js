@@ -5,7 +5,7 @@ $(document).ready( () => {
     // 새로고침 방지
     e.preventDefault();
 
-    if(confirm('좋아요를 누르시겠습니까? (변경은 불가능합니다)'))
+    if(confirm('좋아요를 누르시겠습니까? (변경은 불가능합니다)'));
     
     $.ajax({
       url: '/free_board_detail_c/board_like',
@@ -34,7 +34,7 @@ $(document).ready( () => {
     // 새로고침 방지
     e.preventDefault();
 
-    if(confirm('싫어요를 누르시겠습니까? (변경은 불가능합니다)'))
+    if(confirm('싫어요를 누르시겠습니까? (변경은 불가능합니다)'));
 
     $.ajax({
       url: '/free_board_detail_c/board_like',
@@ -91,7 +91,9 @@ function comment_update($idx){
 // 댓글 삭제
 function comment_delete($idx){
   // e.preventDefault();
-  confirm('댓글을 삭제 하시겠습니까?');
+  if(!confirm('댓글을 삭제 하시겠습니까?')) {
+    return;
+  }
 
   $.ajax({
     url: '/free_board_detail_c/reply_delete',

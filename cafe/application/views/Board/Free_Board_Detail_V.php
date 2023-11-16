@@ -13,7 +13,7 @@
       <div class="flex justify-between gap-3 opacity-90">
         <div>
           <a href="#"
-            class="<?= $this->session->userdata('user_id') ? '' : 'hidden' ?> bg-blue-500 duration-200 hover:bg-[#2f2f2f] border border-blue-400 px-3 py-2 rounded">수정하기</a>
+            class="<?= $this->session->userdata('user_id') == $post->user_id ? '' : 'hidden' ?> bg-blue-500 duration-200 hover:bg-[#2f2f2f] border border-blue-400 px-3 py-2 rounded">수정하기</a>
         </div>
         <div>
           <a href="#"
@@ -42,9 +42,11 @@
           </div>
           <div class="flex place-items-center gap-3 opacity-80 text-sm">
             <span class="material-symbols-outlined">
-              edit_calendar
+              <!-- edit_calendar -->
+              <?= date("Y-m-d") == substr($post->regdate, 0, 10) ? 'schedule' : 'edit_calendar'; ?>
             </span>
-            <p class=""><?= substr($post->regdate, 0, 16); ?></p>
+            <!-- <p class=""><?= substr($post->regdate, 0, 16); ?></p> -->
+            <p class=""><?= (empty($post->regdate) ? '-' : date("Y-m-d") == substr($post->regdate, 0, 10)) ? substr($post->regdate, 10, 18) : substr($post->regdate, 0, 16); ?></p>
           </div>
         </div>
 
@@ -144,8 +146,7 @@
           <div id="comments" class="border-b border-gray-500"></div>
 
           <!-- 댓글 리스트 있을때 and 리플 -->
-          <!-- <div id="commentsContainer" class="flex flex-col gap-5 <?= empty($comment) ? 'hidden' : '' ?>"> -->
-          <div class="flex flex-col duration-200 gap-0 w-full <?= empty($comment) ? 'hidden' : '' ?>">
+          <div class="flex flex-col duration-200 gap-0 w-full <?= empty($comment) || !$post->board_comment ? 'hidden' : '' ?>">
             <? foreach ($comment as $com): ?>
 
               <div class="flex gap-3 hover:bg-[#3f3f3f] text-sm w-full p-3 duration-200 rounded">
@@ -185,7 +186,7 @@
                           <p>(등급)</p>
                           <!-- <p>No: <?= $com->idx ?></p> -->
                         </div>
-                        <div class="flex justify-center place-items-center gap-2 text-sm text-gray-400 pr-2">
+                        <div class="flex gap-2 text-sm text-gray-400 pr-2">
                           <p class="material-symbols-outlined text-sm">
                             <?= date("Y-m-d") == substr($com->regdate, 0, 10) ? 'schedule' : 'today'; ?>                            
                           </p>
@@ -225,7 +226,7 @@
                       </div>
 
                       <!-- 작성시간 및 답글쓰기 -->
-                      <div class="flex bg-[#1f1f1f] rounded justify-between place-items-center text-sm text-gray-300 mt-3 whitespace-nowrap px-3">
+                      <div class="flex rounded justify-between place-items-center text-sm text-gray-300 mt-3 whitespace-nowrap px-3">
 
                         <div class="">
                           <button id='reply_btn<?= $com->idx ?>' class="<?= $this->session->userdata('user_id') && !$com->delete_state ? 'inline-block' : 'hidden' ?> font-bold hover:underline hover:opacity-80 duration-200" onclick='reply_btn(<?= $com->idx ?>)'>
@@ -233,8 +234,8 @@
                           </button>
                         </div>
 
-                        <div class=" px-3 py-1 rounded <?= $this->session->userdata('user_id') && !$com->delete_state ? 'inline-block' : 'hidden' ?> flex gap-3">
-                          <div class="<?= $com->user_id == $this->session->userdata('user_id') ? 'inline-block' : 'hidden' ?> flex gap-3">
+                        <div class="bg-[#3f3f3f] flex gap-1 px-3 py-1 rounded <?= $this->session->userdata('user_id') && !$com->delete_state ? 'inline-block' : 'hidden' ?>">
+                          <div class="<?= $com->user_id == $this->session->userdata('user_id') ? 'inline-block' : 'hidden' ?> flex gap-1">
                             <button id="btn-update<?= $com->idx ?>" onclick='reply_update(<?= $com->idx ?>)' class="hover:underline hover:underline-offset-4 px-2 py-1 rounded">
                               수정
                             </button>
@@ -310,15 +311,21 @@
           </div>
 
           <!-- 뷰에서 페이지네이션 링크 출력 -->
-          <!-- <div class="<?= empty($comment) ? 'hidden' : '' ?> my-5"> -->
-          <div class="my-5">
+          <div class="my-5 <?= $post->board_comment ? '' : 'hidden' ?>">
             <?= $links; ?>
           </div>
 
           <!-- 댓글 리스트 없을때 -->
-          <div class="flex justify-center bg-[#1f1f1f] p-5 border border-gray-500 <?= empty($comment) ? 'inline' : 'hidden' ?>">
+          <div class="flex justify-center bg-[#1f1f1f] p-5 border border-gray-500 <?= empty($comment) ? '' : 'hidden' ?>">
             <p>
               댓글이 존재하지 않습니다
+            </p>
+          </div>
+
+          <!-- 댓글 작성 비허용 -->
+          <div class="flex justify-center bg-[#1f1f1f] p-5 border border-gray-500 <?= !$post->board_comment ? 'inline' : 'hidden' ?>">
+            <p>
+              해당 게시글은 댓글 작성이 불가능합니다
             </p>
           </div>
 
@@ -334,7 +341,7 @@
           <div class="border-b border-gray-500"></div>
 
           <!-- 댓글 작성 -->
-          <div class="<?= $this->session->userdata('user_id') ? '' : 'hidden' ?> w-full drop-shadow-2xl text-sm flex flex-col gap-5 bg-[#1f1f1f] p-5 border border-gray-500">
+          <div class="<?= $this->session->userdata('user_id') && $post->board_comment ? '' : 'hidden' ?> w-full drop-shadow-2xl text-sm flex flex-col gap-5 bg-[#1f1f1f] p-5 border border-gray-500">
           
             <div class="flex justify-between">
               <div class="gap-5 flex">
@@ -365,7 +372,7 @@
               <!-- 기능 -->
               <div class="flex gap-3 justify-between place-items-center">
                 <div>
-                  기능들
+                  <p>기능들</p>
                 </div>
                 <div class="">
                   <button type="submit"

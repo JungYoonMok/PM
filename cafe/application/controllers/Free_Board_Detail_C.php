@@ -161,9 +161,9 @@ class Free_board_Detail_C extends CI_Controller
 
     $result = $this->FBM->board_like($data);
     if($result) {
-      echo json_encode([ 'state' => TRUE, 'message' => '컨트롤: 성공' ]);
+      echo json_encode([ 'state' => TRUE, 'message' => '성공적으로 반영했습니다' ]);
     } else {
-      echo json_encode([ 'state' => FALSE, 'message' => '컨트롤: 실패' ]);
+      echo json_encode([ 'state' => FALSE, 'message' => '반영에 실패했습니다' ]);
     }
   }
 
