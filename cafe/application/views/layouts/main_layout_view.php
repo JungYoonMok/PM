@@ -31,6 +31,22 @@
       background: #9f9f9f;
       color: #3f3f3f;
     }
+
+    /* 에디터 */
+    #container {
+      width: 100%;
+      margin: 20px auto;
+    }
+    .ck-editor__editable[role="textbox"] {
+      /* editing area */
+      min-height: 500px;
+      color: black;
+    }
+    .ck-content .image {
+      /* block images */
+      max-width: 80%;
+      margin: 20px auto;
+    }
   </style>
 
   <!-- tailwind -->
@@ -47,6 +63,9 @@
 
   <!-- icon -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+  <!-- 에디터 -->
+  <script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js"></script>
 
 </head>
   <body>

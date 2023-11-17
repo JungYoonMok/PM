@@ -1,21 +1,14 @@
 // ajax 게시글 등록
-$(document).ready( () => {
-
-  $('#like_up').click( e => { // 좋아요 버튼 클릭시
-    // 새로고침 방지
-    e.preventDefault();
-
-    console.log('번호', $('#bd_id').val());
+  function like_up($idx){
     if(!confirm('좋아요를 누르시겠습니까? (변경은 불가능합니다)')) {
       return;
     }
-    
     $.ajax({
       url: '/free_board_detail_c/board_like',
       type: 'post',
       dataType: 'json',
       data: { 
-        boards_idx: $('#bd_id').val(),
+        boards_idx: $idx,
         like_type: '1',
       },
       success: response => {
@@ -31,22 +24,18 @@ $(document).ready( () => {
         console.log('에러', response, s, e);
       }
     });
-  });
-  
-  $('#like_down').click( e => { // 싫어요 버튼 클릭시
-    // 새로고침 방지
-    e.preventDefault();
+  };
 
+  function like_down($idx){
     if(!confirm('싫어요를 누르시겠습니까? (변경은 불가능합니다)')) {
       return;
     }
-
     $.ajax({
       url: '/free_board_detail_c/board_like',
       type: 'post',
       dataType: 'json',
       data: { 
-        boards_idx: $('#bd_id').val(),
+        boards_idx: $idx,
         like_type: '0',
       },
       success: response => {
@@ -62,14 +51,38 @@ $(document).ready( () => {
         console.log('에러', response, s, e);
       }
     });
-  });
+  };
   
-});
+function post_delete($idx){
+  if(!confirm('게시글을 삭제 하시겠습니까?')){
+    return;
+  }
+  $.ajax({
+    url: '/free_board_detail_c/post_delete',
+    type: 'post',
+    dataType: 'json',
+    data: { 
+      idx: $idx,
+    },
+    success: response => {
+      if(response.state) {
+        location.href = '/freeboard';
+      } else {
+        console.log(response);
+        $('#error_txt').text(response.message); // 에러 메시지 출력
+      }
+    },
+    error: ( response, s, e ) => {
+      console.log('에러', response);
+      console.log('에러', s);
+      console.log('에러', e);
+    }
+  });
+
+};
 
 // 댓글 수정
 function comment_update($idx){
-  // e.preventDefault();
-  
   $.ajax({
     url: '/free_board_detail_c/reply_update',
     type: 'post',
@@ -94,11 +107,9 @@ function comment_update($idx){
 
 // 댓글 삭제
 function comment_delete($idx){
-  // e.preventDefault();
   if(!confirm('댓글을 삭제 하시겠습니까?')) {
     return;
   }
-
   $.ajax({
     url: '/free_board_detail_c/reply_delete',
     type: 'post',
@@ -122,10 +133,7 @@ function comment_delete($idx){
 
 // 댓글 신고
 function comment_problem($idx){
-  // e.preventDefault();
-
   return alert('신고 기능은 구현 중입니다');
-
   $.ajax({
     url: '/free_board_detail_c/reply_problem',
     type: 'post',

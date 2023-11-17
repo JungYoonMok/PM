@@ -10,6 +10,19 @@ class Free_Board_Detail_M extends CI_Model
     parent::__construct();
   }
 
+  public function post_delete()
+  {
+    try {
+      $idx = $this->input->post('idx');
+      $this->db->where('idx', $idx);
+      $this->db->update('boards', ['board_delete' => TRUE, 'delete_date' => date("Y-m-d H:i:s")]);
+      return true;
+    } catch (Exception $e) {
+      log_message('error', '게시글 삭제 실패: ' . $this->db->error()['message']);
+      return false;
+    }
+  }
+
   public function get($idx)
   {
     $board = $this->db->get_where('boards', ['idx' => $idx])->row();
@@ -185,10 +198,17 @@ class Free_Board_Detail_M extends CI_Model
   {
     $check = $this->db->get_where('board_like', [ 'boards_idx' => $data['boards_idx'], 'user_id' => $data['user_id'] ] )->row();
     if($check) {
-      return ['state' => false, 'message' => '이미 좋아요를 눌렀습니다.'];
+      return ['state' => false, 'message' => '이미 좋아요를 눌렀습니다.', 'data' => $check ];
     } else {
-      return ['state' => true, 'message' => '좋아요를 눌렀습니다.'];
+      return ['state' => true, 'message' => '정보가 없습니다.'];
     } 
+  }
+
+  // 좋아요 및 싫어요 결과 가져오기
+  public function board_like_data($idx)
+  {
+    $board = $this->db->get_where('board_like', ['boards_idx' => $idx, 'user_id' => $this->session->userdata('user_id')])->row();
+    return $board;
   }
 
   // 좋아요 및 싫어요

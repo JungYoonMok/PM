@@ -10,6 +10,9 @@ $route['freeboard'] = 'free_board_view_c';
 $route['freeboard/(:num)'] = 'free_board_detail_c/show/$1';
 $route['freeboard/(:num)/(:num)'] = 'free_board_detail_c/show/$1/$1';
 
+// 업데이트
+$route['freeboard/update/(:num)'] = 'free_board_update_c/update/$1';
+
 $route['free_board_detail/comment_create'] = 'free_board_detail_c/comment_create';
 $route['free_board_detail/reply_comment_create'] = 'free_board_detail_c/reply_comment_create';
 // $route['free_board_detail/board_like'] = 'free_board_detail_c/board_like';

@@ -12,6 +12,16 @@ class Free_board_Detail_C extends CI_Controller
     $this->load->model('Free_Board_Detail_M', 'FBM');
   }
 
+  public function post_delete()
+  {
+    $result =  $this->FBM->post_delete();
+    if($result) {
+      echo json_encode([ 'state' => TRUE, 'message' => '게시글 삭제 성공' ]);
+    } else {
+      echo json_encode([ 'state' => FALSE, 'message' => '게시글 삭제 실패' ]);
+    }
+  }
+
   public function show($idx)
   {
     // 페이지네이션
@@ -60,6 +70,18 @@ class Free_board_Detail_C extends CI_Controller
     $data['like_count1'] = $this->FBM->board_like_get1($idx); // 좋아요 및 싫어요 가져오기
     $data['like_count2'] = $this->FBM->board_like_get2($idx); // 좋아요 및 싫어요 가져오기
 
+    $like_value = $this->FBM->board_like_data($idx); // 투표 정보
+    if(!empty($like_value)) {
+      $data['like_value'] = $like_value->like_type;
+    } else {
+      $data['like_value'] = 'none';
+    }
+    // if($like_value->like_type == true) {
+    //   $data['like_value'] = '좋아요';
+    // } else {
+    //   $data['like_value'] = '싫어요';
+    // }
+    
     $this->layout->custom_view('board/free_board_detail_v', $data);
   }
 

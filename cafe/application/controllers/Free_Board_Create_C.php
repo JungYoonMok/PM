@@ -56,7 +56,8 @@
       if($this->form_validation->run())
       {
         $this->FBM->create($data);
-        echo json_encode([ 'state' => TRUE, 'message' => '게시글 등록을 성공했습니다' ]);
+        $last_id = $this->db->insert_id();
+        echo json_encode([ 'state' => TRUE, 'message' => '게시글 등록을 성공했습니다', 'last_id' => $last_id ]);
       } else {
         // 데이터베이스 오류 로그를 남기고, 일반적인 오류 메시지 반환
         log_message('error', '게시글 등록 실패: ' . $this->db->error()['message']);

@@ -11,9 +11,14 @@
 
     <!-- 수정하기, 이전, 다음, 목록 -->
     <div class="flex justify-between gap-3 opacity-90">
-      <div>
-        <a href="#"
-          class="<?= $this->session->userdata('user_id') == $post->user_id ? '' : 'hidden' ?> bg-blue-500 duration-200 hover:bg-[#2f2f2f] border border-blue-400 px-3 py-2 rounded">수정하기</a>
+      <div class="<?= $this->session->userdata('user_id') == $post->user_id ? '' : 'hidden' ?>">
+        <a href="/freeboard/update/<?= $post->idx ?>"
+          class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">수정하기</a>
+        <button
+          onclick="post_delete(<?= $post->idx ?>)"
+          class="cursor-pointer bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">
+          삭제하기
+        </button>
       </div>
       <div>
         <a href="#"
@@ -110,7 +115,10 @@
         <!-- 게시글 내용 -->
         <div class="outline-none rounded w-full p-3 min-h-[500px]" name="contents">
           <div>
-            <?= $post->content; ?>
+            <?= $post->board_delete ? '' : $post->content; ?>
+            <div class="w-full <?= $post->board_delete ? '' : 'hidden'?>">
+              <p class="p-3 bg-red-500 text-center rounded animate-pulse">해당 게시글은 삭제되었습니다.</p>
+            </div>
           </div>
         </div>
 
@@ -118,17 +126,21 @@
         <div class="flex justify-center gap-5 py-5 opacity-80">
           <div class="text-center text-sm">
             <button
-              id='like_up' name='like_up' class="hover:-translate-y-1 material-symbols-outlined text-3xl hover:text-white hover:bg-[#3f3f3f] w-16 h-16 rounded-[50%] duration-100">
+              onclick="like_up(<?= $post->idx ?>)"
+              class="hover:-translate-y-1 material-symbols-outlined text-3xl hover:text-white hover:bg-[#3f3f3f] w-16 h-16 rounded-[50%] duration-100">
               thumb_up
             </button>
-            <p class='bg-[#3f3f3f] rounded p-1'>좋아요</p>
+            <p class='bg-[#3f3f3f] rounded p-1 <?= $like_value !== 'none' ? $like_value ? 'bg-blue-500' : '싫어요'  : '' ?>'>좋아요</p>
+            <!-- <p class='bg-[#3f3f3f] rounded p-1 <?= $like_value !== 'none' ? $like_value ? '좋아요' : '싫어요'  : '' ?>'>좋아요</p> -->
           </div>
           <div class="text-center text-sm">
             <button
-            id='like_down' name='like_down' class="hover:translate-y-1 material-symbols-outlined text-3xl hover:text-white hover:bg-[#3f3f3f] w-16 h-16 rounded-[50%] duration-100">
+            onclick="like_down(<?= $post->idx ?>)" 
+            class="hover:translate-y-1 material-symbols-outlined text-3xl hover:text-white hover:bg-[#3f3f3f] w-16 h-16 rounded-[50%] duration-100">
             thumb_down
-          </button>
-          <p class='bg-[#3f3f3f] rounded p-1'>싫어요</p>
+            </button>
+            <p class='bg-[#3f3f3f] rounded p-1 <?= $like_value !== 'none' ? !$like_value ? 'bg-blue-500' : '싫어요'  : '' ?>'>싫어요</p>
+            <!-- <?= $like_value ?> -->
           </div>
         </div>
 

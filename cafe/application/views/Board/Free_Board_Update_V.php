@@ -13,7 +13,8 @@
     <div class="bg-[#2f2f2f] p-5 flex flex-col gap-5 border border-gray-500 rounded">
       
       <div class="">
-        <p>글쓰기</p>
+        <p>게시글 수정하기</p>
+        <input id="bd_id" type="number" hidden value="<?= $post->idx ?>">
       </div>
 
       <!-- 구분선 -->
@@ -30,26 +31,24 @@
             <!-- 셀렉터 -->
             <div class="w-[30%]">
               <!-- <label for="lang">Language</label> -->
-              <select id='post_type' name='post_type' name="board_type" id="lang" required class="outline-none w-full text-whith rounded bg-[#4f4f4f] p-3">
-                <option class="hidden" value="" disabled selected>게시판 선택</option>
+              <select id='post_type' name='post_type' id="lang" required class="outline-none w-full text-whith rounded bg-[#4f4f4f] p-3">
+                <option class="hidden" selected><?= $post->board_type ?></option>
                 <option value="공지사항">공지사항</option>
                 <option value="자유게시판">자유게시판</option>
                 <option value="가입인사">가입인사</option>
               </select>
-              <!-- <input type="submit" value="Submit" /> -->
             </div>
   
             <!-- 제목입력 -->
             <div class="w-[70%]">
-              <input id='post_title' name='post_title' class="w-full outline-none text-whith rounded bg-[#4f4f4f] p-3" required name="title" type="text" placeholder="제목을 입력해주세요"/>
+              <input id='post_title' name='post_title' value="<?= $post->title ?>" class="w-full outline-none text-whith rounded bg-[#4f4f4f] p-3" required name="title" type="text" placeholder="제목을 입력해주세요"/>
             </div>
   
           </div>
 
           <!-- 게시글 내용 작성 -->
           <!-- <textarea id='post_value' name='post_value' class="outline-none bg-[#4f4f4f] w-full p-3" required name="contents" id="" cols="30" rows="10"></textarea> -->
-
-          <div id="editor"></div>
+          <div id="editor"><?= $post->content ?></div>
 
           <!-- 공개/비공개 -->
           <div class="flex gap-3">
@@ -57,11 +56,11 @@
               <h2>게시글 공개</h2>
               <div class="flex gap-2 w-full">
                 <div class="p-3 w-full rounded bg-[#4f4f4f]">
-                  <input id="1_a" name='post_open' checked value='1' type="radio">
+                  <input id="1_a" name='post_open' <?= $post->board_state ? 'checked' : ''?> value='1' type="radio">
                   <label for="1_a">공개</label>
                 </div>
                 <div class="p-3 w-full rounded bg-[#4f4f4f]">
-                  <input id="2_a" name='post_open' value='0' type="radio">
+                  <input id="2_a" name='post_open' <?= !$post->board_state ? 'checked' : ''?> value='0' type="radio">
                   <label for="2_a">비공개</label>
                 </div>
               </div>
@@ -70,11 +69,11 @@
             <h2>댓글 작성</h2>
             <div class="flex gap-2 w-full">
               <div class="p-3 w-full rounded bg-[#4f4f4f]">
-                <input id="1_b" name='comment_open' value="1" checked type="radio">
+                <input id="1_b" name='comment_open' <?= $post->board_comment ? 'checked' : ''?> value="1" type="radio">
                 <label for="1_b">허용</label>
               </div>
               <div class="p-3 w-full rounded bg-[#4f4f4f]">
-                <input id="2_b" name='comment_open' value="0" type="radio">
+                <input id="2_b" name='comment_open' <?= !$post->board_comment ? 'checked' : ''?> value="0" type="radio">
                 <label for="2_b">비허용</label>
               </div>
             </div>
@@ -87,10 +86,10 @@
           <!-- 구분선 -->
           <div class="border-b border-gray-500"></div>
 
-          <!-- 게시글 등록 -->
+          <!-- 게시글 수정 -->
           <div class="w-full text-right">
             <button id='create_btn' name='create_btn' class="p-3 w-[400px] rounded bg-blue-500 duration-200 hover:opacity-80">
-              게시글 등록
+              게시글 수정
             </button>
             <!-- <input type="submit" class="p-3 w-[400px] rounded bg-blue-500 duration-200 hover:opacity-80" value="게시글 등록"></input> -->
           </div>
@@ -153,9 +152,10 @@ ClassicEditor
   }
 
   $.ajax({
-    url: '/free_board_create_c/create', // 컨트롤러 메소드 URL
+    url: '/free_board_update_c/post_update', // 컨트롤러 메소드 URL
     type: 'POST',
     data: {
+      idx: $('#bd_id').val(),
       post_type: $('#post_type').val(),
       post_title: $('#post_title').val(),
       post_value: editorData,
@@ -165,9 +165,9 @@ ClassicEditor
     },
     success: function(response) {
       // 성공 처리
-      console.log('성공', response.state);
-      console.log('성공', response.message);
-      console.log('성공', response.last_id);
+      console.log('성공', response);
+      location.href = '/freeboard/' + $('#bd_id').val();
+      // redirect('/freeboard');
     },
     error: function(response) {
       // 오류 처리

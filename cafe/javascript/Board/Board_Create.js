@@ -35,15 +35,14 @@ $(document).ready( () => {
     ClassicEditor
       .create(document.querySelector('#editor'))
       .then(editor => {
-          editorInstance = editor; // 에디터 인스턴스 저장
+        editorInstance = editor; // 에디터 인스턴스 저장
       })
       .catch(error => {
-          console.error(error);
+        console.error(error);
       });
 
     $('#create_btn').click(function() {
       const editorData = editorInstance.getData(); // 에디터 데이터 가져오기
-      console.log(editorData);
 
       $.ajax({
         url: '/free_board_create_c/create', // 컨트롤러 메소드 URL
