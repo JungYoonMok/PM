@@ -104,7 +104,7 @@
         </div>
 
         <!-- 최상단 최하단 버튼 -->
-        <div class="fixed right-5 bottom-5 mb-[1%]">
+        <div id="side_btn" class="fixed right-5 bottom-5 mb-[1%]">
           <? $this->load->view('side_btn'); ?>
         </div>
         
@@ -143,5 +143,21 @@ function SideBarTab() {
     document.getElementById('base').className += ' pl-[65px]';
   }
 }
+
+// 스크롤바 존재 여부
+$(document).ready(function() {
+  var hasScrollbar = function() {
+    return $(document).height() > $(window).height();
+  };
+
+  if (hasScrollbar()) {
+    // console.log("스크롤바 있음");
+    $('#side_btn').show();
+  } else {
+    // console.log("스크롤바 없음");
+    $('#side_btn').hide();
+  }
+});
+
 
 </script>
