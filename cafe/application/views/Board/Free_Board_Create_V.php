@@ -1,3 +1,23 @@
+<!-- <script src="/assets/ckeditor/ckeditor.js"></script> -->
+<!-- <script src="<?= base_url('assets/ckeditor/ckeditor.js'); ?>"></script> -->
+<script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js"></script>
+<style>
+  #container {
+    width: 100%;
+    margin: 20px auto;
+  }
+  .ck-editor__editable[role="textbox"] {
+    /* editing area */
+    min-height: 500px;
+    color: black;
+  }
+  .ck-content .image {
+    /* block images */
+    max-width: 80%;
+    margin: 20px auto;
+  }
+</style>
+
 <!-- 메인 틀 -->
 <div id="base" class="flex duration-200 bg-[#3f3f3f] text-gray-50 w-full relative">
 
@@ -22,7 +42,7 @@
       <div class="flex flex-col gap-5">
 
         <!-- <form class="flex flex-col gap-5" action="/free_board_create/create" method="post"> -->
-        <form class="flex flex-col gap-5" action="" method="post">
+        <form class="flex flex-col gap-5" action="/free_board_create_c/create" method="post">
           
           <!-- 게시판 선택 및 제목 -->
           <div class="bg-[#2f2f2f] flex gap-5">
@@ -47,7 +67,9 @@
           </div>
 
           <!-- 게시글 내용 작성 -->
-          <textarea id='post_value' name='post_value' class="outline-none bg-[#4f4f4f] w-full p-3" required name="contents" id="" cols="30" rows="10"></textarea>
+          <!-- <textarea id='post_value' name='post_value' class="outline-none bg-[#4f4f4f] w-full p-3" required name="contents" id="" cols="30" rows="10"></textarea> -->
+
+          <div id="editor"></div>
 
           <!-- 공개/비공개 -->
           <div class="flex gap-3">
@@ -80,10 +102,7 @@
           </div>
 
           <!-- 첨부파일 -->
-          <form action="/free_board_create_c/upload_file2" method="post" enctype="multipart/form-data">
-            <input type="file" name="userfile" />
-            <input type="submit" value="업로드" />
-          </form>
+          <input type="file" name="userfile" />
           
           <!-- 구분선 -->
           <div class="border-b border-gray-500"></div>
@@ -106,4 +125,77 @@
   <!-- 메인끝 -->
 
 </div>
-<script src="/javascript/board/board_create.js"></script>
+<!-- <script src="/javascript/board/board_create.js"></script> -->
+
+<script>
+// ajax 게시글 등록
+$(document).ready( () => {
+
+  let editorInstance;
+
+ClassicEditor
+  .create(document.querySelector('#editor'))
+  .then(editor => {
+    editorInstance = editor; // 에디터 인스턴스 저장
+  })
+  .catch(error => {
+    console.error(error);
+  });
+  
+  $('#create_btn').click( e => {
+    
+  // 새로고침 방지
+  e.preventDefault();
+  const editorData = editorInstance.getData(); // 에디터 데이터 가져오기
+
+  if(!$('#post_type').val()){ // 게시판 분류 검사
+    // 클래스 제거
+    $('#error_form').removeClass('hidden'); 
+
+    $('#error_txt').text('게시판의 분류를 선택해주세요.');
+    return; // 함수 실행 중지
+  }
+
+  if(!$('#post_title').val()){ // 글 제목 검사
+    // 클래스 제거
+    $('#error_form').removeClass('hidden'); 
+
+    $('#error_txt').text('게시판의 제목을 입력해주세요.');
+    return; // 함수 실행 중지
+  }
+
+  if(!$('#editor')){ // 게시글 내용 검사
+    // 클래스 제거
+    $('#error_form').removeClass('hidden'); 
+
+    $('#error_txt').text('게시판의 내용을 입력해주세요.');
+    return; // 함수 실행 중지
+  }
+
+  $.ajax({
+    url: '/free_board_create_c/create', // 컨트롤러 메소드 URL
+    type: 'POST',
+    data: {
+      post_type: $('#post_type').val(),
+      post_title: $('#post_title').val(),
+      post_value: editorData,
+      post_open: $('input[name=post_open]:checked').val(),
+      comment_open: $('input[name=comment_open]:checked').val(),
+      // 기타 폼 데이터
+    },
+    success: function(response) {
+      // 성공 처리
+      console.log('성공', response);
+      location.href = '/freeboard';
+      // redirect('/freeboard');
+    },
+    error: function(response) {
+      // 오류 처리
+      return console.log('오류', response);
+    }
+  });
+});
+
+});
+
+</script>

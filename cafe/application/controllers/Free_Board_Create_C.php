@@ -17,6 +17,20 @@
 
     public function create()
     {
+      $config['upload_path'] = './uploads/'; // 이미지를 저장할 경로
+      $config['allowed_types'] = 'gif|jpg|png'; // 허용되는 파일 타입
+      $config['max_size'] = 2048; // 허용되는 파일 최대 크기
+
+      $this->load->library('upload', $config);
+
+      if (!$this->upload->do_upload('upload')) {
+        $error = array('error' => $this->upload->display_errors());
+        // 에러 응답 처리
+      } else {
+        $data = $this->upload->data();
+        // 성공적으로 업로드된 이미지 URL을 반환
+      }
+
       // 폼 벨리데이션으로 폼의 필수값을 지정
       $this->form_validation->set_rules('post_type', 'Post_Type', 'required');
       $this->form_validation->set_rules('post_title', 'Post_Title', 'required');
@@ -43,7 +57,6 @@
       {
         $this->FBM->create($data);
         echo json_encode([ 'state' => TRUE, 'message' => '게시글 등록을 성공했습니다' ]);
-        // redirect('/freeboard');
       } else {
         // 데이터베이스 오류 로그를 남기고, 일반적인 오류 메시지 반환
         log_message('error', '게시글 등록 실패: ' . $this->db->error()['message']);

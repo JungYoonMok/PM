@@ -14,34 +14,40 @@
       </div>
 
       <div class="bg-[#2f2f2f] border border-[#4f4f4f] w-full p-5 rounded flex flex-col gap-5 relative drop-shadow-2xl">
-        <div class="">
+        <div class="min-h-[700px]">
           <table class="text-gray-50 w-full">
-            <div class="">
-              <th class="text-sm text-left pt-3">No.</th>
-              <th class="text-sm text-left pt-3">글 번호</th>
-              <th class="text-sm text-left pt-3 w-[30%]">제목</th>
-              <th class="text-sm text-left pt-3">작성자</th>
-              <th class="text-sm text-left pt-3">작성날짜</th>
-              <th class="text-sm text-left pt-3">조회수</th>
-              <th class="text-sm text-left pt-3">추천</th>
-              <th class="text-sm text-left pt-3">비추천</th>
-            </div>
+            <thead class="text-center">
+              <tr class="p-3">
+                <!-- <th class="text-xs pt-3">No.</th> -->
+                <th class="text-xs pb-5 text-left">글 번호</th>
+                <th class="text-xs pb-5 w-[60%]">제목</th>
+                <th class="text-xs pb-5">작성자</th>
+                <th class="text-xs pb-5">작성날짜</th>
+                <th class="text-xs pb-5">조회수</th>
+                <th class="text-xs pb-5">추천</th>
+                <th class="text-xs pb-5">비추천</th>
+              </tr>
+            </thead>
             <? $board_count = 0; ?>
             <?foreach($list as $li):?>
-              <tr class="border-b border-gray-500">
-                <td class="p-2"><?= $board_count += 1; ?></td>
-                <td class="p-2"><?= $li->idx ?></td>
-                <td class="p-2">
-                  <a href="/freeboard/<?= $li->idx ?>">
-                    <?= $li -> title ?>
-                  </a>
-                </td>
-                <td class="p-2"><?= $li -> user_id ?></td>
-                <td class="p-2"><?= substr( $li -> regdate, 0, 10) ?></td>
-                <td class="p-2"><?= '00' ?></td>
-                <td class="p-2"><?= '00' ?></td>
-                <td class="p-2"><?= '00' ?></td>
-              </tr>
+              <tbody>
+                <tr class="text-center">
+                  <!-- <td class="p-2"><?= $board_count += 1; ?></td> -->
+                  <td class="p-2 text-left"><?= $li->idx ?></td>
+                  <td class="p-2 text-left">
+                    <a href="/freeboard/<?= $li->idx ?>">
+                      <?= $li -> title ?>
+                    </a>
+                  </td>
+                  <td class="p-2"><?= $li -> user_id ?></td>
+                  <td class="p-2">
+                    <?= (empty($li->regdate) ? '-' : date("Y-m-d") == substr($li->regdate, 0, 10)) ? substr($li->regdate, 10, 18) : substr($li->regdate, 0, 16); ?>
+                  </td>
+                  <td class="p-2"><?= '0' ?></td>
+                  <td class="p-2"><?= '0' ?></td>
+                  <td class="p-2"><?= '0' ?></td>
+                </tr>
+              </tbody>
             <?endforeach?>
           </table>
         </div>
@@ -53,3 +59,5 @@
   </div>
 
 </div>
+
+<script src="/javascript/board/board_view.js"></script>

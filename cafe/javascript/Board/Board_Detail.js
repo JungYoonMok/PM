@@ -5,6 +5,7 @@ $(document).ready( () => {
     // 새로고침 방지
     e.preventDefault();
 
+    console.log('번호', $('#bd_id').val());
     if(!confirm('좋아요를 누르시겠습니까? (변경은 불가능합니다)')) {
       return;
     }
