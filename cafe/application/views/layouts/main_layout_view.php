@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE text/html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">

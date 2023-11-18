@@ -115,8 +115,7 @@
         <!-- 게시글 내용 -->
         <div class="outline-none rounded w-full p-3 min-h-[500px]" name="contents">
           <div>
-            <!-- <?= $post->board_delete ? '' : $post->content; ?> -->
-            
+
             <!-- composer -->
             <? require './assets/parsedown-master/Parsedown.php'; $Parsedown = new Parsedown();?>
             <?= $post->board_delete ? '' : $Parsedown->text($post->content); ?>

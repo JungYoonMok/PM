@@ -114,7 +114,9 @@ $(document).ready( () => {
     el: document.querySelector('#editor'),
     height: '500px',
     initialEditType: 'wysiwyg',
+    // initialEditType: 'markdown',
     previewStyle: 'vertical',
+    theme: "dark",
     hooks: {
       // addImageBlobHook: function(blob, callback) {
       //   console.log('블롭', blob);
@@ -124,7 +126,7 @@ $(document).ready( () => {
         var formData = new FormData();
         formData.append('userfile', blob);
 
-        $.ajax({
+      $.ajax({
         url: '/free_board_create_c/upload', // 이미지를 업로드할 서버의 URL
         data: formData,
         type: 'POST',
