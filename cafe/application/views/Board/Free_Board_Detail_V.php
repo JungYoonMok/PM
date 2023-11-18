@@ -115,7 +115,12 @@
         <!-- 게시글 내용 -->
         <div class="outline-none rounded w-full p-3 min-h-[500px]" name="contents">
           <div>
-            <?= $post->board_delete ? '' : $post->content; ?>
+            <!-- <?= $post->board_delete ? '' : $post->content; ?> -->
+            
+            <!-- composer -->
+            <? require './assets/parsedown-master/Parsedown.php'; $Parsedown = new Parsedown();?>
+            <?= $post->board_delete ? '' : $Parsedown->text($post->content); ?>
+
             <div class="w-full <?= $post->board_delete ? '' : 'hidden'?>">
               <p class="p-3 bg-red-500 text-center rounded animate-pulse">해당 게시글은 삭제되었습니다.</p>
             </div>

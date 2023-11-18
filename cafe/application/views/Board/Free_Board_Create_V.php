@@ -22,7 +22,7 @@
       <div class="flex flex-col gap-5">
 
         <!-- <form class="flex flex-col gap-5" action="/free_board_create/create" method="post"> -->
-        <form class="flex flex-col gap-5" action="/free_board_create_c/create" method="post">
+        <form class="flex flex-col gap-5" action="/free_board_create_c/create" method="post" enctype="multipart/form-data">
           
           <!-- 게시판 선택 및 제목 -->
           <div class="bg-[#2f2f2f] flex gap-5">
@@ -30,7 +30,7 @@
             <!-- 셀렉터 -->
             <div class="w-[30%]">
               <!-- <label for="lang">Language</label> -->
-              <select id='post_type' name='post_type' name="board_type" id="lang" required class="outline-none w-full text-whith rounded bg-[#4f4f4f] p-3">
+              <select id='post_type' name='post_type' id="lang" required class="outline-none w-full text-whith rounded bg-[#4f4f4f] p-3">
                 <option class="hidden" value="" disabled selected>게시판 선택</option>
                 <option value="공지사항">공지사항</option>
                 <option value="자유게시판">자유게시판</option>
@@ -41,14 +41,13 @@
   
             <!-- 제목입력 -->
             <div class="w-[70%]">
-              <input id='post_title' name='post_title' class="w-full outline-none text-whith rounded bg-[#4f4f4f] p-3" required name="title" type="text" placeholder="제목을 입력해주세요"/>
+              <input id='post_title' name='post_title' required type="text" placeholder="제목을 입력해주세요" class="w-full outline-none text-whith rounded bg-[#4f4f4f] p-3"/>
             </div>
   
           </div>
 
           <!-- 게시글 내용 작성 -->
           <!-- <textarea id='post_value' name='post_value' class="outline-none bg-[#4f4f4f] w-full p-3" required name="contents" id="" cols="30" rows="10"></textarea> -->
-
           <div id="editor"></div>
 
           <!-- 공개/비공개 -->
@@ -111,70 +110,70 @@
 // ajax 게시글 등록
 $(document).ready( () => {
 
-  let editorInstance;
+  const editor = new toastui.Editor({
+    el: document.querySelector('#editor'),
+    height: '500px',
+    initialEditType: 'wysiwyg',
+    previewStyle: 'vertical',
+    hooks: {
+      // addImageBlobHook: function(blob, callback) {
+      //   console.log('블롭', blob);
+      //   console.log('콜백', callback);
+      // }
+        addImageBlobHook: function(blob, callback) {
+        var formData = new FormData();
+        formData.append('userfile', blob);
 
-ClassicEditor
-  .create(document.querySelector('#editor'))
-  .then(editor => {
-    editorInstance = editor; // 에디터 인스턴스 저장
-  })
-  .catch(error => {
-    console.error(error);
+        $.ajax({
+        url: '/free_board_create_c/upload', // 이미지를 업로드할 서버의 URL
+        data: formData,
+        type: 'POST',
+        processData: false,
+        contentType: false,
+        success: function(data) {
+          var url = JSON.parse(data).url; // 서버로부터 반환받은 이미지 URL
+          callback(url, 'alt text'); // 에디터에 이미지 URL 삽입
+        }
+      });
+      }
+    }
   });
   
   $('#create_btn').click( e => {
-    
-  // 새로고침 방지
-  e.preventDefault();
-  const editorData = editorInstance.getData(); // 에디터 데이터 가져오기
+    e.preventDefault();
 
-  if(!$('#post_type').val()){ // 게시판 분류 검사
-    // 클래스 제거
-    $('#error_form').removeClass('hidden'); 
+    var formData = new FormData();
 
-    $('#error_txt').text('게시판의 분류를 선택해주세요.');
-    return; // 함수 실행 중지
-  }
+    if ($('input[type=file]')[0].files.length > 0) {
+      formData.append('userfile', $('input[type=file]')[0].files[0]);
+    }
 
-  if(!$('#post_title').val()){ // 글 제목 검사
-    // 클래스 제거
-    $('#error_form').removeClass('hidden'); 
+    const editorData = editor.getMarkdown(); // 에디터의 내용을 Markdown 형식으로 가져옵니다.
 
-    $('#error_txt').text('게시판의 제목을 입력해주세요.');
-    return; // 함수 실행 중지
-  }
-
-  if(!$('#editor')){ // 게시글 내용 검사
-    // 클래스 제거
-    $('#error_form').removeClass('hidden'); 
-
-    $('#error_txt').text('게시판의 내용을 입력해주세요.');
-    return; // 함수 실행 중지
-  }
+    formData.append('post_type', $('#post_type').val());
+    formData.append('post_title', $('#post_title').val());
+    formData.append('post_value', editorData);
+    formData.append('post_open', $('input[name=post_open]:checked').val());
+    formData.append('comment_open', $('input[name=comment_open]:checked').val());
 
   $.ajax({
-    url: '/free_board_create_c/create', // 컨트롤러 메소드 URL
+    url: '/free_board_create_c/create',
     type: 'POST',
-    data: {
-      post_type: $('#post_type').val(),
-      post_title: $('#post_title').val(),
-      post_value: editorData,
-      post_open: $('input[name=post_open]:checked').val(),
-      comment_open: $('input[name=comment_open]:checked').val(),
-      // 기타 폼 데이터
-    },
+    data: formData,
+    processData: false,  // 필수: FormData와 함께 사용
+    contentType: false,  // 필수: FormData와 함께 사용
     success: function(response) {
-      // 성공 처리
-      console.log('성공', response.state);
-      console.log('성공', response.message);
-      console.log('성공', response.last_id);
+    if (response.state) {
+      console.log('성공', response);
+    } else {
+      console.log('실패', response);
+    }
     },
     error: function(response) {
-      // 오류 처리
-      return console.log('오류', response);
+      console.log('오류', response);
     }
+    });
   });
-});
 
 });
 

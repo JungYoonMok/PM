@@ -18,13 +18,13 @@ class Free_Board_View_M extends CI_Model
 
   public function GetBoardList()
   {
-    $result = $this->db->query('SELECT * FROM boards')->result();
+    $result = $this->db->query("SELECT * FROM boards WHERE board_type = '자유게시판' ;")->result();
     return $result;
   }
   
   public function GetBoardTotal()
   {
-    $result = $this->db->query('SELECT idx FROM boards')->num_rows();
+    $result = $this->db->query("SELECT idx FROM boards WHERE board_type = '자유게시판' ;")->num_rows();
     return $result;
   }
 
