@@ -32,9 +32,6 @@
       color: #3f3f3f;
     }
 
-    /* 에디터 */
-
-
   </style>
 
   <!-- tailwind -->
@@ -53,11 +50,8 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
   <!-- 에디터 -->
-  <!-- <script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js"></script> -->
-
   <!-- Toast UI Editor의 스타일시트 -->
   <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
-
   <!-- Toast UI Editor의 JavaScript -->
   <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 

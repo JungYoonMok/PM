@@ -26,7 +26,7 @@
 
       <!-- 회원 -->
       <div class="<?= $this->session->userdata('user_id') ? 'inline' : 'hidden' ?> fixed right-4 flex gap-3 text-gray-200">
-        <a class="hover:bg-[#3f3f3f] font-bold py-3 px-5 rounded hover:scale-90 duration-100" href="/#">
+        <a class="hover:bg-[#3f3f3f] font-bold py-3 px-5 rounded hover:scale-90 duration-100" href="/user_information_c">
           내정보
         </a>
 
@@ -53,11 +53,6 @@
         url: '/Login_C/logout',
         type: 'post',
         dataType: 'json',
-        // data: $(this).serialize(),
-        // data: { 
-          // username: $('#user_id').val(),
-          // password: $('#user_pw').val(),
-        // },
         success: function(response) {
           console.log(response);
           if(response.state){
