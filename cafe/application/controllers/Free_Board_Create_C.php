@@ -16,45 +16,39 @@
     }
 
     public function upload() {
-      $config['upload_path'] = './upload/'; // 이미지를 저장할 경로
-      $config['allowed_types'] = 'gif|jpg|png'; // 허용되는 파일 타입
-      $config['max_size'] = 40000; // 허용되는 파일 최대 크기
-    
-      $this->load->library('upload', $config);
+      // 업로드 설정은 동일하므로 별도의 메소드로 분리하여 재사용하는 것이 좋습니다.
+      $this->_upload_config();
     
       if ($this->upload->do_upload('userfile')) {
         $data = $this->upload->data();
-        $url = base_url('upload/' . $data['file_name']); // 업로드된 이미지의 URL 생성
-    
-        echo json_encode(['url' => $url]); // JSON 형식으로 URL 반환
+        $url = base_url('uploads/' . $data['file_name']); // 'upload'를 'uploads'로 변경
+        echo json_encode(['state' => TRUE, 'url' => $url]); // 상태값도 추가하여 성공 여부를 명시
       } else {
-        // 오류 처리
+        $error = $this->upload->display_errors();
+        echo json_encode(['state' => FALSE, 'message' => '이미지 업로드 실패: ' . strip_tags($error)]); // strip_tags()를 사용하여 HTML 태그 제거
       }
     }
     
     public function create()
     {
-      $config['upload_path'] = './upload/'; // 이미지를 저장할 경로
-      $config['allowed_types'] = 'gif|jpg|png'; // 허용되는 파일 타입
-      $config['max_size'] = 40000; // 허용되는 파일 최대 크기
+      // 업로드 설정은 동일하므로 별도의 메소드로 분리하여 재사용하는 것이 좋습니다.
+      $this->_upload_config();
   
-      $this->load->library('upload', $config);
-  
+      // 파일 업로드 시도
+      $filePath = null;
       if (isset($_FILES['userfile']) && $_FILES['userfile']['size'] > 0) {
         if (!$this->upload->do_upload('userfile')) {
-          $error = array('error' => $this->upload->display_errors());
-          echo json_encode(['state' => FALSE, 'message' => '이미지 업로드를 실패했습니다: ' . $error['error']]);
+          $error = strip_tags($this->upload->display_errors());
+          echo json_encode(['state' => FALSE, 'message' => '이미지 업로드 실패: ' . $error]);
           return;
         } else {
           $uploadData = $this->upload->data();
           $filePath = $uploadData['full_path']; // 업로드된 파일의 전체 경로
         }
-      } else {
-        $filePath = null; // 파일이 없는 경우
       }
   
       // 폼 데이터 처리
-      $data = [
+      $post_data = [
         'board_type' => $this->input->post('post_type'),
         'title' => $this->input->post('post_title'),
         'content' => $this->input->post('post_value'),
@@ -80,18 +74,27 @@
   
       // 데이터베이스에 데이터 저장
       if($this->form_validation->run()) {
-        $result = $this->FBM->create($data);
-        if ($result['state']) {
-          $last_id = $this->db->insert_id();
+        $result = $this->FBM->create($post_data);
+        if ($result) {
+          $last_id = $this->db->insert_id(); // 등록한 게시글의 ID를 반환
           echo json_encode([ 'state' => TRUE, 'message' => '게시글 등록을 성공했습니다', 'last_id' => $last_id ]);
         } else {
           echo json_encode([ 'state' => FALSE, 'message' => '게시글 등록을 실패했습니다' ]);
         }
       } else {
-        echo json_encode([ 'state' => FALSE, 'message' => '입력 데이터 검증 실패' ]);
+        // 벨리데이션 오류 메시지 반환
+        $errors = $this->form_validation->error_array();
+        echo json_encode(['state' => FALSE, 'message' => '입력 데이터 검증 실패', 'errors' => $errors]);
       }
     }
     
+    // 파일 업로드 설정 코드를 별도의 메소드로 분리
+    private function _upload_config() {
+      $config['upload_path'] = './uploads/';
+      $config['allowed_types'] = 'gif|jpg|png';
+      $config['max_size'] = 40000;
+      $this->load->library('upload', $config);
+    }
     
   }
 ?>

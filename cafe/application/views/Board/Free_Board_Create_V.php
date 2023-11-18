@@ -110,73 +110,80 @@
 // ajax 게시글 등록
 $(document).ready( () => {
 
+  // 토스트 UI 에디터 인스턴스 생성
   const editor = new toastui.Editor({
     el: document.querySelector('#editor'),
     height: '500px',
     initialEditType: 'wysiwyg',
-    // initialEditType: 'markdown',
     previewStyle: 'vertical',
     theme: "dark",
     hooks: {
-      // addImageBlobHook: function(blob, callback) {
-      //   console.log('블롭', blob);
-      //   console.log('콜백', callback);
-      // }
-        addImageBlobHook: function(blob, callback) {
-        var formData = new FormData();
+      addImageBlobHook: (blob, callback) => {
+        const formData = new FormData();
         formData.append('userfile', blob);
-
-      $.ajax({
-        url: '/free_board_create_c/upload', // 이미지를 업로드할 서버의 URL
-        data: formData,
-        type: 'POST',
-        processData: false,
-        contentType: false,
-        success: function(data) {
-          var url = JSON.parse(data).url; // 서버로부터 반환받은 이미지 URL
-          callback(url, 'alt text'); // 에디터에 이미지 URL 삽입
-        }
-      });
+        $.ajax({
+          url: '/free_board_create_c/upload', // 이미지를 업로드할 서버의 URL
+          data: formData,
+          type: 'POST',
+          // dataType: 'json',
+          processData: false,
+          contentType: false,
+          success: (data) => {
+            const result = JSON.parse(data);
+            if(result.state) {
+              callback(result.url, '이미지 설명'); // 성공 시 에디터에 이미지 URL 삽입
+            } else {
+              alert('이미지 업로드 실패: ' + result.message);
+            }
+          },
+          error: () => {
+            alert('이미지 업로드 중 서버 오류가 발생했습니다.');
+          }
+        });
       }
     }
   });
-  
-  $('#create_btn').click( e => {
+
+  // 게시글 등록 버튼 클릭 이벤트
+  $('#create_btn').click((e) => {
     e.preventDefault();
 
-    var formData = new FormData();
-
-    if ($('input[type=file]')[0].files.length > 0) {
-      formData.append('userfile', $('input[type=file]')[0].files[0]);
-    }
-
-    const editorData = editor.getMarkdown(); // 에디터의 내용을 Markdown 형식으로 가져옵니다.
-
+    const formData = new FormData();
     formData.append('post_type', $('#post_type').val());
     formData.append('post_title', $('#post_title').val());
-    formData.append('post_value', editorData);
+    formData.append('post_value', editor.getMarkdown()); // 에디터의 내용을 Markdown 형식으로
     formData.append('post_open', $('input[name=post_open]:checked').val());
     formData.append('comment_open', $('input[name=comment_open]:checked').val());
 
-  $.ajax({
-    url: '/free_board_create_c/create',
-    type: 'POST',
-    data: formData,
-    processData: false,  // 필수: FormData와 함께 사용
-    contentType: false,  // 필수: FormData와 함께 사용
-    success: function(response) {
-    if (response.state) {
-      console.log('성공', response);
-    } else {
-      console.log('실패', response);
+    // 선택된 파일이 있으면 formData에 추가
+    const fileInput = $('input[type=file]')[0];
+    if (fileInput.files.length > 0) {
+      formData.append('userfile', fileInput.files[0]);
     }
-    },
-    error: function(response) {
-      console.log('오류', response);
-    }
+
+    // 게시글 생성 요청
+    $.ajax({
+      url: '/free_board_create_c/create',
+      type: 'POST',
+      dataType: 'json',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: (response) => {
+        if (response.state) {
+          alert('게시글이 성공적으로 등록되었습니다.');
+          window.location.href = '/freeboard/' + response.last_id; // 성공 시 리다이렉트할 URL
+        } else {
+          alert('게시글 등록 실패: ' + response.message);
+        }
+      },
+      error: () => {
+        alert('게시글 등록 중 서버 오류가 발생했습니다.');
+      }
     });
+
   });
 
-});
+  });
 
 </script>

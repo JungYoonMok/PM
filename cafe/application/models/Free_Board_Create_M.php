@@ -14,10 +14,10 @@ class Free_Board_Create_M extends CI_Model
   {
     $result = $this->db->insert('boards', $this->db->escape_str($data));
     if($result) {
-      return [ 'state' => TRUE, 'message' => '게시글 등록 성공' ];
+      return TRUE;
     } else {
       log_message('error', '게시글 등록 실패: ' . $this->db->error()['message']);
-      return [ 'state' => FALSE, 'message' => '게시글 등록 실패' ];
+      return FALSE;
     }
   }
 
