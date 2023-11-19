@@ -62,6 +62,7 @@ class Login_C extends CI_Controller
           'user_phone' => $data['user_phone'],
           'user_memo' => $data['user_memo'],
           'user_id' => $data['user_id'],
+          // 'user_password' => $data['user_password'],
           'last_login' => $data['last_login'],
           'last_logout' => $data['last_logout'],
           'regdate' => $data['regdate'],

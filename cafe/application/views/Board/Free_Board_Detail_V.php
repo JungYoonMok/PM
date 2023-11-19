@@ -13,7 +13,7 @@
     <div class="flex justify-between gap-3 opacity-90">
       <div class="<?= $this->session->userdata('user_id') == $post->user_id ? '' : 'hidden' ?>">
         <a href="/freeboard/update/<?= $post->idx ?>"
-          class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">수정하기</a>
+          class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-[9px] rounded">수정하기</a>
         <button
           onclick="post_delete(<?= $post->idx ?>)"
           class="cursor-pointer bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">

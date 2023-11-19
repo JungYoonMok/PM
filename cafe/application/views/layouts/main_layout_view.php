@@ -3,11 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>카페 | 메인</title>
 
   <style>
     body {
       background : #3f3f3f;
+    }
+
+    /* input number */
+    input::-webkit-inner-spin-button {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
     }
 
     /* scrollbar */
@@ -92,7 +98,7 @@
         </div>
 
         <!-- 최상단 최하단 버튼 -->
-        <div id="side_btn" class="fixed right-5 bottom-5 mb-[1%]">
+        <div hidden id="side_btn" class="fixed right-5 bottom-5 mb-[1%]">
           <? $this->load->view('side_btn'); ?>
         </div>
         
@@ -134,17 +140,19 @@ function SideBarTab() {
 
 // 스크롤바 존재 여부
 $(document).ready(function() {
+
   var hasScrollbar = function() {
     return $(document).height() > $(window).height();
   };
 
-  if (hasScrollbar()) {
-    // console.log("스크롤바 있음");
-    $('#side_btn').show();
-  } else {
-    // console.log("스크롤바 없음");
-    $('#side_btn').hide();
-  }
+  setInterval(() => {
+    if (hasScrollbar()) {
+      $('#side_btn').show();
+    } else {
+      $('#side_btn').hide();
+    }
+  }, 500);
+
 });
 
 
