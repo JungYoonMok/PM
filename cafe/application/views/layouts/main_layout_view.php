@@ -38,6 +38,27 @@
       color: #3f3f3f;
     }
 
+    /* snow */
+    .snowflake {
+      width: 8px;
+      height: 8px;
+      background-color: white;
+      border-radius: 50%;
+      position: fixed;
+      top: -8px;
+      /* 레이아웃 깨짐 방지 */
+      margin-left: -10%;
+      margin-right: -10%;
+      /* animation: fall 10s linear; */
+    }
+    @keyframes fall {
+      from {}
+      to {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+
   </style>
 
   <!-- tailwind -->
@@ -66,7 +87,7 @@
 
     <!-- 베이스 -->
     <div id="base" class="w-full h-full flex relative duration-200 pl-[300px]">
-
+      
       <!-- 사이드 -->
       <div id="menu" class="fixed left-0 w-[300px] h-full">
         <!-- 여닫기 -->
@@ -109,7 +130,31 @@
   </body>
 </html>
 
-<script>
+<script> 
+
+  // snow
+  const MIN_DURATION = 10;
+  const body = document.querySelector('body');
+  function makeSnowflake() {
+    const snowflake = document.createElement('div');
+    const delay = Math.random() * 10;
+    const initialOpacity = Math.random();
+    const duration = Math.random() * 20 + MIN_DURATION;
+    snowflake.classList.add('snowflake');
+    snowflake.style.left = Math.random() * window.innerWidth + 'px';
+    snowflake.style.animationDelay = delay + 's';
+    snowflake.style.opacity = initialOpacity;
+    snowflake.style.animation = `fall ${duration}s linear`;
+    body.appendChild(snowflake);
+    setTimeout(() => {
+      body.removeChild(snowflake);
+      makeSnowflake();
+    }, (duration + delay) * 1000);
+  }
+  for(let index = 0; index < 50; index++) {
+    setTimeout(makeSnowflake, 500 * index);
+  }
+  // snow end
 
 function SideBarTab() {
   let elm = document.getElementById('main'); 
