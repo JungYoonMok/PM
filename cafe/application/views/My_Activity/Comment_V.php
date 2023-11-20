@@ -11,43 +11,45 @@
         <span class="material-symbols-outlined">
           edit
         </span>
-        <p>작성글</p>
+        <a href="/my_activity/post">작성글</a>
       </div>
       <div class="flex gap-3 whitespace-nowrap px-3 py-4 border border-[#4f4f4f] bg-[#3f3f3f] rounded hover:bg-[#4f4f4f] duration-200">
         <span class="material-symbols-outlined">
           chat_paste_go
         </span>
-        <p>작성 댓글</p>
+        <a href="/my_activity/comment">작성 댓글</a>
       </div>
       <div class="flex gap-3 whitespace-nowrap px-3 py-4 border border-[#4f4f4f] bg-[#3f3f3f] rounded hover:bg-[#4f4f4f] duration-200">
         <span class="material-symbols-outlined">
           rate_review
         </span>
-        <p>댓글단 글</p>
+        <a href="/my_activity/post_in_comment">댓글단 글</a>
       </div>
       <div class="flex gap-3 whitespace-nowrap px-3 py-4 border border-[#4f4f4f] bg-[#3f3f3f] rounded hover:bg-[#4f4f4f] duration-200">
         <span class="material-symbols-outlined">
           thumb_up
         </span>
-        <p>좋아요한 글</p>
+        <a href="/my_activity/post_like">좋아요한 글</a>
       </div>
       <div class="flex gap-3 whitespace-nowrap px-3 py-4 border border-[#4f4f4f] bg-[#3f3f3f] rounded hover:bg-[#4f4f4f] duration-200">
         <span class="material-symbols-outlined">
           thumb_down
         </span>
-        <p>싫요한 글</p>
+        <a href="/my_activity/post_notlike">싫요한 글</a>
       </div>
       <div class="flex gap-3 whitespace-nowrap px-3 py-4 border border-[#4f4f4f] bg-[#3f3f3f] rounded hover:bg-[#4f4f4f] duration-200">
         <span class="material-symbols-outlined">
           scan_delete
         </span>
-        <p>삭제한 게시글</p>
+        <a href="/my_activity/delete_post">삭제한 게시글</a>
       </div>
 
-    </div>
+      <!-- 구분선 -->
+      <div class="border-b mt-2 border-[#3f3f3f]"></div>
 
-    <!-- 구분선 -->
-    <!-- <div class="border-b mt-2 border-gray-500 -rotate-90"></div> -->
+      <p>작성 댓글</p>
+
+    </div>
 
     <!-- 컨텐츠 -->
     <div class="p-5 w-full border-l border-[#4f4f4f] border-dashed">
@@ -64,8 +66,8 @@
             <th class="">작성날짜</th>
           </thead>
           <? $numCount = 0; ?>
-          <? foreach ($list as $li): ?>
-            <tbody class="">
+          <tbody class="">
+          <? foreach ($comment as $li): ?>
               <tr class="border-b border-gray-500">
                 <!-- <td class="p-2">
                   <?= $numCount += 1 ?>
@@ -79,12 +81,11 @@
                 </td>
                 <td><?= $li->user_id ?></td>
                 <td class="tracking-wide">
-                  <!-- <?= $li->regdate ?> -->
-                  <?= (empty($li->regdate) ? '-' : date("Y-m-d") == substr($li->regdate, 0, 10)) ? substr($li->regdate, 10, 6) : substr($li->regdate, 0, 16); ?>
+                  <?= (empty($li->regdate) ? '-' : date("Y-m-d") == substr($li->regdate, 0, 10)) ? substr($li->regdate, 10, 6) : substr($li->regdate, 0, 10); ?>
                 </td>
               </tr>
+              <? endforeach ?>
             </tbody>
-          <? endforeach ?>
         </table>
       </div>
       

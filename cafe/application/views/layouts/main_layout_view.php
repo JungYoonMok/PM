@@ -196,7 +196,7 @@ $(document).ready(function() {
     } else {
       $('#side_btn').hide();
     }
-  }, 500);
+  }, 300);
 
 });
 

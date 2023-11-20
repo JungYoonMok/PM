@@ -8,7 +8,63 @@
       parent::__construct();
     }
 
-    public function get_all_boards() {
+    public function get_post() {
+      $this->db->order_by('idx', 'desc');
+      $query = $this->db->get_where('boards', ['user_id' => $this->session->userdata('user_id') ]);
+
+      if($query->num_rows() > 0) {
+        return $query->result();
+      } else {
+        return false;
+      }
+    }
+
+    public function get_comment() {
+      $this->db->order_by('idx', 'desc');
+      $query = $this->db->get_where('boards', ['user_id' => $this->session->userdata('user_id') ]);
+
+      if($query->num_rows() > 0) {
+        return $query->result();
+      } else {
+        return false;
+      }
+    }
+    
+    public function get_post_in_comment()
+    {
+      $this->db->order_by('idx', 'desc');
+      $query = $this->db->get_where('boards', ['user_id' => $this->session->userdata('user_id') ]);
+
+      if($query->num_rows() > 0) {
+        return $query->result();
+      } else {
+        return false;
+      }
+    }
+
+    public function get_post_like() {
+      $this->db->order_by('idx', 'desc');
+      $query = $this->db->get_where('boards', ['user_id' => $this->session->userdata('user_id') ]);
+
+      if($query->num_rows() > 0) {
+        return $query->result();
+      } else {
+        return false;
+      }
+    }
+
+    public function get_post_notlike() {
+      $this->db->order_by('idx', 'desc');
+      $query = $this->db->get_where('boards', ['user_id' => $this->session->userdata('user_id') ]);
+
+      if($query->num_rows() > 0) {
+        return $query->result();
+      } else {
+        return false;
+      }
+    }
+
+    public function get_delete_post() {
       $this->db->order_by('idx', 'desc');
       $query = $this->db->get_where('boards', ['user_id' => $this->session->userdata('user_id') ]);
 
