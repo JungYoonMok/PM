@@ -29,6 +29,42 @@ class Find_Account_C extends CI_Controller {
       echo json_encode([ 'state' => FALSE, 'message' => '해당하는 계정이 없습니다' ]);
     }
   }
+
+  public function find_password()
+  {
+    $data = array(
+      'user_id' => $this->input->post('id', TRUE),
+      'user_name' => $this->input->post('name', TRUE),
+      'user_phone' => $this->input->post('phone', TRUE),
+    );
+
+    $result = $this->Find_Account_M->find_password($data);
+
+    if($result) {
+      echo json_encode([ 'state' => TRUE, 'message' => '해당하는 계정을 찾았습니다' ]);
+    } else {
+      echo json_encode([ 'state' => FALSE, 'message' => '해당하는 계정이 없습니다' ]);
+    }
+  }
+
+  public function update_password()
+  {
+    $data = array(
+      'user_id' => $this->input->post('id', TRUE),
+      'user_name' => $this->input->post('name', TRUE),
+      'user_phone' => $this->input->post('phone', TRUE),
+      'user_password' => $this->input->post('password', TRUE)
+    );
+
+    $result = $this->Find_Account_M->update_password($data);
+
+    if($result) {
+      echo json_encode([ 'state' => TRUE, 'message' => '비밀번호가 변경되었습니다' ]);
+    } else {
+      echo json_encode([ 'state' => FALSE, 'message' => '비밀번호 변경에 실패했습니다' ]);
+    }
+  }
+
 }
 
 ?>

@@ -1,8 +1,7 @@
 // ajax 회원가입
-$(document).ready( (e) => {
-  e.preventDefault();
+$(document).ready( function () {
   
-  $('#registerButton').click( e => {
+  $('#registerButton').click( function(e) {
 
     // 새로고침 방지
     e.preventDefault();
