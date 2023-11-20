@@ -45,6 +45,9 @@
             로그인
           </button>
         </div>
+        <div class="text-right">
+          <a href="/find_account_c">계정 정보 찾기</a>
+        </div>
       </form>
 
       <div class="flex w-full my-8 gap-3 px-20 text-gray-300">

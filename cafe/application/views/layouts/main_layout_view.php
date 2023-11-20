@@ -151,9 +151,9 @@
       makeSnowflake();
     }, (duration + delay) * 1000);
   }
-  for(let index = 0; index < 50; index++) {
-    setTimeout(makeSnowflake, 500 * index);
-  }
+  // for(let index = 0; index < 50; index++) {
+  //   setTimeout(makeSnowflake, 500 * index);
+  // }
   // snow end
 
 function SideBarTab() {

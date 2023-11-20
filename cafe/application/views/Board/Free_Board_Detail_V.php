@@ -166,7 +166,7 @@
         <div id="comments" class="border-b border-gray-500"></div>
 
         <!-- 댓글 리스트 있을때 and 리플 -->
-        <div class="flex flex-col duration-200 bg-[#1f1f1f] rounded-md py-10 px-5 gap-0 w-full <?= empty($comment) || !$post->board_comment ? 'hidden' : '' ?>">
+        <div class="flex flex-col duration-200 bg-[#1f1f1f] rounded-md py-10 px-5 gap-5 w-full <?= empty($comment) || !$post->board_comment ? 'hidden' : '' ?>">
           <? foreach ($comment as $com): ?>
 
             <div class="flex gap-3 text-sm w-full p-3 duration-200 rounded">
@@ -219,7 +219,7 @@
                   <!-- 작성된 댓글 -->
                   <div class="duration-200">
                     <!-- 내용 -->
-                    <div class="py-5 px-5 rounded-tl-none rounded-xl <?= ($post->user_id == $com->user_id) ? '' : ''; ?>">
+                    <div class="px-5 rounded-tl-none rounded-xl <?= ($post->user_id == $com->user_id) ? '' : ''; ?>">
                       
                       <!-- 삭제된 댓글 -->
                       <p class="<?= $com -> delete_state ? 'inline-block' : 'hidden'; ?> text-md font-bold text-red-400 p-3">
@@ -254,7 +254,7 @@
                         </button>
                       </div>
 
-                      <div class="bg-[#3f3f3f] flex gap-1 px-3 py-1 rounded <?= $this->session->userdata('user_id') && !$com->delete_state ? 'inline-block' : 'hidden' ?>">
+                      <div class="flex gap-1 px-3 py-1 rounded <?= $this->session->userdata('user_id') && !$com->delete_state ? 'inline-block' : 'hidden' ?>">
                         <div class="<?= $com->user_id == $this->session->userdata('user_id') ? 'inline-block' : 'hidden' ?> flex gap-1">
                           <button id="btn-update<?= $com->idx ?>" onclick="reply_update(<?= $com->idx ?>)" class="hover:underline hover:underline-offset-4 px-2 py-1 rounded">
                             수정

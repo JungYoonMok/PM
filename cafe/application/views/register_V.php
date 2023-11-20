@@ -56,20 +56,37 @@
         </div>
       </div>
 
-      <!-- 비밀번호 및 확인 -->
-      <div class="flex gap-2">
-        <div class="w-full flex flex-col gap-2">
-          <h2>비밀번호</h2>
-          <input name="user_password_1" id='user_password_1' id="user_password_1" placeholder="비밀번호 입력"
-            class="w-full font-black duration-200 border border-gray-500 hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none"
-            type="password" />
+      <!-- 비밀번호 변경 -->
+      <div class="flex justify-between gap-5">
+        
+        <!-- 비밀번호 -->
+        <div class="flex flex-col gap-3 w-full">
+          <p class="px-1 hover:text-white hover:-translate-y-1 duration-200 cursor-default whitespace-nowrap max-w-min text-base">
+            비밀번호
+          </p>
+          <div class="relative">
+            <input type="password" id="user_password_1" placeholder="비밀번호 입력" 
+            class="pr-12 w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#4f4f4f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
+            <p id="eye_on" class="cursor-pointer hover:-translate-x-1 hover:text-white hover:opacity-80 text-[#9f9f9f] duration-200 absolute right-3 top-4 material-symbols-outlined">
+              visibility
+            </p>
+          </div>
         </div>
-        <div class="w-full flex flex-col gap-2">
-          <h2>비밀번호 확인</h2>
-          <input name="user_password_2" id='user_password_2' id="user_password_2" placeholder="비밀번호 입력"
-            class="w-full font-black duration-200 border border-gray-500 hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none"
-            type="password" />
+
+        <!-- 비밀번호 확인 -->
+        <div class="flex flex-col gap-3 w-full">
+          <p class="px-1 hover:text-white hover:-translate-y-1 duration-200 cursor-default whitespace-nowrap max-w-min text-base">
+            비밀번호 확인
+          </p>
+          <div class="relative">
+            <input type="password" id="user_password_2" placeholder="비밀번호 입력 확인" 
+            class="pr-12 w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#4f4f4f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
+            <p id="eye_on2" class="cursor-pointer hover:-translate-x-1 hover:text-white hover:opacity-80 text-[#9f9f9f] duration-200 absolute right-3 top-4 material-symbols-outlined">
+              visibility
+            </p>
+          </div>
         </div>
+        
       </div>
 
       <!-- 휴대폰 -->
@@ -124,3 +141,28 @@
 </div>
 
 <script src="/javascript/user/register.js"></script>
+
+<script>
+  // 비밀번호 표시 토글 버튼에 대한 이벤트
+  $(document).on('click', '#eye_on', function() {
+    $('#user_password_1').attr('type', 'text');
+    $(this).html('visibility_off');
+    $(this).attr('id', 'eye_off');
+  });
+  $(document).on('click', '#eye_off', function() {
+    $('#user_password_1').attr('type', 'password');
+    $(this).html('visibility');
+    $(this).attr('id', 'eye_on');
+  });
+  $(document).on('click', '#eye_on2', function() {
+    $('#user_password_2').attr('type', 'text');
+    $(this).html('visibility_off');
+    $(this).attr('id', 'eye_off2');
+  });
+
+  $(document).on('click', '#eye_off2', function() {
+    $('#user_password_2').attr('type', 'password');
+    $(this).html('visibility');
+    $(this).attr('id', 'eye_on2');
+  });
+</script>

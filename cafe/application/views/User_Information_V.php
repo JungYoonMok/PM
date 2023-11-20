@@ -41,10 +41,10 @@
           별명 (닉네임) - <span class="hover:text-white text-sm text-gray-300">카페에서 주로 보이는 활동 이름</span>
         </p>
         <input id="nickname" required type="text" placeholder="<?= $user->user_nickname ?>" 
-        class="w-full px-5 py-3 hover:bg-opacity-80 focus:py-5 border-2 rounded bg-[#3f3f3f] focus:font-bold hover:scale-[1.0.1] focus:bg-[#3f3f3f] focus:border-b border-[#5f5f5f] focus:rounded-none outline-none duration-200">
+        class="w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#3f3f3f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
         <!-- 별명 수정 버튼 -->
         <div class="text-right">
-          <button id="nickname_update_btn" class="bg-[#3f3f3f] px-5 py-2 border border-yellow-500 rounded">
+          <button id="nickname_update_btn" class="bg-[#3f3f3f] px-5 py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
             별명 수정하기
           </button>
         </div>
@@ -63,7 +63,7 @@
           </p>
           <div class="relative">
             <input type="password" id="password_1" placeholder="비밀번호 입력" 
-            class="pr-12 w-full px-5 py-3 hover:bg-opacity-80 border-2 focus:py-5 rounded bg-[#4f4f4f] focus:font-bold hover:scale-[1.0.1] focus:bg-[#3f3f3f] focus:border-b border-[#5f5f5f] focus:rounded-none outline-none duration-200">
+            class="pr-12 w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#4f4f4f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
             <button id="eye_on" class="hover:-translate-x-1 hover:text-white hover:opacity-80 text-[#9f9f9f] duration-200 absolute right-3 top-4 material-symbols-outlined">
               visibility
             </button>
@@ -77,7 +77,7 @@
           </p>
           <div class="relative">
             <input type="password" id="password_2" placeholder="비밀번호 입력 확인" 
-            class="pr-12 w-full px-5 py-3 hover:bg-opacity-80 border-2 focus:py-5 rounded bg-[#4f4f4f] focus:font-bold hover:scale-[1.0.1] focus:bg-[#3f3f3f] focus:border-b border-[#5f5f5f] focus:rounded-none outline-none duration-200">
+            class="pr-12 w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#4f4f4f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
             <button id="eye_on2" class="hover:-translate-x-1 hover:text-white hover:opacity-80 text-[#9f9f9f] duration-200 absolute right-3 top-4 material-symbols-outlined">
               visibility
             </button>
@@ -88,7 +88,7 @@
 
       <!-- 비밀번호 수정 버튼 -->
       <div class="text-right">
-        <button id="password_update_btn" class="bg-[#3f3f3f] px-5 py-2 border border-yellow-500 rounded">
+        <button id="password_update_btn" class="bg-[#3f3f3f] px-5 py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
           비밀번호 수정하기
         </button>
       </div>
@@ -105,10 +105,10 @@
             이메일
           </p>
           <input id="email" type="email" placeholder="이메일 입력" value="<?= $user->user_email ?>"
-          class="pr-12 w-full px-5 py-3 hover:bg-opacity-80 border-2 focus:py-5 rounded bg-[#4f4f4f] focus:font-bold hover:scale-[1.0.1] focus:bg-[#3f3f3f] focus:border-b border-[#5f5f5f] focus:rounded-none outline-none duration-200">
+          class="pr-12 w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#4f4f4f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
           <!-- 이메일 수정 버튼 -->
           <div class="text-right">
-            <button id="email_update_btn" class="bg-[#3f3f3f] px-5 py-2 border border-yellow-500 rounded">
+            <button id="email_update_btn" class="bg-[#3f3f3f] px-5 py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
               이메일 수정하기
             </button>
           </div>
@@ -121,15 +121,15 @@
           </p>
           <div class="flex gap-3">
             <input id="phone_1" type="number" placeholder="010" disabled
-            class="cursor-not-allowed text-center font-bold pr-12 w-full px-5 py-3 hover:bg-opacity-80 border-2 focus:py-5 rounded bg-[#2f2f2f] focus:font-bold hover:scale-[1.0.1] focus:bg-[#3f3f3f] focus:border-b border-[#5f5f5f] focus:rounded-none outline-none duration-200">
-            <input id="phone_2" type="number" placeholder="123" value="<?= substr($user->user_phone, 4, 4) ?>"
-            class="text-center pr-12 w-full px-5 font-bold py-3 hover:bg-opacity-80 border-2 focus:py-5 rounded bg-[#4f4f4f] focus:font-bold hover:scale-[1.0.1] focus:bg-[#3f3f3f] focus:border-b border-[#5f5f5f] focus:rounded-none outline-none duration-200">
-            <input id="phone_3" type="number" placeholder="456" value="<?= substr($user->user_phone, 9, 4) ?>"
-            class="text-center pr-12 w-full px-5 font-bold py-3 hover:bg-opacity-80 border-2 focus:py-5 rounded bg-[#4f4f4f] focus:font-bold hover:scale-[1.0.1] focus:bg-[#3f3f3f] focus:border-b border-[#5f5f5f] focus:rounded-none outline-none duration-200">
+            class="cursor-not-allowed text-center font-bold pr-12 w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#2f2f2f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
+            <input id="phone_2" type="number" placeholder="123" maxlength="4" value="<?= substr($user->user_phone, 4, 4) ?>"
+            class="text-center pr-12 w-full px-5 font-bold py-3 hover:bg-opacity-80 rounded bg-[#4f4f4f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
+            <input id="phone_3" type="number" placeholder="456" maxlength="4" value="<?= substr($user->user_phone, 9, 4) ?>"
+            class="text-center pr-12 w-full px-5 font-bold py-3 hover:bg-opacity-80 rounded bg-[#4f4f4f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
           </div>
           <!-- 연락처 수정 버튼 -->
           <div class="text-right">
-            <button id="phone_update_btn" class="bg-[#3f3f3f] px-5 py-2 border border-yellow-500 rounded">
+            <button id="phone_update_btn" class="bg-[#3f3f3f] px-5 py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
             연락처 수정하기
             </button>
           </div>
@@ -142,10 +142,10 @@
         <p class="px-1 hover:text-white hover:-translate-y-1 duration-200 cursor-default whitespace-nowrap max-w-min text-base">
           소개 - <span class="hover:text-white text-sm text-gray-300">다른 회원이 <?= $user->user_nickname ?>님의 소개글을 볼 수 있습니다</span>
         </p>
-        <textarea id="memo" rows="5" type="text" class="w-full px-5 py-3 hover:bg-opacity-80 focus:py-5 border-2 rounded bg-[#3f3f3f] focus:font-bold hover:scale-[1.0.1] focus:bg-[#3f3f3f] focus:border-b border-[#5f5f5f] focus:rounded-none outline-none duration-200"><?= $user->user_memo ?></textarea>
+        <textarea id="memo" rows="5" type="text" class="w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#3f3f3f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200"><?= $user->user_memo ?></textarea>
         <!-- 소개 수정 버튼 -->
         <div class="text-right flex justify-end gap-5 hover:bg-[#3f3f3f] duration-200">
-          <button id="memo_update_btn" class="bg-[#3f3f3f] px-5 py-2 border border-yellow-500 rounded">
+          <button id="memo_update_btn" class="bg-[#3f3f3f] px-5 py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
           소개 수정하기
           </button>
         </div>
@@ -172,6 +172,8 @@
 <script>
   
   $(document).ready( () => {
+    const user_email = $('#email').val();
+    const user_phone = '010-' + $('#phone_2').val() + '-' + $('#phone_3').val();
 
   $('#nickname_update_btn').on('click', (e) => { // 닉네임 수정
     e.preventDefault();
@@ -261,6 +263,11 @@
       return false;
     }
 
+    if(user_email == $('#email').val()) {
+      alert('현재 이메일과 동일합니다');
+      return false;
+    }
+
     if(!confirm('이메일을 변경하시겠습니까?')) {
       return;
     }
@@ -298,6 +305,16 @@
 
     if(($('#phone_2').val().length < 4) || ($('#phone_3').val().length < 4)) {
       alert('연락처는 4 글자씩 입력해주세요');
+      return false;
+    }
+
+    if(($('#phone_2').val().length > 4) || ($('#phone_3').val().length > 4)) {
+      alert('연락처는 4 글자씩 입력해주세요');
+      return false;
+    }
+
+    if(user_phone == '010-' + $('#phone_2').val() + '-' + $('#phone_3').val()) {
+      alert('현재 연락처와 동일합니다');
       return false;
     }
 
@@ -378,23 +395,23 @@
   
   // 비밀번호 표시 토글 버튼에 대한 이벤트
   $(document).on('click', '#eye_on', function() {
-    $('#password_type1').attr('type', 'text');
+    $('#password_1').attr('type', 'text');
     $(this).html('visibility_off');
     $(this).attr('id', 'eye_off');
   });
   $(document).on('click', '#eye_off', function() {
-    $('#password_type1').attr('type', 'password');
+    $('#password_1').attr('type', 'password');
     $(this).html('visibility');
     $(this).attr('id', 'eye_on');
   });
   $(document).on('click', '#eye_on2', function() {
-    $('#password_type2').attr('type', 'text');
+    $('#password_2').attr('type', 'text');
     $(this).html('visibility_off');
     $(this).attr('id', 'eye_off2');
   });
 
   $(document).on('click', '#eye_off2', function() {
-    $('#password_type2').attr('type', 'password');
+    $('#password_2').attr('type', 'password');
     $(this).html('visibility');
     $(this).attr('id', 'eye_on2');
   });
