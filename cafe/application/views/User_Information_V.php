@@ -144,7 +144,7 @@
         </p>
         <textarea id="memo" rows="5" type="text" class="w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#3f3f3f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200"><?= $user->user_memo ?></textarea>
         <!-- 소개 수정 버튼 -->
-        <div class="text-right flex justify-end gap-5 hover:bg-[#3f3f3f] duration-200">
+        <div class="text-right flex justify-end gap-5 duration-200">
           <button id="memo_update_btn" class="bg-[#3f3f3f] px-5 py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
           소개 수정하기
           </button>

@@ -40,7 +40,7 @@
           <!-- 닉네임 및 등급 -->
           <div class="flex gap-3">
             <a class="font-bold hover:underline underline-offset-4 hover:scale-[97%] hover:opacity-90 duration-200 decoration-2 decoration-yellow-500"
-              href="#">
+              href="/user_information_c">
               <?= $this->session->userdata('user_nickname') ?>
             </a>
             <p class="bg-[#3f3f3f] px-1.5 py-0.5 rounded text-sm">
@@ -90,10 +90,12 @@
             <span class="material-symbols-outlined">
               post
             </span>
-            <p>내가 쓴 게시글</p>
+            <a href="/my_activity/post" class="hover:underline underline-offset-4 hover:opacity-90 duration-200 decoration-2 decoration-yellow-500">
+              내가 쓴 게시글
+            </a>
           </div>
-          <a href="#"
-            class="hover:underline underline-offset-4 hover:scale-[97%] hover:opacity-90 duration-200 decoration-2 decoration-yellow-500">30
+          <a href="/my_activity/post"
+            class="hover:underline underline-offset-4 hover:opacity-90 duration-200 decoration-2 decoration-yellow-500">30
             개</a>
         </div>
         <div class="flex place-content-between">
@@ -101,10 +103,12 @@
             <span class="material-symbols-outlined rotate-180">
               reply
             </span>
-            <p>내가 쓴 댓글</p>
+            <a href="/my_activity/comment" class="hover:underline underline-offset-4 hover:opacity-90 duration-200 decoration-2 decoration-yellow-500">
+              내가 쓴 댓글
+            </a>
           </div>
-          <a href="#"
-            class="hover:underline underline-offset-4 hover:scale-[97%] hover:opacity-90 duration-200 decoration-2 decoration-yellow-500">99
+          <a href="/my_activity/comment"
+            class="hover:underline underline-offset-4 hover:opacity-90 duration-200 decoration-2 decoration-yellow-500">99
             개</a>
         </div>
       </div>

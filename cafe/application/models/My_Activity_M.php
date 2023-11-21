@@ -19,12 +19,29 @@
       }
     }
 
+    public function get_post_comment($idx) {
+      $query = $this->db->get_where('boards_comment', ['boards_idx' => $idx ]);
+      if($query->num_rows() > 0) {
+        return $query->num_rows();
+      } else {
+        return false;
+      }
+    }
+
     public function get_comment() {
       $this->db->order_by('idx', 'desc');
-      $query = $this->db->get_where('boards', ['user_id' => $this->session->userdata('user_id') ]);
-
+      $query = $this->db->get_where('boards_comment', ['user_id' => $this->session->userdata('user_id') ]);
       if($query->num_rows() > 0) {
         return $query->result();
+      } else {
+        return false;
+      }
+    }
+
+    public function get_comment_total() {
+      $query = $this->db->get_where('boards_comment', ['user_id' => $this->session->userdata('user_id') ]);
+      if($query->num_rows() > 0) {
+        return $query->num_rows();
       } else {
         return false;
       }
@@ -41,32 +58,51 @@
         return false;
       }
     }
-
+    
     public function get_post_like() {
-      $this->db->order_by('idx', 'desc');
-      $query = $this->db->get_where('boards', ['user_id' => $this->session->userdata('user_id') ]);
+      $user_id = $this->session->userdata('user_id');
+      $like_num = $this->db->get_where('board_like', ['user_id' => $user_id, 'like_type' => TRUE ]);
 
-      if($query->num_rows() > 0) {
-        return $query->result();
-      } else {
-        return false;
+      $board_ids = [];
+      foreach ($like_num->result() as $row) {
+        $board_ids[] = $row->boards_idx;
       }
+
+      if (!empty($board_ids)) {
+        $this->db->where_in('idx', $board_ids);
+        $query = $this->db->get('boards');
+        if ($query->num_rows() > 0) {
+          return $query->result();
+        }
+      }
+
+      return false;
     }
 
     public function get_post_notlike() {
-      $this->db->order_by('idx', 'desc');
-      $query = $this->db->get_where('boards', ['user_id' => $this->session->userdata('user_id') ]);
+      $user_id = $this->session->userdata('user_id');
+      $like_num = $this->db->get_where('board_like', ['user_id' => $user_id, 'like_type' => FALSE ]);
 
-      if($query->num_rows() > 0) {
-        return $query->result();
-      } else {
-        return false;
+      $board_ids = [];
+      foreach ($like_num->result() as $row) {
+        $board_ids[] = $row->boards_idx;
       }
+
+      if (!empty($board_ids)) {
+        $this->db->where_in('idx', $board_ids);
+        $query = $this->db->get('boards');
+        if ($query->num_rows() > 0) {
+          return $query->result();
+        }
+      }
+
+      return false;
     }
 
     public function get_delete_post() {
       $this->db->order_by('idx', 'desc');
-      $query = $this->db->get_where('boards', ['user_id' => $this->session->userdata('user_id') ]);
+      $user_id = $this->session->userdata('user_id');
+      $query = $this->db->get_where('boards', ['user_id' => $user_id, 'board_delete' => TRUE ]);
 
       if($query->num_rows() > 0) {
         return $query->result();

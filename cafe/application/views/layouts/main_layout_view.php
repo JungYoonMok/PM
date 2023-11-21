@@ -78,12 +78,13 @@
 
   <!-- 에디터 -->
   <!-- Toast UI Editor의 스타일시트 -->
-  <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+  <!-- <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" /> -->
+  <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.css" />
   <!-- Toast UI Editor의 JavaScript -->
   <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-
+  
 </head>
-  <body>
+<body>
 
     <!-- 베이스 -->
     <div id="base" class="w-full h-full flex relative duration-200 pl-[300px]">

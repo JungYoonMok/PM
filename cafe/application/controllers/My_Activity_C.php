@@ -13,16 +13,20 @@ date_default_timezone_set('Asia/Seoul');
       switch($this->uri->segment(2)) {
         case 'post' : 
           $data['post'] = $this->My_Activity_M->get_post();
+          $idx = $this->input->post('bd_id');
+          $data['post_comment'] = $this->My_Activity_M->get_post_comment($idx);
+          // $data['get_comment'] = $this->My_Activity_M->get_comment();
           $this->layout->custom_view('/My_Activity/Post_V', $data);
           break;
         case 'comment' : 
           $data['comment'] = $this->My_Activity_M->get_comment();
+          $data['comment_total'] = $this->My_Activity_M->get_comment_total();
           $this->layout->custom_view('/My_Activity/Comment_V', $data);
           break;
-        case 'post_in_comment' : 
-          $data['post_in_comment'] = $this->My_Activity_M->get_post_in_comment();
-          $this->layout->custom_view('/My_Activity/Post_in_Comment_V', $data);
-          break;
+        // case 'post_in_comment' : 
+        //   $data['post_in_comment'] = $this->My_Activity_M->get_post_in_comment();
+        //   $this->layout->custom_view('/My_Activity/Post_in_Comment_V', $data);
+        //   break;
         case 'post_like' : 
           $data['post_like'] = $this->My_Activity_M->get_post_like();
           $this->layout->custom_view('/My_Activity/Post_Like_V', $data);
@@ -36,8 +40,6 @@ date_default_timezone_set('Asia/Seoul');
           $this->layout->custom_view('/My_Activity/Delete_Post_V', $data);
           break;
         default :
-          $data['post'] = $this->My_Activity_M->get_post();
-          $this->layout->custom_view('/My_Activity/Post_V', $data);
           break;
       }
 

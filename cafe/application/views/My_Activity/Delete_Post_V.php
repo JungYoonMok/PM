@@ -20,6 +20,8 @@
             <th class="w-[40%]">제목</th>
             <th class="">작성자</th>
             <th class="">작성날짜</th>
+            <th class="">삭제날짜</th>
+            <th class="">조회수</th>
           </thead>
           <? $numCount = 0; ?>
           <tbody class="">
@@ -30,15 +32,15 @@
                 </td> -->
                 <td class="p-2"><?= $li->idx ?></td>
                 <td class="p-2"><?= $li->board_type ?></td>
-                <td class="text-left">
-                  <a href="/freeboard/<?= $li->idx ?>">
-                    <?= $li->title ?>
-                  </a>
-                </td>
+                <td class="text-left"><?= $li->title ?></td>
                 <td><?= $li->user_id ?></td>
                 <td class="tracking-wide">
                   <?= (empty($li->regdate) ? '-' : date("Y-m-d") == substr($li->regdate, 0, 10)) ? substr($li->regdate, 10, 6) : substr($li->regdate, 0, 10); ?>
                 </td>
+                <td class="tracking-wide">
+                  <?= (empty($li->delete_date) ? '-' : date("Y-m-d") == substr($li->delete_date, 0, 10)) ? substr($li->delete_date, 10, 6) : substr($li->delete_date, 0, 10); ?>
+                </td>
+                <td><?= $li->hit ?></td>
               </tr>
               <? endforeach ?>
             </tbody>
