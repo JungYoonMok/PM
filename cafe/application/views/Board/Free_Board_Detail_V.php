@@ -25,7 +25,7 @@
           class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">이전글</a>
         <a href="#"
           class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">다음글</a>
-        <a href="/freeboard"
+        <a href="/freeboard/list"
           class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">목록</a>
       </div>
     </div>
@@ -331,9 +331,9 @@
         </div>
 
         <!-- 뷰에서 페이지네이션 링크 출력 -->
-        <div class="my-5 <?= $post->board_comment ? '' : 'hidden' ?>">
+        <!-- <div class="my-5 <?= $post->board_comment ? '' : 'hidden' ?>"> -->
           <?= $links; ?>
-        </div>
+        <!-- </div> -->
 
         <!-- 댓글 리스트 없을때 -->
         <div class="flex justify-center bg-[#1f1f1f] p-5 border border-gray-500 <?= empty($comment) ? '' : 'hidden' ?>">
@@ -427,7 +427,7 @@
         <a href="#" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">
           다음글
         </a>
-        <a href="/freeboard"
+        <a href="/freeboard/list"
           class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">
           목록
         </a>

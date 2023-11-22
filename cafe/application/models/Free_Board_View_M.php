@@ -16,9 +16,11 @@ class Free_Board_View_M extends CI_Model
     return $board;
   }
 
-  public function GetBoardList()
+  public function GetBoardList($limit, $start)
   {
-    $result = $this->db->query("SELECT * FROM boards WHERE board_type = '자유게시판' ;")->result();
+    $this->db->order_by('idx', 'desc');
+    $this->db->limit($limit, $start);
+    $result = $this->db->get_where('boards', [ 'board_type' => '자유게시판' ] )->result();
     return $result;
   }
   

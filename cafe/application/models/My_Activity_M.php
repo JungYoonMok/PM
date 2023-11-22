@@ -8,8 +8,9 @@
       parent::__construct();
     }
 
-    public function get_post() {
+    public function get_post($limit, $start) {
       $this->db->order_by('idx', 'desc');
+      $this->db->limit($limit, $start);
       $query = $this->db->get_where('boards', ['user_id' => $this->session->userdata('user_id') ]);
 
       if($query->num_rows() > 0) {
@@ -28,8 +29,9 @@
       }
     }
 
-    public function get_comment() {
+    public function get_comment($limit, $start) {
       $this->db->order_by('idx', 'desc');
+      $this->db->limit($limit, $start);
       $query = $this->db->get_where('boards_comment', ['user_id' => $this->session->userdata('user_id') ]);
       if($query->num_rows() > 0) {
         return $query->result();
@@ -59,7 +61,9 @@
       }
     }
     
-    public function get_post_like() {
+    public function get_post_like($limit, $start) {
+      $this->db->limit($limit, $start);
+
       $user_id = $this->session->userdata('user_id');
       $like_num = $this->db->get_where('board_like', ['user_id' => $user_id, 'like_type' => TRUE ]);
 
@@ -79,7 +83,9 @@
       return false;
     }
 
-    public function get_post_notlike() {
+    public function get_post_notlike($limit, $start) {
+      $this->db->limit($limit, $start);
+
       $user_id = $this->session->userdata('user_id');
       $like_num = $this->db->get_where('board_like', ['user_id' => $user_id, 'like_type' => FALSE ]);
 
@@ -99,7 +105,9 @@
       return false;
     }
 
-    public function get_delete_post() {
+    public function get_delete_post($limit, $start) {
+      $this->db->limit($limit, $start);
+      
       $this->db->order_by('idx', 'desc');
       $user_id = $this->session->userdata('user_id');
       $query = $this->db->get_where('boards', ['user_id' => $user_id, 'board_delete' => TRUE ]);

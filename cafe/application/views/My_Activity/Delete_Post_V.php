@@ -2,13 +2,13 @@
 <div class="p-5 flex flex-col gap-0 text-gray-50">
 
   <!-- 메인 -->
-  <div class="bg-[#2f2f2f] flex gap-0 border border-[#4f4f4f] rounded shadow-2xl h-[1000px]">
+  <div class="bg-[#2f2f2f] flex gap-0 border border-[#4f4f4f] rounded shadow-2xl min-h-[1000px]">
 
     <!-- 사이드 -->
     <? $this->load->view('/my_activity/side_v');?>
 
     <!-- 컨텐츠 -->
-    <div class="p-5 w-full border-l border-[#4f4f4f] border-dashed">
+    <div class="p-5 w-full border-l flex flex-col gap-10 justify-between border-[#4f4f4f] border-dashed">
       
       <!-- 해당 게시판 최근 리스트 -->
       <div class="bg-[#2f2f2f] w-full p-1 rounded flex flex-col gap-5 shadow-inner">
@@ -23,13 +23,10 @@
             <th class="">삭제날짜</th>
             <th class="">조회수</th>
           </thead>
-          <? $numCount = 0; ?>
           <tbody class="">
-          <? foreach ($delete_post as $li): ?>
-              <tr class="border-b border-gray-500">
-                <!-- <td class="p-2">
-                  <?= $numCount += 1 ?>
-                </td> -->
+
+          <? if (!empty($delete_post)) { foreach($delete_post as $li) : ?>
+            <tr class="border-b border-gray-500">
                 <td class="p-2"><?= $li->idx ?></td>
                 <td class="p-2"><?= $li->board_type ?></td>
                 <td class="text-left"><?= $li->title ?></td>
@@ -42,9 +39,21 @@
                 </td>
                 <td><?= $li->hit ?></td>
               </tr>
-              <? endforeach ?>
-            </tbody>
+          <? endforeach; } else { ?>
+            <!-- <p>데이터가 없습니다</p> -->
+          <? } ?>
+
+          </tbody>
         </table>
+
+        <div class="<?= empty($delete_post) ? 'inline-block' : 'hidden' ?> text-center">
+          <p>데이터가 없습니다</p>
+        </div>
+
+      </div>
+
+      <div>
+        <?= $links; ?>
       </div>
       
     </div>

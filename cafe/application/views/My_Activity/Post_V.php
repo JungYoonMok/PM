@@ -2,13 +2,13 @@
 <div class="p-5 flex flex-col gap-0 text-gray-50">
 
   <!-- 메인 -->
-  <div class="bg-[#2f2f2f] flex gap-0 border border-[#4f4f4f] rounded shadow-2xl h-[1000px]">
+  <div class="bg-[#2f2f2f] flex gap-0 border border-[#4f4f4f] rounded shadow-2xl min-h-[1000px]">
 
     <!-- 사이드 -->
     <? $this->load->view('/my_activity/side_v');?>
 
     <!-- 컨텐츠 -->
-    <div class="p-5 w-full border-l border-[#4f4f4f] border-dashed">
+    <div class="flex flex-col justify-between gap-10 p-5 w-full border-l border-[#4f4f4f] border-dashed">
       
       <!-- 해당 게시판 최근 리스트 -->
       <div class="bg-[#2f2f2f] w-full p-1 rounded flex flex-col gap-5 shadow-inner">
@@ -22,10 +22,8 @@
             <th class="">조회수</th>
           </thead>
           <tbody class="">
-          <? foreach ($post as $li): ?>
-            <!-- 게시글 고유값 -->
-            <input id="bd_id" name="bd_id" type="number" hidden value="<?= $li->idx ?>">
 
+          <? if (!empty($post)) { foreach($post as $li) : ?>
             <tr class="border-b border-gray-500">
               <td class="p-2"><?= $li->idx ?></td>
               <td class="p-2"><?= $li->board_type ?></td>
@@ -33,7 +31,8 @@
                 <a href="/freeboard/<?= $li->idx ?>">
                   <?= $li->title ?>
                   <span class="text-[#9f9f9f]">
-                    <?= empty($post_comment) ? NULL : ($post_comment) ?>
+                    <!-- 댓글 개수 -->
+                    <?= empty($post_comment) ? "(0)" : ($post_comment) ?>
                   </span>
                 </a>
               </td>
@@ -45,9 +44,21 @@
                 <?= $li->hit ?>
               </td>
             </tr>
-            <? endforeach ?>
+          <? endforeach; } else { ?>
+            <!-- <p>데이터가 없습니다</p> -->
+          <? } ?>
+
           </tbody>
         </table>
+        
+        <div class="<?= empty($post) ? 'inline-block' : 'hidden' ?> text-center">
+          <p>데이터가 없습니다</p>
+        </div>
+
+      </div>
+
+      <div>
+        <?= $links; ?>
       </div>
       
     </div>
