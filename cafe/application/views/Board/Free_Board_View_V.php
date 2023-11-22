@@ -9,7 +9,7 @@
 
       <div class="bg-[#2f2f2f] opacity-90 p-5 flex gap-1">
         <h2>자유게시판 - 등록</h2>
-        <h2 class="font-bold animate-pulse"><?= $total ?></h2>
+        <h2 class="font-bold animate-pulse"><?= empty($total) ? '0' : $total ?></h2>
         <h2>건</h2>
       </div>
       
@@ -73,7 +73,7 @@
       <!-- 검색 기능 -->
       <div class="flex gap-2">
         <!-- 기간 -->
-        <select id='post_type' name='post_type' required
+        <!-- <select id='search_date' name='search_date'
           class="outline-none w-full max-w-[20%] text-whith rounded bg-[#4f4f4f] p-3">
           <option value="전체기간" selected>전체기간</option>
           <option value="1일">1일</option>
@@ -81,28 +81,61 @@
           <option value="1개월">1개월</option>
           <option value="6개월">6개월</option>
           <option value="1년">1년</option>
-        </select>
+        </select> -->
         <!-- 게시글, 댓글 -->
-        <select id='post_type' name='post_type' required
+        <select id='search_type' name='search_type'
           class="outline-none w-full max-w-[20%] text-whith rounded bg-[#4f4f4f] p-3">
-          <option value="게시글 + 댓글" selected>게시글 + 댓글</option>
+          <!-- <option value="게시글+댓글" selected>게시글 + 댓글</option> -->
           <option value="제목만">제목만</option>
           <option value="글작성자">글작성자</option>
           <option value="댓글내용">댓글내용</option>
           <option value="댓글작성자">댓글작성자</option>
         </select>
         <!-- 검색어 -->
-        <input type="text" class="w-full outline-none text-whith rounded bg-[#4f4f4f] p-3">
+        <input id="search_text"  name="search_text" type="text" class="w-full outline-none text-whith rounded bg-[#4f4f4f] p-3">
         <!-- 검색버튼 -->
-        <button class="w-full max-w-[10%] rounded bg-[#2f2f2f] p-3">검색</button>
+        <button id="search_btn" name="search_btn" class="w-full max-w-[10%] rounded bg-[#2f2f2f] p-3">검색</button>
       </div>
       
     </div>
     <!-- 메인끝 -->
-
 
   </div>
 
 </div>
 
 <script src="/javascript/board/board_view.js"></script>
+
+<script>
+  $(document).ready( () => {
+
+    // 게시글 삭제
+    $('#search_btn').click( e => {
+      e.preventDefault();
+
+      // console.log($('#search_type').val(), $('#search_text').val());
+      // return;
+
+      $.ajax({
+        type: "POST",
+        url: "/Free_Board_View_C/search",
+        data: {
+          // 'date': $('#search_date').val(),
+          'type': $('#search_type').val(),
+          'search_text': $('#search_text').val(),
+        },
+        dataType: "json",
+        success: (response) => {
+          console.log('성공', response);
+        },
+        error: (request, status, error) => {
+          console.log('오류', request);
+          console.log('오류', status);
+          console.log('오류', error);
+        }
+      });
+    })
+
+  });
+
+</script>
