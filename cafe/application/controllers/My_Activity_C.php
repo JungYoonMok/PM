@@ -12,6 +12,50 @@ date_default_timezone_set('Asia/Seoul');
 
     }
 
+    // class My_Activity_C extends CI_Controller {
+    //   public function __construct() {
+    //     parent::__construct();
+    //     $this->load->model('My_Activity_M');
+    //     $this->load->library('pagination');
+    //   }
+    
+    //   // 공통 페이지네이션 설정 메소드
+    //   private function initialize_pagination($base_url, $total_rows, $per_page, $uri_segment) {
+    //     $config['base_url'] = $base_url;
+    //     $config['total_rows'] = $total_rows;
+    //     $config['per_page'] = $per_page;
+    //     $config['uri_segment'] = $uri_segment;
+    //     // ... 나머지 공통 설정들 ...
+    //     $this->pagination->initialize($config);
+    //   }
+    
+    //   public function post() {
+    //     // 페이지네이션 설정을 공통 메소드를 호출하여 초기화
+    //     $this->initialize_pagination("/my_activity/post", $this->db->count_all('boards'), 20, 3);
+        
+    //     $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+    //     $data['links'] = $this->pagination->create_links();
+        
+    //     $data['post'] = $this->My_Activity_M->get_post($config['per_page'], $page);
+    //     $this->layout->custom_view('/My_Activity/Post_V', $data);
+    //   }
+    
+    //   // 나머지 메소드들도 동일한 방식으로 구현...
+    //   // 예시:
+    //   public function comment() {
+    //     $this->initialize_pagination("/my_activity/comment", $this->db->count_all('boards_comment'), 10, 3);
+        
+    //     $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+    //     $data['links'] = $this->pagination->create_links();
+        
+    //     $data['comment'] = $this->My_Activity_M->get_comment($config['per_page'], $page);
+    //     $this->layout->custom_view('/My_Activity/Comment_V', $data);
+    //   }
+    
+    //   // post_like, post_notlike, delete_post 메소드도 위와 유사하게 구현...
+    // }
+    
+
     public function post() {
       // 페이지네이션
       $config['base_url'] = "/my_activity/post"; // 기본 URL 설정
