@@ -21,7 +21,7 @@ class Free_Board_View_C extends CI_Controller
     $config['base_url'] = "/freeboard/list"; // 기본 URL 설정
     $config['total_rows'] = $this->db->count_all('boards'); // 전체 행의 수
     // $config['total_rows'] = $this->FBM->board_comment_count_pagination($idx); // 전체 행의 수
-    $config['per_page'] = 10; // 페이지당 표시할 행의 수
+    $config['per_page'] = 15; // 페이지당 표시할 행의 수
     $config['uri_segment'] = 3; // URL의 몇 번째 세그먼트에 페이지 번호가 포함될지 설정
     $config['num_links'] = 3; // 현재 페이지 양쪽에 표시될 "숫자" 링크의 수
     // 페이지 숫자 표시
@@ -77,12 +77,44 @@ class Free_Board_View_C extends CI_Controller
   }
   
   public function search() {
+    $config['base_url'] = "/freeboard/list"; // 기본 URL 설정
+    $config['total_rows'] = $this->db->count_all('boards'); // 전체 행의 수
+    // $config['total_rows'] = $this->FBM->board_comment_count_pagination($idx); // 전체 행의 수
+    $config["next_tag_open"] = "<div class='hidden'>";
+    $config["next_tag_close"] = "</div>";
+    $config["prev_tag_open"] = "<div class='hidden'>";
+    $config["prev_tag_close"] = "</div>";
+    // 숫자링크 커스텀
+    $config["num_tag_open"] = "<div class='font-bold border py-2 px-5 rounded border-gray-500 bg-[#3f3f3f] shadow-xl'>";
+    $config["num_tag_close"] = "</div>";
+    // 전체 틀
+    $config['full_tag_open'] = '<div class=
+      "pagination bg-[#2f2f2f] rounded flex place-items-center justify-center gap-5 duration-200"
+      >';
+    $config['full_tag_close'] = '</div>';
+    // 현제 페이지
+    $config['cur_tag_open'] = "<div class='font-bold border py-2 px-5 rounded border-gray-500 bg-[#1f1f1f] shadow-xl'>";
+    $config['cur_tag_close'] = "</div>";
+    // 처음으로, 마지막으로
+    $config['first_link'] = '처음';
+    $config['first_tag_open'] = '<div>';
+    $config['first_tag_close'] = '</div>';
+    $config['last_link'] = '마지막';
+    $config['last_tag_open'] = '<div>';
+    $config['last_tag_close'] = '</div>';
+
+    $config['per_page'] = 15; // 페이지당 표시할 행의 수
+
+    $this->pagination->initialize($config); // 설정을 라이브러리에 초기화
+
+    $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0; // 현재 페이지 번호
+
     $type = $this->input->get('type');
     $search_text = $this->input->get('text');
     
-    $data['list'] = $this->FBM->search($type, $search_text);
+    $data['list'] = $this->FBM->search($type, $search_text, $config['per_page'], $page);
     if(!empty($data['list'])) {
-      echo json_encode(['state' => TRUE, 'data' => $data['list']]);
+      echo json_encode(['state' => TRUE, 'data' => $data['list'], 'links' => $this->pagination->create_links() ]);
     } else {
       echo json_encode(['state' => FALSE, 'message' => '검색 결과가 없습니다.']);
     }

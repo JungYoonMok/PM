@@ -3,15 +3,19 @@
   <div class="w-full flex place-items-center h-[70px] bg-[#2f2f2f] rounded-b border-b border-[#4f4f4f] drop-shadow-xl">
   
     <div class="relative w-full flex place-items-center text-gray-50 px-10">
-
-      <div class="pt-3 focus:translate-y-1 pb-3 hover:scale-[95%] duration-200">
-        <a href="/" class="font-['Nosifer'] text-xl text-[#fff] drop-shadow-2xl">
-          hellow world !!
+      
+      <div class="pt-3 focus:translate-y-1 pb-3 hover:scale-[98%] duration-200">
+        <a href="/" class="font-['Nosifer'] flex justify-start place-items-center gap-3 text-xl text-[#fff] drop-shadow-2xl">
+          <div class="rounded-[50%] w-[50px]">
+            <img src="/assets/image/world1.gif" alt="logo_img">
+          </div>
+          <p class="duration-200 hover:-translate-y-1 ">hellow world !!</p>
         </a>
       </div>
 
       <!-- 비회원 -->
       <div class="<?= $this->session->userdata('user_id') ? 'hidden' : 'inline' ?> fixed right-4 flex gap-3 text-gray-200">
+
         <a class="hover:bg-[#3f3f3f] font-bold py-3 px-5 rounded hover:scale-90 duration-100" href="/login">
           로그인
         </a>

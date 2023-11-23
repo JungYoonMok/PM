@@ -38,7 +38,7 @@
           <span class="material-symbols-outlined">
             location_on
           </span>
-          <a class="hover:underline duration-200" href="/freeboard">
+          <a class="hover:underline duration-200" href="/freeboard/list">
             <?= $post->board_type ?>
           </a>
           <p>〉</p>

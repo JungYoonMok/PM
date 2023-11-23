@@ -5,8 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
+    @font-face {
+      font-family: 's-core';
+      src: url('../assets/S-Core_Dream_OTF/SCDream4.otf') format('truetype');
+    }
     body {
       background : #3f3f3f;
+    	font-family: 's-core';
     }
 
     /* input number */
@@ -117,6 +122,11 @@
         <!-- 컨텐츠 -->
         <div>
           <?= $contents ?>
+        </div>
+        
+        <!-- 웨이브 -->
+        <div class="bottom-0">
+          <?= $wave ?>
         </div>
 
         <!-- 최상단 최하단 버튼 -->
