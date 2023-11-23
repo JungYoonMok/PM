@@ -1,22 +1,3 @@
-<!-- 에디터 -->
-<!-- Toast UI Editor의 스타일시트 -->
-<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
-<!-- Toast UI Editor의 JavaScript -->
-<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-
-<!-- <style>
-  .toastui-editor-dark {
-    --bg-color: #1f1f1f; /* 배경색 */
-    --text-color: #10f10f10f; /* 텍스트 색상 */
-    background-color: var(--bg-color);
-    color: var(--text-color);
-  }
-  .toastui-editor-dark .toastui-editor-contents {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-}
-</style> -->
-
 <!-- 메인 틀 -->
 <div id="base" class="flex duration-200 bg-[#3f3f3f] text-gray-50 w-full relative">
 
@@ -140,12 +121,10 @@
     editor = new toastui.Editor({
     el: document.querySelector('#editor'),
     height: '700px',
-    // initialEditType: 'markdown',
     initialEditType: 'wysiwyg',
     previewStyle: 'vertical',
     usageStatistics: false,
-    // theme: 'dark',
-    initialValue: '',
+    initialValue: '<p>초기값을 설정할 수 있습니다.</p>',
     hooks: {
       addImageBlobHook: (blob, callback) => {
         const formData = new FormData();
@@ -184,8 +163,8 @@
     const formData = new FormData();
     formData.append('post_type', $('#post_type').val());
     formData.append('post_title', $('#post_title').val());
-    formData.append('post_value', editor.getHTML());
-    // formData.append('post_value', editor.getMarkdown());
+    // formData.append('post_value', editor.getHTML());
+    formData.append('post_value', editor.getMarkdown());
     formData.append('post_open', $('input[name="post_open"]:checked').val());
     formData.append('comment_open', $('input[name="comment_open"]:checked').val());
 

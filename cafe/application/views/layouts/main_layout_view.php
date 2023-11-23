@@ -6,19 +6,52 @@
 
   <style>
     @font-face {
-      font-family: 's-core';
-      src: url('../assets/S-Core_Dream_OTF/SCDream4.otf') format('truetype');
+      font-family: 's-core1';
+      src: url('/assets/S-Core_Dream_OTF/SCDream1.otf') format('truetype');
     }
+  @font-face {
+      font-family: 's-core2';
+      src: url('/assets/S-Core_Dream_OTF/SCDream2.otf') format('truetype');
+    }
+  @font-face {
+      font-family: 's-core3';
+      src: url('/assets/S-Core_Dream_OTF/SCDream3.otf') format('truetype');
+    }
+  @font-face {
+      font-family: 's-core4';
+      src: url('/assets/S-Core_Dream_OTF/SCDream4.otf') format('truetype');
+    }
+    @font-face {
+      font-family: 's-core5';
+      src: url('/assets/S-Core_Dream_OTF/SCDream5.otf') format('truetype');
+    }
+    @font-face {
+      font-family: 's-core6';
+      src: url('/assets/S-Core_Dream_OTF/SCDream6.otf') format('truetype');
+    }
+    @font-face {
+      font-family: 's-core7';
+      src: url('/assets/S-Core_Dream_OTF/SCDream7.otf') format('truetype');
+    }
+    @font-face {
+      font-family: 's-core8';
+      src: url('/assets/S-Core_Dream_OTF/SCDream8.otf') format('truetype');
+    }
+    @font-face {
+      font-family: 's-core9';
+      src: url('/assets/S-Core_Dream_OTF/SCDream9.otf') format('truetype');
+    }
+
     body {
+    	font-family: 's-core4';
       background : #3f3f3f;
-    	font-family: 's-core';
     }
 
     /* input number */
     input::-webkit-inner-spin-button {
-    appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
+      appearance: none;
+      -moz-appearance: none;
+      -webkit-appearance: none;
     }
 
     /* scrollbar */
@@ -51,9 +84,6 @@
       border-radius: 50%;
       position: fixed;
       top: -8px;
-      /* 레이아웃 깨짐 방지 */
-      margin-left: -10%;
-      margin-right: -10%;
       /* animation: fall 10s linear; */
     }
     @keyframes fall {
@@ -80,13 +110,6 @@
 
   <!-- icon -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
-  <!-- 에디터 -->
-  <!-- Toast UI Editor의 스타일시트 -->
-  <!-- <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" /> -->
-  <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.css" />
-  <!-- Toast UI Editor의 JavaScript -->
-  <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
   
 </head>
 <body>

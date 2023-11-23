@@ -1,5 +1,9 @@
 <title>카페 | <?= $post->title ?></title>
 
+<!-- 토스트 에디터 -->
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+
 <!-- 메인 틀 -->
 <div class="flex duration-200 bg-[#3f3f3f] text-gray-50 w-full relative">
 
@@ -119,11 +123,28 @@
               <p><? $post->file_path ? $post->file_path : NULL ?></p>
             </div>
 
-            <div>
+            <div class="toast-custom-viewer text-white">
+              
               <!-- composer -->
-              <? require './assets/parsedown-master/Parsedown.php'; $Parsedown = new Parsedown();?>
-              <?= $post->board_delete ? '' : $Parsedown->text($post->content); ?>
+              <!-- <? require './assets/parsedown-master/Parsedown.php'; $Parsedown = new Parsedown();?>
+              <?= $post->board_delete ? '' : $Parsedown->text($post->content); ?> -->
+
             </div>
+            
+            <script>
+              //Viewer용 CDN을 사용할 경우
+              // const editor = new toastui.Editor({
+              //     el : document.querySelector(".toast-custom-viewer"),
+              //     initialValue : "Hello toast ui editor~!"
+              // });
+
+              //전체(ALL)용 CDN을 사용할 경우
+              const editor = toastui.Editor.factory({
+                  el : document.querySelector(".toast-custom-viewer"),
+                  viewer:true,
+                  initialValue : `<?= $post->content ?>`
+              });
+            </script>
 
             <div class="w-full <?= $post->board_delete ? '' : 'hidden'?>">
               <p class="p-3 bg-red-500 text-center rounded animate-pulse">해당 게시글은 삭제되었습니다.</p>

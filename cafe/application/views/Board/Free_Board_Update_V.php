@@ -1,3 +1,9 @@
+<!-- 에디터 -->
+<!-- Toast UI Editor의 스타일시트 -->
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+<!-- Toast UI Editor의 JavaScript -->
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+
 <!-- 메인 틀 -->
 <div id="base" class="flex duration-200 bg-[#3f3f3f] text-gray-50 w-full relative">
 
@@ -48,7 +54,9 @@
 
           <!-- 게시글 내용 작성 -->
           <!-- <textarea id='post_value' name='post_value' class="outline-none bg-[#4f4f4f] w-full p-3" required name="contents" id="" cols="30" rows="10"></textarea> -->
-          <div id="editor"><?= $post->content ?></div>
+          <div id="editor"></div>
+          <input id="content_value" type="text" hidden value="<?= $post->content?>"></input>
+          <!-- <div id="editor"><?= $post->content ?></div> -->
 
           <!-- 공개/비공개 -->
           <div class="flex gap-3">
@@ -107,19 +115,47 @@
 <!-- <script src="/javascript/board/board_create.js"></script> -->
 
 <script>
+// 토스트 UI 에디터 인스턴스 생성
+editor = new toastui.Editor({
+  el: document.querySelector('#editor'),
+  height: '700px',
+  initialEditType: 'wysiwyg',
+  previewStyle: 'vertical',
+  usageStatistics: false,
+  initialValue: '<?= $post->content ?>',
+  hooks: {
+    addImageBlobHook: (blob, callback) => {
+      const formData = new FormData();
+      formData.append('image', blob);
+      $.ajax({
+        url: '/free_board_create_c/upload_image', // 이미지를 업로드할 서버의 URL
+        data: formData,
+        type: 'POST',
+        processData: false,
+        contentType: false,
+        success: (response) => {
+          console.log('에디터', response);
+          const result = JSON.parse(response);
+          if(result.state) {
+            callback(result.url, result.blob ?? '이미지 설명 없음'); // 성공 시 에디터에 이미지 URL 삽입
+          } else {
+            alert('이미지 업로드 실패: ' + result.message);
+          }
+        },
+        error: () => {
+          alert('이미지 업로드 중 서버 오류가 발생했습니다.');
+        }
+      });
+    }
+  }
+});
+</script>
+
+<script>
 // ajax 게시글 등록
 $(document).ready( () => {
 
   let editorInstance;
-
-ClassicEditor
-  .create(document.querySelector('#editor'))
-  .then(editor => {
-    editorInstance = editor; // 에디터 인스턴스 저장
-  })
-  .catch(error => {
-    console.error(error);
-  });
   
   $('#create_btn').click( e => {
     
