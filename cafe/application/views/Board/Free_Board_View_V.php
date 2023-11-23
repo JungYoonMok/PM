@@ -9,7 +9,7 @@
 
       <div class="bg-[#2f2f2f] opacity-90 p-5 flex gap-1">
         <h2>자유게시판 - 등록</h2>
-        <h2 class="font-bold animate-pulse"><?= empty($total) ? '0' : $total ?></h2>
+        <h2 id='total_value' class="font-bold animate-pulse"></h2>
         <h2>건</h2>
       </div>
       
@@ -28,29 +28,7 @@
                 <th class="text-sm pb-5">비추천</th>
               </tr>
             </thead>
-            <tbody id="table" >
-
-            <? if (!empty($list)) { foreach($list as $li) : ?>
-              <tr class="text-center text-md">
-                <td class="p-2 text-left"><?= $li->idx ?></td>
-                <td class="p-2 text-left">
-                  <a href="/freeboard/<?= $li->idx ?>">
-                    <?= $li -> title ?>
-                  </a>
-                </td>
-                <td class="p-2"><?= $li -> user_id ?></td>
-                <td class="p-2">
-                  <?= (empty($li->regdate) ? '-' : date("Y-m-d") == substr($li->regdate, 0, 10)) ? substr($li->regdate, 10, 18) : substr($li->regdate, 0, 10); ?>
-                </td>
-                <td class="p-2"><?= $li->hit ?></td>
-                <td class="p-2"><?= $li->like_count ?></td>
-                <td class="p-2"><?= $li->dislike_count ?></td>
-              </tr>
-              <? endforeach; } else { ?>
-                <!-- <p>데이터가 없습니다</p> -->
-              <? } ?>
-                
-              </tbody>
+              <tbody id="table"></tbody>
           </table>
 
           <!-- 데이터 없을시 -->
@@ -72,11 +50,8 @@
         <!-- 게시글, 댓글 -->
         <select id='search_type' name='search_type'
           class="outline-none w-full max-w-[20%] text-whith rounded bg-[#4f4f4f] p-3">
-          <!-- <option value="게시글+댓글" selected>게시글 + 댓글</option> -->
           <option value="제목만">제목만</option>
           <option value="글작성자">글작성자</option>
-          <option value="댓글내용">댓글내용</option>
-          <option value="댓글작성자">댓글작성자</option>
         </select>
         <!-- 검색어 -->
         <input id="search_text"  name="search_text" type="text" class="w-full outline-none text-whith rounded bg-[#4f4f4f] p-3">
@@ -95,58 +70,65 @@
 
 <script>
 
-//   // AJAX 요청 성공 시 호출되는 함수
-// function updateTableWithFetchedData(data) {
-//   // 테이블의 tbody 요소를 선택
-//   var $tableBody = $('#table');
-//   // 기존의 내용을 비움
-//   $tableBody.empty();
+  // AJAX 요청 성공 시 호출되는 함수
+function updateTableWithFetchedData(list, links) {
+  // 테이블의 tbody 요소를 선택
+  var tableBody = $('#table');
+  // 기존의 내용을 비움
+  tableBody.empty();
 
-//   // 가져온 데이터로 테이블의 새로운 행을 만듦
-//   $.each(data, function(i, li) {
-//     var dateToShow = (new Date(li.regdate).toDateString() === new Date().toDateString()) 
-//                      ? li.regdate.substr(11, 5) 
-//                      : li.regdate.substr(0, 10);
-//     var newRow = `
-//       <tr class="text-center text-md">
-//         <td class="p-2 text-left">${li.idx}</td>
-//         <td class="p-2 text-left">
-//           <a href="/freeboard/${li.idx}">${li.title}</a>
-//         </td>
-//         <td class="p-2">${li.user_id}</td>
-//         <td class="p-2">${dateToShow}</td>
-//         <td class="p-2">${li.hit}</td>
-//         <td class="p-2">${li.like_count}</td>
-//         <td class="p-2">${li.dislike_count}</td>
-//       </tr>
-//     `;
-//     // 만든 행을 테이블에 추가
-//     $tableBody.append(newRow);
-//   });
-// }
+  // 가져온 데이터로 테이블의 새로운 행을 만듦
+  $.each(list, function(i, li) {
+    var dateToShow = (new Date(li.regdate).toDateString() === new Date().toDateString()) 
+                      ? li.regdate.substr(11, 5) 
+                      : li.regdate.substr(0, 10);
+      tableBody.append(`
+      <tr class="text-center text-md">
+        <td class="p-2 text-left">${li.idx}</td>
+        <td class="p-2 text-left">
+          <a href="/freeboard/${li.idx}">${li.title}</a>
+        </td>
+        <td class="p-2">${li.user_id}</td>
+        <td class="p-2">${dateToShow}</td>
+        <td class="p-2">${li.hit}</td>
+        <td class="p-2">${li.like_count}</td>
+        <td class="p-2">${li.dislike_count}</td>
+      </tr>
+    `);
+  });
+  $('.pagination').html(links);
+}
 
-// // 게시판 목록을 가져오는 AJAX 호출
-// function fetchBoardList() {
-//   $.ajax({
-//     url: '/Free_Board_View_C/list',
-//     type: 'GET',
-//     dataType: 'json',
-//     success: function(response) {
-//       if (response.state) {
-//         // 게시판 목록을 DOM에 업데이트하는 함수 호출
-//         updateTableWithFetchedData(response.list);
-//       } else {
-//         alert('게시글을 불러오는 데 실패했습니다.');
-//       }
-//     },
-//     error: function() {
-//       alert('게시글을 불러오는 중 오류가 발생했습니다.');
-//     }
-//   });
-// }
+// 게시판 목록을 가져오는 AJAX 호출
+function fetchBoardList(page) {
+  $.ajax({
+    url: '/Free_Board_View_C/list/'+ page,
+    type: 'GET',
+    dataType: 'json',
+    success: function(response) {
+      if (response.state) {
+        // 게시판 목록을 DOM에 업데이트하는 함수 호출
+        $('#total_value').text(response.total);
+        updateTableWithFetchedData(response.list, response.links);
+      } else {
+        alert('게시글을 불러오는 데 실패했습니다.');
+      }
+    },
+    error: function() {
+      alert('게시글을 불러오는 중 오류가 발생했습니다.');
+    }
+  });
+}
+
 $(document).ready(function() {
 
-  // fetchBoardList();
+  fetchBoardList();
+
+  $(document).on('click', '.pagination a', function(e) {
+    e.preventDefault();
+    var page = $(this).attr('href').split('list/')[1];
+    fetchBoardList(page); // 페이지 번호를 인자로 넘겨 해당 페이지 데이터를 불러오는 함수
+  });
 
   $('#search_btn').click(function(e) {
   e.preventDefault();
@@ -201,7 +183,7 @@ $(document).ready(function() {
         $('#table').empty();
         // alert('검색 결과가 없습니다.');
         $('#table').append(`
-          <div class="absolute flex flex-col justify-center items-center w-full mt-32 text-center">
+          <div class="absolute flex flex-col justify-center items-center w-full mt-52 text-center">
             <p class="bg-[#1f1f1f] p-5 rounded duration-200 animate-pulse">데이터가 없습니다</p>
           </div>
         `);

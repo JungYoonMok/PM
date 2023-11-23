@@ -65,7 +65,7 @@ class Free_Board_View_C extends CI_Controller
 
     // AJAX 요청에 대한 응답
     if($this->input->is_ajax_request()) {
-      echo json_encode(['state' => TRUE, 'list' => $list, 'total' => $total]);
+      echo json_encode(['state' => TRUE, 'list' => $list, 'total' => $total, 'links' => $this->pagination->create_links() ]);
     } else {
       // 일반 페이지 로드 요청에 대한 처리
       $data['list'] = $list;
@@ -74,13 +74,6 @@ class Free_Board_View_C extends CI_Controller
 
       $this->layout->custom_view('board/free_board_view_v', $data);
     }
-    // $data['links'] = $this->pagination->create_links(); // 페이지네이션 링크 생성
-    // // 페이지네이션
-    
-    // $data['list'] = $this->FBM->GetBoardList($config['per_page'], $page);
-    // $data['total'] = $this->FBM->GetBoardTotal();
-    
-    // $this->layout->custom_view('board/free_board_view_v', $data);
   }
   
   public function search() {
