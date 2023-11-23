@@ -125,8 +125,8 @@
         </div>
         
         <!-- 웨이브 -->
-        <div class="bottom-0">
-          <?= $wave ?>
+        <div class="">
+          <!-- <? $this->load->view('wave')?> -->
         </div>
 
         <!-- 최상단 최하단 버튼 -->

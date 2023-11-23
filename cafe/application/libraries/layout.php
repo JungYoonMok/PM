@@ -19,7 +19,6 @@
       $layout_view_data = array(
         "contents" => $this->obj->load->view($view, $page_view_data, TRUE),
         "header"  => $this->obj->load->view('header',$header_view_data,TRUE),
-        "wave"  => $this->obj->load->view('wave',$page_view_data,TRUE),
       );
 
       $this->obj->load->view("/layouts/main_layout_view", $layout_view_data);
