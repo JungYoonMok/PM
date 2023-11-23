@@ -3,19 +3,7 @@
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 <!-- Toast UI Editor의 JavaScript -->
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-
-<!-- <style>
-  .toastui-editor-dark {
-    --bg-color: #1f1f1f; /* 배경색 */
-    --text-color: #10f10f10f; /* 텍스트 색상 */
-    background-color: var(--bg-color);
-    color: var(--text-color);
-  }
-  .toastui-editor-dark .toastui-editor-contents {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-}
-</style> -->
+<link rel="stylesheet" href="/assets/toast_dark_theme.css">
 
 <!-- 메인 틀 -->
 <div id="base" class="flex duration-200 bg-[#3f3f3f] text-gray-50 w-full relative">
@@ -144,7 +132,7 @@
     initialEditType: 'wysiwyg',
     previewStyle: 'vertical',
     usageStatistics: false,
-    // theme: 'dark',
+    theme: 'dark',
     initialValue: '',
     hooks: {
       addImageBlobHook: (blob, callback) => {
