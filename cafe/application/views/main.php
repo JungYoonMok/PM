@@ -2,7 +2,7 @@
 <div id="base" class="duration-200 h-full bg-[#3f3f3f] text-gray-50">
 
   <!-- 메인 베이스 -->
-  <div class="flex flex-col justify-between w-full h-full">
+  <div class="flex flex-col w-full h-full">
 
     <!-- 이미지 배너 및 스와이프 -->
     <div class="border border-[#5f5f5f] bg-[#2f2f2f] drop-shadow-xl p-10 mx-5 mt-5 rounded-md ">

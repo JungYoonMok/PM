@@ -97,68 +97,87 @@ function updateTableWithFetchedData(list, links) {
                       ? li.regdate.substr(11, 5) 
                       : li.regdate.substr(0, 10);
       tableBody.append(`
-      <div class="hover:bg-[#3f3f3f] border-dashed border-2 duration-200 rounded shadow-md hover:shadow-xl border-[#4f4f4f] p-2 flex flex-col gap-3">
-        <div class="flex justify-between place-items-center">
-          <div class="flex gap-1 place-items-center">
-            <p class="text-sm">${li.idx}</p>
-            <p class="p-2">${li.user_id}</p>
-          </div>
-          <div class="p-2 flex gap-2 text-sm text-[#9f9f9f] place-items-center">
-            <span class="material-symbols-outlined">
-              schedule
-            </span>
-            <p>
-              ${dateToShow}
-            </p>
-          </div>
-        </div>
-        <div class="">
-          <a href="/freeboard/${li.idx}" class="">
-            <p class="duration-200 hover:translate-y-1 hover:text-white">
-              ${li.title}
-            </p>
-          </a>
-        </div>
-        <div class="flex justify-between">
-          <div class="flex text-xs text-[#9f9f9f] place-items-center">
-            <div class="p-2 flex gap-2 place-items-center">
-              <span class="material-symbols-outlined">
-                visibility
-              </span>
-              <p>${li.hit}</p>
+      <div>
+
+        <div class="hover:bg-[#3f3f3f] border-dashed border-2 duration-200 rounded shadow-md hover:shadow-xl border-[#4f4f4f] p-2 flex flex-col gap-3">
+          <div class="flex justify-between place-items-center">
+            <div class="flex gap-1 place-items-center">
+              <p class="text-sm">${li.idx}</p>
+              <p class="p-2">${li.user_id}</p>
             </div>
-            <div class="p-2 flex gap-2 place-items-center">
+            <div class="p-2 flex gap-2 text-sm text-[#9f9f9f] place-items-center">
               <span class="material-symbols-outlined">
-                thumb_up
+                schedule
               </span>
-              <p>${li.like_count}</p>
-            </div>
-            <div class="p-2 flex gap-2 place-items-center">
-              <span class="material-symbols-outlined">
-                thumb_down
-              </span>
-              <p>${li.dislike_count}</p>
+              <p>
+                ${dateToShow}
+              </p>
             </div>
           </div>
-          <div class="p-2 flex gap-2 place-items-center">
-            <span class="material-symbols-outlined rotate- text-[#9f9f9f]">
-              reply
-            </span>
-            <button class="">
-              [답글보기]
-            </button>
+          <div class="">
+            <a href="/freeboard/${li.idx}" class="">
+              <p class="duration-200 hover:translate-y-1 hover:text-white">
+                ${li.title}
+              </p>
+            </a>
+          </div>
+          <div class="flex justify-between">
+            <div class="flex text-xs text-[#9f9f9f] place-items-center">
+              <div class="p-2 flex gap-2 place-items-center">
+                <span class="material-symbols-outlined">
+                  visibility
+                </span>
+                <p>${li.hit}</p>
+              </div>
+              <div class="p-2 flex gap-2 place-items-center">
+                <span class="material-symbols-outlined">
+                  thumb_up
+                </span>
+                <p>${li.like_count}</p>
+              </div>
+              <div class="p-2 flex gap-2 place-items-center">
+                <span class="material-symbols-outlined">
+                  thumb_down
+                </span>
+                <p>${li.dislike_count}</p>
+              </div>
+            </div>
+            <div class="p-2 flex gap-2 place-items-center">
+              <span class="material-symbols-outlined rotate- text-[#9f9f9f]">
+                reply
+              </span>
+              <button id="post_reply_show_btn" value="${li.idx}" class="hover:opacity-80 duration-200 hover:underline">
+                답글보기
+              </button>
+            </div>
           </div>
         </div>
+
+        <div hidden id="reply_box${li.idx}">
+          <div class="border-b border-gray-500 p-5 bg-[#1f1f1f] duration-200 rounded shadow-md">
+            <p class="h-[300px]">dd</p>
+          </div>
+        </div>
+
       </div>
     `);
   });
   $('.pagination').html(links);
 }
 
-  $(document).on('click', '#reply_show', function(e) {
+  // 게시글 답글 보기
+  $(document).on('click', '#post_reply_show_btn', function(e) {
     e.preventDefault();
-  // $('#reply_show').click(function(e) {
-    console.log('답글보기', $(this).val());
+    
+    if($('#reply_box' + $(this).val() ).hasClass('hidden')) {
+      $('#reply_box' + $(this).val() ).removeClass('hidden');
+      $('#reply_box' + $(this).val() ).hide();
+    } else {
+      $('#reply_box' + $(this).val() ).addClass('hidden');
+      $('#reply_box' + $(this).val() ).show();
+    }
+
+    console.log('게시글 답글 보기: ', $(this).val());
   });
 
 // 게시판 목록을 가져오는 AJAX 호출

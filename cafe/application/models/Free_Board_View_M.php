@@ -19,6 +19,7 @@ class Free_Board_View_M extends CI_Model
     $this->db->select('(SELECT COUNT(*) FROM board_like WHERE like_type = 1 AND boards_idx = boards.idx) as like_count', FALSE);
     $this->db->select('(SELECT COUNT(*) FROM board_like WHERE like_type = 0 AND boards_idx = boards.idx) as dislike_count', FALSE);
     $this->db->where('board_type', '자유게시판');
+    $this->db->where('group_order', '0'); // 답글이 아닌 경우 제외
     $this->db->order_by('idx', 'desc');
     $this->db->limit($limit, $start);
     $query = $this->db->get('boards');

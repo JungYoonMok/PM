@@ -17,24 +17,24 @@
     <div class="flex justify-between gap-3 opacity-90">
       <div class="<?= $this->session->userdata('user_id') == $post->user_id ? '' : 'hidden' ?>">
         <a href="/freeboard/update/<?= $post->idx ?>"
-          class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-[9px] rounded">수정하기</a>
+          class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-[9px] rounded">수정하기</a>
         <button
           onclick="post_delete(<?= $post->idx ?>)"
-          class="cursor-pointer bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">
+          class="cursor-pointer bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
           삭제하기
         </button>
       </div>
       <div>
         <a href="#"
-          class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">이전글</a>
+          class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">이전글</a>
         <a href="#"
-          class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">다음글</a>
+          class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">다음글</a>
         <a href="/freeboard/list"
-          class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">목록</a>
+          class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">목록</a>
       </div>
     </div>
 
-    <div class="bg-[#2f2f2f] p-5 flex flex-col gap-5 border border-gray-500 rounded">
+    <div class="bg-[#2f2f2f] p-5 flex flex-col gap-5 border border-[#4f4f4f] rounded">
 
       <!-- 게시글 타입, 제목, 작성날짜-->
       <div class="flex justify-between">
@@ -58,7 +58,7 @@
       </div>
 
       <!-- 구분선 -->
-      <div class="border-b border-gray-500"></div>
+      <div class="border-b border-[#4f4f4f]"></div>
 
       <!-- 컨텐츠 -->
       <div class="flex flex-col gap-5">
@@ -67,7 +67,7 @@
         <div class="flex justify-between place-items-center">
           <div class="w-full flex gap-3 place-content-start">
             <div
-              class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border border-gray-500 h-14 w-14 bg-[#3f3f3f]">
+              class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border border-[#4f4f4f] h-14 w-14 bg-[#3f3f3f]">
               <img width="100%" src="https://pds.saramin.co.kr/workenv-bg/202303/09/rr8njw_y8e6-w09k06_workenv-bg.png"
                 class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400">
               </img>
@@ -180,7 +180,7 @@
         </div>
 
         <!-- 구분선 댓글 달릴시 이동되는 구간 -->
-        <div id="comments" class="border-b border-gray-500"></div>
+        <div id="comments" class="border-b border-[#4f4f4f]"></div>
 
         <!-- 댓글 리스트 있을때 and 리플 -->
         <div class="flex flex-col duration-200 bg-[#1f1f1f] rounded-md py-10 px-5 gap-5 w-full <?= empty($comment) || !$post->board_comment ? 'hidden' : '' ?>">
@@ -199,7 +199,7 @@
                 <!-- 작성자 -->
                 <div class="flex gap-3 relative">
                   <!-- 프로필 -->
-                  <div class="drop-shadow-2xl flex rounded-[50%] place-content-center border border-gray-500 h-14 w-14 bg-[#3f3f3f]">
+                  <div class="drop-shadow-2xl flex rounded-[50%] place-content-center border border-[#4f4f4f] h-14 w-14 bg-[#3f3f3f]">
                     <img 
                       width="100%" src="https://pds.saramin.co.kr/workenv-bg/202303/09/rr8njw_y8e6-w09k06_workenv-bg.png"
                       class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400">
@@ -213,7 +213,7 @@
                 </div>
 
                   <!-- 댓글 -->
-                  <div class="flex flex-col border border-gray-600 shadow-xl w-full rounded p-3 <?= ($post->user_id == $com->user_id) ? 'bg-[#2f2f2f]' : ''; ?>">
+                  <div class="flex flex-col border border-[#4f4f4f] shadow-xl w-full rounded p-3 <?= ($post->user_id == $com->user_id) ? 'bg-[#2f2f2f]' : ''; ?>">
                     <!-- 아이디 -->
                     <div class="flex justify-between w-full px-1">
                       <div class="flex gap-1">
@@ -353,14 +353,14 @@
         <!-- </div> -->
 
         <!-- 댓글 리스트 없을때 -->
-        <div class="flex justify-center bg-[#1f1f1f] p-5 border border-gray-500 <?= empty($comment) ? '' : 'hidden' ?>">
+        <div class="flex justify-center bg-[#1f1f1f] p-5 border border-[#4f4f4f] <?= empty($comment) ? '' : 'hidden' ?>">
           <p>
             댓글이 존재하지 않습니다
           </p>
         </div>
 
         <!-- 댓글 작성 비허용 -->
-        <div class="flex justify-center bg-[#1f1f1f] p-5 border border-gray-500 <?= !$post->board_comment ? 'inline' : 'hidden' ?>">
+        <div class="flex justify-center bg-[#1f1f1f] p-5 border border-[#4f4f4f] <?= !$post->board_comment ? 'inline' : 'hidden' ?>">
           <p>
             해당 게시글은 댓글 작성이 불가능합니다
           </p>
@@ -368,17 +368,17 @@
 
         <!-- 비회원 알림 -->
         <div
-          class="<?= $this->session->userdata('user_id') ? 'hidden' : '' ?> flex justify-center bg-[#1f1f1f] p-5 border border-gray-500">
+          class="<?= $this->session->userdata('user_id') ? 'hidden' : '' ?> flex justify-center bg-[#1f1f1f] p-5 border border-[#4f4f4f]">
           <a href="/login" class="hover:underline hover:opacity-80 hover:animate-pulse duration-200">
             로그인한 회원만 댓글 등록이 가능합니다.
           </a>
         </div>
 
         <!-- 구분선 -->
-        <div class="border-b border-gray-500"></div>
+        <div class="border-b border-[#4f4f4f]"></div>
 
         <!-- 댓글 작성 -->
-        <div class="<?= $this->session->userdata('user_id') && $post->board_comment ? '' : 'hidden' ?> w-full drop-shadow-2xl text-sm flex flex-col gap-5 bg-[#1f1f1f] p-5 border border-gray-500">
+        <div class="<?= $this->session->userdata('user_id') && $post->board_comment ? '' : 'hidden' ?> w-full drop-shadow-2xl text-sm flex flex-col gap-5 bg-[#1f1f1f] p-5 border border-[#4f4f4f]">
         
           <div class="flex justify-between">
             <div class="gap-5 flex">
@@ -392,7 +392,7 @@
           </div>
 
           <!-- 구분선 -->
-          <div class="border-b border-gray-500"></div>
+          <div class="border-b border-[#4f4f4f]"></div>
 
           <!-- 댓글 메인 -->
           <form id="test" action="/free_board_detail/comment_create" method="post" class="flex flex-col gap-3">
@@ -413,7 +413,7 @@
               </div>
               <div class="">
                 <button type="submit"
-                  class="bg-[#3f3f3f] outline-none duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-5 py-3 rounded w-40">
+                  class="bg-[#3f3f3f] outline-none duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-5 py-3 rounded w-40">
                   댓글 등록
                 </button>
               </div>
@@ -430,29 +430,29 @@
     <!-- 글쓰기, 답글, 이전, 다음, 목록 -->
     <div class="flex justify-between gap-3 opacity-90">
       <div class="flex gap-2 <?= $this->session->userdata('user_id') ? '' : 'hidden' ?> ">
-        <a href="/post_create/" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">
+        <a href="/post_create/" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
           글쓰기
         </a>
-        <a href="/post_create_reply/<?= $post->idx?>" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">
+        <a href="/post_create_reply/<?= $post->idx?>" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
           답글
         </a>
       </div>
       <div class="flex gap-2">
-        <a href="#" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">
+        <a href="#" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
           이전글
         </a>
-        <a href="#" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">
+        <a href="#" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
           다음글
         </a>
         <a href="/freeboard/list"
-          class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">
+          class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
           목록
         </a>
       </div>
     </div>
 
     <!-- 해당 게시판 최근 리스트 -->
-    <div class="bg-[#2f2f2f] border w-full border-gray-500 p-5 rounded flex flex-col gap-5 drop-shadow-2xl">
+    <div class="bg-[#2f2f2f] border w-full border-[#4f4f4f] p-5 rounded flex flex-col gap-5 drop-shadow-2xl">
       <table class="text-gray-50 text-center">
         <th>번호</th>
         <th>ID</th>
@@ -462,7 +462,7 @@
         <th>작성날짜</th>
         <? $numCount = 0; ?>
         <? foreach ($list as $li): ?>
-          <tr class="border-b border-gray-500">
+          <tr class="border-b border-[#4f4f4f]">
             <td class="p-2">
               <?= $numCount += 1 ?>
             </td>

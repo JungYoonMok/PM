@@ -135,20 +135,22 @@
       </div>
       
       <!-- 메인 -->
-      <div class="flex flex-col w-full h-full">
+      <div class="flex flex-col justify-between w-full h-full">
 
-        <!-- 헤더 -->
-        <div class="w-full">
-          <?= $header ?>
-        </div>
-          
-        <!-- 컨텐츠 -->
         <div>
-          <?= $contents ?>
+          <!-- 헤더 -->
+          <div class="">
+            <?= $header ?>
+          </div>
+            
+          <!-- 컨텐츠 -->
+          <div>
+            <?= $contents ?>
+          </div>
         </div>
         
         <!-- 웨이브 -->
-        <div id="wave" class="hidden">
+        <div id="wave" class="hidden z-40 -mt-10">
           <? $this->load->view('wave') ?>
         </div>
 

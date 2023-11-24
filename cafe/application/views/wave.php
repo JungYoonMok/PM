@@ -27,6 +27,14 @@
     transform: translate3d(85px,0,0);
   }
 }
+.waves {
+  width: 100%;
+  height: 200px;
+}
+.content {
+  /* height:30vh; */
+  height:10vh;
+}
 /*Shrinking for mobile*/
 @media (max-width: 768px) {
   .waves {
