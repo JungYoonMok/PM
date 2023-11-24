@@ -10,11 +10,6 @@
       $this->load->model('Free_Board_Update_M', 'FBM');
     }
     
-    public function index()
-    {
-      
-    }
-    
     public function update($idx)
     {
       // 세션 체크
@@ -53,8 +48,8 @@
       $this->form_validation->set_rules('post_type', 'Post_Type', 'required');
       $this->form_validation->set_rules('post_title', 'Post_Title', 'required');
       $this->form_validation->set_rules('post_value', 'Post_Value', 'required');
-      $this->form_validation->set_rules('post_open', 'Post_Value', 'required');
-      $this->form_validation->set_rules('comment_open', 'Post_Value', 'required');
+      $this->form_validation->set_rules('post_open', 'Post_Open', 'required');
+      $this->form_validation->set_rules('comment_open', 'Comment_Open', 'required');
 
       // 세션 체크
       if(!$this->session->userdata('user_id')) {
@@ -62,7 +57,6 @@
       }
 
       $data = [
-        'idx' => $this->input->post('idx'),
         'board_type' => $this->input->post('post_type'),
         'title' => $this->input->post('post_title'),
         'content' => $this->input->post('post_value'),
@@ -73,12 +67,15 @@
 
       if($this->form_validation->run())
       {
-        $this->FBM->post_update($data);
-        echo json_encode([ 'state' => TRUE, 'message' => '게시글 수정을 성공했습니다' ]);
+        $idx = $this->input->post('idx');
+        $result = $this->FBM->post_update($idx, $data);
+        if($result) {
+          echo json_encode([ 'state' => TRUE, 'message' => '게시글 수정을 성공했습니다', 'idx' => $idx, 'data' => $data ]);
+        } else {
+          echo json_encode([ 'state' => FALSE, 'message' => '게시글 수정에 실패했습니다' ]);
+        }
       } else {
-        // 데이터베이스 오류 로그를 남기고, 일반적인 오류 메시지 반환
-        log_message('error', '게시글 등록 실패: ' . $this->db->error()['message']);
-        echo json_encode([ 'state' => FALSE, 'message' => '게시글 수정을 실패했습니다' ]);
+        echo json_encode([ 'state' => FALSE, 'message' => '정보 검증에 실패했습니다' ]);
       }
     }
     

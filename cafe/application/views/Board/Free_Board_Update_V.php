@@ -1,6 +1,7 @@
 <!-- 에디터 -->
 <!-- Toast UI Editor의 스타일시트 -->
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+<link rel="stylesheet" href="/assets/toast_dark_theme.css">
 <!-- Toast UI Editor의 JavaScript -->
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 
@@ -20,7 +21,7 @@
       
       <div class="">
         <p>게시글 수정하기</p>
-        <input id="bd_id" type="number" hidden value="<?= $post->idx ?>">
+        <input id="bd_id" name="bd_id" type="number" hidden value="<?= $post->idx ?>">
       </div>
 
       <!-- 구분선 -->
@@ -53,10 +54,7 @@
           </div>
 
           <!-- 게시글 내용 작성 -->
-          <!-- <textarea id='post_value' name='post_value' class="outline-none bg-[#4f4f4f] w-full p-3" required name="contents" id="" cols="30" rows="10"></textarea> -->
           <div id="editor"></div>
-          <input id="content_value" type="text" hidden value="<?= $post->content?>"></input>
-          <!-- <div id="editor"><?= $post->content ?></div> -->
 
           <!-- 공개/비공개 -->
           <div class="flex gap-3">
@@ -122,6 +120,7 @@ editor = new toastui.Editor({
   initialEditType: 'wysiwyg',
   previewStyle: 'vertical',
   usageStatistics: false,
+  theme: 'dark',
   initialValue: '<?= $post->content ?>',
   hooks: {
     addImageBlobHook: (blob, callback) => {
@@ -159,58 +158,55 @@ $(document).ready( () => {
   
   $('#create_btn').click( e => {
     
-  // 새로고침 방지
-  e.preventDefault();
-  const editorData = editorInstance.getData(); // 에디터 데이터 가져오기
+    e.preventDefault();
 
-  if(!$('#post_type').val()){ // 게시판 분류 검사
-    // 클래스 제거
-    $('#error_form').removeClass('hidden'); 
+    const formData = new FormData();
+    formData.append('idx', $('#bd_id').val());
+    formData.append('post_type', $('#post_type').val());
+    formData.append('post_title', $('#post_title').val());
+    formData.append('post_value', editor.getHTML());
+    // formData.append('post_value', editor.getMarkdown());
+    formData.append('post_open', $('input[name="post_open"]:checked').val());
+    formData.append('comment_open', $('input[name="comment_open"]:checked').val());
 
-    $('#error_txt').text('게시판의 분류를 선택해주세요.');
-    return; // 함수 실행 중지
-  }
-
-  if(!$('#post_title').val()){ // 글 제목 검사
-    // 클래스 제거
-    $('#error_form').removeClass('hidden'); 
-
-    $('#error_txt').text('게시판의 제목을 입력해주세요.');
-    return; // 함수 실행 중지
-  }
-
-  if(!$('#editor')){ // 게시글 내용 검사
-    // 클래스 제거
-    $('#error_form').removeClass('hidden'); 
-
-    $('#error_txt').text('게시판의 내용을 입력해주세요.');
-    return; // 함수 실행 중지
-  }
-
-  $.ajax({
-    url: '/free_board_update_c/post_update', // 컨트롤러 메소드 URL
-    type: 'POST',
-    data: {
-      idx: $('#bd_id').val(),
-      post_type: $('#post_type').val(),
-      post_title: $('#post_title').val(),
-      post_value: editorData,
-      post_open: $('input[name=post_open]:checked').val(),
-      comment_open: $('input[name=comment_open]:checked').val(),
-      // 기타 폼 데이터
-    },
-    success: function(response) {
-      // 성공 처리
-      console.log('성공', response);
-      location.href = '/freeboard/' + $('#bd_id').val();
-      // redirect('/freeboard');
-    },
-    error: function(response) {
-      // 오류 처리
-      return console.log('오류', response);
+    // 이미지 파일이 있으면 formData에 추가
+    const fileInput = $('input[type="file"]')[0];
+    if (fileInput.files.length > 0) {
+      for (const file of fileInput.files) {
+        formData.append('userfile', file);
+        // formData.append('file_path', file);
+      }
     }
+
+    // 게시글 내용을 Markdown 형식으로 가져오는 부분
+    // 에디터가 올바르게 초기화되었는지 확인
+    // if (editor) {
+    //   formData.append('post_value', editor.getMarkdown());
+    // } else {
+    //   alert('에디터가 초기화되지 않았습니다.');
+    //   return;
+    // }
+
+    // AJAX 요청으로 게시글 생성 및 이미지 업로드 처리
+    $.ajax({
+      url: '/free_board_update_c/post_update',
+      type: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      dataType: 'json',
+      success: (response) => {
+        if (response.state) {
+          location.href = '/freeboard/' + $('#bd_id').val();
+        } else {
+          alert('게시글 등록 실패: ' + response.message);
+        }
+      },
+      error: () => {
+        alert('게시글 등록 중 서버 오류가 발생했습니다.');
+      }
+    });
   });
-});
 
 });
 

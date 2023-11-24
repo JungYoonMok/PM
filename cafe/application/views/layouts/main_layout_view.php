@@ -153,7 +153,7 @@
         </div>
 
         <!-- 최상단 최하단 버튼 -->
-        <div hidden id="side_btn" class="fixed right-5 bottom-5 mb-[1%]">
+        <div hidden id="side_btn" class="z-50 fixed right-5 bottom-5 mb-[1%]">
           <? $this->load->view('side_btn'); ?>
         </div>
         
