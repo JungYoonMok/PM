@@ -148,8 +148,8 @@
         </div>
         
         <!-- 웨이브 -->
-        <div class="">
-          <!-- <? $this->load->view('wave')?> -->
+        <div id="wave" class="hidden">
+          <? $this->load->view('wave') ?>
         </div>
 
         <!-- 최상단 최하단 버튼 -->
@@ -189,6 +189,16 @@
   //   setTimeout(makeSnowflake, 500 * index);
   // }
   // snow end
+
+  // effect on off switch
+  if(localStorage.getItem('effect') == 'on'){
+    $('#wave').removeClass('hidden');
+    for(let index = 0; index < 50; index++) {
+      setTimeout(makeSnowflake, 500 * index);
+    }
+  } else {
+    $('#wave').addClass('hidden');
+  }
 
 function SideBarTab() {
   let elm = document.getElementById('main'); 

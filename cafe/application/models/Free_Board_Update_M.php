@@ -5,20 +5,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Free_Board_Update_M extends CI_Model
 {
 
-  public function __construct()
-  {
+  public function __construct() {
     parent::__construct();
   }
 
-  public function get($idx)
-  {
+  public function get($idx) {
     $this->db->where('idx', $idx);
     $result = $this->db->get('boards')->row();
     return $result;
   }
 
-  public function post_update($idx, $data)
-  {
+  public function post_update($idx, $data) {
     try {
       $this->db->where('idx', $idx);
       $this->db->update('boards', $data);

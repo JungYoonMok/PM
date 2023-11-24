@@ -4,19 +4,19 @@
 
 <!-- 최상단 최하단 이동 -->
 <div class="flex flex-col gap-3 drop-shadow-2xl">
-  <button onclick=upBtn() class="text-white p-5 border-gray-500 shadow-xl hover:animate-pulse border-2 hover:text-[#6f6f6f] hover:bg-[#2f2f2f] hover:border-gray-100 hover:opacity-80 duration-100 bg-[#2f2f2f] w-12 flex place-content-center h-12 rounded-[50%]">
+  <button onclick=upBtn() class="text-white p-5 border-gray-500 shadow-xl border-2 hover:bg-[#3f3f3f] hover:border-[#4f4f4f] duration-100 bg-[#2f2f2f] w-12 flex place-content-center h-12 rounded-[50%]">
     <span class="material-symbols-outlined -mt-[10px] duration-100">
       arrow_upward
     </span>
   </button>
-  <button onclick=downBtn() class="text-white p-5 border-gray-500 shadow-xl hover:animate-pulse target:bg-red-500 border-2 hover:text-[#6f6f6f] hover:bg-[#2f2f2f] hover:border-gray-100 hover:opacity-80 duration-100 bg-[#2f2f2f] w-12 flex place-content-center h-12 rounded-[50%]">
+  <button onclick=downBtn() class="text-white p-5 border-gray-500 shadow-xl border-2 hover:bg-[#3f3f3f] hover:border-[#4f4f4f] duration-100 bg-[#2f2f2f] w-12 flex place-content-center h-12 rounded-[50%]">
     <span class="material-symbols-outlined -mt-[10px] duration-100">
       arrow_downward
     </span>
   </button>
-  <button onclick=effectBtn() class="text-yellow-500 p-5 border-gray-500 shadow-xl hover:animate-pulse target:bg-red-500 border-2 hover:text-[#6f6f6f] hover:bg-[#2f2f2f] hover:border-gray-100 hover:opacity-80 duration-100 bg-[#2f2f2f] w-12 flex place-content-center h-12 rounded-[50%]">
-    <span class="material-symbols-outlined -mt-[10px] duration-100">
-      gif
+  <button onclick=effectBtn() class="flex flex-col justify-center place-items-center text-white p-5 border-gray-500 shadow-xl border-2 hover:bg-[#3f3f3f] hover:border-[#4f4f4f] duration-100 bg-[#2f2f2f] w-12 h-12 rounded-[50%]">
+    <span id="effect_icon" class="material-symbols-outlined duration-100 text-3xl">
+      smart_display
     </span>
   </button>
 </div>
@@ -32,7 +32,13 @@
   }
 
   function effectBtn() {
-    console.log('effectBtn');
+    if(localStorage.getItem('effect') == 'on'){
+      localStorage.setItem('effect', 'off');
+      location.reload();
+    } else {
+      localStorage.setItem('effect', 'on');
+      location.reload();
+    }
   }
 
 </script>

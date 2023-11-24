@@ -430,10 +430,10 @@
     <!-- 글쓰기, 답글, 이전, 다음, 목록 -->
     <div class="flex justify-between gap-3 opacity-90">
       <div class="flex gap-2 <?= $this->session->userdata('user_id') ? '' : 'hidden' ?> ">
-        <a href="/free_board_create_c/" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">
+        <a href="/post_create/" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">
           글쓰기
         </a>
-        <a href="#" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">
+        <a href="/post_create_reply/<?= $post->idx?>" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-gray-600 px-3 py-2 rounded">
           답글
         </a>
       </div>

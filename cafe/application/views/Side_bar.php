@@ -115,7 +115,7 @@
 
       <!-- 글쓰기 및 채팅 -->
       <div class="flex flex-col gap-3 text-center">
-        <a href="/free_board_create_c"
+        <a href="/post_create"
           class="p-2 w-full hover:text-white hover:underline rounded hover:opacity-80 font-bold duration-150 bg-[#3f3f3f]">
           카페 글쓰기
         </a>

@@ -13,6 +13,10 @@ $route['freeboard/list/(:num)'] = 'free_board_view_c/list/$1';
 $route['freeboard/(:num)'] = 'free_board_detail_c/show/$1';
 $route['freeboard/(:num)/(:num)'] = 'free_board_detail_c/show/$1/$1';
 
+// 글쓰기
+$route['post_create'] = 'free_board_create_c';
+$route['post_create_reply/(:num)'] = 'free_board_create_c/create_reply_index/$1';
+
 // 업데이트
 $route['freeboard/update/(:num)'] = 'free_board_update_c/update/$1';
 

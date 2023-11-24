@@ -22,7 +22,7 @@
     </div>
 
     <!-- 메인 -->
-    <div class="md:mb-20 w-full p-5 flex flex-col gap-5">
+    <div class="w-full p-5 flex flex-col gap-5">
 
       <!-- 공지사항 -->
       <div class="w-full drop-shadow-xl">
@@ -75,7 +75,7 @@
               <h2>건</h2>
             </div>
             <div class="p-3">
-              <a href="#" class="hover:text-white text-gray-300 hover:underline">더보기 〉</a>
+              <!-- <a href="#" class="hover:text-white text-gray-300 hover:underline">더보기 〉</a> -->
             </div>
           </div>
 
@@ -118,7 +118,7 @@
               <h2>건</h2>
             </div>
             <div class="p-3">
-              <a href="#" class="hover:text-white text-gray-300 hover:underline">더보기 〉</a>
+              <!-- <a href="#" class="hover:text-white text-gray-300 hover:underline">더보기 〉</a> -->
             </div>
           </div>
 

@@ -4,14 +4,12 @@
 
   class Free_Board_Update_C extends CI_Controller {
 
-    public function __construct()
-    {
+    public function __construct() {
       parent::__construct();
       $this->load->model('Free_Board_Update_M', 'FBM');
     }
     
-    public function update($idx)
-    {
+    public function update($idx) {
       // 세션 체크
       if(!$this->session->userdata('user_id')) {
         redirect('/login');
@@ -28,8 +26,7 @@
       $this->layout->custom_view('board/free_board_update_v', $data);
     }
 
-    public function post_update()
-    {
+    public function post_update() {
       // $config['upload_path'] = './uploads/'; // 이미지를 저장할 경로
       // $config['allowed_types'] = 'gif|jpg|png'; // 허용되는 파일 타입
       // $config['max_size'] = 2048; // 허용되는 파일 최대 크기
@@ -43,6 +40,26 @@
       //   $data = $this->upload->data();
       //   // 성공적으로 업로드된 이미지 URL을 반환
       // }
+
+      $config['upload_path'] = './uploads/';
+      $config['allowed_types'] = 'gif|jpg|png';
+      $config['max_size'] = 0;
+      $this->load->library('upload', $config);
+  
+      $filePath = '';
+      // 파일 업로드 시도
+      if (!empty($_FILES['userfile']['name'])) {
+        if (!$this->upload->do_upload('userfile')) {
+          $error = strip_tags($this->upload->display_errors());
+          // 바로 에러 메시지를 반환하고 프로세스를 종료합니다.
+          echo json_encode(['state' => FALSE, 'message' => '이미지 업로드 실패: ' . $error]);
+          return; // 더 이상 진행하지 않고 종료합니다.
+        } else {
+          $uploadData = $this->upload->data();
+          // $filePath = $uploadData['userfile']; // 업로드된 파일의 경로
+          $filePath = $uploadData['full_path']; // 업로드된 파일의 경로
+        }
+      }
 
       // 폼 벨리데이션으로 폼의 필수값을 지정
       $this->form_validation->set_rules('post_type', 'Post_Type', 'required');
@@ -65,8 +82,7 @@
         'update_date' => date("Y-m-d H:i:s")
       ];
 
-      if($this->form_validation->run())
-      {
+      if($this->form_validation->run()) {
         $idx = $this->input->post('idx');
         $result = $this->FBM->post_update($idx, $data);
         if($result) {
