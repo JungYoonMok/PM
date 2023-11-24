@@ -7,7 +7,7 @@
     <!-- 메인 -->
     <div class="gap-3 w-full p-5 flex flex-col">
 
-      <div class="bg-[#2f2f2f] border shadow-2xl border-[#4f4f4f] opacity-90 p-5 flex flex-col gap-5">
+      <div class="bg-[#2f2f2f] border border-[#4f4f4f] opacity-90 p-5 flex flex-col gap-5">
         <div class="flex gap-1">
           <h2>자유게시판 - 전체 게시물</h2>
           <h2 id='total_value' class="font-bold animate-pulse"></h2>
@@ -55,9 +55,20 @@
         <div class="border-b border-gray-500"></div>
 
         <div class="min-h-[700px]">
-          <div class="text-gray-50 w-full relative">
-            <div id="table" class="flex flex-col gap-5"></div>
-          </div>
+          <table class="text-gray-50 w-full relative">
+            <thead class="text-center">
+              <tr class="p-3">
+                <th class="text-sm pb-5 text-left">글 번호</th>
+                <th class="text-sm pb-5 w-[60%]">제목</th>
+                <th class="text-sm pb-5">작성자</th>
+                <th class="text-sm pb-5">작성날짜</th>
+                <th class="text-sm pb-5">조회수</th>
+                <th class="text-sm pb-5">추천</th>
+                <th class="text-sm pb-5">비추천</th>
+              </tr>
+            </thead>
+              <tbody id="table"></tbody>
+          </table>
 
           <!-- 데이터 없을시 -->
           <div class="<?= empty($list) ? 'inline-block' : 'hidden' ?> text-center">
@@ -67,7 +78,7 @@
         </div>
 
         <!-- 페이지네이션 -->
-        <div class="">
+        <div>
           <?= $links; ?>
         </div>
         
@@ -97,59 +108,19 @@ function updateTableWithFetchedData(list, links) {
                       ? li.regdate.substr(11, 5) 
                       : li.regdate.substr(0, 10);
       tableBody.append(`
-      <div class="hover:bg-[#3f3f3f] border-dashed border-2 duration-200 rounded shadow-md hover:shadow-xl border-[#4f4f4f] p-2 flex flex-col gap-3">
-        <div class="flex justify-between place-items-center">
-          <div class="flex gap-1 place-items-center">
-            <p class="text-sm">${li.idx}</p>
-            <p class="p-2">${li.user_id}</p>
-          </div>
-          <div class="p-2 flex gap-2 text-sm text-[#9f9f9f] place-items-center">
-            <span class="material-symbols-outlined">
-              schedule
-            </span>
-            <p>
-              ${dateToShow}
-            </p>
-          </div>
-        </div>
-        <div class="">
-          <a href="/freeboard/${li.idx}" class="">
-            <p class="duration-200 hover:translate-y-1 hover:text-white">
-              ${li.title}
-            </p>
-          </a>
-        </div>
-        <div class="flex justify-between">
-          <div class="flex text-xs text-[#9f9f9f] place-items-center">
-            <div class="p-2 flex gap-2 place-items-center">
-              <span class="material-symbols-outlined">
-                visibility
-              </span>
-              <p>${li.hit}</p>
-            </div>
-            <div class="p-2 flex gap-2 place-items-center">
-              <span class="material-symbols-outlined">
-                thumb_up
-              </span>
-              <p>${li.like_count}</p>
-            </div>
-            <div class="p-2 flex gap-2 place-items-center">
-              <span class="material-symbols-outlined">
-                thumb_down
-              </span>
-              <p>${li.dislike_count}</p>
-            </div>
-          </div>
-          <div class="p-2 flex gap-2 place-items-center">
-            <span class="material-symbols-outlined rotate- text-[#9f9f9f]">
-              reply
-            </span>
-            <button class="">
-              [답글보기]
-            </button>
-          </div>
-        </div>
-      </div>
+      <tr class="text-center text-md duration-200 hover:bg-[#3f3f3f]">
+        <td class="p-2 text-left">${li.idx}</td>
+        <td class="p-2 text-left flex gap-1">
+          <a href="/freeboard/${li.idx}">${li.title}</a>
+          <a id="comment_count" name="comment_count" class="text-[#9f9f9f]">(0)</a>
+          <button id="reply_show" name="reply_show" value="${li.idx}" class="cursor-pointer text-[#9f9f9f]">[답글보기]</button>
+        </td>
+        <td class="p-2">${li.user_id}</td>
+        <td class="p-2">${dateToShow}</td>
+        <td class="p-2">${li.hit}</td>
+        <td class="p-2">${li.like_count}</td>
+        <td class="p-2">${li.dislike_count}</td>
+      </tr>
     `);
   });
   $('.pagination').html(links);

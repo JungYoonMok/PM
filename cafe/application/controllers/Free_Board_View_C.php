@@ -5,17 +5,11 @@
 class Free_Board_View_C extends CI_Controller
 {
 
-  public function __construct()
-  {
+  public function __construct() {
     parent::__construct();
     $this->load->model('Free_Board_View_M', 'FBM');
   }
   
-  public function index()
-  {
-    
-  }
-
   public function list() {
     // 페이지네이션
     $config['base_url'] = "/freeboard/list"; // 기본 URL 설정
@@ -118,6 +112,12 @@ class Free_Board_View_C extends CI_Controller
     } else {
       echo json_encode(['state' => FALSE, 'message' => '검색 결과가 없습니다.']);
     }
+  }
+
+  public function post_reply_show() {
+    $idx = $this->input->post('idx');
+    $data['board'] = $this->FBM->get($idx);
+    $this->layout->custom_view('board/free_board_create_v', $data);
   }
 
 }
