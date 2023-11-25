@@ -53,7 +53,7 @@ class Free_Board_View_C extends CI_Controller
     $this->pagination->initialize($config); // 설정을 라이브러리에 초기화
 
     $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0; // 현재 페이지 번호
-
+    
     $list = $this->FBM->GetBoardList($config['per_page'], $page);
     $total = $this->FBM->GetBoardTotal();
 
@@ -116,8 +116,13 @@ class Free_Board_View_C extends CI_Controller
 
   public function post_reply_show() {
     $idx = $this->input->post('idx');
-    $data['board'] = $this->FBM->get($idx);
-    $this->layout->custom_view('board/free_board_create_v', $data);
+    $replies = $this->FBM->get_replies($idx);
+  
+    if(!empty($replies)) {
+      echo json_encode(['state' => TRUE, 'replies' => $replies]);
+    } else {
+      echo json_encode(['state' => FALSE, 'message' => '답글이 없습니다.']);
+    }
   }
 
 }

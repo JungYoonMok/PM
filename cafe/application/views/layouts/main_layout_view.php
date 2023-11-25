@@ -187,9 +187,6 @@
       makeSnowflake();
     }, (duration + delay) * 1000);
   }
-  // for(let index = 0; index < 50; index++) {
-  //   setTimeout(makeSnowflake, 500 * index);
-  // }
   // snow end
 
   // effect on off switch
@@ -202,32 +199,74 @@
     $('#wave').addClass('hidden');
   }
 
-function SideBarTab() {
-  let elm = document.getElementById('main'); 
-  if(elm.getElementById === 'open'){
-    elm.getElementById = 'close';
-    document.getElementById('main').className += ' duration-200 delay-100';
+  function SideBarTab() {
+  let menu = document.getElementById('menu');
+  let main = document.getElementById('main');
+  let base = document.getElementById('base');
 
-    document.getElementById('menu').classList.remove('w-[65px]');
-    document.getElementById('menu').className += ' w-[300px]';
+  if (main.getAttribute('data-state') === 'open') {
+    // 사이드바를 닫는 경우
     
-    document.getElementById('main').classList.remove('hidden');
-    document.getElementById('main').className += ' inline';
-    
-    document.getElementById('base').classList.remove('pl-[65px]');
-    document.getElementById('base').className += ' pl-[300px]';
+    $('#menu').removeClass('w-[300px]');
+    $('#menu').addClass('w-[65px]');
+
+    $('#main').removeClass('inline');
+    $('#main').addClass('hidden');
+
+    $('#base').removeClass('pl-[300px]');
+    $('#base').addClass('pl-[65px]');
+
+    main.setAttribute('data-state', 'close');
+
+    // 로컬 스토리지에 상태 저장
+    localStorage.setItem('sidebar', 'close');
   } else {
-    elm.getElementById = 'open';
-    document.getElementById('menu').classList.remove('w-[300px]');
-    document.getElementById('menu').className += ' w-[65px]';
-    
-    document.getElementById('main').className += ' hidden';
-    document.getElementById('main').classList.remove('inline');
-    
-    document.getElementById('base').classList.remove('pl-[300px]');
-    document.getElementById('base').className += ' pl-[65px]';
+    // 사이드바를 여는 경우
+
+    $('#menu').removeClass('w-[65px]');
+    $('#menu').addClass('w-[300px]');
+
+    $('#main').removeClass('hidden');
+    $('#main').addClass('inline');
+
+    $('#base').removeClass('pl-[65px]');
+    $('#base').addClass('pl-[300px]');
+
+    main.setAttribute('data-state', 'open');
+
+    // 로컬 스토리지에 상태 저장
+    localStorage.setItem('sidebar', 'open');
   }
 }
+
+  let sidebarState = localStorage.getItem('sidebar');
+  let main = document.getElementById('main');
+
+  if (sidebarState === 'close') {
+    // 사이드바를 닫힌 상태로 설정
+    main.setAttribute('data-state', 'close');
+
+    $('#menu').removeClass('w-[300px]');
+    $('#menu').addClass('w-[65px]');
+
+    $('#main').removeClass('inline');
+    $('#main').addClass('hidden');
+
+    $('#base').removeClass('pl-[300px]');
+    $('#base').addClass('pl-[65px]');
+  } else {
+    // 사이드바를 열린 상태로 설정
+    main.setAttribute('data-state', 'open');
+
+    $('#menu').removeClass('w-[65px]');
+    $('#menu').addClass('w-[300px]');
+
+    $('#main').removeClass('hidden');
+    $('#main').addClass('inline');
+
+    $('#base').removeClass('pl-[65px]');
+    $('#base').addClass('pl-[300px]');
+  }
 
 // 스크롤바 존재 여부
 $(document).ready(function() {

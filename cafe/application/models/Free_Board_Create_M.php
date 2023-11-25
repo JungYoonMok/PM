@@ -37,23 +37,14 @@ class Free_Board_Create_M extends CI_Model
     }
   }
 
-  public function create_reply_copy($data) {
-    $result = $this->db->insert('boards', $this->db->escape_str($data));
-    if($result) {
-      return TRUE;
-    } else {
-      log_message('error', '답글 등록 실패: ' . $this->db->error()['message']);
-      return FALSE;
-    }
-  }
-
   public function create_reply($post_data)
   {
     // POST 데이터로부터 필요한 정보를 가져옵니다.
     // $board_id = $this->input->post('board_id');
     // $group_idx = $this->input->post('group_idx'); // 상위 댓글의 group_idx
     // $depth = $this->input->post('depth'); // 상위 댓글의 depth
-    $board_id = $post_data['board_id'];
+    // $board_id = $post_data['board_id'];
+    $board_id = $post_data['group_idx'];
     $group_idx = $post_data['group_idx'];
     $depth = $post_data['depth'];
 

@@ -142,21 +142,21 @@ function updateTableWithFetchedData(list, links) {
                 <p>${li.dislike_count}</p>
               </div>
             </div>
-            <div class="p-2 flex gap-2 place-items-center">
-              <span class="material-symbols-outlined rotate- text-[#9f9f9f]">
+
+            <div class="${li.reply_count > 0 ? '' : 'hidden'} p-2 flex gap-2 place-items-center">
+              <span class="material-symbols-outlined rotate-180 text-[#9f9f9f]">
                 reply
               </span>
               <button id="post_reply_show_btn" value="${li.idx}" class="hover:opacity-80 duration-200 hover:underline">
-                답글보기
+                답글보기 ${li.reply_count}개
               </button>
             </div>
+
           </div>
         </div>
 
         <div hidden id="reply_box${li.idx}">
-          <div class="border-b border-gray-500 p-5 bg-[#1f1f1f] duration-200 rounded shadow-md">
-            <p class="h-[300px]">dd</p>
-          </div>
+          
         </div>
 
       </div>
@@ -167,18 +167,95 @@ function updateTableWithFetchedData(list, links) {
 
   // 게시글 답글 보기
   $(document).on('click', '#post_reply_show_btn', function(e) {
-    e.preventDefault();
-    
-    if($('#reply_box' + $(this).val() ).hasClass('hidden')) {
-      $('#reply_box' + $(this).val() ).removeClass('hidden');
-      $('#reply_box' + $(this).val() ).hide();
-    } else {
-      $('#reply_box' + $(this).val() ).addClass('hidden');
-      $('#reply_box' + $(this).val() ).show();
-    }
+  e.preventDefault();
+  var postId = $(this).val();
 
-    console.log('게시글 답글 보기: ', $(this).val());
-  });
+  if($('#reply_box' + $(this).val() ).hasClass('hidden')) {
+    $('#reply_box' + $(this).val() ).removeClass('hidden');
+    $('#reply_box' + $(this).val() ).hide();
+  } else {
+    $('#reply_box' + $(this).val() ).addClass('hidden');
+    $('#reply_box' + $(this).val() ).show();
+
+    // 서버에 답글 데이터 요청
+    $.ajax({
+      url: '/Free_Board_View_C/post_reply_show',
+      type: 'POST',
+      data: { idx: postId },
+      dataType: 'json',
+      success: function(response) {
+        if (response.state) {
+          // 답글 데이터로 UI 업데이트
+          var replyBox = $('#reply_box' + postId);
+          replyBox.empty();
+          $.each(response.replies, function(i, reply) {
+            var dateToShow = (new Date(reply.regdate).toDateString() === new Date().toDateString()) 
+                      ? reply.regdate.substr(11, 5) 
+                      : reply.regdate.substr(0, 10);
+            // 답글 데이터를 HTML로 변환하여 추가
+            replyBox.append(`
+            <div class="border-b border-gray-500 flex justify-between place-items-center p-5 bg-[#1f1f1f] duration-200 rounded shadow-md">
+
+              <div class="flex gap-3 w-full">
+                <span class="material-symbols-outlined rotate-180 text-[#9f9f9f] ">
+                  reply
+                </span>
+                <a href="/freeboard/${reply.idx}" class="h-30  w-full">
+                  <p class="duration-200 hover:translate-y-1 hover:text-white">
+                    ${reply.title}
+                  </p>
+                </a>
+              </div>
+              <div class="flex text-xs text-[#9f9f9f] place-items-center">
+                <div class="p-2 flex gap-2 place-items-center">
+                  <span class="material-symbols-outlined">
+                    person
+                  </span>
+                  <p class="text-base text-white font-[s-core6]">${reply.user_id}</p>
+                </div>
+                <div class="p-2 flex gap-2 place-items-center">
+                  <span class="material-symbols-outlined text-md">
+                    visibility
+                  </span>
+                  <p class="text-md font-[s-core6]">${reply.hit}</p>
+                </div>
+                <div class="p-2 flex gap-2 place-items-center">
+                  <span class="material-symbols-outlined text-md">
+                    thumb_up
+                  </span>
+                  <p class="text-md font-[s-core6]">${reply.like_count}</p>
+                </div>
+                <div class="p-2 flex gap-2 place-items-center">
+                  <span class="material-symbols-outlined text-md">
+                    thumb_down
+                  </span>
+                  <p class="text-md font-[s-core6]">${reply.dislike_count}</p>
+                </div>
+                <div class="p-2 flex gap-2 place-items-center">
+                  <span class="material-symbols-outlined text-md">
+                    schedule
+                  </span>
+                  <p class="min-w-[70px] text-md font-[s-core6] whitespace-nowrap">${dateToShow}</p>
+                </div>
+              </div>
+
+            </div>
+            `);
+          });
+        } else {
+          // alert('답글을 불러오는 데 실패했습니다.');
+          alert('답글이 존재하지 않습니다.');
+        }
+      },
+      error: function() {
+        alert('답글을 불러오는 중 오류가 발생했습니다.');
+      }
+    });
+
+  }
+
+  console.log('게시글 답글 보기: ', $(this).val());
+});
 
 // 게시판 목록을 가져오는 AJAX 호출
 function fetchBoardList(page) {
