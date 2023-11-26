@@ -123,30 +123,32 @@
             
           </div>
 
-          <a href="/freeboard/${li.idx}" class="w-full flex gap-3 duration-200 hover:translate-y-1 hover:text-white">
+          <a href=
+          "${(li.board_state == true && li.board_delete == false) ? `/freeboard/${li.idx}` : '#' }" 
+          class="w-full flex gap-3 duration-200 hover:translate-y-1 hover:text-white">
           
-            <p class="">
+            <p class="${(li.board_state == true && li.board_delete == false) ? '' : 'line-through decoration-red-400 decoration-4' }">
               ${li.title}
             </p>
 
             <div class="flex gap-2">
 
               <div class="wrap ${li.board_state == true && 'hidden'}">
-                <span class="material-symbols-outlined duration-200 hover:opacity-80 text-[#9f9f9f]">
+                <span class="material-symbols-outlined duration-200 hover:opacity-80 animate-pulse text-[#9f9f9f]">
                   preview_off
                 </span>
                 <div class="tooltip text-sm shadow-2xl">게시글 비공개</div>
               </div>
 
               <div class="wrap ${li.board_comment == true && 'hidden'}">
-                <span class="material-symbols-outlined duration-200 hover:opacity-80 text-[#9f9f9f]">
+                <span class="material-symbols-outlined duration-200 hover:opacity-80 animate-pulse text-[#9f9f9f]">
                   speaker_notes_off
                 </span>
                 <div class="tooltip text-sm shadow-2xl">댓글 작성 비허용</div>
               </div>
 
               <div class="wrap ${li.board_delete == false && 'hidden'}">
-                <span class="material-symbols-outlined duration-200 hover:opacity-80 text-[#9f9f9f]">
+                <span class="material-symbols-outlined duration-200 hover:opacity-80 animate-pulse text-[#9f9f9f]">
                   delete
                 </span>
                 <div class="tooltip text-sm shadow-2xl">게시글 삭제된 상태</div>
