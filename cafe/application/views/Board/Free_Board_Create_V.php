@@ -19,7 +19,7 @@
       </p>
     </div>
 
-    <div class="bg-[#2f2f2f] p-5 flex flex-col gap-5 border border-gray-500 rounded">
+    <div class="bg-[#2f2f2f] p-5 flex flex-col gap-5 border border-[#4f4f4f] shadow-2xl rounded">
 
       <div class="">
         <p>
@@ -142,6 +142,7 @@
     previewStyle: 'vertical',
     usageStatistics: false,
     theme: 'dark',
+    language: 'ko',
     initialValue: '',
     hooks: {
       addImageBlobHook: (blob, callback) => {

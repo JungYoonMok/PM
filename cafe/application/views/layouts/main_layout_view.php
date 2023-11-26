@@ -94,6 +94,39 @@
       }
     }
 
+  /* 툴팁 */
+  .wrap{
+    position: relative; 
+    display: inline-block;
+  }
+  .tooltip{
+    width: 200px;
+    position:absolute; 
+    left:0px; 
+    top:52px; 
+    background: #1f1f1f; 
+    border: 1px solid #4f4f4f;
+    padding: 10px; 
+    border-radius:5px; 
+    color: #fff; 
+    text-align: center; 
+    display: none;
+  }
+  .tooltip:after{
+    display: block; 
+    content: ''; 
+    position: absolute; 
+    top: -7px; 
+    left:15px; 
+    width: 0px; 
+    height: 0px; 
+    border-top: 8px solid none; 
+    border-left: 8px solid transparent; 
+    border-right: 8px solid transparent; 
+    border-bottom: 8px solid #1f1f1f;
+  } 
+  .wrap:hover .tooltip{display: block;}
+
   </style>
 
   <!-- tailwind -->

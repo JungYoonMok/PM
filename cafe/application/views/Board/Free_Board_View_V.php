@@ -19,7 +19,7 @@
       </div>
       
       <div class="flex justify-between place-items-center">
-        <a href="/Free_Board_Create_C" class="border outline-none border-[#4f4f4f] py-3 px-16 rounded hover:bg-[#2f2f2f] duration-200 bg-[#1f1f1f]">
+        <a href="/post_create" class="border outline-none border-[#4f4f4f] py-3 px-16 rounded hover:bg-[#2f2f2f] duration-200 bg-[#1f1f1f]">
           <p>글쓰기</p>
         </a>
         <div class="flex gap-5 bg-[#1f1f1f] px-5 py-3">
@@ -85,7 +85,7 @@
 <script>
 
   // AJAX 요청 성공 시 호출되는 함수
-function updateTableWithFetchedData(list, links) {
+  function updateTableWithFetchedData(list, links) {
   // 테이블의 tbody 요소를 선택
   var tableBody = $('#table');
   // 기존의 내용을 비움
@@ -100,11 +100,18 @@ function updateTableWithFetchedData(list, links) {
       <div>
 
         <div class="hover:bg-[#3f3f3f] border-dashed border-2 duration-200 rounded shadow-md hover:shadow-xl border-[#4f4f4f] p-2 flex flex-col gap-3">
+          
           <div class="flex justify-between place-items-center">
+
             <div class="flex gap-1 place-items-center">
-              <p class="text-sm">${li.idx}</p>
-              <p class="p-2">${li.user_id}</p>
+              <p class="text-sm">
+                ${li.idx}
+              </p>
+              <p class="p-2">
+                ${li.user_id}
+              </p>
             </div>
+
             <div class="p-2 flex gap-2 text-sm text-[#9f9f9f] place-items-center">
               <span class="material-symbols-outlined">
                 schedule
@@ -113,51 +120,94 @@ function updateTableWithFetchedData(list, links) {
                 ${dateToShow}
               </p>
             </div>
+            
           </div>
-          <div class="">
-            <a href="/freeboard/${li.idx}" class="">
-              <p class="duration-200 hover:translate-y-1 hover:text-white">
-                ${li.title}
-              </p>
-            </a>
-          </div>
-          <div class="flex justify-between">
-            <div class="flex text-xs text-[#9f9f9f] place-items-center">
-              <div class="p-2 flex gap-2 place-items-center">
+
+          <a href="/freeboard/${li.idx}" class="w-full flex gap-3 duration-200 hover:translate-y-1 hover:text-white">
+          
+            <p class="">
+              ${li.title}
+            </p>
+
+            <div class="flex gap-2">
+
+              <div class="wrap ${li.board_state == true && 'hidden'}">
+                <span class="material-symbols-outlined duration-200 hover:opacity-80 text-[#9f9f9f]">
+                  preview_off
+                </span>
+                <div class="tooltip text-sm shadow-2xl">게시글 비공개</div>
+              </div>
+
+              <div class="wrap ${li.board_comment == true && 'hidden'}">
+                <span class="material-symbols-outlined duration-200 hover:opacity-80 text-[#9f9f9f]">
+                  speaker_notes_off
+                </span>
+                <div class="tooltip text-sm shadow-2xl">댓글 작성 비허용</div>
+              </div>
+
+              <div class="wrap ${li.board_delete == false && 'hidden'}">
+                <span class="material-symbols-outlined duration-200 hover:opacity-80 text-[#9f9f9f]">
+                  delete
+                </span>
+                <div class="tooltip text-sm shadow-2xl">게시글 삭제된 상태</div>
+              </div>
+
+            </div>
+
+          </a>
+
+          <div class="flex justify-between duration-200">
+
+            <div class="flex text-xs duration-200 text-[#9f9f9f] place-items-center">
+
+              <div class="p-2 flex gap-2 duration-200 place-items-center">
                 <span class="material-symbols-outlined">
                   visibility
                 </span>
-                <p>${li.hit}</p>
+                <p>
+                  ${li.hit}
+                </p>
               </div>
-              <div class="p-2 flex gap-2 place-items-center">
+
+              <div class="p-2 flex gap-2 duration-200 place-items-center">
                 <span class="material-symbols-outlined">
                   thumb_up
                 </span>
-                <p>${li.like_count}</p>
+                <p>
+                  ${li.like_count}
+                </p>
               </div>
-              <div class="p-2 flex gap-2 place-items-center">
+
+              <div class="p-2 flex gap-2 duration-200 place-items-center">
                 <span class="material-symbols-outlined">
                   thumb_down
                 </span>
-                <p>${li.dislike_count}</p>
+                <p>
+                  ${li.dislike_count}
+                </p>
               </div>
+
             </div>
 
-            <div class="${li.reply_count > 0 ? '' : 'hidden'} p-2 flex gap-2 place-items-center">
+            <div class="${li.reply_count > 0 ? '' : 'hidden'} p-2 flex duration-200 gap-2 place-items-center">
               <span class="material-symbols-outlined rotate-180 text-[#9f9f9f]">
                 reply
               </span>
-              <button id="post_reply_show_btn" value="${li.idx}" class="hover:opacity-80 duration-200 hover:underline">
-                답글보기 ${li.reply_count}개
+              <button id="post_reply_show_btn" value="${li.idx}" class="hover:opacity-80 duration-200 hover:underline flex gap-1">
+                <p id="post_reply_text${li.idx}">
+                  답글보기
+                </p>
+                <p>
+                  ${li.reply_count}개
+                </p>
               </button>
             </div>
 
           </div>
+
         </div>
 
-        <div hidden id="reply_box${li.idx}">
-          
-        </div>
+        <div hidden id="reply_box${li.idx}"></div>
 
       </div>
     `);
@@ -169,6 +219,12 @@ function updateTableWithFetchedData(list, links) {
   $(document).on('click', '#post_reply_show_btn', function(e) {
   e.preventDefault();
   var postId = $(this).val();
+
+  if($('#post_reply_text' + $(this).val() ).text() == '답글접기') {
+    $('#post_reply_text' + $(this).val() ).text('답글보기');
+  } else {
+    $('#post_reply_text' + $(this).val() ).text('답글접기');
+  }
 
   if($('#reply_box' + $(this).val() ).hasClass('hidden')) {
     $('#reply_box' + $(this).val() ).removeClass('hidden');
@@ -196,47 +252,84 @@ function updateTableWithFetchedData(list, links) {
             replyBox.append(`
             <div class="border-b border-gray-500 flex justify-between place-items-center p-5 bg-[#1f1f1f] duration-200 rounded shadow-md">
 
-              <div class="flex gap-3 w-full">
+              <div class="flex place-items-center gap-3 w-full duration-200">
+              
                 <span class="material-symbols-outlined rotate-180 text-[#9f9f9f] ">
                   reply
                 </span>
-                <a href="/freeboard/${reply.idx}" class="h-30  w-full">
-                  <p class="duration-200 hover:translate-y-1 hover:text-white">
+
+                <a href="/freeboard/${reply.idx}" class="h-30 gap-3 flex w-full duration-200 hover:translate-y-1 hover:text-white">
+                  <p class="">
                     ${reply.title}
                   </p>
+
+                  <div class="flex gap-2">
+
+                    <div class="wrap ${reply.board_state == true && 'hidden'}">
+                      <span class="material-symbols-outlined duration-200 hover:opacity-80 text-[#9f9f9f]">
+                        preview_off
+                      </span>
+                      <div class="tooltip text-sm shadow-2xl">게시글 비공개</div>
+                    </div>
+
+                    <div class="wrap ${reply.board_comment == true && 'hidden'}">
+                      <span class="material-symbols-outlined duration-200 hover:opacity-80 text-[#9f9f9f]">
+                        speaker_notes_off
+                      </span>
+                      <div class="tooltip text-sm shadow-2xl">댓글 작성 비허용</div>
+                    </div>
+
+                    <div class="wrap ${reply.board_delete == false && 'hidden'}">
+                      <span class="material-symbols-outlined duration-200 hover:opacity-80 text-[#9f9f9f]">
+                        delete
+                      </span>
+                      <div class="tooltip text-sm shadow-2xl">게시글 삭제된 상태</div>
+                    </div>
+
+                  </div>
+
                 </a>
+
               </div>
-              <div class="flex text-xs text-[#9f9f9f] place-items-center">
+
+              <div class="flex text-xs text-[#9f9f9f] duration-200 place-items-center">
+
                 <div class="p-2 flex gap-2 place-items-center">
                   <span class="material-symbols-outlined">
                     person
                   </span>
-                  <p class="text-base text-white font-[s-core6]">${reply.user_id}</p>
+                  <p class="text-base text-white font-[s-core6]">
+                    ${reply.user_id}
+                  </p>
                 </div>
+
                 <div class="p-2 flex gap-2 place-items-center">
                   <span class="material-symbols-outlined text-md">
                     visibility
                   </span>
-                  <p class="text-md font-[s-core6]">${reply.hit}</p>
+                  <p class="text-md font-[s-core6]">
+                    ${reply.hit}
+                  </p>
                 </div>
+
                 <div class="p-2 flex gap-2 place-items-center">
                   <span class="material-symbols-outlined text-md">
-                    thumb_up
+                    thumbs_up_down
                   </span>
-                  <p class="text-md font-[s-core6]">${reply.like_count}</p>
+                  <p class="text-md font-[s-core6] ${reply.like_count - reply.dislike_count < 0 ? 'text-red-400' : 'text-gray-300'}">
+                    ${reply.like_count - reply.dislike_count}
+                  </p>
                 </div>
-                <div class="p-2 flex gap-2 place-items-center">
-                  <span class="material-symbols-outlined text-md">
-                    thumb_down
-                  </span>
-                  <p class="text-md font-[s-core6]">${reply.dislike_count}</p>
-                </div>
+
                 <div class="p-2 flex gap-2 place-items-center">
                   <span class="material-symbols-outlined text-md">
                     schedule
                   </span>
-                  <p class="min-w-[70px] text-md font-[s-core6] whitespace-nowrap">${dateToShow}</p>
+                  <p class="min-w-[70px] text-md font-[s-core6] whitespace-nowrap">
+                    ${dateToShow}
+                  </p>
                 </div>
+
               </div>
 
             </div>
@@ -254,7 +347,6 @@ function updateTableWithFetchedData(list, links) {
 
   }
 
-  console.log('게시글 답글 보기: ', $(this).val());
 });
 
 // 게시판 목록을 가져오는 AJAX 호출
@@ -314,7 +406,6 @@ $(document).ready(function() {
     },
     dataType: "json",
     success: function(response) {
-      console.log(response);
       if(response.state) {
         $('.pagination').show();
         // 테이블 초기화

@@ -5,19 +5,19 @@
 }
 .parallax > use:nth-child(1) {
   animation-delay: -2s;
-  animation-duration: 7s;
+  animation-duration: 9s;
 }
 .parallax > use:nth-child(2) {
-  animation-delay: -3s;
-  animation-duration: 10s;
-}
-.parallax > use:nth-child(3) {
-  animation-delay: -4s;
+  animation-delay: -5s;
   animation-duration: 13s;
 }
+.parallax > use:nth-child(3) {
+  animation-delay: -8s;
+  animation-duration: 17s;
+}
 .parallax > use:nth-child(4) {
-  animation-delay: -5s;
-  animation-duration: 20s;
+  animation-delay: -11s;
+  animation-duration: 24s;
 }
 @keyframes move-forever {
   0% {
@@ -58,7 +58,7 @@
         <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
         <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
         <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
-        <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+        <use xlink:href="#gentle-wave" x="48" y="7" fill="rgba(255,255,255,0.10)" />
       </g>
     </svg>
   </div>

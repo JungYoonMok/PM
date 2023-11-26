@@ -125,10 +125,6 @@
 
             <!-- 출력 -->
             <div class="toast-custom-viewer text-white">
-              
-              <!-- composer -->
-              <!-- <? require './assets/parsedown-master/Parsedown.php'; $Parsedown = new Parsedown();?>
-              <?= $post->board_delete ? '' : $Parsedown->text($post->content); ?> -->
 
             </div>
             
