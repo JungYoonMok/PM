@@ -5,7 +5,6 @@ $route['default_controller'] = 'main';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-
 // 라우터 커스텀
 $route['freeboard/list'] = 'free_board_view_c/list';
 $route['freeboard/list/(:num)'] = 'free_board_view_c/list/$1';

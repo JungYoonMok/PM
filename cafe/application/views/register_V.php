@@ -13,7 +13,8 @@
       
       <!-- 프로필사진 별명 -->
       <div class="flex gap-5 place-items-center justify-center p-3 bg-[#4f4f4f] rounded">
-        <div
+
+        <!-- <div
           class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border border-gray-500 h-20 w-20  bg-[#3f3f3f]">
           <img width="100%" src="https://pds.saramin.co.kr/workenv-bg/202303/09/rr8njw_y8e6-w09k06_workenv-bg.png"
             class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full border border-gray-500">
@@ -24,17 +25,16 @@
               settings
             </a>
           </div>
-        </div>
+        </div> -->
+
         <!-- 별명 -->
-        <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-2 w-full">
           <h2>별명(닉네임)</h2>
-          <div>
-            <input name='user_nickname' id='user_nickname' placeholder="김아무개"
-              class="duration-200 border border-gray-500 hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none"
-              type="text" />
-            <button class="p-3 rounded bg-blue-500">사용</button>
-          </div>
+          <input name='user_nickname' id='user_nickname' placeholder="김아무개"
+            class="duration-200 border border-gray-500 hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none"
+            type="text" />
         </div>
+
       </div>
 
       <!-- 구분선 -->

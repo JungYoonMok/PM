@@ -23,7 +23,7 @@
           <p>글쓰기</p>
         </a>
         <div class="flex gap-5 bg-[#1f1f1f] px-5 py-3">
-          <p class="">전체</p>
+          <p class="">정렬</p>
           <p class="text-[#4f4f4f]">|</p>
           <p class="">최신순</p>
         </div>
@@ -97,9 +97,14 @@
                       ? li.regdate.substr(11, 5) 
                       : li.regdate.substr(0, 10);
       tableBody.append(`
-      <div>
+      <div class="
+      ${(li.board_state == true && li.board_delete == false) ? '' : 'opacity-80' }
+      ">
 
-        <div class="hover:bg-[#3f3f3f] border-dashed border-2 duration-200 rounded shadow-md hover:shadow-xl border-[#4f4f4f] p-2 flex flex-col gap-3">
+        <div class="
+        border border-[#4f4f4f] duration-200 rounded shadow-md hover:shadow-xl p-2 flex flex-col gap-3
+        ${(li.board_state == true && li.board_delete == false) ? 'bg-[#1f1f1f] hover:bg-[#2f2f2f]' : 'bg-[#2f2f2f] '}
+        ">
           
           <div class="flex justify-between place-items-center">
 
@@ -123,13 +128,11 @@
             
           </div>
 
-          <a href=
-          "${(li.board_state == true && li.board_delete == false) ? `/freeboard/${li.idx}` : '#' }" 
-          class="w-full flex gap-3 duration-200 hover:translate-y-1 hover:text-white">
-          
-            <p class="${(li.board_state == true && li.board_delete == false) ? '' : 'line-through decoration-red-400 decoration-4' }">
-              ${li.title}
-            </p>
+          <a href="${(li.board_state == true && li.board_delete == false) ? `/freeboard/${li.idx}` : '#' }" 
+          class="
+          ${(li.board_state == true && li.board_delete == false) ? 'hover:translate-y-1' : '' }
+          w-full flex gap-1 duration-200 hover:text-white
+          ">
 
             <div class="flex gap-2">
 
@@ -156,6 +159,19 @@
 
             </div>
 
+            <p class="">
+              ${li.title}
+            </p>
+
+            <div>
+              <span class="material-symbols-outlined">
+                ${li.content.indexOf('<img') != -1 ? 'image' : ''}
+              </span>
+              <span class="material-symbols-outlined">
+                ${li.file_path ? 'attachment' : ''}
+              </span>
+            </div>
+          
           </a>
 
           <div class="flex justify-between duration-200">

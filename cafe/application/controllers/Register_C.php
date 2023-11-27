@@ -15,7 +15,7 @@ class Register_C extends CI_Controller
     $ssData = [
       'user_name' => $this->session->userdata('user_name'),
       'user_nickname' => $this->session->userdata('user_nickname'),
-      'user_frofile' => $this->session->userdata('user_frofile'),
+      'user_profile' => $this->session->userdata('user_profile'),
       'user_email' => $this->session->userdata('user_email'),
       'user_phone' => $this->session->userdata('user_phone'),
       'user_memo' => $this->session->userdata('user_memo'),

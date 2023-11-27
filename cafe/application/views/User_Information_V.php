@@ -2,27 +2,49 @@
 
 <div class="">
 
+  <!-- 메인 틀 -->
   <div class="flex flex-col gap-5 m-5 rounded text-gray-50">
+    
+    <!-- 프로필 사진 -->
+    <div class="flex justify-between rounded-tl-md rounded-tr-md gap-5 shadow-2xl border border-[#4f4f4f] bg-[#2f2f2f] p-5">
 
-    <!-- 메인 틀 -->
-    <div class="flex flex-col rounded-tl-md rounded-tr-md gap-5 shadow-2xl border border-[#4f4f4f] bg-[#2f2f2f] p-5">
-
-      <!-- 내 정보 -->
-      <div class="py-5">
+      <!-- 좌측 -->
+      <div class="p-5 flex flex-col gap-5">
 
         <!-- 프로필 -->
-        <div class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border border-gray-500 h-20 w-20  bg-[#3f3f3f]">
-          <!-- <p class="material-symbols-outlined text-5xl text-gray-400 cursor-help hover:animate-bounce">
-            person
-          </p> -->
-          <img width="100%" src="https://pds.saramin.co.kr/workenv-bg/202303/09/rr8njw_y8e6-w09k06_workenv-bg.png"
-            class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400 cursor-help hover:animate-bounce">
-          </img>
-          <div class="absolute right-[0px] bottom-[-8px] w-8 h-8">
-            <a href="#" class="bg-[#2f2f2f] rounded-[50%] p-1 cursor-pointer material-symbols-outlined hover:animate-spin">
-              settings
-            </a>
-          </div>
+        <div class="relative drop-shadow-2xl rounded-[50%] place-content-center border border-gray-500 h-20 w-20 bg-[#3f3f3f]">
+          <? if ($this->session->userdata('user_profile') == '' || null) : ?>
+            <p class="material-symbols-outlined text-5xl text-gray-400 flex place-items-center justify-center">
+              person
+            </p>
+          <? else : ?>
+            <img width="100%" src="./uploads/<?= $this->session->userdata('user_profile') ?>"
+              class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400 duration-200 hover:scale-125">
+            </img>
+          <? endif ?>
+        </div>
+
+        <!-- 파일 업로드 -->
+        <form id="upload_form" enctype="multipart/form-data" class="flex flex-col gap-3">
+          <input type="file" name="userfile" />
+          <button id="upload_button" class="p-3 bg-blue-500 rounded hover:translate-y-1 duration-200">
+            적용하기
+          </button>
+        </form>
+
+      </div>
+
+      <!-- 우측 -->
+      <div class="p-5 w-full flex flex-col gap-3">
+        <p>과거 프로필 사진</p>
+
+        <div class="flex-wrap grid grid-cols-3 grid-rows-3 gap-1">
+          <? foreach($user_profile_show as $row) : ?>
+            <div class="flex justify-center place-items-center border p-1 rounded border-[#4f4f4f]">
+              <!-- <p><?= $row->idx ?></p> -->
+              <img src="./uploads/<?= $row->file_name?>" class="w-20"></img>
+            </div>
+          <? endforeach ?>
         </div>
 
       </div>
@@ -377,6 +399,34 @@
         console.log(s);
         console.log(e);
       }
+    });
+  });
+
+  // 파일 업로드
+  $(document).ready(function(){
+    $('#upload_button').click(function(e){
+      e.preventDefault();
+      var formData = new FormData($('#upload_form')[0]);
+
+      if($('#upload_form input[name=userfile]').val() == ''){
+        alert('업로드하실 이미지를 선택해 주세요');
+        return false;
+      }
+
+      $.ajax({
+        url: '/user_information_c/profile_upload',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+          // console.log('성공: ', data);
+          location.reload();
+        },
+        error: function(data) {
+          // console.log('실패: ', data);
+        }
+      });
     });
   });
 

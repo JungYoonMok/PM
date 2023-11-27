@@ -23,14 +23,19 @@
         <!-- 프로필 -->
         <div
           class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border border-gray-500 h-20 w-20  bg-[#3f3f3f]">
-          <!-- <p class="material-symbols-outlined text-5xl text-gray-400 cursor-help hover:animate-bounce">
-            person
-          </p> -->
-          <img width="100%" src="https://pds.saramin.co.kr/workenv-bg/202303/09/rr8njw_y8e6-w09k06_workenv-bg.png"
-            class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400 cursor-help hover:animate-bounce">
-          </img>
+
+          <? if ($this->session->userdata('user_profile') == '' || null) : ?>
+            <p class="material-symbols-outlined text-5xl text-gray-400 flex place-items-center justify-center">
+              person
+            </p>
+          <? else : ?>
+            <img width="100%" src="./uploads/<?= $this->session->userdata('user_profile') ?>"
+              class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400 duration-200 hover:scale-125">
+            </img>
+          <? endif ?>
+
           <div class="absolute right-[0px] bottom-[-8px] w-8 h-8">
-            <a href="#"
+            <a href="/user_information_c"
               class="bg-[#2f2f2f] rounded-[50%] p-1 cursor-pointer material-symbols-outlined hover:animate-spin duration-200">
               settings
             </a>

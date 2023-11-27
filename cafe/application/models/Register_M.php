@@ -15,7 +15,7 @@ class Register_M extends CI_Model
     $nickName = $this->input->post('nName');
     $ID = $this->input->post('id');
     $Name = $this->input->post('name');
-    $Frofile = "없음"; // 나중에 구현
+    $Frofile = ""; // 나중에 구현
 
     $Password_1 = $this->input->post('password_1');
     $Password_2 = $this->input->post('password_2');
@@ -45,7 +45,7 @@ class Register_M extends CI_Model
       'user_phone' => $Phone_1 . "-" . $Phone_2 . "-" . $Phone_3,
       'user_email' => $Email,
       'user_memo' => $Memo,
-      'user_frofile' => $Frofile,
+      'user_profile' => $Frofile,
       'regdate' => date("Y-m-d H:i:s")
     ];
 

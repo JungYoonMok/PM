@@ -57,7 +57,7 @@ class Login_C extends CI_Controller
         $user_data = [
           'user_name' => $data['user_name'],
           'user_nickname' => $data['user_nickname'],
-          'user_frofile' => $data['user_frofile'],
+          'user_profile' => $data['user_profile'],
           'user_email' => $data['user_email'],
           'user_phone' => $data['user_phone'],
           'user_memo' => $data['user_memo'],

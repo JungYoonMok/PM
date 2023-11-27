@@ -15,6 +15,29 @@ defined('BASEPATH') or exit('No direct script access allowed');
       return $user_data;
     }
 
+    public function profile_upload($file_data) {
+      try {
+        // 파일 업로드
+        $this->db->insert('upload_file', $file_data);
+
+        // 업로드한 파일로 수정
+        $this->db->set('user_profile', $file_data['file_name']);
+        $this->db->where('user_id', $this->session->userdata('user_id'));
+        $this->db->update('members');
+        
+        return TRUE;
+      } catch (Exception $e) {
+        log_message('error', '프로필 사진 업로드 실패: ' . $e->getMessage());
+        return FALSE;
+      }
+    }
+
+    public function user_profile_show($user_id) {
+      $data = $this->db->get_where('upload_file', [ 'boards_idx' => '0', 'user_id' => $user_id ]);
+      // $check = $this->db->get_where('board_like', [ 'boards_idx' => $data['boards_idx'], 'user_id' => $data['user_id'] ] )->row();
+      return $data->result();
+    }
+
     public function update_nickname($data)
     {
       $this->db->where( 'user_id', $data['user_id'] );

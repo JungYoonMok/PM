@@ -1,8 +1,8 @@
 // ajax 게시글 등록
   function like_up($idx){
-    if(!confirm('좋아요를 누르시겠습니까? (변경은 불가능합니다)')) {
-      return;
-    }
+    // if(!confirm('좋아요를 누르시겠습니까? (변경은 불가능합니다)')) {
+    //   return;
+    // }
     $.ajax({
       url: '/free_board_detail_c/board_like',
       type: 'post',
@@ -27,9 +27,9 @@
   };
 
   function like_down($idx){
-    if(!confirm('싫어요를 누르시겠습니까? (변경은 불가능합니다)')) {
-      return;
-    }
+    // if(!confirm('싫어요를 누르시겠습니까? (변경은 불가능합니다)')) {
+    //   return;
+    // }
     $.ajax({
       url: '/free_board_detail_c/board_like',
       type: 'post',
