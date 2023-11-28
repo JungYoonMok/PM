@@ -29,8 +29,8 @@
               person
             </p>
           <? else : ?>
-            <img width="100%" src="./uploads/<?= $this->session->userdata('user_profile') ?>"
-              class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400 duration-200 hover:scale-125">
+            <img width="100%" src="/uploads/<?= $this->session->userdata('user_profile') ?>"
+              class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400 duration-200">
             </img>
           <? endif ?>
 

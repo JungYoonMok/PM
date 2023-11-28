@@ -34,15 +34,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     public function user_profile_show($user_id) {
       $data = $this->db->get_where('upload_file', [ 'boards_idx' => '0', 'user_id' => $user_id ]);
-      // $check = $this->db->get_where('board_like', [ 'boards_idx' => $data['boards_idx'], 'user_id' => $data['user_id'] ] )->row();
-      return $data->result();
+      if($data->num_rows() > 0) {
+        return $data->result();
+      } else {
+        return FALSE;
+      }
     }
 
     public function update_nickname($data)
     {
       $this->db->where( 'user_id', $data['user_id'] );
       $this->db->update('members', [ 'user_nickname' => $data['user_nickname'] ]);
-      // $this->db->update('boards', ['board_delete' => TRUE, 'delete_date' => date("Y-m-d H:i:s")]);
 
       if ($this->db->affected_rows() > 0) {
         return TRUE;

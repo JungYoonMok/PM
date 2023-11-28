@@ -20,9 +20,22 @@ class User_information_C extends CI_Controller
 
     $user_id = $this->session->userdata('user_id');
     $data['user'] = $this->model->user_data($user_id);
-    $data['user_profile_show'] = $this->model->user_profile_show($user_id);
+    // $data['user_profile_show'] = $this->user_profile_show();
 
     $this->layout->custom_view('User_information_V', $data);
+  }
+
+  public function user_profile_show() {
+    $user_id = $this->session->userdata('user_id');
+    $result = $this->model->user_profile_show($user_id);
+
+    if($result) {
+      echo json_encode(['state' => TRUE, 'message' => '프로필 사진 조회 성공', 'data' => $result]);
+      return TRUE;
+    } else {
+      echo json_encode(['state' => FALSE, 'message' => '프로필 사진 조회 실패']);
+      return FALSE;
+    }
   }
 
   public function profile_upload() {

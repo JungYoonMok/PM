@@ -91,7 +91,14 @@
           </div>
 
           <!-- 첨부파일 -->
-          <input type="file" name="userfile"/>
+          <input type="file" name="userfile" 
+          class="
+            file:mr-4 file:py-2 file:px-4
+            file:rounded-full file:border-0
+            file:text-sm file:font-semibold
+          file:bg-[#3f3f3f] file:text-white
+          hover:file:bg-[#4f4f4f] duration-200"
+          "/>
 
           <!-- 구분선 -->
           <div class="border-b border-gray-500"></div>

@@ -148,10 +148,17 @@
 <body>
 
     <!-- 베이스 -->
-    <div id="base" class="w-full h-full flex relative duration-200 pl-[300px]">
-      
+    <div id="base" 
+    class="
+    <?= $this->uri->segment(1) == 'login' ? '' : 'pl-[300px]' ?>
+    <?= $this->uri->segment(1) == 'register' ? '' : 'pl-[300px]' ?>
+    w-full h-full flex relative duration-200 ">
       <!-- 사이드 -->
-      <div id="menu" class="fixed left-0 w-[300px] h-full">
+      <div id="menu" 
+      class="
+      <?= $this->uri->segment(1) == 'login' ? 'hidden' : '' ?> 
+      <?= $this->uri->segment(1) == 'register' ? 'hidden' : '' ?> 
+      fixed left-0 w-[300px] h-full">
         <!-- 여닫기 -->
         <div class="bg-[#2f2f2f] pr-5 pt-5 text-right border-r border-[#5f5f5f]">
           <button id="munu_name" onclick=SideBarTab() 
@@ -272,6 +279,8 @@
   }
 }
 
+// 로그인 회원가입 페이지 제외
+if(!location.pathname == '/login' || !location.pathname == '/register') {
   let sidebarState = localStorage.getItem('sidebar');
   let main = document.getElementById('main');
 
@@ -300,6 +309,7 @@
     $('#base').removeClass('pl-[65px]');
     $('#base').addClass('pl-[300px]');
   }
+}
 
 // 스크롤바 존재 여부
 $(document).ready(function() {

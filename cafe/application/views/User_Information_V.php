@@ -19,14 +19,20 @@
             </p>
           <? else : ?>
             <img width="100%" src="./uploads/<?= $this->session->userdata('user_profile') ?>"
-              class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400 duration-200 hover:scale-125">
+              class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400 duration-200">
             </img>
           <? endif ?>
         </div>
 
         <!-- 파일 업로드 -->
         <form id="upload_form" enctype="multipart/form-data" class="flex flex-col gap-3">
-          <input type="file" name="userfile" />
+          <input type="file" name="userfile" 
+          class="
+            file:mr-4 file:py-2 file:px-4
+            file:rounded-full file:border-0
+            file:text-sm file:font-semibold
+          file:bg-[#3f3f3f] file:text-white
+          hover:file:bg-[#4f4f4f] duration-200" />
           <button id="upload_button" class="p-3 bg-blue-500 rounded hover:translate-y-1 duration-200">
             적용하기
           </button>
@@ -36,16 +42,10 @@
 
       <!-- 우측 -->
       <div class="p-5 w-full flex flex-col gap-3">
-        <p>과거 프로필 사진</p>
 
-        <div class="flex-wrap grid grid-cols-3 grid-rows-3 gap-1">
-          <? foreach($user_profile_show as $row) : ?>
-            <div class="flex justify-center place-items-center border p-1 rounded border-[#4f4f4f]">
-              <!-- <p><?= $row->idx ?></p> -->
-              <img src="./uploads/<?= $row->file_name?>" class="w-20"></img>
-            </div>
-          <? endforeach ?>
-        </div>
+        <p>과거 프로필 사진</p>
+        <!-- 동적 생성 -->
+        <div id="frofile_old" class="grid grid-cols-6 max-h-48 p-3 rounded overflow-y-scroll scrollbar-hide gap-1"></div>
 
       </div>
 
@@ -428,6 +428,38 @@
         }
       });
     });
+  });
+
+  // 서버에 비동기 데이터 요청
+  $.ajax({
+    url: '/User_Information_C/user_profile_show',
+    type: 'POST',
+    // data: { idx: postId },
+    dataType: 'json',
+    success: function(response) {
+      if (response.state) {
+        // 답글 데이터로 UI 업데이트
+        var frofileBox = $('#frofile_old');
+        frofileBox.empty();
+        $.each(response.data, function(i, frofile) {
+          // var dateToShow = (new Date(frofile.regdate).toDateString() === new Date().toDateString()) 
+          //           ? frofile.regdate.substr(11, 5) 
+          //           : frofile.regdate.substr(0, 10);
+          // 답글 데이터를 HTML로 변환하여 추가
+          frofileBox.append(`
+          <div class="flex justify-center place-items-center border p-1 rounded border-[#4f4f4f]">
+            <img src="/uploads/${frofile.file_name}" title="업로드: ${frofile.regdate}" class="w-20 duration-200 hover:scale-110"></img>
+          </div>
+          `);
+        });
+      } else {
+        // alert('답글을 불러오는 데 실패했습니다.');
+        alert('프로필 사진이 존재하지 않습니다.');
+      }
+    },
+    error: function() {
+      alert('프로필 사진을 불러오는 중 오류가 발생했습니다.');
+    }
   });
 
   // 모달 버튼에 대한 이벤트
