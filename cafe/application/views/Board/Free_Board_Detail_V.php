@@ -11,7 +11,7 @@
   <div class="flex flex-col justify-between w-full h-full">
 
   <!-- 메인 -->
-  <div class="md:mb-20 w-full p-5 flex flex-col gap-5 drop-shadow-2xl">
+  <div class="md:mb-20 w-full p-1 mt-4 md:mt-0 md:p-5 flex flex-col gap-5 drop-shadow-2xl">
 
     <!-- 수정하기, 이전, 다음, 목록 -->
     <div class="flex justify-between gap-3 opacity-90">
@@ -37,8 +37,8 @@
     <div class="bg-[#2f2f2f] p-5 flex flex-col gap-5 border border-[#4f4f4f] rounded">
 
       <!-- 게시글 타입, 제목, 작성날짜-->
-      <div class="flex justify-between">
-        <div class="flex gap-5  place-items-center">
+      <div class="flex flex-col md:flex-row gap-3 md:gap-0 justify-between">
+        <div class="flex gap-5 place-items-center">
           <span class="material-symbols-outlined">
             location_on
           </span>
@@ -64,7 +64,7 @@
       <div class="flex flex-col gap-5">
 
         <!-- 작성자 및 게시글 정보 -->
-        <div class="flex justify-between place-items-center">
+        <div class="flex flex-col md:flex-row gap-3 md:gap-0 justify-between place-items-center">
           <div class="w-full flex gap-3 place-content-start">
             <div
               class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border border-[#4f4f4f] h-14 w-14 bg-[#3f3f3f]">
@@ -81,7 +81,7 @@
               </div>
             </div>
           </div>
-          <div class="flex gap-7 text-sm whitespace-nowrap">
+          <div class="flex flex-wrap gap-7 text-sm">
             <div class="flex gap-2">
               <span class="material-symbols-outlined">
                 visibility
@@ -376,7 +376,7 @@
         <!-- 댓글 작성 -->
         <div class="<?= $this->session->userdata('user_id') && $post->board_comment ? '' : 'hidden' ?> w-full drop-shadow-2xl text-sm flex flex-col gap-5 bg-[#1f1f1f] p-5 border border-[#4f4f4f]">
         
-          <div class="flex justify-between">
+          <div class="flex flex-wrap justify-between">
             <div class="gap-5 flex">
               <p><?= $post->title ?></p>
               <p> 〉</p>
@@ -448,8 +448,8 @@
     </div>
 
     <!-- 해당 게시판 최근 리스트 -->
-    <div class="bg-[#2f2f2f] border w-full border-[#4f4f4f] p-5 rounded flex flex-col gap-5 drop-shadow-2xl">
-      <table class="text-gray-50 text-center">
+    <div class="bg-[#2f2f2f] border w-full border-[#4f4f4f] overflow-x-auto overflow-y-hidden p-5 rounded flex flex-col gap-5 drop-shadow-2xl">
+      <table class="text-gray-50 text-center whitespace-nowrap">
         <th>번호</th>
         <th>ID</th>
         <th>분류</th>

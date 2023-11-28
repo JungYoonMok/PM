@@ -8,7 +8,7 @@
 <div id="base" class="flex duration-200 bg-[#3f3f3f] text-gray-50 w-full relative">
 
   <!-- 메인 -->
-  <div class="md:mb-20 w-full p-5 flex flex-col gap-5">
+  <div class="md:mb-20 w-full p-1 md:p-5 flex flex-col gap-5">
 
     <!-- 계정 정보가 일치하지 않을시 -->
     <div id='error_form'
@@ -36,10 +36,10 @@
         <form class="flex flex-col gap-5" action="<?= $this->uri->segment(1) == 'post_create' ? '/free_board_create_c/create' : '/free_board_create_c/create_reply'?>" method="post" enctype="multipart/form-data">
 
           <!-- 게시판 선택 및 제목 -->
-          <div class="bg-[#2f2f2f] flex gap-5">
+          <div class="bg-[#2f2f2f] flex flex-col md:flex-row gap-5">
 
             <!-- 셀렉터 -->
-            <div class="w-[40%] <?= $this->uri->segment(1) == 'post_create_reply' ? 'hidden' : '' ;?>">
+            <div class="w-full md:w-[40%] <?= $this->uri->segment(1) == 'post_create_reply' ? 'hidden' : '' ;?>">
               <select id='post_type' name='post_type' required value="안녕"
                 class="outline-none w-full text-whith rounded bg-[#4f4f4f] p-3">
                 <option class="" hidden value="안녕2" disabled selected>게시판 선택</option>
@@ -61,7 +61,7 @@
           <div id="editor" class="dark-editor"></div>
 
           <!-- 공개/비공개 -->
-          <div class="flex gap-3">
+          <div class="flex flex-col md:flex-row gap-3">
             <div class="flex flex-col gap-2 w-full">
               <h2>게시글 공개</h2>
               <div class="flex gap-2 w-full">
@@ -106,11 +106,11 @@
           <!-- 게시글 등록 -->
           <div class="w-full text-right">
             <button id='create_btn' name='create_btn'
-              class="p-3 w-[400px] rounded bg-blue-500 duration-200 hover:opacity-80 <?= $this->uri->segment(1) == 'post_create_reply' ? 'hidden' : ''?>">
+              class="p-3 w-full md:w-[400px] rounded bg-blue-500 duration-200 hover:opacity-80 <?= $this->uri->segment(1) == 'post_create_reply' ? 'hidden' : ''?>">
               게시글 등록
             </button>
             <button id='create_reply_btn' name='create_reply_btn'
-              class="p-3 w-[400px] rounded bg-blue-500 duration-200 hover:opacity-80 <?= $this->uri->segment(1) == 'post_create_reply' ? '' : 'hidden'?>">
+              class="p-3 w-full md:w-[400px] rounded bg-blue-500 duration-200 hover:opacity-80 <?= $this->uri->segment(1) == 'post_create_reply' ? '' : 'hidden'?>">
               답글 등록
             </button>
 

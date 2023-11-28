@@ -1,9 +1,9 @@
-<div class="bg-[#3f3f3f] duration-200 text-gray-50 w-full h-full my-5 mb-10">
+<div class="bg-[#3f3f3f] duration-200 text-gray-50">
 
-  <div class="py-10 grid place-items-center">
+  <div class="py-5 md:py-10 p-1 md:p-5 grid place-items-center">
 
     <form id="registerForm" action="/register_C/register" method="post"
-      class="bg-[#2f2f2f] border border-[#4f4f4f] w-[600px] p-5 rounded flex flex-col gap-5 relative drop-shadow-2xl">
+      class="bg-[#2f2f2f] border border-[#4f4f4f] w-full md:w-[600px] p-5 rounded flex flex-col gap-5 relative drop-shadow-2xl">
 
       <!-- 계정 정보가 일치하지 않을시 -->
       <div id='error_form' class="duration-200 hidden flex p-5 animate-pulse gap-3 border bg-red-500 w-full opacity-80 rounded">

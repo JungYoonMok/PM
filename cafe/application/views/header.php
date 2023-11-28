@@ -9,37 +9,51 @@
           <div class="rounded-[50%] w-[50px] duration-200 hover:animate-spin">
             <img src="/assets/image/world1.gif" alt="logo_img">
           </div>
-          <p class="duration-200 hover:-translate-y-1 ">hellow world !!</p>
+          <p class="duration-200 hover:-translate-y-1 text-md md:text-base">
+            hellow world !!
+          </p>
         </a>
       </div>
-
-      <!-- 비회원 -->
-      <div class="<?= $this->session->userdata('user_id') ? 'hidden' : 'inline' ?> fixed right-4 flex gap-3 text-gray-200">
-
-        <a class="hover:bg-[#3f3f3f] font-bold py-3 px-5 rounded hover:scale-90 duration-100" href="/login">
-          로그인
-        </a>
-
-        <!-- 구분 -->
-        <p class="py-2 text-gray-500 text-lg">|</p>
-
-        <a class="hover:bg-[#3f3f3f] font-bold py-3 px-5 rounded hover:scale-90 duration-100" href="/register">
-          회원가입
-        </a>
+      
+      <div class="md:hidden fixed right-4 flex gap-3 text-gray-200">
+        <button>
+          <span class="material-symbols-outlined">
+            list
+          </span>
+        </button>
       </div>
 
-      <!-- 회원 -->
-      <div class="<?= $this->session->userdata('user_id') ? 'inline' : 'hidden' ?> fixed right-4 flex gap-3 text-gray-200">
-        <a class="hover:bg-[#3f3f3f] font-bold py-3 px-5 rounded hover:scale-90 duration-100" href="/user_information_c">
-          내정보
-        </a>
+      <div class="hidden md:flex fixed right-4 gap-3 text-gray-200">
 
-        <!-- 구분 -->
-        <p class="py-2 text-gray-500 text-lg">|</p>
+        <!-- 비회원 -->
+        <div class="<?= $this->session->userdata('user_id') ? 'hidden' : 'inline' ?> flex">
 
-        <a id="logout_btn" class="hover:bg-[#3f3f3f] font-bold py-3 px-5 rounded hover:scale-90 duration-100" href="/#">
-          로그아웃
-        </a>
+          <a class="hover:bg-[#3f3f3f] font-bold py-3 px-5 rounded hover:scale-90 duration-100" href="/login">
+            로그인
+          </a>
+
+          <!-- 구분 -->
+          <p class="py-2 text-gray-500 text-lg">|</p>
+
+          <a class="hover:bg-[#3f3f3f] font-bold py-3 px-5 rounded hover:scale-90 duration-100" href="/register">
+            회원가입
+          </a>
+        </div>
+
+        <!-- 회원 -->
+        <div class="<?= $this->session->userdata('user_id') ? 'inline' : 'hidden' ?> flex">
+          <a class="hover:bg-[#3f3f3f] font-bold py-3 px-5 rounded hover:scale-90 duration-100" href="/user_information_c">
+            내정보
+          </a>
+
+          <!-- 구분 -->
+          <p class="py-2 text-gray-500 text-lg">|</p>
+
+          <a id="logout_btn" class="hover:bg-[#3f3f3f] font-bold py-3 px-5 rounded hover:scale-90 duration-100" href="/#">
+            로그아웃
+          </a>
+        </div>
+
       </div>
 
     </div>

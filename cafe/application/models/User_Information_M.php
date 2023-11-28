@@ -2,15 +2,13 @@
 date_default_timezone_set('Asia/Seoul');
 defined('BASEPATH') or exit('No direct script access allowed');
 
-  class User_Information_M extends CI_Model
-  {
-    public function __construct()
-    {
+  class User_Information_M extends CI_Model {
+    
+    public function __construct() {
       parent::__construct();
     }
 
-    public function user_data($id)
-    {
+    public function user_data($id) {
       $user_data = $this->db->get_where('members', [ 'user_id' => $this->db->escape_str($id) ])->row();
       return $user_data;
     }
@@ -41,8 +39,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
       }
     }
 
-    public function update_nickname($data)
-    {
+    public function update_nickname($data) {
       $this->db->where( 'user_id', $data['user_id'] );
       $this->db->update('members', [ 'user_nickname' => $data['user_nickname'] ]);
 
@@ -54,8 +51,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
       }
     }
 
-    public function update_password($data)
-    {
+    public function update_password($data) {
       $this->db->where( 'user_id', $data['user_id'] );
       $this->db->update('members', [ 'user_password' => password_hash($this->db->escape_str($data['user_password']), PASSWORD_DEFAULT) ]);
 
@@ -67,8 +63,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
       }
     }
 
-    public function update_email($data)
-    {
+    public function update_email($data) {
       $this->db->where( 'user_id', $data['user_id'] );
       $this->db->update('members', [ 'user_email' => $data['user_email'] ]);
 
@@ -80,8 +75,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
       }
     }
 
-    public function update_phone($data)
-    {
+    public function update_phone($data) {
       $this->db->where( 'user_id', $data['user_id'] );
       $this->db->update('members', [ 'user_phone' => $data['user_phone'] ]);
 
@@ -93,8 +87,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
       }
     }
 
-    public function update_memo($data)
-    {
+    public function update_memo($data) {
       $this->db->where( 'user_id', $data['user_id'] );
       $this->db->update('members', [ 'user_memo' => $data['user_memo'] ]);
 
@@ -107,8 +100,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     }
 
     // 방치된 코드
-    public function update_uesr_data($user_id, $data)
-    {
+    public function update_uesr_data($user_id, $data) {
       $this->db->where( 'user_id', $user_id );
       $this->db->update('members', $data);
 

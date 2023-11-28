@@ -5,7 +5,7 @@
   <div class="flex flex-col justify-between w-full h-full">
 
     <!-- 메인 -->
-    <div class="gap-3 w-full p-5 flex flex-col">
+    <div class="gap-3 w-full p-1 md:p-5 flex flex-col">
 
       <div class="bg-[#2f2f2f] border shadow-2xl border-[#4f4f4f] opacity-90 p-5 flex flex-col gap-5">
         <div class="flex gap-1">
@@ -31,24 +31,26 @@
       
       <div class="bg-[#2f2f2f] border border-[#4f4f4f] w-full p-5 rounded flex flex-col gap-5 relative drop-shadow-2xl">
         <!-- 검색 기능 -->
-        <div class="flex gap-2">
+        <div class="flex flex-col md:flex-row gap-2">
           <!-- 게시글, 댓글 -->
           <select id='search_type' name='search_type'
-            class="outline-none w-full max-w-[20%] text-whith rounded bg-[#3f3f3f] p-3">
+            class="outline-none w-full md:max-w-[20%] text-whith rounded bg-[#3f3f3f] p-3">
             <option value="제목만">제목만</option>
             <option value="글작성자">글작성자</option>
           </select>
           <!-- 검색어 -->
-          <div class="relative w-full">
-            <p class="material-symbols-outlined absolute top-3 left-3 text-gray-500">
-              search
-            </p>
-            <input id="search_text" name="search_text" type="text" class="focus:bg-[#2f2f2f] duration-200 pl-12 w-full outline-none text-whith rounded bg-[#3f3f3f] p-3">
+          <div class="flex w-full gap-1 md:gap-3">
+            <div class="relative w-full">
+              <p class="material-symbols-outlined absolute top-3 left-3 text-gray-500">
+                search
+              </p>
+              <input id="search_text" name="search_text" type="text" class="focus:bg-[#2f2f2f] duration-200 pl-12 w-full outline-none text-whith rounded bg-[#3f3f3f] p-3">
+            </div>
+            <!-- 검색버튼 -->
+            <button id="search_btn" name="search_btn" class="border outline-none border-[#4f4f4f] py-3 w-[30%] rounded hover:bg-[#2f2f2f] duration-200 bg-[#1f1f1f]">
+              검색
+            </button>
           </div>
-          <!-- 검색버튼 -->
-          <button id="search_btn" name="search_btn" class="border outline-none border-[#4f4f4f] py-3 w-[30%] rounded hover:bg-[#2f2f2f] duration-200 bg-[#1f1f1f]">
-            검색
-          </button>
         </div>
 
         <!-- 구분선 -->

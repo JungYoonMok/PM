@@ -1,4 +1,4 @@
-<div class="p-5 flex flex-col gap-3 border-r border-dashed border-[#4f4f4f]">
+<div class="p-5 flex flex-col gap-3 md:border-r md:border-dashed md:border-[#4f4f4f]">
 
   <a href="/my_activity/post" class="<?= $this->uri->segment(2) == 'post' ? 'bg-[#1f1f1f] hover:opacity-80' : 'bg-[#3f3f3f] hover:bg-[#2f2f2f] hover:translate-y-[2px]' ?> flex gap-3 whitespace-nowrap px-3 py-4 border border-[#4f4f4f] rounded duration-200">
     <p class="material-symbols-outlined">edit</p>

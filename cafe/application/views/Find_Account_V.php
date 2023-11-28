@@ -1,8 +1,8 @@
 <!-- 베이스 틀 -->
-<div class="text-gray-50 p-5">
+<div class="text-gray-50 p-1 md:p-5 flex place-content-center">
 
   <!-- 메인 틀 -->
-  <div class="flex flex-col gap-5">
+  <div class="flex flex-col gap-5 max-w-[1200px]">
 
     <!-- 제목 -->
     <div class="bg-[#2f2f2f] rounded p-5">
@@ -17,7 +17,7 @@
         아이디 찾기
       </p>
       
-      <div class="flex gap-5">
+      <div class="flex flex-col md:flex-row gap-5">
 
         <!-- 이름 -->
         <div class="flex flex-col gap-3 w-full">
@@ -48,7 +48,7 @@
           <!-- 연락처 수정 버튼 -->
           <div class="text-right">
             <button id="fine_id_btn"
-              class="bg-[#3f3f3f] px-5 py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
+              class="bg-[#3f3f3f] w-[50%] md:w-[40%] py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
               아이디 찾기
             </button>
           </div>
@@ -92,7 +92,7 @@
       </div>
 
       <!-- 이름, 연락처 -->
-      <div class="flex gap-5">
+      <div class="flex flex-col md:flex-row gap-5">
         <div class="flex flex-col gap-3 w-full">
           <p
             class="px-1 hover:text-white hover:-translate-y-1 duration-200 cursor-default whitespace-nowrap max-w-min text-base">
@@ -122,7 +122,7 @@
           <!-- 비밀번호 찾기 버튼 -->
           <div class="text-right">
             <button id="find_password_btn"
-              class="bg-[#3f3f3f] px-5 py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
+              class="bg-[#3f3f3f] w-[50%] md:w-[40%] py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
               비밀번호 찾기
             </button>
           </div>

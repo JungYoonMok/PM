@@ -43,7 +43,7 @@
     }
 
     body {
-    	font-family: 's-core4';
+    	font-family: 's-core3';
       background : #3f3f3f;
     }
 
@@ -57,7 +57,8 @@
     /* scrollbar */
     *::-webkit-scrollbar {
       width: 15px;
-      background-color: #3f3f3f;
+      /* background-color: #3f3f3f; */
+      background-color: transparent;
     }
     *::-webkit-scrollbar-thumb {
       background-color: #8f8f8f;
@@ -66,7 +67,8 @@
       border: 3px solid transparent;
     }
     *::-webkit-scrollbar-track {
-      background-color: #3f3f3f;
+      /* background-color: #3f3f3f; */
+      /* background-color: transparent; */
       /* margin : 0px 0px; */
       /* border-radius: 10px; */
       /* box-shadow: inset 0px 0px 5px gray; */
@@ -147,61 +149,54 @@
 </head>
 <body>
 
-    <!-- 베이스 -->
-    <div id="base" 
-    class="
-    <?= $this->uri->segment(1) == 'login' ? '' : 'pl-[300px]' ?>
-    <?= $this->uri->segment(1) == 'register' ? '' : 'pl-[300px]' ?>
-    w-full h-full flex relative duration-200 ">
-      <!-- 사이드 -->
-      <div id="menu" 
-      class="
-      <?= $this->uri->segment(1) == 'login' ? 'hidden' : '' ?> 
-      <?= $this->uri->segment(1) == 'register' ? 'hidden' : '' ?> 
-      fixed left-0 w-[300px] h-full">
-        <!-- 여닫기 -->
-        <div class="bg-[#2f2f2f] pr-5 pt-5 text-right border-r border-[#5f5f5f]">
-          <button id="munu_name" onclick=SideBarTab() 
-          class="material-symbols-outlined text-gray-200 hover:scale-[98%] duration-200 hover:opacity-80">
-            menu
-          </button>
-        </div>
-        <!-- 메뉴 -->
-        <div class="bg-[#2f2f2f] h-full border-r border-[#5f5f5f]">
-          <div id="main" class="">
-            <? $this->load->view('side_bar'); ?>
-          </div>
-        </div>
-      </div>
-      
-      <!-- 메인 -->
-      <div class="flex flex-col justify-between w-full h-full">
+  <!-- 베이스 -->
+  <div
+  class="
+  flex duration-200 justify-between">
 
-        <div>
-          <!-- 헤더 -->
-          <div class="">
-            <?= $header ?>
-          </div>
-            
-          <!-- 컨텐츠 -->
-          <div>
-            <?= $contents ?>
-          </div>
+    <!-- 사이드 -->
+    <div
+    class="w-full max-w-[300px] z-30 <?= $this->session->userdata('user_id') ? 'hidden md:inline-block' : 'hidden'?>
+    ">
+    <!-- <?= $this->uri->segment(1) == 'login' ? 'hidden ' : 'md:inline-block' ?>
+    <?= $this->uri->segment(1) == 'register' ? 'hidden ' : 'md:inline-block' ?> -->
+      <!-- 메뉴 -->
+      <div class="fixed bg-[#2f2f2f] w-[300px] border-r border-[#5f5f5f] h-full">
+        <div id="main" class="">
+          <? $this->load->view('side_bar'); ?>
         </div>
-        
-        <!-- 웨이브 -->
-        <div id="wave" class="hidden z-40 -mt-10">
-          <? $this->load->view('wave') ?>
-        </div>
-
-        <!-- 최상단 최하단 버튼 -->
-        <div hidden id="side_btn" class="z-50 fixed right-5 bottom-5 mb-[1%]">
-          <? $this->load->view('side_btn'); ?>
-        </div>
-        
       </div>
 
     </div>
+    
+    <!-- 메인 -->
+    <div class="flex flex-col justify-between w-full h-full">
+
+      <div>
+        <!-- 헤더 -->
+        <div class="">
+          <?= $header ?>
+        </div>
+          
+        <!-- 컨텐츠 -->
+        <div>
+          <?= $contents ?>
+        </div>
+      </div>
+      
+      <!-- 웨이브 -->
+      <div id="wave" class="hidden z-40 -mt-10">
+        <? $this->load->view('wave') ?>
+      </div>
+
+      <!-- 최상단 최하단 버튼 -->
+      <div hidden id="side_btn" class="z-50 fixed right-5 bottom-5 mb-[1%]">
+        <? $this->load->view('side_btn'); ?>
+      </div>
+      
+    </div>
+
+  </div>
 
   </body>
 </html>
@@ -239,46 +234,6 @@
     $('#wave').addClass('hidden');
   }
 
-  function SideBarTab() {
-  let menu = document.getElementById('menu');
-  let main = document.getElementById('main');
-  let base = document.getElementById('base');
-
-  if (main.getAttribute('data-state') === 'open') {
-    // 사이드바를 닫는 경우
-    
-    $('#menu').removeClass('w-[300px]');
-    $('#menu').addClass('w-[65px]');
-
-    $('#main').removeClass('inline');
-    $('#main').addClass('hidden');
-
-    $('#base').removeClass('pl-[300px]');
-    $('#base').addClass('pl-[65px]');
-
-    main.setAttribute('data-state', 'close');
-
-    // 로컬 스토리지에 상태 저장
-    localStorage.setItem('sidebar', 'close');
-  } else {
-    // 사이드바를 여는 경우
-
-    $('#menu').removeClass('w-[65px]');
-    $('#menu').addClass('w-[300px]');
-
-    $('#main').removeClass('hidden');
-    $('#main').addClass('inline');
-
-    $('#base').removeClass('pl-[65px]');
-    $('#base').addClass('pl-[300px]');
-
-    main.setAttribute('data-state', 'open');
-
-    // 로컬 스토리지에 상태 저장
-    localStorage.setItem('sidebar', 'open');
-  }
-}
-
 // 로그인 회원가입 페이지 제외
 if(!location.pathname == '/login' || !location.pathname == '/register') {
   let sidebarState = localStorage.getItem('sidebar');
@@ -293,9 +248,6 @@ if(!location.pathname == '/login' || !location.pathname == '/register') {
 
     $('#main').removeClass('inline');
     $('#main').addClass('hidden');
-
-    $('#base').removeClass('pl-[300px]');
-    $('#base').addClass('pl-[65px]');
   } else {
     // 사이드바를 열린 상태로 설정
     main.setAttribute('data-state', 'open');
@@ -305,9 +257,6 @@ if(!location.pathname == '/login' || !location.pathname == '/register') {
 
     $('#main').removeClass('hidden');
     $('#main').addClass('inline');
-
-    $('#base').removeClass('pl-[65px]');
-    $('#base').addClass('pl-[300px]');
   }
 }
 

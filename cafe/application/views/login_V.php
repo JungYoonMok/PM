@@ -1,8 +1,8 @@
-<div class="bg-[#3f3f3f] text-gray-50 w-full h-full my-5">
+<div class="bg-[#3f3f3f] text-gray-50">
 
-  <div class="py-10 grid place-items-center">
+  <div class="py-10 p-1 md:p-5 grid place-items-center">
 
-    <div class="bg-[#2f2f2f] border border-[#4f4f4f] w-[500px] px-5 py-10 rounded flex flex-col gap-5 relative drop-shadow-2xl">
+    <div class="bg-[#2f2f2f] border border-[#4f4f4f] w-[400px] md:w-[500px] px-5 py-10 rounded flex flex-col gap-5 relative drop-shadow-2xl">
 
       <!-- 계정 정보가 일치하지 않을시 -->
       <div id='error_form' class="duration-200 hidden flex p-5 animate-pulse gap-3 border bg-red-500 w-full opacity-80 rounded">
@@ -59,29 +59,29 @@
       </div>
 
       <div class="text-center opacity-80">
-        <div class="flex place-content-center gap-3">
+        <div class="flex place-content-center gap-3 overflow-x-auto overflow-y-hidden">
           <button onclick=snsBtn()
-            class="cursor-not-allowed hover:border hover:border-slate-500 hover:scale-95 hover:opacity-90 duration-100 w-16 h-14 bg-green-500 text-4xl font-black rounded">
+            class="cursor-not-allowed hover:border hover:border-slate-500 hover:scale-95 hover:opacity-90 duration-100 w-14 h-12 bg-green-500 text-4xl font-black rounded">
             N
           </button>
           <button onclick=snsBtn()
-            class="cursor-not-allowed hover:border hover:border-slate-500 hover:scale-95 hover:opacity-90 duration-100 w-16 h-14 bg-yellow-500 font-black rounded">
+            class="cursor-not-allowed hover:border hover:border-slate-500 hover:scale-95 hover:opacity-90 duration-100 w-14 h-12 bg-yellow-500 font-black rounded">
             kakao
           </button>
           <button onclick=snsBtn()
-            class="cursor-not-allowed hover:border hover:border-slate-500 hover:scale-95 hover:opacity-90 duration-100 w-16 h-14 bg-red-500 font-black rounded">
+            class="cursor-not-allowed hover:border hover:border-slate-500 hover:scale-95 hover:opacity-90 duration-100 w-14 h-12 bg-red-500 font-black rounded">
             Google
           </button>
           <button onclick=snsBtn()
-            class="cursor-not-allowed hover:border hover:border-slate-500 hover:scale-95 hover:opacity-90 duration-100 w-16 h-14 bg-black opacity-80 font-black rounded">
+            class="cursor-not-allowed hover:border hover:border-slate-500 hover:scale-95 hover:opacity-90 duration-100 w-14 h-12 bg-black opacity-80 font-black rounded">
             Apple
           </button>
           <button onclick=snsBtn()
-            class="cursor-not-allowed hover:border hover:border-slate-500 hover:scale-95 hover:opacity-90 duration-100 w-16 h-14 bg-sky-500 text-4xl font-black rounded">
+            class="cursor-not-allowed hover:border hover:border-slate-500 hover:scale-95 hover:opacity-90 duration-100 w-14 h-12 bg-sky-500 text-4xl font-black rounded">
             t
           </button>
           <button onclick=snsBtn()
-            class="cursor-not-allowed hover:border hover:border-slate-500 hover:scale-95 hover:opacity-90 duration-100 w-16 h-14 bg-blue-500 text-4xl font-black rounded">
+            class="cursor-not-allowed hover:border hover:border-slate-500 hover:scale-95 hover:opacity-90 duration-100 w-14 h-12 bg-blue-500 text-4xl font-black rounded">
             f
           </button>
         </div>

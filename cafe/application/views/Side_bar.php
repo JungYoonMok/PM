@@ -1,4 +1,4 @@
-<div class="flex flex-col h-full duration-200 w-full bg-[#2f2f2f] p-5 text-gray-100">
+<div class="flex flex-col p-5 duration-200 bg-[#2f2f2f] text-gray-100">
 
   <div class="relative">
     <!-- 비회원 전용 -->
@@ -15,9 +15,6 @@
 
     <!-- 회원 전용 -->
     <div class="<?= $this->session->userdata('user_id') ? 'inline' : 'hidden' ?> flex flex-col gap-3">
-
-      <!-- 구분선 -->
-      <div class="border-b border-gray-400"></div>
 
       <div class="flex my-3 gap-3">
         <!-- 프로필 -->
@@ -40,11 +37,14 @@
               settings
             </a>
           </div>
+
         </div>
+
         <div class="flex flex-col gap-1">
+          
           <!-- 닉네임 및 등급 -->
           <div class="flex gap-3">
-            <a class="font-bold hover:underline underline-offset-4 hover:scale-[97%] hover:opacity-90 duration-200 decoration-2 decoration-yellow-500"
+            <a class="hover:underline underline-offset-4 hover:scale-[97%] hover:opacity-90 duration-200 decoration-2 decoration-yellow-500"
               href="/user_information_c">
               <?= $this->session->userdata('user_nickname') ?>
             </a>
@@ -53,15 +53,19 @@
               일반
             </p>
           </div>
+
           <!-- 가입일자 -->
           <div>
             <p class="text-sm"><?= substr($this->session->userdata('regdate'), 0, 10) ?>. 가입</p>
           </div>
+
           <!-- 안내 -->
           <div>
             <p class="text-sm">방문을 환영합니다</p>
           </div>
+
         </div>
+
       </div>
 
       <!-- 구분선 -->
@@ -121,17 +125,17 @@
       <!-- 글쓰기 및 채팅 -->
       <div class="flex flex-col gap-3 text-center">
         <a href="/post_create"
-          class="p-2 w-full hover:text-white hover:underline rounded hover:opacity-80 font-bold duration-150 bg-[#3f3f3f]">
+          class="p-2 w-full hover:text-white hover:underline rounded hover:opacity-80 duration-150 bg-[#3f3f3f]">
           카페 글쓰기
         </a>
       </div>
 
       <!-- 검색 -->
-      <div class="flex w-full">
+      <div class="flex">
         <input
-          class="bg-[#5f5f5f] rounded-l hover:bg-[#4f4f4f] border-[#5f5f5f] border focus:bg-[#4f4f4f] focus:border-blue-500 duration-150 outline-none p-2"
+          class="bg-[#5f5f5f] w-full rounded-l hover:bg-[#4f4f4f] border-[#5f5f5f] border focus:bg-[#4f4f4f] focus:border-blue-500 duration-150 outline-none p-2"
           type="text">
-        <button class="bg-blue-500 w-full p-2 rounded-r font-bold hover:opacity-80 duration-200">
+        <button class="bg-blue-500 w-[30%] p-2 rounded-r hover:opacity-80 duration-200 whitespace-nowrap">
           검색
         </button>
       </div>

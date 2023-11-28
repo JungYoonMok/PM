@@ -3,13 +3,13 @@
 <div class="">
 
   <!-- 메인 틀 -->
-  <div class="flex flex-col gap-5 m-5 rounded text-gray-50">
+  <div class="flex flex-col gap-5 mt-5 m-1 lg:m-5 rounded text-gray-50">
     
     <!-- 프로필 사진 -->
-    <div class="flex justify-between rounded-tl-md rounded-tr-md gap-5 shadow-2xl border border-[#4f4f4f] bg-[#2f2f2f] p-5">
+    <div class="grid lg:flex lg:justify-between rounded-tl-md rounded-tr-md gap-5 shadow-2xl border border-[#4f4f4f] bg-[#2f2f2f] p-5">
 
       <!-- 좌측 -->
-      <div class="p-5 flex flex-col gap-5">
+      <div class="lg:p-5 flex flex-col place-items-center justify-center gap-5">
 
         <!-- 프로필 -->
         <div class="relative drop-shadow-2xl rounded-[50%] place-content-center border border-gray-500 h-20 w-20 bg-[#3f3f3f]">
@@ -25,7 +25,7 @@
         </div>
 
         <!-- 파일 업로드 -->
-        <form id="upload_form" enctype="multipart/form-data" class="flex flex-col gap-3">
+        <form id="upload_form" enctype="multipart/form-data" class="flex flex-col gap-3 place-items-center justify-center">
           <input type="file" name="userfile" 
           class="
             file:mr-4 file:py-2 file:px-4
@@ -33,7 +33,7 @@
             file:text-sm file:font-semibold
           file:bg-[#3f3f3f] file:text-white
           hover:file:bg-[#4f4f4f] duration-200" />
-          <button id="upload_button" class="p-3 bg-blue-500 rounded hover:translate-y-1 duration-200">
+          <button id="upload_button" class="p-3 w-[50%] lg:w-[40%] bg-blue-500 rounded hover:translate-y-1 duration-200">
             적용하기
           </button>
         </form>
@@ -45,7 +45,7 @@
 
         <p>과거 프로필 사진</p>
         <!-- 동적 생성 -->
-        <div id="frofile_old" class="grid grid-cols-6 max-h-48 p-3 rounded overflow-y-scroll scrollbar-hide gap-1"></div>
+        <div id="frofile_old" class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-10 max-h-48 p-3 rounded overflow-y-scroll gap-1"></div>
 
       </div>
 
@@ -66,7 +66,7 @@
         class="w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#3f3f3f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
         <!-- 별명 수정 버튼 -->
         <div class="text-right">
-          <button id="nickname_update_btn" class="bg-[#3f3f3f] px-5 py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
+          <button id="nickname_update_btn" class="bg-[#3f3f3f] w-[50%] lg:w-[40%] py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
             별명 수정하기
           </button>
         </div>
@@ -76,7 +76,7 @@
       <div class="border-b mt-2 border-gray-500"></div>
       
       <!-- 비밀번호 변경 -->
-      <div class="flex justify-between gap-5">
+      <div class="grid lg:flex lg:justify-between gap-5">
         
         <!-- 비밀번호 -->
         <div class="flex flex-col gap-3 w-full">
@@ -110,7 +110,7 @@
 
       <!-- 비밀번호 수정 버튼 -->
       <div class="text-right">
-        <button id="password_update_btn" class="bg-[#3f3f3f] px-5 py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
+        <button id="password_update_btn" class="bg-[#3f3f3f] w-[50%] lg:w-[40%] py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
           비밀번호 수정하기
         </button>
       </div>
@@ -119,7 +119,7 @@
       <div class="border-b mt-2 border-gray-500"></div>
 
       <!-- 이메일, 연락처 변경 -->
-      <div class="flex justify-between gap-5">
+      <div class="grid lg:flex lg:justify-between gap-5">
 
         <!-- 이메일 -->
         <div class="flex flex-col gap-3 w-full">
@@ -130,7 +130,7 @@
           class="pr-12 w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#4f4f4f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
           <!-- 이메일 수정 버튼 -->
           <div class="text-right">
-            <button id="email_update_btn" class="bg-[#3f3f3f] px-5 py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
+            <button id="email_update_btn" class="bg-[#3f3f3f] w-[50%] lg:w-[40%] py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
               이메일 수정하기
             </button>
           </div>
@@ -151,7 +151,7 @@
           </div>
           <!-- 연락처 수정 버튼 -->
           <div class="text-right">
-            <button id="phone_update_btn" class="bg-[#3f3f3f] px-5 py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
+            <button id="phone_update_btn" class="bg-[#3f3f3f] w-[50%] lg:w-[40%] py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
             연락처 수정하기
             </button>
           </div>
@@ -161,13 +161,13 @@
 
       <!-- 소개 -->
       <div class="flex flex-col gap-3">
-        <p class="px-1 hover:text-white hover:-translate-y-1 duration-200 cursor-default whitespace-nowrap max-w-min text-base">
-          소개 - <span class="hover:text-white text-sm text-gray-300">다른 회원이 <?= $user->user_nickname ?>님의 소개글을 볼 수 있습니다</span>
+        <p class="px-1 hover:text-white hover:-translate-y-1 duration-200 cursor-default text-base">
+          소개 - <span class="hover:text-white text-sm text-gray-300 whitespace-normal">다른 회원이 <?= $user->user_nickname ?>님의 소개글을 볼 수 있습니다</span>
         </p>
         <textarea id="memo" rows="5" type="text" class="w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#3f3f3f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200"><?= $user->user_memo ?></textarea>
         <!-- 소개 수정 버튼 -->
         <div class="text-right flex justify-end gap-5 duration-200">
-          <button id="memo_update_btn" class="bg-[#3f3f3f] px-5 py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
+          <button id="memo_update_btn" class="bg-[#3f3f3f] w-[50%] lg:w-[40%] py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
           소개 수정하기
           </button>
         </div>

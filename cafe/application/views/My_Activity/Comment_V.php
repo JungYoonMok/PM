@@ -1,8 +1,8 @@
 <!-- 베이스 -->
-<div class="p-5 flex flex-col text-gray-50">
+<div class="p-1 md:p-5 flex flex-col text-gray-50">
 
   <!-- 메인 -->
-  <div class="bg-[#2f2f2f] flex border border-[#4f4f4f] rounded shadow-2xl min-h-[1000px]">
+  <div class="bg-[#2f2f2f] flex flex-col md:flex-row border border-[#4f4f4f] rounded shadow-2xl min-h-[1000px]">
 
     <!-- 사이드 -->
     <? $this->load->view('/my_activity/side_v'); ?>
