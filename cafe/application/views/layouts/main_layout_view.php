@@ -190,7 +190,7 @@
       </div>
 
       <!-- 최상단 최하단 버튼 -->
-      <div hidden id="side_btn" class="z-50 fixed right-5 bottom-5 mb-[1%]">
+      <div id="side_btn" class="z-50 fixed right-5 bottom-5 mb-[1%]">
         <? $this->load->view('side_btn'); ?>
       </div>
       
@@ -259,23 +259,5 @@ if(!location.pathname == '/login' || !location.pathname == '/register') {
     $('#main').addClass('inline');
   }
 }
-
-// 스크롤바 존재 여부
-$(document).ready(function() {
-
-  var hasScrollbar = function() {
-    return $(document).height() > $(window).height();
-  };
-
-  setInterval(() => {
-    if (hasScrollbar()) {
-      $('#side_btn').show();
-    } else {
-      $('#side_btn').hide();
-    }
-  }, 300);
-
-});
-
 
 </script>

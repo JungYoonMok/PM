@@ -12,7 +12,7 @@
       <div class="lg:p-5 flex flex-col place-items-center justify-center gap-5">
 
         <!-- 프로필 -->
-        <div class="relative drop-shadow-2xl rounded-[50%] place-content-center border border-gray-500 h-20 w-20 bg-[#3f3f3f]">
+        <div class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border border-gray-500 h-20 w-20 bg-[#3f3f3f]">
           <? if ($this->session->userdata('user_profile') == '' || null) : ?>
             <p class="material-symbols-outlined text-5xl text-gray-400 flex place-items-center justify-center">
               person
@@ -33,7 +33,7 @@
             file:text-sm file:font-semibold
           file:bg-[#3f3f3f] file:text-white
           hover:file:bg-[#4f4f4f] duration-200" />
-          <button id="upload_button" class="p-3 w-[50%] lg:w-[40%] bg-blue-500 rounded hover:translate-y-1 duration-200">
+          <button id="upload_button" class="px-3 py-1 w-[50%] lg:w-[40%] bg-blue-500 rounded hover:translate-y-1 duration-200">
             적용하기
           </button>
         </form>
@@ -437,10 +437,10 @@
     // data: { idx: postId },
     dataType: 'json',
     success: function(response) {
+      // 답글 데이터로 UI 업데이트
+      var frofileBox = $('#frofile_old');
+      frofileBox.empty();
       if (response.state) {
-        // 답글 데이터로 UI 업데이트
-        var frofileBox = $('#frofile_old');
-        frofileBox.empty();
         $.each(response.data, function(i, frofile) {
           // var dateToShow = (new Date(frofile.regdate).toDateString() === new Date().toDateString()) 
           //           ? frofile.regdate.substr(11, 5) 
@@ -453,8 +453,11 @@
           `);
         });
       } else {
-        // alert('답글을 불러오는 데 실패했습니다.');
-        alert('프로필 사진이 존재하지 않습니다.');
+        frofileBox.append(`
+        <div class="absolute">
+          <p class="duration-200 animate-pulse">데이터가 없습니다.</p>
+        </div>
+        `);
       }
     },
     error: function() {
