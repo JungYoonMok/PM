@@ -3,13 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 date_default_timezone_set('Asia/Seoul');
 
 class Find_Account_M extends CI_Model {
-  public function __construct()
-  {
+
+  public function __construct() {
     parent::__construct();
   }
 
-  public function find_id($data)
-  {
+  public function find_id($data) {
     $this->db->select('user_id');
     $this->db->from('members');
     $this->db->where('user_name', $this->db->escape_str($data['user_name']));
@@ -24,8 +23,7 @@ class Find_Account_M extends CI_Model {
     }
   }
 
-  public function find_password($data)
-  {
+  public function find_password($data) {
     $this->db->select('user_id, user_name, user_phone');
     $this->db->from('members');
     $this->db->where( 'user_id', $this->db->escape_str($data['user_id']) );
@@ -41,8 +39,7 @@ class Find_Account_M extends CI_Model {
     }
   }
 
-  public function update_password($data)
-  {
+  public function update_password($data) {
     $user_password = password_hash($this->db->escape_str($data['user_password']), PASSWORD_DEFAULT);
     
     $this->db->where('user_id', $this->db->escape_str($data['user_id']));

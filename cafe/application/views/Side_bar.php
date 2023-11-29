@@ -92,7 +92,7 @@
             </span>
             <p>방문</p>
           </div>
-          <p>477 회</p>
+          <p><?= $login_total ?> 회</p>
         </div>
         <div class="flex place-content-between">
           <div class="flex gap-2">
@@ -104,8 +104,9 @@
             </a>
           </div>
           <a href="/my_activity/post"
-            class="hover:underline underline-offset-4 hover:opacity-90 duration-200 decoration-2 decoration-yellow-500">30
-            개</a>
+            class="hover:underline underline-offset-4 hover:opacity-90 duration-200 decoration-2 decoration-yellow-500">
+            <?= $post_total ?> 개
+          </a>
         </div>
         <div class="flex place-content-between">
           <div class="flex gap-2">
@@ -117,8 +118,9 @@
             </a>
           </div>
           <a href="/my_activity/comment"
-            class="hover:underline underline-offset-4 hover:opacity-90 duration-200 decoration-2 decoration-yellow-500">99
-            개</a>
+            class="hover:underline underline-offset-4 hover:opacity-90 duration-200 decoration-2 decoration-yellow-500">
+            <?= $comment_total ?> 개
+          </a>
         </div>
       </div>
 
@@ -162,9 +164,11 @@
             </span>
             <div class="flex place-content-around">
               <p class="">공지사항</p>
-              <p
-                class="w-8 duration-200 border border-blue-400 opacity-80 drop-shadow-2xl animate-pulse absolute right-2 bg-blue-500 px-2 py-1 rounded text-xs flex place-content-center">
-                3
+              <p class="
+              w-8 duration-200 border border-blue-400 opacity-80 drop-shadow-2xl animate-pulse absolute right-2 bg-blue-500 px-2 py-1 rounded text-xs flex place-content-center
+              <?= $freeboard_total == 0 ? "hidden" : "" ?>
+              ">
+              <?= $freeboard_total ?>
               </p>
             </div>
           </span>
@@ -178,9 +182,11 @@
             </span>
             <div class="flex place-content-around">
               <p class="">자유게시판</p>
-              <p
-                class="w-8 duration-200 border border-blue-400 opacity-80 drop-shadow-2xl animate-pulse absolute right-2 bg-blue-500 px-2 py-1 rounded text-xs flex place-content-center">
-                23
+              <p class="
+              w-8 duration-200 border border-blue-400 opacity-80 drop-shadow-2xl animate-pulse absolute right-2 bg-blue-500 px-2 py-1 rounded text-xs flex place-content-center
+              <?= $freeboard_total == 0 ? "hidden" : "" ?>
+              ">
+                <?= $freeboard_total ?>
               </p>
             </div>
           </span>
@@ -194,9 +200,10 @@
             </span>
             <div class="flex place-content-around">
               <p class="">가입인사</p>
-              <p
-                class="w-8 duration-200 border border-blue-400 opacity-80 drop-shadow-2xl animate-pulse absolute right-2 bg-blue-500 px-2 py-1 rounded text-xs flex place-content-center">
-                17
+              <p class="w-8 duration-200 border border-blue-400 opacity-80 drop-shadow-2xl animate-pulse absolute right-2 bg-blue-500 px-2 py-1 rounded text-xs flex place-content-center
+              <?= $freeboard_total == 0 ? "hidden" : "" ?>
+              ">
+              <?= $freeboard_total ?>
               </p>
             </div>
           </span>
@@ -211,3 +218,25 @@
   </div>
 
 </div>
+
+<script>
+
+  // $.ajax({ // 게시글 총 개수
+  //   url: '/Free_Board_View_C/list/'+ page,
+  //   type: 'GET',
+  //   dataType: 'json',
+  //   success: function(response) {
+  //     if (response.state) {
+  //       // 게시판 목록을 DOM에 업데이트하는 함수 호출
+  //       $('#total_value').text(response.total);
+  //       updateTableWithFetchedData(response.list, response.links);
+  //     } else {
+  //       alert('게시글을 불러오는 데 실패했습니다.');
+  //     }
+  //   },
+  //   error: function() {
+  //     alert('게시글을 불러오는 중 오류가 발생했습니다.');
+  //   }
+  // });
+
+</script>

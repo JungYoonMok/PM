@@ -25,7 +25,7 @@
         </div>
 
         <!-- 파일 업로드 -->
-        <form id="upload_form" enctype="multipart/form-data" class="flex flex-col gap-3 place-items-center justify-center">
+        <form id="upload_form" enctype="multipart/form-data" class="flex flex-col gap-3 place-items-center place-content-center justify-center">
           <input type="file" name="userfile" 
           class="
             file:mr-4 file:py-2 file:px-4

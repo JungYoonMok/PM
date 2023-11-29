@@ -2,8 +2,7 @@
 date_default_timezone_set('Asia/Seoul');
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Free_Board_Create_M extends CI_Model
-{
+class Free_Board_Create_M extends CI_Model {
 
   public function __construct() {
     parent::__construct();
@@ -37,8 +36,7 @@ class Free_Board_Create_M extends CI_Model
     }
   }
 
-  public function create_reply($post_data)
-  {
+  public function create_reply($post_data) {
     // POST 데이터로부터 필요한 정보를 가져옵니다.
     // $board_id = $this->input->post('board_id');
     // $group_idx = $this->input->post('group_idx'); // 상위 댓글의 group_idx

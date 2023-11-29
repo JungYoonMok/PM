@@ -4,16 +4,14 @@
 
 class Main extends CI_Controller {
 
-	public function __construct()
-	{
+	public function __construct() {
 		parent::__construct();
 
 		$this->load->model('main_model');
 		$this->load->library('layout');
 	}
 	
-	public function index()
-	{
+	public function index()	{
 		$data['list'] = $this->main_model->GetBoardList();
 		$data['total'] = $this->main_model->GetBoardTotal();
 

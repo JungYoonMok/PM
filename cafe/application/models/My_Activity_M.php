@@ -49,8 +49,7 @@
       }
     }
     
-    public function get_post_in_comment()
-    {
+    public function get_post_in_comment() {
       $this->db->order_by('idx', 'desc');
       $query = $this->db->get_where('boards', ['user_id' => $this->session->userdata('user_id') ]);
 

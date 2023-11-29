@@ -2,8 +2,7 @@
 date_default_timezone_set('Asia/Seoul');
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Free_board_Detail_C extends CI_Controller
-{
+class Free_board_Detail_C extends CI_Controller {
 
   public function __construct() {
     parent::__construct();
@@ -92,8 +91,7 @@ class Free_board_Detail_C extends CI_Controller
     $this->layout->custom_view('board/free_board_detail_v', $data);
   }
 
-  public function comment_create() // 댓글 작성
-  {
+  public function comment_create() {
     // if (!$this->input->is_ajax_request()) {
     //   show_error('AJAX 요청만 가능합니다.', 403);
     // }
@@ -123,14 +121,12 @@ class Free_board_Detail_C extends CI_Controller
     }
   }
 
-  public function reply_comment_create() // 댓글의 답글 작성
-  {
+  public function reply_comment_create() {
     // $this->FBM->comments_create();
     $this->FBM->reply_create();
   }
 
-  public function reply_update() // 댓글 수정
-  {
+  public function reply_update() {
     $data = [
       'idx' => $this->input->post('idx'),
       'content' => $this->input->post('content'),
@@ -145,8 +141,7 @@ class Free_board_Detail_C extends CI_Controller
     }
   }
 
-  public function reply_delete() // 댓글 삭제
-  {
+  public function reply_delete() {
     $idx = $this->input->post('idx');
     $result = $this->FBM->reply_delete($idx);
     if($result) {
@@ -156,8 +151,7 @@ class Free_board_Detail_C extends CI_Controller
     }
   }
 
-  public function reply_problem() // 댓글 신고
-  {
+  public function reply_problem() {
     $data = [
       'idx' => $this->input->post('idx'),
       'content' => $this->input->post('content'),
@@ -173,8 +167,7 @@ class Free_board_Detail_C extends CI_Controller
   }
 
   // 좋아요, 싫어요 클릭
-  public function board_like()
-  {
+  public function board_like() {
     $data = [
       'boards_idx' => $this->input->post('boards_idx'),
       'like_type' => $this->input->post('like_type'),

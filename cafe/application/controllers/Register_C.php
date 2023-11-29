@@ -1,16 +1,15 @@
 <?
+date_default_timezone_set('Asia/Seoul');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Register_C extends CI_Controller
-{
+class Register_C extends CI_Controller {
 
-  public function __construct()
-  {
+  public function __construct() {
     parent::__construct();
     $this->load->model('register_M', 'register_model');
   }
 
-  public function index()
-  {
+  public function index() {
     // 세션 데이터를 뷰 페이지로 전달
     $ssData = [
       'user_name' => $this->session->userdata('user_name'),
@@ -35,8 +34,7 @@ class Register_C extends CI_Controller
   }
 
   // 회원가입
-  public function register()
-  {
+  public function register() {
     // 폼 벨리데이션으로 폼의 필수값을 지정
     $this->form_validation->set_rules('nName', 'NickName', 'required');
     $this->form_validation->set_rules('id', 'ID', 'required');

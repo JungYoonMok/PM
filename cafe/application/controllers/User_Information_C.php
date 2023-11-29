@@ -2,17 +2,14 @@
 date_default_timezone_set('Asia/Seoul');
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class User_information_C extends CI_Controller
-{
-  public function __construct()
-  {
+class User_information_C extends CI_Controller {
+  public function __construct() {
     parent::__construct();
 
     $this->load->model('User_Information_M', 'model');
   }
 
-  public function index()
-  {
+  public function index() {
     // 세션 체크
     if (!$this->session->userdata('user_id')) {
       redirect('/login');
@@ -86,8 +83,7 @@ class User_information_C extends CI_Controller
     }
   }
 
-  public function update_nickname()
-  {
+  public function update_nickname() {
     $data = [
       'user_id' => $this->session->userdata('user_id'),
       'user_nickname' => $this->input->post('nickname', TRUE),
@@ -103,8 +99,7 @@ class User_information_C extends CI_Controller
     }
   }
 
-  public function update_password()
-  {
+  public function update_password() {
     $data = [
       'user_id' => $this->session->userdata('user_id'),
       'user_password' => $this->input->post('password', TRUE),
@@ -118,8 +113,7 @@ class User_information_C extends CI_Controller
     }
   }
 
-  public function update_email()
-  {
+  public function update_email() {
     $data = [
       'user_id' => $this->session->userdata('user_id'),
       'user_email' => $this->input->post('email', TRUE),
@@ -135,8 +129,7 @@ class User_information_C extends CI_Controller
     }
   }
 
-  public function update_phone()
-  {
+  public function update_phone() {
     $data = [
       'user_id' => $this->session->userdata('user_id'),
       'user_phone' => $this->input->post('phone', TRUE),
@@ -152,8 +145,7 @@ class User_information_C extends CI_Controller
     }
   }
 
-  public function update_memo()
-  {
+  public function update_memo() {
     $data = [
       'user_id' => $this->session->userdata('user_id'),
       'user_memo' => $this->input->post('memo', TRUE),
@@ -170,8 +162,7 @@ class User_information_C extends CI_Controller
   }
 
   // 방치된 코드
-  public function update_user_data()
-  {
+  public function update_user_data() {
     $user_id = $this->session->userdata('user_id');
 
     $nickname = $this->input->post('nickname', TRUE) == $this->session->userdata('user_nickname') ? NULL : $this->input->post('nickname', TRUE);

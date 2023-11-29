@@ -4,14 +4,12 @@
 
   class Free_Board_Create_C extends CI_Controller {
 
-    public function __construct()
-    {
+    public function __construct() {
       parent::__construct();
       $this->load->model('Free_Board_Create_M', 'FBM');
     }
     
-    public function index()
-    {
+    public function index() {
       $this->layout->custom_view('board/free_board_create_v');
     }
 

@@ -9,15 +9,15 @@
       font-family: 's-core1';
       src: url('/assets/S-Core_Dream_OTF/SCDream1.otf') format('truetype');
     }
-  @font-face {
-      font-family: 's-core2';
-      src: url('/assets/S-Core_Dream_OTF/SCDream2.otf') format('truetype');
-    }
-  @font-face {
-      font-family: 's-core3';
-      src: url('/assets/S-Core_Dream_OTF/SCDream3.otf') format('truetype');
-    }
-  @font-face {
+    @font-face {
+        font-family: 's-core2';
+        src: url('/assets/S-Core_Dream_OTF/SCDream2.otf') format('truetype');
+      }
+    @font-face {
+        font-family: 's-core3';
+        src: url('/assets/S-Core_Dream_OTF/SCDream3.otf') format('truetype');
+      }
+    @font-face {
       font-family: 's-core4';
       src: url('/assets/S-Core_Dream_OTF/SCDream4.otf') format('truetype');
     }
@@ -80,6 +80,7 @@
 
     /* snow */
     .snowflake {
+      z-index: 100;
       width: 8px;
       height: 8px;
       background-color: white;
@@ -147,6 +148,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   
 </head>
+
 <body>
 
   <!-- 베이스 -->
@@ -162,9 +164,7 @@
     <?= $this->uri->segment(1) == 'register' ? 'hidden ' : 'md:inline-block' ?> -->
       <!-- 메뉴 -->
       <div class="fixed bg-[#2f2f2f] w-[300px] border-r border-[#5f5f5f] h-full">
-        <div id="main" class="">
-          <? $this->load->view('side_bar'); ?>
-        </div>
+        <?= $side ?>
       </div>
 
     </div>
@@ -199,6 +199,7 @@
   </div>
 
   </body>
+
 </html>
 
 <script> 

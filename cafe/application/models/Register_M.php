@@ -2,16 +2,13 @@
 date_default_timezone_set('Asia/Seoul');
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Register_M extends CI_Model
-{
+class Register_M extends CI_Model {
 
-  public function __construct()
-  {
+  public function __construct() {
     parent::__construct();
   }
 
-  public function register()
-  {
+  public function register() {
     $nickName = $this->input->post('nName');
     $ID = $this->input->post('id');
     $Name = $this->input->post('name');

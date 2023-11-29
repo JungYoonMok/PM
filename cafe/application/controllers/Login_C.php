@@ -1,16 +1,15 @@
 <?
+date_default_timezone_set('Asia/Seoul');
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Login_C extends CI_Controller
-{
-  public function __construct()
-  {
+class Login_C extends CI_Controller {
+
+  public function __construct() {
     parent::__construct();
     $this->load->model('login_M', 'login_model');
   }
 
-  public function index()
-  {
+  public function index() {
     // 세션 데이터를 뷰 페이지로 전달
     $ssData = [
       'user_name' => $this->session->userdata('user_name'),
@@ -34,8 +33,7 @@ class Login_C extends CI_Controller
     }
   }
 
-  public function login()
-  {
+  public function login() {
     $this->form_validation->set_rules('username', '아이디', 'required');
     $this->form_validation->set_rules('password', '비밀번호', 'required');
 
@@ -82,8 +80,7 @@ class Login_C extends CI_Controller
   }
   
   // 로그아웃 처리
-  public function logout()
-  {
+  public function logout() {
     // 마지막 로그아웃 시간 업데이트
     $ID = $this->session->userdata('user_id');
     $this->login_model->last_login_logout($ID, 'logout');

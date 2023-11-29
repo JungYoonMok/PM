@@ -72,7 +72,6 @@
         type: 'post',
         dataType: 'json',
         success: function(response) {
-          console.log(response);
           if(response.state){
             location.href = '/login';
           } else {
