@@ -21,7 +21,7 @@
   
       if ($this->upload->do_upload('image')) {
         $data = $this->upload->data();
-        $url = base_url('uploads/' . $data['file_name']);
+        $url = base_url('./uploads/' . $data['file_name']);
         echo json_encode(['state' => TRUE, 'url' => $url]);
       } else {
         $error = $this->upload->display_errors();

@@ -66,7 +66,7 @@ function post_delete($idx){
     },
     success: response => {
       if(response.state) {
-        location.href = '/freeboard';
+        location.reload();
       } else {
         console.log(response);
         $('#error_txt').text(response.message); // 에러 메시지 출력

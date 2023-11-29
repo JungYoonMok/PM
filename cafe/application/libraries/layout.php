@@ -12,7 +12,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     public function post_comment_total($type) { // 게시글 및 댓글 총 개수
       $total_count = $this->obj->db->get_where($type, ["user_id" => $this->obj->session->userdata("user_id")]);
       if($total_count->num_rows() > 0) {
-        return $total_count->num_rows();
+        return $total_count->num_rows() ?? 0;
       } else {
         return 0;
       }
@@ -38,7 +38,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     public function login_total() { // 로그인 총 횟수
       $total_count = $this->obj->db->get_where("members_login_logout", ["state" => 'login', 'user_id' => $this->obj->session->userdata("user_id")]);
       if($total_count->num_rows() > 0) {
-        return $total_count->num_rows();
+        return $total_count->num_rows() ?? 0;
       } else {
         return 0;
       }
@@ -50,7 +50,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
       $total_count = $this->obj->db->get('point_exp_log');
       if($total_count->num_rows() > 0) {
-        return $total_count->row()->$type;
+        return $total_count->row()->$type ?? 0;
       } else {
         return 0;
       }

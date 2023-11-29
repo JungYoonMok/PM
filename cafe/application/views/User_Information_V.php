@@ -9,7 +9,7 @@
     <div class="grid lg:flex lg:justify-between rounded-tl-md rounded-tr-md gap-5 shadow-2xl border border-[#4f4f4f] bg-[#2f2f2f] p-5">
 
       <!-- 좌측 -->
-      <div class="lg:p-5 flex flex-col place-items-center justify-center gap-5">
+      <div class="lg:p-5 w-full flex flex-col place-items-center justify-center gap-5">
 
         <!-- 프로필 -->
         <div class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border border-gray-500 h-20 w-20 bg-[#3f3f3f]">
