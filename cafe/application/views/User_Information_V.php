@@ -143,11 +143,11 @@
           </p>
           <div class="flex gap-3">
             <input id="phone_1" type="number" placeholder="010" disabled
-            class="cursor-not-allowed text-center font-bold pr-12 w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#2f2f2f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
+            class="cursor-not-allowed text-center font-bold w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#2f2f2f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
             <input id="phone_2" type="number" placeholder="123" maxlength="4" value="<?= substr($user->user_phone, 4, 4) ?>"
-            class="text-center pr-12 w-full px-5 font-bold py-3 hover:bg-opacity-80 rounded bg-[#4f4f4f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
+            class="text-center w-full px-5 font-bold py-3 hover:bg-opacity-80 rounded bg-[#4f4f4f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
             <input id="phone_3" type="number" placeholder="456" maxlength="4" value="<?= substr($user->user_phone, 9, 4) ?>"
-            class="text-center pr-12 w-full px-5 font-bold py-3 hover:bg-opacity-80 rounded bg-[#4f4f4f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
+            class="text-center w-full px-5 font-bold py-3 hover:bg-opacity-80 rounded bg-[#4f4f4f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
           </div>
           <!-- 연락처 수정 버튼 -->
           <div class="text-right">

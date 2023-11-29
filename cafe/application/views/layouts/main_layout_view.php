@@ -158,10 +158,9 @@
 
     <!-- 사이드 -->
     <div
-    class="w-full max-w-[300px] z-30 <?= $this->session->userdata('user_id') ? 'hidden md:inline-block' : 'hidden'?>
+    class="
+    w-full max-w-[300px] z-30 <?= $this->session->userdata('user_id') ? 'hidden md:inline-block' : 'hidden'?>
     ">
-    <!-- <?= $this->uri->segment(1) == 'login' ? 'hidden ' : 'md:inline-block' ?>
-    <?= $this->uri->segment(1) == 'register' ? 'hidden ' : 'md:inline-block' ?> -->
       <!-- 메뉴 -->
       <div class="fixed bg-[#2f2f2f] w-[300px] border-r border-[#5f5f5f] h-full">
         <?= $side ?>

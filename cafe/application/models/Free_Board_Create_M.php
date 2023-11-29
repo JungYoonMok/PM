@@ -6,6 +6,8 @@ class Free_Board_Create_M extends CI_Model {
 
   public function __construct() {
     parent::__construct();
+
+    $this->load->model('common/user_point_exp_m');
   }
 
   public function board_get($idx) {
@@ -28,6 +30,9 @@ class Free_Board_Create_M extends CI_Model {
       // 게시글의 group_idx를 댓글 자신의 idx로 설정합니다.
       $this->db->where('idx', $insert_id);
       $this->db->update('boards', ['group_idx' => $insert_id]);
+
+      // 포인트 및 경험치 지급
+      $this->user_point_exp_m->point_exp_add('활동 포인트 지급', $insert_id.'번 게시글 작성');
       
       return TRUE;
     } else {
@@ -92,6 +97,9 @@ class Free_Board_Create_M extends CI_Model {
     } else {
       // 문제가 없으면 커밋합니다.
       $this->db->trans_commit();
+
+      // 포인트 및 경험치 지급
+      $this->user_point_exp_m->point_exp_add('활동 포인트 지급', $data['group_idx'].'번 게시글의 답글 작성');
       return true;
     }
 

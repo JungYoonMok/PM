@@ -65,7 +65,19 @@
           </div>
 
         </div>
+        
+      </div>
 
+      <!-- 경험치, 포인트 -->
+      <div class="flex flex-col gap-3 p-3 duration-200 rounded border border-[#4f4f4f] bg-[#3f3f3f] text-sm font-[s-core5]">
+        <div class="flex justify-between">
+          <p>E <?= $exp_total ?> / <?= $exp_total ?></p>
+          <p>P <?= $point_total ?></p>
+        </div>
+        <div class="w-full h-4 mb-4  bg-gray-200 rounded-full dark:bg-gray-600 duration-200">
+          <div class="h-4 bg-blue-600 rounded-full dark:bg-blue-500 duration-200 hover:scale-105" style="width: 45%"></div>
+        </div>
+        <p><?= $level_converter ?></p>
       </div>
 
       <!-- 구분선 -->
@@ -149,14 +161,19 @@
       <div class="flex flex-col gap-1 bg-[#3f3f3f] p-2 rounded">
 
         <!-- 커뮤니티 -->
-        <div class="text-left p-3">
+        <div class="flex justify-between p-3">
           <p class="font-bold">커뮤니티</p>
+          <button id="board_list_btn" class="duration-200">
+            <span class="material-symbols-outlined">
+              expand_more
+            </span>
+          </button>
         </div>
 
         <!-- 구분선 -->
-        <div class="border-b border-gray-400"></div>
+        <div id="line" class="border-b border-gray-400"></div>
 
-        <a href="/notice"
+        <a href="/notice" id="notice"
           class="deration-500 hover:last-child:bg-red-500 relative hover:bg-[#4f4f4f] w-full duration-100 p-2 rounded hover:text-gray-100">
           <span class="w-full h-full flex gap-5">
             <span class="material-symbols-outlined">
@@ -174,7 +191,7 @@
           </span>
         </a>
 
-        <a href="/freeboard/list"
+        <a href="/freeboard/list" id="freeboard"
           class="deration-500 relative hover:bg-[#4f4f4f] w-full duration-100 p-2 rounded hover:text-gray-100">
           <span class="w-full h-full flex gap-5">
             <span class="material-symbols-outlined">
@@ -192,7 +209,7 @@
           </span>
         </a>
 
-        <a href="/hellow"
+        <a href="/hellow" id="hellow"
           class="deration-500 relative hover:bg-[#4f4f4f] w-full duration-100 p-2 rounded hover:text-gray-100">
           <span class="w-full h-full flex gap-5">
             <span class="material-symbols-outlined">
@@ -220,6 +237,43 @@
 </div>
 
 <script>
+  if(!localStorage.getItem('board_list_btn')) {
+    localStorage.setItem('board_list_btn', 'on');
+  } else {
+    if(localStorage.getItem('board_list_btn') == 'on') {
+      $('#board_list_btn').removeClass('rotate-180');
+      $('#notice').removeClass('hidden');
+      $('#freeboard').removeClass('hidden');
+      $('#hellow').removeClass('hidden');
+      $('#line').removeClass('hidden');
+    } else {
+      $('#board_list_btn').addClass('rotate-180');
+      $('#notice').addClass('hidden');
+      $('#freeboard').addClass('hidden');
+      $('#hellow').addClass('hidden');
+      $('#line').addClass('hidden');
+    }
+  }
+
+  $('#board_list_btn').click(function(e) {
+    e.preventDefault();
+    
+    if(localStorage.getItem('board_list_btn') == 'on') {
+      $('#board_list_btn').addClass('rotate-180');
+      $('#notice').addClass('hidden');
+      $('#freeboard').addClass('hidden');
+      $('#hellow').addClass('hidden');
+      $('#line').addClass('hidden');
+      localStorage.setItem('board_list_btn', 'off');
+    } else {
+      $('#board_list_btn').removeClass('rotate-180');
+      $('#notice').removeClass('hidden');
+      $('#freeboard').removeClass('hidden');
+      $('#hellow').removeClass('hidden');
+      $('#line').removeClass('hidden');
+      localStorage.setItem('board_list_btn', 'on');
+    }
+  })
 
   // $.ajax({ // 게시글 총 개수
   //   url: '/Free_Board_View_C/list/'+ page,

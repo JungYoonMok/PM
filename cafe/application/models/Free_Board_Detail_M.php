@@ -6,6 +6,8 @@ class Free_Board_Detail_M extends CI_Model {
 
   public function __construct() {
     parent::__construct();
+
+    $this->load->model('common/user_point_exp_m');
   }
 
   public function post_delete() {
@@ -50,6 +52,9 @@ class Free_Board_Detail_M extends CI_Model {
     // 댓글의 group_idx를 댓글 자신의 idx로 설정합니다.
     $this->db->where('idx', $insert_id);
     $this->db->update('boards_comment', ['group_idx' => $insert_id]);
+
+    // 포인트 및 경험치 지급
+    $this->user_point_exp_m->point_exp_add('활동 포인트 지급', $this->input->post('board_id').'번 글의 댓글');
   }
 
   public function reply_create() {
@@ -99,6 +104,9 @@ class Free_Board_Detail_M extends CI_Model {
     } else {
       // 문제가 없으면 커밋합니다.
       $this->db->trans_commit();
+
+      // 포인트 및 경험치 지급
+      $this->user_point_exp_m->point_exp_add('활동 포인트 지급', $this->input->post('board_id').'번 글의 대댓글');
     }
 
     // 게시판 페이지로 리디렉션합니다.
@@ -203,6 +211,8 @@ class Free_Board_Detail_M extends CI_Model {
   public function board_like($data) {
     $result = $this -> db -> insert('board_like', $this->db->escape_str($data));
     if($result) {
+      // 포인트 및 경험치 지급
+      $this->user_point_exp_m->point_exp_add('활동 포인트 지급', $data['boards_idx'].'번 글의 투표');
       return [ 'state' => true, 'message' => '성공', 'type' => $data['like_type'] ];
     } else {
       log_message('error', '좋아요 실패: ' . $this->db->error()['message']);

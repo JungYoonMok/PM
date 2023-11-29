@@ -109,12 +109,13 @@ class Free_board_Detail_C extends CI_Controller {
       // } else {
       //   echo json_encode(['status' => 'error', 'message' => '댓글 추가에 실패했습니다.']);
       // }
+      $board_id = $this->input->post('board_id');
 
       // board 라는 별칭 안에 store를 실행
       $this->FBM->comments_create();
 
       // 정상적이면 리다이렉트 실행
-      redirect("/freeboard/" . $this->input->post('board_id'));
+      redirect("/freeboard/" . $board_id);
 
     } else {
       echo "Board Create Error..";
@@ -122,7 +123,6 @@ class Free_board_Detail_C extends CI_Controller {
   }
 
   public function reply_comment_create() {
-    // $this->FBM->comments_create();
     $this->FBM->reply_create();
   }
 

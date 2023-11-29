@@ -81,7 +81,7 @@
               </div>
             </div>
           </div>
-          <div class="flex flex-wrap gap-7 text-sm">
+          <div class="flex flex-wrap md:flex-nowrap md:whitespace-nowrap gap-7 text-sm">
             <div class="flex gap-2">
               <span class="material-symbols-outlined">
                 visibility
@@ -448,20 +448,18 @@
     </div>
 
     <!-- 해당 게시판 최근 리스트 -->
-    <div class="bg-[#2f2f2f] border w-full border-[#4f4f4f] overflow-x-auto overflow-y-hidden p-5 rounded flex flex-col gap-5 drop-shadow-2xl">
-      <table class="text-gray-50 text-center whitespace-nowrap">
-        <th>번호</th>
-        <th>ID</th>
-        <th>분류</th>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>작성날짜</th>
-        <? $numCount = 0; ?>
+    <div class="bg-[#2f2f2f] border w-full border-[#4f4f4f] overflow-x-auto overflow-y-hidden p-3 rounded flex flex-col gap-5 drop-shadow-2xl">
+      <table class="text-gray-50 text-center whitespace-nowrap text-sm">
+        <th class="font-light pb-5">ID</th>
+        <th class="font-light pb-5">분류</th>
+        <th class="font-light pb-5">제목</th>
+        <th class="font-light pb-5">작성자</th>
+        <th class="font-light pb-5">작성날짜</th>
+        <th class="font-light pb-5">추천</th>
+        <th class="font-light pb-5">비추천</th>
+        <th class="font-light pb-5">조회수</th>
         <? foreach ($list as $li): ?>
           <tr class="border-b border-[#4f4f4f]">
-            <td class="p-2">
-              <?= $numCount += 1 ?>
-            </td>
             <td class="p-2"><?= $li->idx ?></td>
             <td class="p-2"><?= $li->board_type ?></td>
             <td class="text-left">
@@ -469,8 +467,16 @@
                 <?= $li->title ?>
               </a>
             </td>
-            <td><?= $li->user_id ?></td>
-            <td class=""><?= $li->regdate ?></td>
+            <td>
+              <?= $li->user_id ?>
+            </td>
+            <td class="">
+              <!-- <?= $li->regdate ?> -->
+              <?= (empty($li->regdate) ? '-' : date("Y-m-d") == substr($li->regdate, 0, 10)) ? substr($li->regdate, 10, 6) : substr($li->regdate, 0, 10); ?>
+            </td>
+            <td>1</td>
+            <td>2</td>
+            <td><?= $li->hit?></td>
           </tr>
         <? endforeach ?>
       </table>
