@@ -81,6 +81,7 @@ class Free_Board_Create_M extends CI_Model {
       'user_id' => $this->session->userdata('user_id'),
       'board_state' => $this->input->post('post_open'),
       'board_comment' => $this->input->post('comment_open'),
+      'file_path' => $post_data['file_path'] ?? '-', // 파일 경로 추가
       'regdate' => date("Y-m-d H:i:s")
     ];
 

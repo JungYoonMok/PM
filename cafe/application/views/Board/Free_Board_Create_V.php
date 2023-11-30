@@ -91,7 +91,7 @@
           </div>
 
           <!-- 첨부파일 -->
-          <input type="file" name="userfile" 
+          <input type="file" name="userfile" id="userfile"
           class="
             file:mr-4 file:py-2 file:px-4
             file:rounded-full file:border-0
@@ -170,8 +170,7 @@
             } else {
               alert('이미지 업로드 실패: ' + result.message);
             }
-          },
-          error: () => {
+          }, error: () => {
             alert('이미지 업로드 중 서버 오류가 발생했습니다.');
           }
         });
@@ -181,7 +180,7 @@
 
 });
 
-  $('#create_btn').click((e) => {
+  $('#create_btn').click((e) => { // 게시글 등록
     e.preventDefault();
 
     const formData = new FormData();
@@ -193,22 +192,14 @@
     formData.append('comment_open', $('input[name="comment_open"]:checked').val());
 
     // 이미지 파일이 있으면 formData에 추가
-    const fileInput = $('input[type="file"]')[0];
+    const fileInput = $('#userfile')[0];
+    // const fileInput = $('input[type="file"]')[0];
     if (fileInput.files.length > 0) {
       for (const file of fileInput.files) {
         formData.append('userfile', file);
         // formData.append('file_path', file);
       }
     }
-
-    // 게시글 내용을 Markdown 형식으로 가져오는 부분
-    // 에디터가 올바르게 초기화되었는지 확인
-    // if (editor) {
-    //   formData.append('post_value', editor.getMarkdown());
-    // } else {
-    //   alert('에디터가 초기화되지 않았습니다.');
-    //   return;
-    // }
 
     // AJAX 요청으로 게시글 생성 및 이미지 업로드 처리
     $.ajax({
@@ -221,20 +212,20 @@
       success: (response) => {
         if (response.state) {
           console.log('성공: ', response);
-          // alert('게시글이 성공적으로 등록되었습니다.');
+          console.log('첨부파일: ', $('#userfile').val());
           // window.location.href = '/freeboard/' + response.last_id;
-
         } else {
           alert('게시글 등록 실패: ' + response.message);
+          console.log('실패: ', response);
         }
-      },
-      error: () => {
+      }, error: () => {
         alert('게시글 등록 중 서버 오류가 발생했습니다.');
+        console.log('오류: ', response);
       }
     });
   });
 
-  $('#create_reply_btn').click((e) => {
+  $('#create_reply_btn').click((e) => { // 답글 등록
     e.preventDefault();
 
     const formData = new FormData();
@@ -249,23 +240,14 @@
     formData.append('post_open', $('input[name="post_open"]:checked').val());
     formData.append('comment_open', $('input[name="comment_open"]:checked').val());
 
-    // 이미지 파일이 있으면 formData에 추가
-    const fileInput = $('input[type="file"]')[0];
+    const fileInput = $('#userfile')[0];
+    // const fileInput = $('input[type="file"]')[0];
     if (fileInput.files.length > 0) {
       for (const file of fileInput.files) {
         formData.append('userfile', file);
         // formData.append('file_path', file);
       }
     }
-
-    // 게시글 내용을 Markdown 형식으로 가져오는 부분
-    // 에디터가 올바르게 초기화되었는지 확인
-    // if (editor) {
-    //   formData.append('post_value', editor.getMarkdown());
-    // } else {
-    //   alert('에디터가 초기화되지 않았습니다.');
-    //   return;
-    // }
 
     // AJAX 요청으로 게시글 생성 및 이미지 업로드 처리
     $.ajax({
@@ -278,14 +260,12 @@
       success: (response) => {
         if (response.state) {
           console.log('성공: ', response);
-          // alert('게시글이 성공적으로 등록되었습니다.');
+          console.log('첨부파일: ', $('#userfile').val());
           // window.location.href = '/freeboard/' + response.last_id;
-
         } else {
           alert('게시글 등록 실패: ' + response.message);
         }
-      },
-      error: () => {
+      }, error: () => {
         alert('게시글 등록 중 서버 오류가 발생했습니다.');
       }
     });

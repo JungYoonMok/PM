@@ -69,27 +69,13 @@
         'regdate' => date("Y-m-d H:i:s")
       ];
   
-      // 폼 벨리데이션
-      // $this->form_validation->set_rules('post_type', 'Post_Type', 'required');
-      // $this->form_validation->set_rules('post_title', 'Post_Title', 'required');
-      // $this->form_validation->set_rules('post_value', 'Post_Value', 'required');
-      // $this->form_validation->set_rules('post_open', 'Post_Open', 'required');
-      // $this->form_validation->set_rules('comment_open', 'Comment_Open', 'required');
-  
-      // 데이터베이스에 데이터 저장
-      // if ($this->form_validation->run()) {
-        $result = $this->FBM->create($post_data);
-        if ($result) {
-          echo json_encode(['state' => TRUE, 'message' => '게시글 등록 성공', 'data' => $post_data ]);
-        } else {
-          // 실패했다면, 오류 로그를 기록하고 실패 메시지를 반환합니다.
-          log_message('error', '게시글 등록 실패: ' . $this->db->error()['message']);
-          echo json_encode(['state' => FALSE, 'message' => '게시글 등록 실패']);
-        }
-      // } else {
-        // $errors = $this->form_validation->error_array();
-        // echo json_encode(['state' => FALSE, 'message' => '입력 데이터 검증 실패', 'errors' => $errors]);
-      // }
+      $result = $this->FBM->create($post_data);
+      if ($result) {
+        echo json_encode(['state' => TRUE, 'message' => '게시글 등록 성공', 'data' => $post_data ]);
+      } else {
+        log_message('error', '게시글 등록 실패: ' . $this->db->error()['message']);
+        echo json_encode(['state' => FALSE, 'message' => '게시글 등록 실패']);
+      }
     
     }
 
