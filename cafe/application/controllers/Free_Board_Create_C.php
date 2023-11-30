@@ -41,20 +41,47 @@
       $config['max_size'] = 0;
       $this->load->library('upload', $config);
   
-      $filePath = '';
-      // 파일 업로드 시도
-      if (!empty($_FILES['userfile']['name'])) {
-        if (!$this->upload->do_upload('userfile')) {
-          $error = strip_tags($this->upload->display_errors());
-          // 바로 에러 메시지를 반환하고 프로세스를 종료합니다.
-          echo json_encode(['state' => FALSE, 'message' => '이미지 업로드 실패: ' . $error]);
-          return; // 더 이상 진행하지 않고 종료합니다.
-        } else {
-          $uploadData = $this->upload->data();
-          // $filePath = $uploadData['userfile']; // 업로드된 파일의 경로
-          $filePath = $uploadData['full_path']; // 업로드된 파일의 경로
+      $filesCount = count($_FILES['userfile']['name'] ?? []);
+      $uploadData = [];
+      $filePath = [];
+
+      if(empty($_FILES['userfile']['name'])) {
+        $filePath = '-';
+      } else {
+        for ($i = 0; $i < $filesCount; $i++) {
+          $_FILES['file']['name'] = $_FILES['userfile']['name'][$i];
+          $_FILES['file']['type'] = $_FILES['userfile']['type'][$i];
+          $_FILES['file']['tmp_name'] = $_FILES['userfile']['tmp_name'][$i];
+          $_FILES['file']['error'] = $_FILES['userfile']['error'][$i];
+          $_FILES['file']['size'] = $_FILES['userfile']['size'][$i];
+  
+          if (!$this->upload->do_upload('file')) {
+            $error = strip_tags($this->upload->display_errors());
+            echo json_encode(['state' => FALSE, 'message' => '파일 업로드 실패: ' . $error]);
+            return;
+          } else {
+            $uploadData[] = $this->upload->data();
+            $filePath[] = $uploadData[$i]['full_path']; // 혹은 다른 파일 경로 정보
+          }
         }
+  
+        $filePathsString = implode(',', $filePath); // 파일 경로를 쉼표로 구분된 문자열로 변환
       }
+
+      // $filePath = '';
+      // // 파일 업로드 시도
+      // if (!empty($_FILES['userfile']['name'])) {
+      //   if (!$this->upload->do_upload('userfile')) {
+      //     $error = strip_tags($this->upload->display_errors());
+      //     // 바로 에러 메시지를 반환하고 프로세스를 종료합니다.
+      //     echo json_encode(['state' => FALSE, 'message' => '이미지 업로드 실패: ' . $error]);
+      //     return; // 더 이상 진행하지 않고 종료합니다.
+      //   } else {
+      //     $uploadData = $this->upload->data();
+      //     // $filePath = $uploadData['userfile']; // 업로드된 파일의 경로
+      //     $filePath = $uploadData['full_path']; // 업로드된 파일의 경로
+      //   }
+      // }
   
       // 폼 데이터 처리
       $post_data = [
@@ -64,7 +91,7 @@
         'user_id' => $this->session->userdata('user_id'),
         'board_state' => $this->input->post('post_open'),
         'board_comment' => $this->input->post('comment_open'),
-        'file_path' => $filePath ?? '-', // 파일 경로 추가
+        'file_path' => $filePathsString ?? '-', // 파일 경로 추가
         'depth' => 1,
         'regdate' => date("Y-m-d H:i:s")
       ];

@@ -91,7 +91,7 @@
           </div>
 
           <!-- 첨부파일 -->
-          <input type="file" name="userfile" id="userfile"
+          <input type="file" name="userfile[]" id="userfile" multiple
           class="
             file:mr-4 file:py-2 file:px-4
             file:rounded-full file:border-0
@@ -140,6 +140,7 @@
   let editor;
 
   $(document).ready(() => {
+    
 
     // 토스트 UI 에디터 인스턴스 생성
     editor = new toastui.Editor({
@@ -178,8 +179,6 @@
     }
   });
 
-});
-
   $('#create_btn').click((e) => { // 게시글 등록
     e.preventDefault();
 
@@ -191,16 +190,21 @@
     formData.append('post_open', $('input[name="post_open"]:checked').val());
     formData.append('comment_open', $('input[name="comment_open"]:checked').val());
 
-    // 이미지 파일이 있으면 formData에 추가
+    // 파일 입력 필드 검증
     const fileInput = $('#userfile')[0];
-    // const fileInput = $('input[type="file"]')[0];
-    if (fileInput.files.length > 0) {
-      for (const file of fileInput.files) {
-        formData.append('userfile', file);
-        // formData.append('file_path', file);
+    console.log('디버깅: ', fileInput); // 디버깅을 위한 로그
+    
+    if (fileInput && fileInput.files.length > 0) {
+      // 파일 처리 로직
+      if (fileInput.files.length > 0) {
+        for (const file of fileInput.files) {
+          formData.append('userfile[]', file);
+        }
       }
+    } else {
+      console.log("파일 입력 필드를 찾을 수 없습니다.");
     }
-
+    
     // AJAX 요청으로 게시글 생성 및 이미지 업로드 처리
     $.ajax({
       url: '/free_board_create_c/create',
@@ -211,9 +215,7 @@
       dataType: 'json',
       success: (response) => {
         if (response.state) {
-          console.log('성공: ', response);
-          console.log('첨부파일: ', $('#userfile').val());
-          // window.location.href = '/freeboard/' + response.last_id;
+          location.href = '/freeboard/' + response.last_id;
         } else {
           alert('게시글 등록 실패: ' + response.message);
           console.log('실패: ', response);
@@ -241,11 +243,9 @@
     formData.append('comment_open', $('input[name="comment_open"]:checked').val());
 
     const fileInput = $('#userfile')[0];
-    // const fileInput = $('input[type="file"]')[0];
     if (fileInput.files.length > 0) {
       for (const file of fileInput.files) {
         formData.append('userfile', file);
-        // formData.append('file_path', file);
       }
     }
 
@@ -259,9 +259,7 @@
       dataType: 'json',
       success: (response) => {
         if (response.state) {
-          console.log('성공: ', response);
-          console.log('첨부파일: ', $('#userfile').val());
-          // window.location.href = '/freeboard/' + response.last_id;
+          location.href = '/freeboard/' + response.last_id;
         } else {
           alert('게시글 등록 실패: ' + response.message);
         }
@@ -270,5 +268,7 @@
       }
     });
   });
+  
+});
 
 </script>

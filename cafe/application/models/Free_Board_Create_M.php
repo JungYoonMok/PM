@@ -103,9 +103,6 @@ class Free_Board_Create_M extends CI_Model {
       $this->user_point_exp_m->point_exp_add('활동 포인트 지급', $data['group_idx'].'번 게시글의 답글 작성');
       return true;
     }
-
-    // 게시판 페이지로 리디렉션합니다.
-    // redirect("/freeboard/" . $board_id);
   }
 
 }
