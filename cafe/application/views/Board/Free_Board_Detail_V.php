@@ -124,7 +124,7 @@
             </div>
 
             <!-- 출력 -->
-            <div class="toast-custom-viewer text-white">
+            <div class="toast-custom-viewer text-white <?= $post->board_delete ? 'hidden' : ''?>">
 
             </div>
             

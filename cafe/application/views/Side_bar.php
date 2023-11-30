@@ -174,7 +174,7 @@
         <div id="line" class="border-b border-gray-400"></div>
 
         <a href="/notice" id="notice"
-          class="deration-500 hover:last-child:bg-red-500 relative hover:bg-[#4f4f4f] w-full duration-100 p-2 rounded hover:text-gray-100">
+          class="deration-500 relative w-full duration-100 p-2 rounded hover:text-gray-100 <?= $this->uri->segment(2) == 'list' ? 'bg-[#2f2f2f] hover:translate-x-1' : 'hover:bg-[#4f4f4f]' ?>">
           <span class="w-full h-full flex gap-5">
             <span class="material-symbols-outlined">
               notifications
@@ -192,7 +192,7 @@
         </a>
 
         <a href="/freeboard/list" id="freeboard"
-          class="deration-500 relative hover:bg-[#4f4f4f] w-full duration-100 p-2 rounded hover:text-gray-100">
+          class="deration-500 relative w-full duration-100 p-2 rounded hover:text-gray-100 <?= $this->uri->segment(2) == 'list' ? 'bg-[#2f2f2f] hover:translate-x-1' : 'hover:bg-[#4f4f4f]' ?>">
           <span class="w-full h-full flex gap-5">
             <span class="material-symbols-outlined">
               border_color
@@ -210,7 +210,7 @@
         </a>
 
         <a href="/hellow" id="hellow"
-          class="deration-500 relative hover:bg-[#4f4f4f] w-full duration-100 p-2 rounded hover:text-gray-100">
+          class="deration-500 relative w-full duration-100 p-2 rounded hover:text-gray-100 <?= $this->uri->segment(2) == 'list' ? 'bg-[#2f2f2f] hover:translate-x-1' : 'hover:bg-[#4f4f4f]' ?>">
           <span class="w-full h-full flex gap-5">
             <span class="material-symbols-outlined">
               waving_hand

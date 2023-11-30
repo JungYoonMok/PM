@@ -136,6 +136,7 @@
 <!-- <script src="/javascript/board/board_create.js"></script> -->
 
 <script>
+  
   let editor;
 
   $(document).ready(() => {
@@ -143,7 +144,7 @@
     // 토스트 UI 에디터 인스턴스 생성
     editor = new toastui.Editor({
     el: document.querySelector('#editor'),
-    height: '700px',
+    height: '500px',
     // initialEditType: 'markdown',
     initialEditType: 'wysiwyg',
     previewStyle: 'vertical',

@@ -21,6 +21,11 @@
             <img width="100%" src="./uploads/<?= $this->session->userdata('user_profile') ?>"
               class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400 duration-200">
             </img>
+            <div class="absolute -bottom-3 w-full">
+              <p class="text-xs text-center bg-[#3f3f3f] rounded px-1">
+                현재
+              </p>
+            </div>
           <? endif ?>
         </div>
 
