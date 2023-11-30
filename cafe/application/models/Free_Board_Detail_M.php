@@ -27,6 +27,11 @@ class Free_Board_Detail_M extends CI_Model {
     return $board;
   }
 
+  public function get_file($idx) {
+    $board = $this->db->get_where('boards', ['idx' => $idx]);
+    return $board->result();
+  }
+
   public function get_comments($idx, $limit, $start) {
     $this->db->order_by('group_idx', 'asc');
     $this->db->order_by('group_order', 'asc');

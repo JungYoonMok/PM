@@ -116,6 +116,12 @@
           </div>
         </div>
 
+        <div class="flex flex-col gap-1">
+          <p class="">
+            <!-- <?= $post->file_path ?> -->
+          </p>
+        </div>
+
         <!-- 게시글 내용 -->
         <div class="outline-none rounded w-full p-3 min-h-[500px]" name="contents">
           <div>

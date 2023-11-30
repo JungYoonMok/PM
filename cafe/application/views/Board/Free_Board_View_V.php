@@ -280,19 +280,6 @@
 
                 <a href="/freeboard/${reply.idx}" class="h-30 gap-3 flex w-full duration-200 hover:translate-y-1 hover:text-white">
 
-                  <p class="">
-                    ${reply.title}
-                  </p>
-
-                  <div>
-                    <span class="material-symbols-outlined">
-                      ${reply.content.indexOf('<img') != -1 ? 'image' : ''}
-                    </span>
-                    <span class="material-symbols-outlined">
-                      ${reply.file_path ? 'attachment' : ''}
-                    </span>
-                  </div>
-
                   <div class="flex gap-2">
 
                     <div class="wrap ${reply.board_state == true && 'hidden'}">
@@ -316,6 +303,19 @@
                       <div class="tooltip text-sm shadow-2xl">게시글 삭제된 상태</div>
                     </div>
 
+                  </div>
+
+                  <p class="">
+                    ${reply.title}
+                  </p>
+                  
+                  <div>
+                    <span class="material-symbols-outlined">
+                      ${reply.content.indexOf('<img') != -1 ? 'image' : ''}
+                    </span>
+                    <span class="material-symbols-outlined">
+                      ${reply.file_path ? 'attachment' : ''}
+                    </span>
                   </div>
 
                 </a>

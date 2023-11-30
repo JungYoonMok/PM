@@ -66,6 +66,14 @@ class Free_board_Detail_C extends CI_Controller {
     // 페이지네이션
 
     $data['post'] = $this->FBM->get($idx);
+
+    // 게시글 데이터 조회 예시
+    // $postData = $this->FBM->get_file($idx)->result()->file_path;
+    // // $filePathsString = $postData['file_path'];
+    // $filePathsArray = explode(',', $postData);
+    // // $filePathsArray = explode(',', $filePathsString);
+    // $data['file'] = $filePathsArray;
+    
     $data['comment'] = $this->FBM->get_comments($idx, $config['per_page'], $page);
     $data['list'] = $this->db->get_where('boards', ['board_type' => '자유게시판'])->result();
 

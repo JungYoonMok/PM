@@ -45,7 +45,7 @@ class Register_C extends CI_Controller {
     $this->form_validation->set_rules('phone_2', 'Phone_2', 'required');
     $this->form_validation->set_rules('phone_3', 'Phone_3', 'required');
     $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
-    $this->form_validation->set_rules('memo', 'Memo', 'required');
+    // $this->form_validation->set_rules('memo', 'Memo', 'required');
 
     if ($this->form_validation->run()) {
 

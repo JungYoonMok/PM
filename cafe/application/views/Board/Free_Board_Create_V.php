@@ -145,7 +145,7 @@
     // 토스트 UI 에디터 인스턴스 생성
     editor = new toastui.Editor({
     el: document.querySelector('#editor'),
-    height: '500px',
+    height: '700px',
     // initialEditType: 'markdown',
     initialEditType: 'wysiwyg',
     previewStyle: 'vertical',

@@ -46,7 +46,7 @@
       $filePath = [];
 
       if(empty($_FILES['userfile']['name'])) {
-        $filePath = '-';
+        $filePath = '';
       } else {
         for ($i = 0; $i < $filesCount; $i++) {
           $_FILES['file']['name'] = $_FILES['userfile']['name'][$i];
@@ -76,7 +76,7 @@
         'user_id' => $this->session->userdata('user_id'),
         'board_state' => $this->input->post('post_open'),
         'board_comment' => $this->input->post('comment_open'),
-        'file_path' => $filePathsString ?? '-', // 파일 경로 추가
+        'file_path' => $filePathsString ?? '', // 파일 경로 추가
         'depth' => 1,
         'regdate' => date("Y-m-d H:i:s")
       ];
@@ -113,7 +113,7 @@
       $filePath = [];
 
       if(empty($_FILES['userfile']['name'])) {
-        $filePath = '-';
+        $filePath = '';
       } else {
         for ($i = 0; $i < $filesCount; $i++) {
           $_FILES['file']['name'] = $_FILES['userfile']['name'][$i];
@@ -147,7 +147,7 @@
         'user_id' => $this->session->userdata('user_id'),
         'board_state' => $this->input->post('post_open'),
         'board_comment' => $this->input->post('comment_open'),
-        'file_path' => $filePathsString ?? '-', // 파일 경로 추가
+        'file_path' => $filePathsString ?? '', // 파일 경로 추가
         'regdate' => date("Y-m-d H:i:s")
       ];
 
