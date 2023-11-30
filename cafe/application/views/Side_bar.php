@@ -173,8 +173,8 @@
         <!-- 구분선 -->
         <div id="line" class="border-b border-gray-400"></div>
 
-        <a href="/notice" id="notice"
-          class="deration-500 relative w-full duration-100 p-2 rounded hover:text-gray-100 <?= $this->uri->segment(2) == 'list' ? 'bg-[#2f2f2f] hover:translate-x-1' : 'hover:bg-[#4f4f4f]' ?>">
+        <a href="#" id="notice"
+          class="deration-500 relative w-full duration-100 p-2 rounded hover:text-gray-100 <?= $this->uri->segment(2) == 'notice' ? 'bg-[#2f2f2f] hover:translate-x-1' : 'hover:bg-[#4f4f4f]' ?>">
           <span class="w-full h-full flex gap-5">
             <span class="material-symbols-outlined">
               notifications
@@ -209,8 +209,8 @@
           </span>
         </a>
 
-        <a href="/hellow" id="hellow"
-          class="deration-500 relative w-full duration-100 p-2 rounded hover:text-gray-100 <?= $this->uri->segment(2) == 'list' ? 'bg-[#2f2f2f] hover:translate-x-1' : 'hover:bg-[#4f4f4f]' ?>">
+        <a href="#" id="hellow"
+          class="deration-500 relative w-full duration-100 p-2 rounded hover:text-gray-100 <?= $this->uri->segment(2) == 'hellow' ? 'bg-[#2f2f2f] hover:translate-x-1' : 'hover:bg-[#4f4f4f]' ?>">
           <span class="w-full h-full flex gap-5">
             <span class="material-symbols-outlined">
               waving_hand

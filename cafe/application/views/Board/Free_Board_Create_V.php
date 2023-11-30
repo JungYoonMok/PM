@@ -215,7 +215,9 @@
       dataType: 'json',
       success: (response) => {
         if (response.state) {
-          location.href = '/freeboard/' + response.last_id;
+          // location.href = '/freeboard/' + response.last_id;
+          location.href = '/freeboard/list';
+          console.log('성공: ', response);
         } else {
           alert('게시글 등록 실패: ' + response.message);
           console.log('실패: ', response);
@@ -245,7 +247,7 @@
     const fileInput = $('#userfile')[0];
     if (fileInput.files.length > 0) {
       for (const file of fileInput.files) {
-        formData.append('userfile', file);
+        formData.append('userfile[]', file);
       }
     }
 
@@ -259,12 +261,14 @@
       dataType: 'json',
       success: (response) => {
         if (response.state) {
-          location.href = '/freeboard/' + response.last_id;
+          // location.href = '/freeboard/' + response.last_id;
+          location.href = '/freeboard/list';
+          console.log('성공: ', response);
         } else {
-          alert('게시글 등록 실패: ' + response.message);
+          alert('게시글 답글 등록 실패: ' + response.message);
         }
       }, error: () => {
-        alert('게시글 등록 중 서버 오류가 발생했습니다.');
+        alert('게시글 답글 등록 중 서버 오류가 발생했습니다.');
       }
     });
   });
