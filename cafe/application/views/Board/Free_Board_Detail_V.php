@@ -68,7 +68,7 @@
           <div class="w-full flex gap-3 place-content-start">
             <div
               class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border border-[#4f4f4f] h-14 w-14 bg-[#3f3f3f]">
-              <img width="100%" src="https://pds.saramin.co.kr/workenv-bg/202303/09/rr8njw_y8e6-w09k06_workenv-bg.png"
+              <img width="100%" src="/uploads/<?= $user->user_profile ?>"
                 class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400">
               </img>
             </div>
@@ -170,26 +170,36 @@
         <!-- 첨부파일 관련 기능 -->
         <div class="flex flex-col text-sm gap-3 bg-[#3f3f3f] p-3 border border-[#4f4f4f] shadow-md <?= count($file) == 0 ? 'hidden' : '' ?>">
           <div class="flex justify-between">
-            <div class="flex gap-3 duration-200">
+            <div class="flex gap-3 place-items-center duration-200">
               <span class="material-symbols-outlined">
-                folder
+                download
               </span>
               <p>첨부파일 다운로드</p>
+              <p>〈 <?= count($file) ?> 개 〉</p>
             </div>
-            <button class="flex gap-3 duration-200 hover:translate-y-1">
+            <button class="flex gap-3 place-items-center duration-200 hover:translate-y-1">
               <span class="material-symbols-outlined">
                 expand_all
               </span>
               <p>열고 닫기</p>
             </button>
           </div>
+          <div class="flex flex-col gap-3 bg-[#2f2f2f] rounded p-3 duration-200">
           <? foreach ($file as $file) : ?>
             <? if (!empty($file)) : ?>
-              <div class="flex flex-col gap-3 bg-[#2f2f2f] rounded p-3 duration-200 hover:bg-[#1f1f1f]">
-                <a href="/uploads/<?=$file ?>" download><?= $file ?></a>
+              <div class="flex gap-3 place-items-center">
+                <span class="material-symbols-outlined -scale-x-100 opacity-50">
+                  subdirectory_arrow_left
+                </span>
+                <a href="/uploads/<?=$file ?>" download>
+                  <p class="duration-200 hover:translate-x-1">
+                    <?= $file ?>
+                  </p>
+                </a>
               </div>
-            <? endif; ?>
-          <? endforeach; ?>
+              <? endif; ?>
+              <? endforeach; ?>
+            </div>
         </div>
 
         <!-- 작성자 프로필 -->
@@ -204,12 +214,12 @@
               </img>
 
               <div class="">
-                <p><?= $post->user_id?></p>
+                <p class="text-base"><?= $post->user_id?></p>
                 <p>회원등급 : 지하계 / Level 1</p>
               </div>
             </div>
 
-            <div class="bg-[#3f3f3f] p-2 rounded flex flex-col gap-2">
+            <div class="bg-[#3f3f3f] px-3 py-4 rounded flex flex-col gap-2">
               <div class="flex justify-between">
                 <input hidden name='post_user' id="post_user" type="text" value="<?= $post->user_id ?>"/>
                 <p>포인트 <?= $user_point ?></p>
@@ -251,12 +261,18 @@
               <? foreach( $get_post as $row ) : ?>
                 <? if (!empty($row)) : ?>
                   <div class="flex justify-between gap-3 whitespace-nowrap">
-                    <p>
-                      <?= $row->title ?>
-                    </p>
-                    <p>
-                      <?= date("Y-m-d") == substr($row->regdate, 0, 10) ? substr($row->regdate, 10, 6) : substr($row->regdate, 0, 10); ?>
-                    </p>
+                    <div class="flex gap-1 place-items-center">
+                      <span class="material-symbols-outlined -scale-x-100">
+                        arrow_left
+                      </span>
+                      <p><?= $row->title ?></p>
+                    </div>
+                    <div class="flex gap-1 place-items-center">
+                      <span class="material-symbols-outlined text-sm">
+                        schedule
+                      </span>
+                      <p><?= date("Y-m-d") == substr($row->regdate, 0, 10) ? substr($row->regdate, 10, 6) : substr($row->regdate, 0, 10); ?></p>
+                    </div>
                   </div>
                 <? else: ?>
                   <p>데이터가 없습니다</p>
@@ -273,12 +289,18 @@
               <? foreach( $get_comment as $row ) : ?>
                 <? if (!empty($row)) : ?>
                   <div class="flex justify-between gap-3 whitespace-nowrap">
-                    <p>
-                      <?= $row->content ?>
-                    </p>
-                    <p>
-                      <?= date("Y-m-d") == substr($row->regdate, 0, 10) ? substr($row->regdate, 10, 6) : substr($row->regdate, 0, 10); ?>
-                    </p>
+                    <div class="flex gap-1 place-items-center">
+                      <span class="material-symbols-outlined -scale-x-100">
+                        arrow_left
+                      </span>
+                      <p><?= $row->content ?></p>
+                    </div>
+                    <div class="flex gap-1 place-items-center">
+                      <span class="material-symbols-outlined text-sm">
+                        schedule
+                      </span>
+                      <p><?= date("Y-m-d") == substr($row->regdate, 0, 10) ? substr($row->regdate, 10, 6) : substr($row->regdate, 0, 10); ?></p>
+                    </div>
                   </div>
                 <? else: ?>
                   <p>데이터가 없습니다</p>
@@ -295,10 +317,10 @@
         <div id="comments" class="border-b border-[#4f4f4f]"></div>
 
         <!-- 댓글 리스트 있을때 and 리플 -->
-        <div class="flex flex-col duration-200 bg-[#1f1f1f] rounded-md py-10 px-5 gap-5 w-full <?= empty($comment) || !$post->board_comment ? 'hidden' : '' ?>">
+        <div class="flex flex-col duration-200 rounded-md gap-5 w-full <?= empty($comment) || !$post->board_comment ? 'hidden' : '' ?>">
           <? foreach ($comment as $com): ?>
 
-            <div class="flex gap-3 text-sm w-full p-3 duration-200 rounded">
+            <div class="flex gap-3 text-sm w-full p-3 mb-8 duration-200 rounded">
 
               <!-- 답글일 경우 -->
               <div class="ml-[<?= 20 * $com -> depth - 1 ?>px;] flex justify-center place-items-center <?= $com->group_order !== '0' ? 'inline' : 'hidden' ?>">
@@ -313,7 +335,7 @@
                   <!-- 프로필 -->
                   <div class="drop-shadow-2xl flex rounded-[50%] place-content-center border border-[#4f4f4f] h-14 w-14 bg-[#3f3f3f]">
                     <img 
-                      width="100%" src="https://pds.saramin.co.kr/workenv-bg/202303/09/rr8njw_y8e6-w09k06_workenv-bg.png"
+                      width="100%" src="/uploads/<?= $user->user_profile ?>"
                       class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400">
                     </img>
                   </div>
@@ -324,31 +346,31 @@
                   </div>
                 </div>
 
-                  <!-- 댓글 -->
-                  <div class="flex flex-col border border-[#4f4f4f] shadow-xl w-full rounded p-3 <?= ($post->user_id == $com->user_id) ? 'bg-[#2f2f2f]' : ''; ?>">
-                    <!-- 아이디 -->
-                    <div class="flex justify-between w-full px-1">
-                      <div class="flex gap-1">
-                        <a href="#" class="font-bold hover:underline hover:opacity-80 duration-200">
-                          <?= empty($com->user_id) ? null : $com->user_id; ?>
-                        </a>
-                        <p>(등급)</p>
-                        <!-- <p>No: <?= $com->idx ?></p> -->
-                      </div>
-                      <div class="flex gap-2 text-sm font-bold text-gray-400 pr-2">
-                        <p class="material-symbols-outlined text-md">
-                          <?= date("Y-m-d") == substr($com->regdate, 0, 10) ? 'schedule' : 'today'; ?>                            
-                        </p>
-                        <p class="">
-                          <?= (empty($com->regdate) ? '-' : date("Y-m-d") == substr($com->regdate, 0, 10)) ? substr($com->regdate, 10, 18) : substr($com->regdate, 0, 16); ?>
-                        </p>
-                      </div>
+                <!-- 댓글 -->
+                <div class="flex flex-col border border-[#4f4f4f] shadow-xl w-full rounded p-3 <?= ($post->user_id == $com->user_id) ? 'bg-[#2f2f2f]' : ''; ?>">
+                  <!-- 아이디 -->
+                  <div class="flex justify-between w-full px-1">
+                    <div class="flex gap-1 place-items-center">
+                      <a href="#" class="text-base hover:underline hover:opacity-80 duration-200">
+                        <?= empty($com->user_id) ? null : $com->user_id; ?>
+                      </a>
+                      <p>(등급)</p>
+                      <!-- <p>No: <?= $com->idx ?></p> -->
                     </div>
+                    <div class="flex gap-2 text-sm text-gray-400 pr-2">
+                      <p class="material-symbols-outlined text-md">
+                        <?= date("Y-m-d") == substr($com->regdate, 0, 10) ? 'schedule' : 'today'; ?>                            
+                      </p>
+                      <p class="">
+                        <?= (empty($com->regdate) ? '-' : date("Y-m-d") == substr($com->regdate, 0, 10)) ? substr($com->regdate, 10, 18) : substr($com->regdate, 0, 16); ?>
+                      </p>
+                    </div>
+                  </div>
 
                   <!-- 작성된 댓글 -->
                   <div class="duration-200">
                     <!-- 내용 -->
-                    <div class="px-5 rounded-tl-none rounded-xl <?= ($post->user_id == $com->user_id) ? '' : ''; ?>">
+                    <div class="mt-3 rounded-tl-none rounded-xl <?= ($post->user_id == $com->user_id) ? '' : ''; ?>">
                       
                       <!-- 삭제된 댓글 -->
                       <p class="<?= $com -> delete_state ? 'inline-block' : 'hidden'; ?> text-md font-bold text-red-400 p-3">
@@ -358,15 +380,15 @@
                       <p id="reply_value<?= $com->idx ?>" class="<?= $com->delete_state ? 'hidden' : '' ?> w-full h-full">
                         <?= empty($com->content) ? null : $com->content; ?>
                         <!-- 리플 수정 -->
-                        <div id="reply_update<?= $com->idx ?>" class="w-full h-full text-sm hidden duration-200">
+                        <div id="reply_update<?= $com->idx ?>" class="w-full flex flex-col gap-3  text-sm hidden duration-200">
                           <!-- 원본 글 및 수정할 내용 -->
-                          <textarea id='comment_update_value<?= $com->idx ?>' class="text-white bg-[#2f2f2f] px-3 py-5 rounded w-full outline-none" rows="5"><?= empty($com->content) ? null : $com->content; ?></textarea>
-                          <div class="flex justify-between place-items-center">
-                            <p class="text-xs duration-200 animate-pulse">
-                              - 수정 내용은 <span class="bg-blue-500 rounded">`완료`</span> 버튼을 누르셔야 적용됩니다
+                          <textarea id='comment_update_value<?= $com->idx ?>' class="text-white bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-5 rounded w-full outline-none" rows="5"><?= empty($com->content) ? null : $com->content; ?></textarea>
+                          <div class="flex flex-col md:flex-row gap-3 justify-between place-items-center">
+                            <p class="text-xs duration-200">
+                              - 수정 내용은 <span class="bg-blue-500 py-1 rounded">`수정 완료`</span> 버튼을 누르셔야 적용됩니다
                             </p>
-                            <button id="reply_update_btn" onclick="comment_update(<?= $com->idx ?>)" class="bg-blue-500 outline-none px-5 py-1 rounded">
-                              완료
+                            <button id="reply_update_btn" onclick="comment_update(<?= $com->idx ?>)" class="bg-blue-500 outline-none w-full md:w-[40%] px-5 py-3 rounded">
+                              수정 완료
                             </button>
                           </div>
                         </div>
@@ -375,7 +397,7 @@
                     </div>
 
                     <!-- 작성시간 및 답글쓰기 -->
-                    <div class="flex rounded justify-between place-items-center text-sm text-gray-300 mt-3 whitespace-nowrap px-3">
+                    <div class="flex rounded justify-between place-items-center text-sm text-gray-300 mt-1 whitespace-nowrap">
 
                       <div class="">
                         <button id='reply_btn<?= $com->idx ?>' class="<?= $this->session->userdata('user_id') && !$com->delete_state ? 'inline-block' : 'hidden' ?> font-bold hover:underline hover:opacity-80 duration-200" onclick='reply_btn(<?= $com->idx ?>)'>
@@ -383,7 +405,7 @@
                         </button>
                       </div>
 
-                      <div class="flex gap-1 px-3 py-1 rounded <?= $this->session->userdata('user_id') && !$com->delete_state ? 'inline-block' : 'hidden' ?>">
+                      <div class="flex gap-1 py-1 rounded <?= $this->session->userdata('user_id') && !$com->delete_state ? 'inline-block' : 'hidden' ?>">
                         <div class="<?= $com->user_id == $this->session->userdata('user_id') ? 'inline-block' : 'hidden' ?> flex gap-1">
                           <button id="btn-update<?= $com->idx ?>" onclick="reply_update(<?= $com->idx ?>)" class="hover:underline hover:underline-offset-4 px-2 py-1 rounded">
                             수정

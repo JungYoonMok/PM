@@ -158,7 +158,7 @@
       <div class="border-b my-3 border-gray-400"></div>
 
       <!-- 메뉴 -->
-      <div class="flex flex-col gap-1 bg-[#3f3f3f] p-2 rounded">
+      <div class="flex flex-col gap-1 bg-[#3f3f3f] p-2 rounded shadow-lg border border-[#4f4f4f] duration-200 hover:scale-[103%]">
 
         <!-- 커뮤니티 -->
         <div class="flex justify-between p-3">
@@ -230,6 +230,67 @@
 
       <!-- 구분선 -->
       <div class="border-b my-3 border-gray-400"></div>
+
+      <!-- 방문자 및 회원수 -->
+      <div class="relative bg-[#3f3f3f] p-3 rounded text-sm flex flex-col gap-3 border border-[#4f4f4f] shadow-lg duration-200 hover:scale-[103%]">
+
+        <!-- 라벨 -->
+        <div class="bg-blue-500 absolute -top-0 -left-3 -rotate-45 rounded-sm shadow-2xl font-[s-core2]">
+          <p class="w-10 text-center font-bold">No.1</p>
+        </div>
+        
+        <div class="flex flex-col gap-3">
+          <div class="flex justify-around">
+            <div class="flex gap-2 place-items-center">
+              <span class="material-symbols-outlined">
+                face
+              </span>
+              <p>방문자</p>
+            </div>
+            <div class="flex place-items-center">
+              <span class="material-symbols-outlined text-green-500">
+                arrow_drop_up
+              </span>
+              <p>10</p>
+            </div>
+          </div>
+          <div class="bg-[#2f2f2f] rounded p-3 flex justify-around">
+            <p>오늘 10</p>
+            <p>어제 15</p>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <div class="flex justify-around">
+            <div class="flex gap-2 place-items-center">
+              <span class="material-symbols-outlined">
+                person
+              </span>
+              <p>회원수</p>
+            </div>
+            <div class="flex place-items-center">
+              <span class="material-symbols-outlined text-red-500 rotate-180">
+                arrow_drop_up
+              </span>
+              <p>10</p>
+            </div>
+          </div>
+          <div class="bg-[#2f2f2f] rounded p-3 flex justify-around">
+            <p>오늘 1</p>
+            <p>어제 5</p>
+          </div>
+        </div>
+
+        <!-- 구분선 -->
+        <div class="border-b border-gray-400"></div>
+
+        <!-- 총 방문 -->
+        <div class="flex justify-around">
+          <p>총 방문</p>
+          <p>1490</p>
+        </div>
+
+      </div>
 
     </div>
   </div>
