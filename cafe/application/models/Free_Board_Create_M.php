@@ -22,7 +22,7 @@ class Free_Board_Create_M extends CI_Model {
   }
 
   public function create($data) {
-    $result = $this->db->insert('boards', $this->db->escape_str($data));
+    $result = $this->db->insert('boards', $data);
     if($result) {
       
       $insert_id = $this->db->insert_id();

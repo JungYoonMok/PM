@@ -10,6 +10,18 @@ class Free_Board_Detail_M extends CI_Model {
     $this->load->model('common/user_point_exp_m');
   }
 
+  public function point_exp_total($type, $user_id) { // 경험치, 포인트 합계
+    $this->db->select_sum($type);
+    $this->db->where('members_user_id', $user_id);
+
+    $total_count = $this->db->get('point_exp_log');
+    if($total_count->num_rows() > 0) {
+      return $total_count->row()->$type ?? 0;
+    } else {
+      return 0;
+    }
+  }
+
   public function post_delete() {
     try {
       $idx = $this->input->post('idx');
@@ -22,14 +34,29 @@ class Free_Board_Detail_M extends CI_Model {
     }
   }
 
-  public function get($idx) {
+  // 게시글 전체 가져오기
+  public function get_post($idx) {
     $board = $this->db->get_where('boards', ['idx' => $idx])->row();
     return $board;
   }
 
+  // 최근 게시글 및 코멘트 가져오기
+  public function get_post_comment($type, $user_id) {
+    $this->db->order_by('idx', 'desc');
+    $this->db->limit(5);
+    $board = $this->db->get_where($type, ['user_id' => $user_id])->result();
+    return $board;
+  }
+
+  // 작성자 정보 가져오기
+  public function get_user($user_id) {
+    $user = $this->db->get_where('members', ['user_id' => $user_id])->row();
+    return $user;
+  }
+
   public function get_file($idx) {
     $board = $this->db->get_where('boards', ['idx' => $idx]);
-    return $board->result();
+    return $board->row_array();
   }
 
   public function get_comments($idx, $limit, $start) {

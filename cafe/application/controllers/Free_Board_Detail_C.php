@@ -65,14 +65,18 @@ class Free_board_Detail_C extends CI_Controller {
     $data['links'] = $this->pagination->create_links(); // 페이지네이션 링크 생성
     // 페이지네이션
 
-    $data['post'] = $this->FBM->get($idx);
+    $data['post'] = $this->FBM->get_post($idx);
+    $data['user'] = $this->FBM->get_user($data['post']->user_id);
+    $data['get_post'] = $this->FBM->get_post_comment('boards', $data['post']->user_id);
+    $data['get_comment'] = $this->FBM->get_post_comment('boards_comment', $data['post']->user_id);
 
-    // 게시글 데이터 조회 예시
-    // $postData = $this->FBM->get_file($idx)->result()->file_path;
-    // // $filePathsString = $postData['file_path'];
-    // $filePathsArray = explode(',', $postData);
-    // // $filePathsArray = explode(',', $filePathsString);
-    // $data['file'] = $filePathsArray;
+    $postData = $this->FBM->get_file($idx);
+    $filePathsString = $postData['file_path'];
+    $filePathsArray = explode(',', $filePathsString);
+    $data['file'] = $filePathsArray;
+
+    $data['user_point'] = $this->FBM->point_exp_total('point', $data['post']->user_id);
+    $data['user_exp'] = $this->FBM->point_exp_total('exp', $data['post']->user_id);
     
     $data['comment'] = $this->FBM->get_comments($idx, $config['per_page'], $page);
     $data['list'] = $this->db->get_where('boards', ['board_type' => '자유게시판'])->result();

@@ -40,7 +40,7 @@
       $config['allowed_types'] = 'gif|jpg|png';
       $config['max_size'] = 0;
       $this->load->library('upload', $config);
-  
+
       $filesCount = count($_FILES['userfile']['name'] ?? []);
       $uploadData = [];
       $filePath = [];
@@ -61,7 +61,7 @@
             return;
           } else {
             $uploadData[] = $this->upload->data();
-            $filePath[] = $uploadData[$i]['full_path']; // 혹은 다른 파일 경로 정보
+            $filePath[] = $uploadData[$i]['file_name'];
           }
         }
   
@@ -128,7 +128,7 @@
             return;
           } else {
             $uploadData[] = $this->upload->data();
-            $filePath[] = $uploadData[$i]['full_path']; // 혹은 다른 파일 경로 정보
+            $filePath[] = $uploadData[$i]['file_name'];
           }
         }
   
