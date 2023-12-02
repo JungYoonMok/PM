@@ -209,9 +209,18 @@
           <div class="flex flex-col gap-2 w-full md:w-[35%]">
 
             <div class="flex gap-2 place-items-center">
-              <img src="/uploads/<?= $user->user_profile ?>"
-                class="w-16 material-symbols-outlined rounded-[50%] text-5xl h-full text-gray-400 duration-200">
-              </img>
+
+              <div class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border border-gray-500 h-16 w-16 bg-[#3f3f3f]">
+                <? if ($user->user_profile == '' || null) : ?>
+                  <p class="material-symbols-outlined text-5xl text-gray-400 flex place-items-center justify-center">
+                    person
+                  </p>
+                <? else : ?>
+                  <img width="100%" src="/uploads/<?= $user->user_profile ?>"
+                    class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400 duration-200">
+                  </img>
+                <? endif ?>
+              </div>
 
               <div class="">
                 <p class="text-base"><?= $post->user_id?></p>
@@ -255,8 +264,10 @@
           <!-- 사용자 활동 -->
           <div class="flex p-3 rounded gap-5 md:justify-center md:place-items-center flex-col md:flex-row w-full md:w-[65%]">
 
-            <div class="w-full flex flex-col gap-5">
-              <p class="px-3 py-1 bg-[#3f3f3f] rounded">작성자의 최근 게시글</p>
+            <div class="w-full h-full flex flex-col gap-5">
+              <p class="px-3 py-1 bg-[#3f3f3f] rounded">
+                작성자의 최근 게시글
+              </p>
               <div class="flex flex-col gap-3">
               <? foreach( $get_post as $row ) : ?>
                 <? if (!empty($row)) : ?>
@@ -265,17 +276,23 @@
                       <span class="material-symbols-outlined -scale-x-100">
                         arrow_left
                       </span>
-                      <p><?= $row->title ?></p>
+                      <a href="/<?= $row->board_type ?>/<?= $row->idx ?>" class="duration-200 hover:-translate-x-1">
+                        <?= $row->title ?>
+                      </a>
                     </div>
                     <div class="flex gap-1 place-items-center">
                       <span class="material-symbols-outlined text-sm">
                         schedule
                       </span>
-                      <p><?= date("Y-m-d") == substr($row->regdate, 0, 10) ? substr($row->regdate, 10, 6) : substr($row->regdate, 0, 10); ?></p>
+                      <p>
+                        <?= date("Y-m-d") == substr($row->regdate, 0, 10) ? substr($row->regdate, 10, 6) : substr($row->regdate, 0, 10); ?>
+                      </p>
                     </div>
                   </div>
                 <? else: ?>
-                  <p>데이터가 없습니다</p>
+                  <p class="">
+                    데이터가 없습니다
+                  </p>
                 <? endif; ?>
               <? endforeach ?>
               </div>
@@ -283,8 +300,10 @@
 
             <div class="md:hidden border-b border-[#4f4f4f]"></div>
 
-            <div class="w-full flex flex-col gap-5">
-              <p class="px-3 py-1 bg-[#3f3f3f] rounded">작성자의 최근 댓글</p>
+            <div class="w-full h-full flex flex-col gap-">
+              <p class="px-3 py-1 bg-[#3f3f3f] rounded">
+                작성자의 최근 댓글
+              </p>
               <div class="flex flex-col gap-3">
               <? foreach( $get_comment as $row ) : ?>
                 <? if (!empty($row)) : ?>
@@ -299,13 +318,17 @@
                       <span class="material-symbols-outlined text-sm">
                         schedule
                       </span>
-                      <p><?= date("Y-m-d") == substr($row->regdate, 0, 10) ? substr($row->regdate, 10, 6) : substr($row->regdate, 0, 10); ?></p>
+                      <p>
+                        <?= date("Y-m-d") == substr($row->regdate, 0, 10) ? substr($row->regdate, 10, 6) : substr($row->regdate, 0, 10); ?>
+                      </p>
                     </div>
                   </div>
-                <? else: ?>
-                  <p>데이터가 없습니다</p>
-                <? endif; ?>
-              <? endforeach ?>
+                  <? else : ?>
+                    <p class="">
+                      데이터가 없습니다
+                    </p>
+                  <? endif; ?>
+                <? endforeach ?>
               </div>
             </div>
 
@@ -590,8 +613,7 @@
       <table class="text-gray-50 text-center whitespace-nowrap">
         <thead class="text-sm bg-[#3f3f3f] h-10">
           <th class="">ID</th>
-          <th class="">분류</th>
-          <th class="width-[40%]">제목</th>
+          <th class="w-[50%]">제목</th>
           <th class="">작성자</th>
           <th class="">작성날짜</th>
           <th class="">추천</th>
@@ -602,7 +624,6 @@
         <? foreach ($list as $li): ?>
           <tr class="border-b border-[#4f4f4f] text-sm">
             <td class="p-2"><?= $li->idx ?></td>
-            <td class="p-2"><?= $li->board_type ?></td>
             <td class="text-left">
               <a href="/freeboard/<?= $li->idx ?>" class="flex gap-2">
                 <p class="bg-red-500 rounded-full px-2 py-1 text-xs <?= $li->hit > 100 ? '' : 'hidden' ?>">
@@ -611,7 +632,7 @@
                 <p class="bg-[#4f4f4f] rounded-full px-2 py-1 text-xs <?= $li->group_order > 0 ? '' : 'hidden' ?>">
                   답글
                 </p>
-                <?= $li->title ?>
+                <p><?= $li->title ?></p>
               </a>
             </td>
             <td>

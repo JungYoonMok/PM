@@ -78,9 +78,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
       $side_view_data['exp_total'] = $this->point_exp_total('exp');
       $side_view_data['level_converter'] = $this->level_converter($this->point_exp_total('exp'));
       
-      $side_view_data['freeboard_total'] = $this->board_total('자유게시판');
-      $side_view_data['freeboard_total'] = $this->board_total('자유게시판');
-      $side_view_data['freeboard_total'] = $this->board_total('자유게시판');
+      $side_view_data['freeboard_total'] = $this->board_total('freeboard');
+      $side_view_data['freeboard_total'] = $this->board_total('freeboard');
+      $side_view_data['freeboard_total'] = $this->board_total('freeboard');
 
       //사이드에서 사용할 데이터 뽑기
       $layout_view_data = [

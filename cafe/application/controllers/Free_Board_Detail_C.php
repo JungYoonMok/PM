@@ -79,7 +79,7 @@ class Free_board_Detail_C extends CI_Controller {
     $data['user_exp'] = $this->FBM->point_exp_total('exp', $data['post']->user_id);
     
     $data['comment'] = $this->FBM->get_comments($idx, $config['per_page'], $page);
-    $data['list'] = $this->db->get_where('boards', ['board_type' => '자유게시판'])->result();
+    $data['list'] = $this->db->get_where('boards', ['board_type' => 'freeboard'])->result();
 
     // 게시글 정보 등
     $this->FBM->board_hit_plus($idx); // 조회수 증가

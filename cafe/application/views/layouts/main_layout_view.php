@@ -189,7 +189,8 @@
       </div>
 
       <!-- 최상단 최하단 버튼 -->
-      <div id="side_btn" class="z-50 fixed right-5 bottom-5 mb-[1%]">
+      <div id="side_btn" class="z-50 fixed right-5 top-[45%] bottom-[55%]">
+      <!-- <div id="side_btn" class="z-50 fixed right-5 bottom-5 mb-[1%]"> -->
         <? $this->load->view('side_btn'); ?>
       </div>
       

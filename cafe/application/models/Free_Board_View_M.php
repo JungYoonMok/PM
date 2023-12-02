@@ -18,7 +18,7 @@ class Free_Board_View_M extends CI_Model {
     $this->db->select('(SELECT COUNT(*) FROM board_like WHERE like_type = 1 AND boards_idx = boards.idx) as like_count', FALSE);
     $this->db->select('(SELECT COUNT(*) FROM board_like WHERE like_type = 0 AND boards_idx = boards.idx) as dislike_count', FALSE);
     $this->db->select('(SELECT COUNT(*) FROM boards as reply WHERE reply.group_idx = boards.idx AND reply.group_order > 0) as reply_count', FALSE);
-    $this->db->where('board_type', '자유게시판');
+    $this->db->where('board_type', 'freeboard');
     $this->db->where('group_order', '0'); // 답글이 아닌 경우 제외
     $this->db->order_by('idx', 'desc');
     $this->db->limit($limit, $start);
@@ -29,7 +29,7 @@ class Free_Board_View_M extends CI_Model {
   }
   
   public function GetBoardTotal() {
-    $result = $this->db->query("SELECT idx FROM boards WHERE board_type = '자유게시판' ;")->num_rows();
+    $result = $this->db->query("SELECT idx FROM boards WHERE board_type = 'freeboard' ;")->num_rows();
     return $result;
   }
 
@@ -38,7 +38,7 @@ class Free_Board_View_M extends CI_Model {
     $this->db->select('(SELECT COUNT(*) FROM board_like WHERE like_type = 1 AND boards_idx = boards.idx) as like_count', FALSE);
     $this->db->select('(SELECT COUNT(*) FROM board_like WHERE like_type = 0 AND boards_idx = boards.idx) as dislike_count', FALSE);
     // $this->db->select('(SELECT COUNT(*) FROM boards WHERE group_idx = boards.idx) as reply_count', FALSE); // 'reply_table'과 'parent_idx'는 답글 테이블과 컬럼명에 따라 변경 필요
-    // $this->db->where('board_type', '자유게시판');
+    // $this->db->where('board_type', 'freeboard');
     $this->db->from('boards');
     
     // 검색 타입에 따른 컬럼 설정

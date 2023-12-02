@@ -43,9 +43,9 @@
               <select id='post_type' name='post_type' required value="안녕"
                 class="outline-none w-full text-whith rounded bg-[#4f4f4f] p-3">
                 <option class="" hidden value="안녕2" disabled selected>게시판 선택</option>
-                <option value="공지사항">공지사항</option>
-                <option value="자유게시판">자유게시판</option>
-                <option value="가입인사">가입인사</option>
+                <option value="notice">공지사항</option>
+                <option value="freeboard">자유게시판</option>
+                <option value="hellow">가입인사</option>
               </select>
             </div>
 
