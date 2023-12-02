@@ -192,7 +192,6 @@
 
     // 파일 입력 필드 검증
     const fileInput = $('#userfile')[0];
-    console.log('디버깅: ', fileInput); // 디버깅을 위한 로그
     
     if (fileInput && fileInput.files.length > 0) {
       // 파일 처리 로직
@@ -222,9 +221,11 @@
           alert('게시글 등록 실패: ' + response.message);
           console.log('실패: ', response);
         }
-      }, error: () => {
-        alert('게시글 등록 중 서버 오류가 발생했습니다.');
-        console.log('오류: ', response);
+      }, error: function(xhr, status, error) {
+        // 여기서 xhr는 XMLHttpRequest 객체, status는 문자열 상태, error는 오류
+        console.log('오류: ', xhr.responseText);
+        console.log('오류: ', status);
+        console.log('오류: ', error);
       }
     });
   });

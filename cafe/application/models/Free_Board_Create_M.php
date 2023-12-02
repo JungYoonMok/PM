@@ -21,10 +21,20 @@ class Free_Board_Create_M extends CI_Model {
     }
   }
 
+  public function insert_file($data) {
+    $result = $this->db->insert('upload_file', $data);
+    if($result) {
+      
+      return TRUE;
+    } else {
+      log_message('error', '게시글 등록 실패: ' . $this->db->error()['message']);
+      return FALSE;
+    }
+  }
+
   public function create($data) {
     $result = $this->db->insert('boards', $data);
     if($result) {
-      
       $insert_id = $this->db->insert_id();
 
       // 게시글의 group_idx를 댓글 자신의 idx로 설정합니다.
