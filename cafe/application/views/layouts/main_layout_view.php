@@ -128,7 +128,9 @@
     border-right: 8px solid transparent; 
     border-bottom: 8px solid #1f1f1f;
   } 
-  .wrap:hover .tooltip{display: block;}
+  .wrap:hover .tooltip{
+    display: block;
+  }
 
   </style>
 
@@ -189,8 +191,8 @@
       </div>
 
       <!-- 최상단 최하단 버튼 -->
-      <div id="side_btn" class="z-50 fixed right-5 top-[45%] bottom-[55%]">
-      <!-- <div id="side_btn" class="z-50 fixed right-5 bottom-5 mb-[1%]"> -->
+      <div id="side_btn" class="z-50 fixed right-0 top-[50%] bottom-[50%]">
+      <!-- <div id="side_btn" class="z-50 fixed right-0 bottom-5 mb-[1%]"> -->
         <? $this->load->view('side_btn'); ?>
       </div>
       

@@ -172,13 +172,15 @@
                 download
               </span>
               <p>첨부파일 다운로드</p>
-              <p><?= count($file) ?> 개</p>
+              <p title="파일 첨부는 최대 5개입니다">
+                <?= count($file) ?> / 5
+              </p>
             </div>
             <button class="flex gap-3 place-items-center duration-200 hover:translate-y-1">
               <span class="material-symbols-outlined">
                 expand_all
               </span>
-              <p>열고 닫기</p>
+              <p>목록 닫기</p>
             </button>
           </div>
           <div class="flex flex-col gap-3 bg-[#2f2f2f] rounded p-3 duration-200">
@@ -189,19 +191,17 @@
                   subdirectory_arrow_left
                 </span>
                 <div class="flex justify-between w-full">
-                  <a href="/uploads/<?=$file->file_name ?>" download class="duration-200 hover:translate-x-1 flex gap-2 place-items-center">
+                  <a href="/uploads/<?=$file->file_name ?>" download class="duration-200 hover:translate-x-3 flex gap-2 place-items-center">
                     <img src="/uploads/<?= $file->file_name ?>" width="100%" alt="img" class="w-10 rounded duration-200 hover:scale-[3.0]">
                     <p><?= $file->file_name ?></p>
                   </a>
-                  <div class="flex place-items-center gap-3 text-xs text-[#8f8f8f]">
+                  <div class="flex place-items-center gap-3 text-xs text-[#8f8f8f] font-bold">
                     <p class="duration-200 hidden md:inline-block">
-                      가로 <?= $file->width ?> px
+                      <?= $file->width ?> x <?= $file->height ?>
                     </p>
-                    <p class="duration-200 hidden md:inline-block">
-                      세로 <?= $file->height ?> px
-                    </p>
+                    <p class="hidden md:inline-block">|</p>
                     <p class="duration-200">
-                      크기 <?= $file->file_size ?> kb
+                      <?= $file->file_size ?> KB
                     </p>
                   </div>
                 </div>
@@ -289,7 +289,7 @@
                       <span class="material-symbols-outlined -scale-x-100">
                         arrow_left
                       </span>
-                      <a href="/<?= $row->board_type ?>/<?= $row->idx ?>" class="duration-200 hover:-translate-x-1">
+                      <a href="/<?= $row->board_type ?>/<?= $row->idx ?>" class="duration-200 hover:text-[#9f9f9f]">
                         <?= $row->title ?>
                       </a>
                     </div>

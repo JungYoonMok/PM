@@ -2,7 +2,7 @@
 <div id="base" class="flex duration-200 bg-[#3f3f3f] text-gray-50 w-full relative">
 
   <!-- 메인 베이스 -->
-  <div class="flex flex-col justify-between w-full h-full">
+  <div class="flex flex-col justify-between w-full">
 
     <!-- 메인 -->
     <div class="gap-3 w-full p-1 md:p-5 flex flex-col">
