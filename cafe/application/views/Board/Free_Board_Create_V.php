@@ -140,7 +140,6 @@
   let editor;
 
   $(document).ready(() => {
-    
 
     // 토스트 UI 에디터 인스턴스 생성
     editor = new toastui.Editor({

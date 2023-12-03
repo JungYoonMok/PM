@@ -35,16 +35,16 @@ class Free_Board_Create_M extends CI_Model {
   public function create($data) {
     $result = $this->db->insert('boards', $data);
     if($result) {
-      $insert_id = $this->db->insert_id();
-
+      $last_id = $this->db->insert_id();
       // 게시글의 group_idx를 댓글 자신의 idx로 설정합니다.
-      $this->db->where('idx', $insert_id);
-      $this->db->update('boards', ['group_idx' => $insert_id]);
+      $this->db->where('idx', $last_id);
+      $this->db->update('boards', ['group_idx' => $last_id]);
 
       // 포인트 및 경험치 지급
-      $this->user_point_exp_m->point_exp_add('활동 포인트 지급', $insert_id.'번 게시글 작성');
+      $this->user_point_exp_m->point_exp_add('활동 포인트 지급', $last_id.'번 게시글 작성');
       
-      return TRUE;
+
+      return ['state' => TRUE, 'data' => $data, 'last_id' => $last_id ];
     } else {
       log_message('error', '게시글 등록 실패: ' . $this->db->error()['message']);
       return FALSE;
