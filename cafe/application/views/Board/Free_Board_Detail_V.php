@@ -119,9 +119,6 @@
         <!-- 게시글 내용 -->
         <div class="outline-none rounded w-full p-3 min-h-[500px]" name="contents">
           <div>
-            <div>
-              <p><? $post->file_path ? $post->file_path : NULL ?></p>
-            </div>
 
             <!-- 출력 -->
             <div class="toast-custom-viewer text-white <?= $post->board_delete ? 'hidden' : ''?>">
@@ -168,14 +165,14 @@
         </div>
 
         <!-- 첨부파일 관련 기능 -->
-        <div class="flex flex-col text-sm gap-3 bg-[#3f3f3f] p-3 border border-[#4f4f4f] shadow-md <?= count($file) == 0 ? 'hidden' : '' ?>">
+        <div class="flex flex-col text-sm gap-3 bg-[#3f3f3f] p-3 border border-[#4f4f4f] shadow-md <?= empty($file) ? 'hidden' : '' ?>">
           <div class="flex justify-between">
             <div class="flex gap-3 place-items-center duration-200">
               <span class="material-symbols-outlined">
                 download
               </span>
               <p>첨부파일 다운로드</p>
-              <p>〈 <?= count($file) ?> 개 〉</p>
+              <p><?= count($file) ?> 개</p>
             </div>
             <button class="flex gap-3 place-items-center duration-200 hover:translate-y-1">
               <span class="material-symbols-outlined">
@@ -187,20 +184,36 @@
           <div class="flex flex-col gap-3 bg-[#2f2f2f] rounded p-3 duration-200">
           <? foreach ($file as $file) : ?>
             <? if (!empty($file)) : ?>
-              <div class="flex gap-3 place-items-center">
+              <div class="flex gap-3 place-items-center duration-200 p-2 hover:rounded hover:bg-[#3f3f3f]">
                 <span class="material-symbols-outlined -scale-x-100 opacity-50">
                   subdirectory_arrow_left
                 </span>
-                <a href="/uploads/<?=$file ?>" download>
-                  <p class="duration-200 hover:translate-x-1">
-                    <?= $file ?>
-                  </p>
-                </a>
+                <div class="flex justify-between w-full">
+                  <a href="/uploads/<?=$file->file_name ?>" download class="duration-200 hover:translate-x-1 flex gap-2 place-items-center">
+                    <img src="/uploads/<?= $file->file_name ?>" width="100%" alt="img" class="w-10 rounded duration-200 hover:scale-[3.0]">
+                    <p><?= $file->file_name ?></p>
+                  </a>
+                  <div class="flex place-items-center gap-3 text-xs text-[#8f8f8f]">
+                    <p class="duration-200 hidden md:inline-block">
+                      가로 <?= $file->width ?> px
+                    </p>
+                    <p class="duration-200 hidden md:inline-block">
+                      세로 <?= $file->height ?> px
+                    </p>
+                    <p class="duration-200">
+                      크기 <?= $file->file_size ?> kb
+                    </p>
+                  </div>
+                </div>
               </div>
+              <? else : ?>
+                <div>
+                  <p>데이터가 없습니다</p>
+                </div>
               <? endif; ?>
               <? endforeach; ?>
             </div>
-        </div>
+          </div>
 
         <!-- 작성자 프로필 -->
         <div class="border border-[#4f4f4f] p-3 rounded flex flex-col md:flex-row gap-3 text-sm shadow-lg">

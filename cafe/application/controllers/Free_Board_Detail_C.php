@@ -70,10 +70,7 @@ class Free_board_Detail_C extends CI_Controller {
     $data['get_post'] = $this->FBM->get_post_comment('boards', $data['post']->user_id);
     $data['get_comment'] = $this->FBM->get_post_comment('boards_comment', $data['post']->user_id);
 
-    $postData = $this->FBM->get_file($idx);
-    $filePathsString = $postData['file_path'];
-    $filePathsArray = explode(',', $filePathsString);
-    $data['file'] = $filePathsArray;
+    $data['file'] = $this->FBM->get_file($idx);
 
     $data['user_point'] = $this->FBM->point_exp_total('point', $data['post']->user_id);
     $data['user_exp'] = $this->FBM->point_exp_total('exp', $data['post']->user_id);
