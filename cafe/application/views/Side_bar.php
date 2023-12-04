@@ -248,15 +248,20 @@
               <p>방문자</p>
             </div>
             <div class="flex place-items-center">
-              <span class="material-symbols-outlined text-green-500">
+              <span class="
+              material-symbols-outlined
+              <?= ($site_visit_today - $site_visit_yesterday) == 0 ? 'hidden' : '' ?>
+              <?= ($site_visit_today - $site_visit_yesterday) < 0 ? 'text-red-500 rotate-180' : 'text-green-500' ?>">
                 arrow_drop_up
               </span>
-              <p>10</p>
+              <p>
+                <?= ($site_visit_today - $site_visit_yesterday) ?>
+              </p>
             </div>
           </div>
           <div class="bg-[#2f2f2f] rounded p-3 flex justify-around">
-            <p>오늘 10</p>
-            <p>어제 15</p>
+            <p>오늘 <?= $site_visit_today ?></p>
+            <p>어제 <?= $site_visit_yesterday ?></p>
           </div>
         </div>
 
@@ -269,15 +274,20 @@
               <p>회원수</p>
             </div>
             <div class="flex place-items-center">
-              <span class="material-symbols-outlined text-red-500 rotate-180">
+            <span class="
+              material-symbols-outlined
+              <?= ($user_register_today - $user_register_yesterday) == 0 ? 'hidden' : '' ?>
+              <?= ($user_register_today - $user_register_yesterday) < 0 ? 'text-red-500 rotate-180' : 'text-green-500' ?>">
                 arrow_drop_up
               </span>
-              <p>10</p>
+              <p>
+                <?= ($user_register_today - $user_register_yesterday) ?>
+              </p>
             </div>
           </div>
           <div class="bg-[#2f2f2f] rounded p-3 flex justify-around">
-            <p>오늘 1</p>
-            <p>어제 5</p>
+            <p>오늘 <?= $user_register_today ?></p>
+            <p>어제 <?= $user_register_yesterday ?></p>
           </div>
         </div>
 
@@ -287,7 +297,7 @@
         <!-- 총 방문 -->
         <div class="flex justify-around">
           <p>총 방문</p>
-          <p>1490</p>
+          <p><?= $visit_total ?></p>
         </div>
 
       </div>

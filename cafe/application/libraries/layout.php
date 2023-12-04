@@ -66,6 +66,59 @@ defined('BASEPATH') or exit('No direct script access allowed');
       ];
     }
 
+    public function site_visit($type) { // 방문자
+      $data = $this->obj->db->get_where("members_login_logout", ["state" => 'login']);
+
+      if ($type == 'today') {
+        $count = 0;
+        foreach($data->result() as $row) {
+          $q = substr($row->regdate, 0, 10);
+          if($q == date("Y-m-d")) {
+            $count++;
+          }
+        }
+      } else {
+        $count = 0;
+        foreach($data->result() as $row) {
+          $q = substr($row->regdate, 0, 10);
+          $q_minus_one = date($q, strtotime("-1 day"));
+          if($q_minus_one == date("Y-m-d", strtotime("-1 day"))) {
+            $count++;
+          }
+        }
+      }
+      return $count ?? 0;
+    }
+
+    public function user_register($type) { // 회원가입
+      $data = $this->obj->db->get("members");
+
+      if ($type == 'today') {
+        $count = 0;
+        foreach($data->result() as $row) {
+          $q = substr($row->regdate, 0, 10);
+          if($q == date("Y-m-d")) {
+            $count++;
+          }
+        }
+      } else {
+        $count = 0;
+        foreach($data->result() as $row) {
+          $q = substr($row->regdate, 0, 10);
+          $q_minus_one = date($q, strtotime("-1 day"));
+          if($q_minus_one == date("Y-m-d", strtotime("-1 day"))) {
+            $count++;
+          }
+        }
+      }
+      return $count ?? 0;
+    }
+
+    public function visit_total() { // 방문 총 횟수
+      $total_count = $this->obj->db->get_where("members_login_logout", ["state" => 'login']);
+      return $total_count->num_rows() ?? 0;
+    }
+
     function custom_view( $view = "", $page_view_data = [] ) {
 
       // 헤더에서 사용할 데이터 뽑기
@@ -81,6 +134,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
       $side_view_data['freeboard_total'] = $this->board_total('freeboard');
       $side_view_data['freeboard_total'] = $this->board_total('freeboard');
       $side_view_data['freeboard_total'] = $this->board_total('freeboard');
+      
+      $side_view_data['site_visit_today'] = $this->site_visit('today');
+      $side_view_data['site_visit_yesterday'] = $this->site_visit('yesterday');
+
+      $side_view_data['user_register_today'] = $this->user_register('today');
+      $side_view_data['user_register_yesterday'] = $this->user_register('yesterday');
+
+      $side_view_data['visit_total'] = $this->visit_total();
 
       //사이드에서 사용할 데이터 뽑기
       $layout_view_data = [

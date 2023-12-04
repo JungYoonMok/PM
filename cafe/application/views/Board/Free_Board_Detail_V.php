@@ -277,11 +277,11 @@
           <!-- 사용자 활동 -->
           <div class="flex p-3 rounded gap-5 md:justify-center md:place-items-center flex-col md:flex-row w-full md:w-[65%]">
 
-            <div class="w-full whitespace-nowrap h-full flex flex-col gap-5">
+            <div class="w-full min-w-1/2 whitespace-nowrap h-full flex flex-col gap-5">
               <p class="px-3 py-1 bg-[#3f3f3f] rounded">
                 작성자의 최근 게시글
               </p>
-              <div class="flex flex-col gap-3">
+              <div class="flex flex-col gap-3 px-2">
               <? foreach( $get_post as $row ) : ?>
                 <? if (!empty($row)) : ?>
                   <div class="flex justify-between gap-3">
@@ -290,7 +290,7 @@
                         arrow_left
                       </span>
                       <a href="/<?= $row->board_type ?>/<?= $row->idx ?>" class="duration-200 hover:text-[#9f9f9f]">
-                        <?= $row->title ?>
+                        <?= substr($row->title, 0, 15) ?> <span class="text-gray-400">..</span>
                       </a>
                     </div>
                     <div class="flex gap-1 place-items-center">
@@ -313,11 +313,11 @@
 
             <div class="md:hidden border-b border-[#4f4f4f]"></div>
 
-            <div class="w-full whitespace-nowrap h-full flex flex-col gap-5">
+            <div class="w-full min-w-1/2 whitespace-nowrap h-full flex flex-col gap-5">
               <p class="px-3 py-1 bg-[#3f3f3f] rounded">
                 작성자의 최근 댓글
               </p>
-              <div class="flex flex-col gap-3">
+              <div class="flex flex-col gap-3 px-2">
               <? foreach( $get_comment as $row ) : ?>
                 <? if (!empty($row)) : ?>
                   <div class="flex justify-between gap-3">
