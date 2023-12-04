@@ -172,21 +172,21 @@
                 download
               </span>
               <p>첨부파일 다운로드</p>
-              <p title="파일 첨부는 최대 5개입니다">
-                <?= count($file) ?> / 5
-              </p>
             </div>
-            <button class="flex gap-3 place-items-center duration-200 hover:translate-y-1">
+            <p title="파일 첨부는 최대 5개입니다">
+              <?= count($file) ?> / 5
+            </p>
+            <!-- <button id="file_list_onoff" class="flex gap-3 place-items-center duration-200 hover:translate-y-1">
               <span class="material-symbols-outlined">
                 expand_all
               </span>
               <p>목록 닫기</p>
-            </button>
+            </button> -->
           </div>
-          <div class="flex flex-col gap-3 bg-[#2f2f2f] rounded p-3 duration-200">
+          <div id="file_list" class="flex flex-col gap-3 bg-[#2f2f2f] rounded p-3 duration-200">
           <? foreach ($file as $file) : ?>
             <? if (!empty($file)) : ?>
-              <div class="flex gap-3 place-items-center duration-200 p-2 hover:rounded hover:bg-[#3f3f3f]">
+              <div class="flex gap-3 place-items-center duration-200 px-3 hover:rounded hover:bg-[#3f3f3f]">
                 <span class="material-symbols-outlined -scale-x-100 opacity-50">
                   subdirectory_arrow_left
                 </span>
@@ -211,7 +211,7 @@
                   <p>데이터가 없습니다</p>
                 </div>
               <? endif; ?>
-              <? endforeach; ?>
+            <? endforeach; ?>
             </div>
           </div>
 
@@ -277,14 +277,14 @@
           <!-- 사용자 활동 -->
           <div class="flex p-3 rounded gap-5 md:justify-center md:place-items-center flex-col md:flex-row w-full md:w-[65%]">
 
-            <div class="w-full h-full flex flex-col gap-5">
+            <div class="w-full whitespace-nowrap h-full flex flex-col gap-5">
               <p class="px-3 py-1 bg-[#3f3f3f] rounded">
                 작성자의 최근 게시글
               </p>
               <div class="flex flex-col gap-3">
               <? foreach( $get_post as $row ) : ?>
                 <? if (!empty($row)) : ?>
-                  <div class="flex justify-between gap-3 whitespace-nowrap">
+                  <div class="flex justify-between gap-3">
                     <div class="flex gap-1 place-items-center">
                       <span class="material-symbols-outlined -scale-x-100">
                         arrow_left
@@ -313,14 +313,14 @@
 
             <div class="md:hidden border-b border-[#4f4f4f]"></div>
 
-            <div class="w-full h-full flex flex-col gap-">
+            <div class="w-full whitespace-nowrap h-full flex flex-col gap-5">
               <p class="px-3 py-1 bg-[#3f3f3f] rounded">
                 작성자의 최근 댓글
               </p>
               <div class="flex flex-col gap-3">
               <? foreach( $get_comment as $row ) : ?>
                 <? if (!empty($row)) : ?>
-                  <div class="flex justify-between gap-3 whitespace-nowrap">
+                  <div class="flex justify-between gap-3">
                     <div class="flex gap-1 place-items-center">
                       <span class="material-symbols-outlined -scale-x-100">
                         arrow_left

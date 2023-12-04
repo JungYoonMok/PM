@@ -170,7 +170,7 @@
                 ${li.content.indexOf('<img') != -1 ? 'image' : ''}
               </span>
               <span class="material-symbols-outlined">
-                ${li.file_path ? 'attachment' : ''}
+                ${li.file > 0? 'attachment' : ''}
               </span>
             </div>
           
@@ -314,8 +314,8 @@
                       ${reply.content.indexOf('<img') != -1 ? 'image' : ''}
                     </span>
                     <span class="material-symbols-outlined">
-                      ${reply.file_path ? 'attachment' : ''}
-                    </span>
+                      ${reply.file > 0 ? 'attachment' : ''}
+                      </span>
                   </div>
 
                 </a>

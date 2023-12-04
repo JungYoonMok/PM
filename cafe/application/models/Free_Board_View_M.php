@@ -18,6 +18,7 @@ class Free_Board_View_M extends CI_Model {
     $this->db->select('(SELECT COUNT(*) FROM board_like WHERE like_type = 1 AND boards_idx = boards.idx) as like_count', FALSE);
     $this->db->select('(SELECT COUNT(*) FROM board_like WHERE like_type = 0 AND boards_idx = boards.idx) as dislike_count', FALSE);
     $this->db->select('(SELECT COUNT(*) FROM boards as reply WHERE reply.group_idx = boards.idx AND reply.group_order > 0) as reply_count', FALSE);
+    $this->db->select('(SELECT COUNT(*) FROM upload_file WHERE boards_idx = boards.idx) as file', FALSE);
     $this->db->where('board_type', 'freeboard');
     $this->db->where('group_order', '0'); // 답글이 아닌 경우 제외
     $this->db->order_by('idx', 'desc');
@@ -65,7 +66,8 @@ class Free_Board_View_M extends CI_Model {
     $this->db->select('boards.*,');
     $this->db->select('(SELECT COUNT(*) FROM board_like WHERE like_type = 1 AND boards_idx = boards.idx) as like_count', FALSE);
     $this->db->select('(SELECT COUNT(*) FROM board_like WHERE like_type = 0 AND boards_idx = boards.idx) as dislike_count', FALSE);
-
+    $this->db->select('(SELECT COUNT(*) FROM upload_file WHERE boards_idx = boards.idx) as file', FALSE);
+    
     $this->db->where('group_order >', '0');
     $this->db->where('group_idx', $parent_idx);
     $query = $this->db->get('boards'); // 'reply_table'는 답글을 저장하는 테이블 이름

@@ -91,12 +91,13 @@ class Free_Board_Create_M extends CI_Model {
       'user_id' => $this->session->userdata('user_id'),
       'board_state' => $this->input->post('post_open'),
       'board_comment' => $this->input->post('comment_open'),
-      'file_path' => $post_data['file_path'] ?? '-', // 파일 경로 추가
+      // 'file_path' => $post_data['file_path'] ?? '-', // 파일 경로 추가
       'regdate' => date("Y-m-d H:i:s")
     ];
 
     // 새 대댓글을 데이터베이스에 삽입합니다.
     $this->db->insert('boards', $data);
+    $last_id = $this->db->insert_id();
 
     // 트랜잭션 상태를 확인하고 문제가 없으면 커밋합니다.
     if (!$this->db->trans_status()) {
@@ -111,7 +112,7 @@ class Free_Board_Create_M extends CI_Model {
 
       // 포인트 및 경험치 지급
       $this->user_point_exp_m->point_exp_add('활동 포인트 지급', $data['group_idx'].'번 게시글의 답글 작성');
-      return true;
+      return ['state' => TRUE, 'data' => $data, 'last_id' => $last_id ];;
     }
   }
 

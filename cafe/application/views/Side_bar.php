@@ -235,9 +235,9 @@
       <div class="relative bg-[#3f3f3f] p-3 rounded text-sm flex flex-col gap-3 border border-[#4f4f4f] shadow-lg duration-200 hover:scale-[103%]">
 
         <!-- 라벨 -->
-        <div class="bg-blue-500 absolute -top-0 -left-3 -rotate-45 rounded-sm shadow-2xl font-[s-core2]">
+        <!-- <div class="bg-blue-500 absolute -top-0 -left-3 -rotate-45 rounded-sm shadow-2xl font-[s-core2]">
           <p class="w-10 text-center font-bold">No.1</p>
-        </div>
+        </div> -->
         
         <div class="flex flex-col gap-3">
           <div class="flex justify-around">

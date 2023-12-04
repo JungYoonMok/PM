@@ -128,37 +128,6 @@ class Free_Board_Create_C extends CI_Controller {
   }
 
   public function create_reply() {
-    $config['upload_path'] = './uploads/';
-    $config['allowed_types'] = 'gif|jpg|png';
-    $config['max_size'] = 0;
-    $this->load->library('upload', $config);
-
-    $filesCount = count($_FILES['userfile']['name'] ?? []);
-    $uploadData = [];
-    $filePath = [];
-
-    if(empty($_FILES['userfile']['name'])) {
-      $filePath = '';
-    } else {
-      for ($i = 0; $i < $filesCount; $i++) {
-        $_FILES['file']['name'] = $_FILES['userfile']['name'][$i];
-        $_FILES['file']['type'] = $_FILES['userfile']['type'][$i];
-        $_FILES['file']['tmp_name'] = $_FILES['userfile']['tmp_name'][$i];
-        $_FILES['file']['error'] = $_FILES['userfile']['error'][$i];
-        $_FILES['file']['size'] = $_FILES['userfile']['size'][$i];
-
-        if (!$this->upload->do_upload('file')) {
-          $error = strip_tags($this->upload->display_errors());
-          echo json_encode(['state' => FALSE, 'message' => '파일 업로드 실패: ' . $error]);
-          return;
-        } else {
-          $uploadData[] = $this->upload->data();
-          $filePath[] = $uploadData[$i]['file_name'];
-        }
-      }
-
-      $filePathsString = implode(',', $filePath); // 파일 경로를 쉼표로 구분된 문자열로 변환
-    }
 
     // 폼 데이터 처리
     $post_data = [
@@ -172,7 +141,7 @@ class Free_Board_Create_C extends CI_Controller {
       'user_id' => $this->session->userdata('user_id'),
       'board_state' => $this->input->post('post_open'),
       'board_comment' => $this->input->post('comment_open'),
-      'file_path' => $filePathsString ?? '', // 파일 경로 추가
+      // 'file_path' => $filePathsString ?? '', // 파일 경로 추가
       'regdate' => date("Y-m-d H:i:s")
     ];
 
@@ -186,8 +155,9 @@ class Free_Board_Create_C extends CI_Controller {
     // 데이터베이스에 데이터 저장
     // if ($this->form_validation->run()) {
       $result = $this->FBM->create_reply($post_data);
-      if($result) {
-        $last_id = $this->db->insert_id();
+      if($result['state']) {
+        $last_id = $result['last_id'];
+        $this->upload_file($last_id);
         echo json_encode(['state' => TRUE, 'message' => '답글 등록 성공', 'last_id' => $last_id, 'data' => $result ]);
       } else {
         echo json_encode(['state' => FALSE, 'message' => '답글 등록 실패']);
