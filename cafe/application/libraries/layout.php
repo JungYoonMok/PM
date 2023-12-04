@@ -57,13 +57,39 @@ defined('BASEPATH') or exit('No direct script access allowed');
     }
 
     public function level_converter($exp) { // 경험치 레벨 변환
-      $level_experience = [
-        1 => ['min' => 0, 'max' => 1000, 'name' => '초보'],
-        2 => ['min' => 1001, 'max' => 2000, 'name' => '중수'],
-        3 => ['min' => 2001, 'max' => 3000, 'name' => '고수'],
-        4 => ['min' => 3001, 'max' => 4000, 'name' => '마스터'],
-        5 => ['min' => 4001, 'max' => 5000, 'name' => '그랜드마스터'],
-      ];
+      switch($exp) {
+        case $exp >= 1000 && $exp < 10000 :
+          $result = [ "level" => 1, "start_exp" => $exp, "end_exp" => 10000 ];
+          break;
+          case $exp >= 2000 && $exp < 20000 :
+          $result = [ "level" => 2, "start_exp" => $exp, "end_exp" => 20000 ];
+          break;
+          case $exp >= 2000 && $exp < 30000 :
+          $result = [ "level" => 3, "start_exp" => $exp, "end_exp" => 30000 ];
+          break;
+        case $exp >= 3000 && $exp < 40000 :
+          $result = [ "level" => 4, "start_exp" => $exp, "end_exp" => 40000 ];
+          break;
+        case $exp >= 4000 && $exp < 50000 :
+          $result = [ "level" => 5, "start_exp" => $exp, "end_exp" => 50000 ];
+          break;
+        case $exp >= 5000 && $exp < 60000 :
+          $result = [ "level" => 6, "start_exp" => $exp, "end_exp" => 60000 ];
+          break;
+        case $exp >= 6000 && $exp < 70000 :
+          $result = [ "level" => 7, "start_exp" => $exp, "end_exp" => 70000 ];
+          break;
+        case $exp >= 7000 && $exp < 80000 :
+          $result = [ "level" => 8, "start_exp" => $exp, "end_exp" => 80000 ];
+          break;
+        case $exp >= 8000 && $exp < 90000 :
+          $result = [ "level" => 9, "start_exp" => $exp, "end_exp" => 90000 ];
+          break;
+        default : // 디폴트
+        $result = [ "level" => '만렙', "start_exp" => 0, "end_exp" => 'MAX' ];
+          break;
+      }
+      return $result;
     }
 
     public function site_visit($type) { // 방문자
