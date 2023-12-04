@@ -131,7 +131,7 @@
                 el : document.querySelector(".toast-custom-viewer"),
                 viewer:true,
                 theme: 'dark',
-                initialValue : '<?= $post->content ?>'
+                initialValue : `${$post->content.indexOf('[removed]') != -1 ? '비정상적인 시도입니다' : <?= $post->content ?>}`,
               });
             </script>
 
@@ -237,7 +237,7 @@
 
               <div class="">
                 <p class="text-base"><?= $post->user_id?></p>
-                <p>회원등급 : 지하계 / Level 1</p>
+                <p>회원등급 : 지하계 / Level <?= $level_converter['level'] ?></p>
               </div>
             </div>
 
@@ -248,11 +248,13 @@
                 <p>경험치 <?= $user_exp ?></p>
               </div>
               <div class="flex justify-between">
-                <p>[레벨 1] - 진행률</p>
-                <p>21%</p>
+                <p>[레벨 <?= $level_converter['level'] ?>] - 진행률</p>
+                <p>
+                <?= substr((($level_converter['exp'] - $level_converter['previous_level_end_exp']) / ($level_converter['end_exp'] - $level_converter['previous_level_end_exp']) * 100), 0, 4) ?> %
+                </p>
               </div>
               <div class="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-600 duration-200">
-                <div class="h-2 bg-blue-600 rounded-full dark:bg-blue-500 duration-200 hover:scale-105" style="width: 45%"></div>
+                <div class="h-2 bg-blue-600 rounded-full dark:bg-blue-500 duration-200 hover:scale-105" style="width: <?= (($level_converter['exp'] - $level_converter['previous_level_end_exp']) / ($level_converter['end_exp'] - $level_converter['previous_level_end_exp']) * 100) ?>%"></div>
               </div>
               <div class="flex justify-between">
                 <p>가입일</p>
@@ -290,7 +292,7 @@
                         arrow_left
                       </span>
                       <a href="/<?= $row->board_type ?>/<?= $row->idx ?>" class="duration-200 hover:text-[#9f9f9f]">
-                        <?= substr($row->title, 0, 15) ?> <span class="text-gray-400">..</span>
+                        <?= substr($row->title, 0, 20) ?> <span class="text-gray-400">..</span>
                       </a>
                     </div>
                     <div class="flex gap-1 place-items-center">

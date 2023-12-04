@@ -78,6 +78,8 @@ class Free_board_Detail_C extends CI_Controller {
     $data['comment'] = $this->FBM->get_comments($idx, $config['per_page'], $page);
     $data['list'] = $this->db->get_where('boards', ['board_type' => 'freeboard'])->result();
 
+    $data['level_converter'] = $this->level_converter($this->point_exp_total('exp'));
+
     // 게시글 정보 등
     $this->FBM->board_hit_plus($idx); // 조회수 증가
     $data['hit'] = $this->FBM->board_hit_get($idx); // 조회수 가져오기
@@ -98,6 +100,46 @@ class Free_board_Detail_C extends CI_Controller {
     // }
     
     $this->layout->custom_view('board/free_board_detail_v', $data);
+  }
+
+  public function point_exp_total($type) { // 경험치, 포인트 합계
+    $this->db->select_sum($type);
+    $this->db->where('members_user_id', $this->session->userdata('user_id'));
+
+    $total_count = $this->db->get('point_exp_log');
+    if($total_count->num_rows() > 0) {
+      return $total_count->row()->$type ?? 0;
+    } else {
+      return 0;
+    }
+  }
+
+  public function level_converter($exp) { // 경험치 레벨 변환
+    if ($exp < 5000) {
+      $result = ["level" => 0, "start_exp" => 0, "end_exp" => 5000, "previous_level_end_exp" => 0, "exp" => $exp];
+    } elseif ($exp < 10000) {
+      $result = ["level" => 1, "start_exp" => 5000, "end_exp" => 10000, "previous_level_end_exp" => 5000, "exp" => $exp];
+    } elseif ($exp < 20000) {
+      $result = ["level" => 2, "start_exp" => 10000, "end_exp" => 20000, "previous_level_end_exp" => 10000, "exp" => $exp];
+    } elseif ($exp < 30000) {
+      $result = ["level" => 3, "start_exp" => 20000, "end_exp" => 30000, "previous_level_end_exp" => 20000, "exp" => $exp];
+    } elseif ($exp < 40000) {
+      $result = ["level" => 4, "start_exp" => 30000, "end_exp" => 40000, "previous_level_end_exp" => 30000, "exp" => $exp];
+    } elseif ($exp < 50000) {
+      $result = ["level" => 5, "start_exp" => 40000, "end_exp" => 50000, "previous_level_end_exp" => 40000, "exp" => $exp];
+    } elseif ($exp < 60000) {
+      $result = ["level" => 6, "start_exp" => 50000, "end_exp" => 60000, "previous_level_end_exp" => 50000, "exp" => $exp];
+    } elseif ($exp < 70000) {
+      $result = ["level" => 7, "start_exp" => 60000, "end_exp" => 70000, "previous_level_end_exp" => 60000, "exp" => $exp];
+    } elseif ($exp < 80000) {
+      $result = ["level" => 8, "start_exp" => 70000, "end_exp" => 80000, "previous_level_end_exp" => 70000, "exp" => $exp];
+    } elseif ($exp < 90000) {
+      $result = ["level" => 9, "start_exp" => 80000, "end_exp" => 90000, "previous_level_end_exp" => 80000, "exp" => $exp];
+    } else {
+      // 만렙 처리
+      $result = ["level" => '만렙', "start_exp" => 90000, "end_exp" => 100000, "previous_level_end_exp" => 90000, "exp" => $exp];
+    }
+    return $result;
   }
 
   public function comment_create() {
