@@ -70,13 +70,13 @@
       <!-- 경험치, 포인트 -->
       <div class="flex flex-col gap-3 p-3 duration-200 rounded border border-[#4f4f4f] bg-[#3f3f3f] text-sm font-[s-core5]">
         <div class="flex justify-between">
-          <p>E <?= $level_converter['start_exp'] ?> / <?= $level_converter['end_exp'] ?></p>
+          <p>E <?= $level_converter['exp'] ?> / <?= $level_converter['end_exp'] ?></p>
           <p>P <?= $point_total ?></p>
         </div>
         <div class="w-full h-4 mb-4  bg-gray-200 rounded-full dark:bg-gray-600 duration-200">
-          <div class="h-4 bg-blue-600 rounded-full dark:bg-blue-500 duration-200 hover:scale-105" style="width: <?= ($level_converter['start_exp'] / $level_converter['end_exp'] * 100) ?>%"></div>
-          <p class="text-right">
-            <?= ($level_converter['start_exp'] / $level_converter['end_exp'] * 100) ?>%
+        <div class="h-4 bg-blue-600 rounded-full dark:bg-blue-500 duration-200 hover:scale-105" style="width: <?= (($level_converter['exp'] - $level_converter['previous_level_end_exp']) / ($level_converter['end_exp'] - $level_converter['previous_level_end_exp']) * 100) ?>%"></div>
+          <p class="text-right tracking-wider">
+            <?= substr((($level_converter['exp'] - $level_converter['previous_level_end_exp']) / ($level_converter['end_exp'] - $level_converter['previous_level_end_exp']) * 100), 0, 4) ?> %
           </p>
         </div>
       </div>
