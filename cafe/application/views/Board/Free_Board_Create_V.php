@@ -133,17 +133,29 @@
           </div>
 
           <!-- 첨부파일 -->
-          <input type="file" name="userfile[]" id="userfile" multiple
-          class="
-            file:mr-4 file:py-2 file:px-4
-            file:rounded-full file:border-0
-            file:text-sm file:font-semibold
-          file:bg-[#3f3f3f] file:text-white
-          hover:file:bg-[#4f4f4f] duration-200"
-          "/>
+          <div class="flex items-center justify-center w-full">
+            <label for="userfile" class="flex flex-col items-center justify-center w-full h-24 border-2 border-gray-500 border-dashed rounded-lg cursor-pointer hover:bg-[#2f2f2f] duration-200 bg-[#3f3f3f]">
+              <div class="flex gap-3 place-items-center justify-center">
+                <span class="material-symbols-outlined flex gap-2 place-items-center">
+                  add_link
+                </span>
+                <p class="text-sm text-gray-500 dark:text-gray-300">파일을 첨부하려면 클릭하세요</p>
+                <!-- <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p> -->
+              </div>
+              <input name="userfile[]" id="userfile" multiple type="file" class="hidden" />
+            </label>
+          </div>
 
           <!-- 첨부파일 미리보기 -->
           <div id="preview" class="w-full flex gap-3 duration-200 h-52 bg-[#3f3f3f] rounded p-3">
+            <div class="flex gap-3 justify-center w-full place-items-center duration-200 animate-pulse">
+              <span class="material-symbols-outlined">
+                subdirectory_arrow_right
+              </span>
+              <p class="">
+                첨부할 파일을 선택하세요
+              </p>
+            </div>
           </div>
 
           <!-- 구분선 -->
@@ -224,6 +236,9 @@
     }
   });
 
+  // 첨부파일 미리보기
+  var selectedFiles = [];
+
   $('#create_btn').click((e) => { // 게시글 등록
     e.preventDefault();
 
@@ -241,7 +256,7 @@
     if (fileInput && fileInput.files.length > 0) {
       // 파일 처리 로직
       if (fileInput.files.length > 0) {
-        for (const file of fileInput.files) {
+        for (const file of selectedFiles) {
           formData.append('userfile[]', file);
         }
       }
@@ -318,19 +333,19 @@
       }
     });
   });
-
-  // 첨부파일 미리보기
+  
   document.getElementById('userfile').addEventListener('change', function(e) {
   var preview = document.getElementById('preview');
-  preview.innerHTML = ''; // 이전에 표시된 미리보기를 초기화
+  preview.innerHTML = '';
+  selectedFiles = [...e.target.files]; // 파일 목록 갱신
 
-  for (var i = 0; i < e.target.files.length; i++) {
-    var file = e.target.files[i];
-
-    var reader = new FileReader();
+  for (let i = 0; i < e.target.files.length; i++) {
+    let file = e.target.files[i];
+    let reader = new FileReader();
     reader.onload = function(e) {
-      var div = document.createElement('div');
-      div.classList.add('preview-item'); // 클래스 추가
+      let div = document.createElement('div');
+      div.classList.add('preview-item');
+      div.setAttribute('data-index', i); // 파일 인덱스 저장
       div.innerHTML = `
         <div class="flex gap-3">
           <div class="relative">
@@ -344,16 +359,25 @@
         </div>
       `;
 
-      // 삭제 버튼 이벤트 리스너 설정
       div.querySelector('.remove-btn').addEventListener('click', function() {
-        div.remove(); // 현재 div 요소 제거
+        let index = parseInt(div.getAttribute('data-index')); // 저장된 인덱스 사용
+        selectedFiles.splice(index, 1); // 파일 목록에서 제거
+        div.remove(); // 미리보기 제거
+        // 인덱스 업데이트
+        updateFileIndexes();
       });
 
       preview.appendChild(div);
     };
-      reader.readAsDataURL(file);
-    }
+    reader.readAsDataURL(file);
+  }
+});
+
+function updateFileIndexes() {
+  document.querySelectorAll('.preview-item').forEach((item, index) => {
+    item.setAttribute('data-index', index);
   });
+}
   
 });
 

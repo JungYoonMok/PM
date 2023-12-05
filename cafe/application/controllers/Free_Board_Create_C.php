@@ -64,7 +64,7 @@ class Free_Board_Create_C extends CI_Controller {
     $max_files = 5; // 최대 파일 개수
     $config['upload_path'] = './uploads/';
     $config['allowed_types'] = 'gif|jpg|png';
-    $config['max_size'] = 1024; // 1MB, 1024KB
+    $config['max_size'] = 0; // 1MB, 1024KB
     $this->load->library('upload', $config);
     
     $uploadData = [];
