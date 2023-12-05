@@ -131,7 +131,7 @@
                 el : document.querySelector(".toast-custom-viewer"),
                 viewer:true,
                 theme: 'dark',
-                initialValue : `${$post->content.indexOf('[removed]') != -1 ? '비정상적인 시도입니다' : <?= $post->content ?>}`,
+                initialValue : '<?= $post->content ?>',
               });
             </script>
 
@@ -250,11 +250,14 @@
               <div class="flex justify-between">
                 <p>[레벨 <?= $level_converter['level'] ?>] - 진행률</p>
                 <p>
-                <?= substr((($level_converter['exp'] - $level_converter['previous_level_end_exp']) / ($level_converter['end_exp'] - $level_converter['previous_level_end_exp']) * 100), 0, 4) ?> %
+                  <?= substr((($level_converter['exp'] - $level_converter['previous_level_end_exp']) / ($level_converter['end_exp'] - $level_converter['previous_level_end_exp']) * 100), 0, 4) ?> %
                 </p>
               </div>
               <div class="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-600 duration-200">
-                <div class="h-2 bg-blue-600 rounded-full dark:bg-blue-500 duration-200 hover:scale-105" style="width: <?= (($level_converter['exp'] - $level_converter['previous_level_end_exp']) / ($level_converter['end_exp'] - $level_converter['previous_level_end_exp']) * 100) ?>%"></div>
+                <div 
+                  class="h-2 bg-blue-600 rounded-full dark:bg-blue-500 duration-200 hover:scale-105" 
+                  style="width: <?= (($level_converter['exp'] - $level_converter['previous_level_end_exp']) / ($level_converter['end_exp'] - $level_converter['previous_level_end_exp']) * 100) ?>%">
+                </div>
               </div>
               <div class="flex justify-between">
                 <p>가입일</p>
@@ -539,8 +542,7 @@
         </div>
 
         <!-- 비회원 알림 -->
-        <div
-          class="<?= $this->session->userdata('user_id') ? 'hidden' : '' ?> flex justify-center bg-[#1f1f1f] p-5 border border-[#4f4f4f]">
+        <div class="<?= $this->session->userdata('user_id') ? 'hidden' : '' ?> flex justify-center bg-[#1f1f1f] p-5 border border-[#4f4f4f]">
           <a href="/login" class="hover:underline hover:opacity-80 hover:animate-pulse duration-200">
             로그인한 회원만 댓글 등록이 가능합니다.
           </a>

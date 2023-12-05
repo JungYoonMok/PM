@@ -60,33 +60,75 @@
           <!-- 게시글 내용 작성 -->
           <div id="editor" class="dark-editor"></div>
 
-          <!-- 공개/비공개 -->
           <div class="flex flex-col md:flex-row gap-3">
             <div class="flex flex-col gap-2 w-full">
               <h2>게시글 공개</h2>
-              <div class="flex gap-2 w-full">
-                <div class="p-3 w-full rounded bg-[#4f4f4f]">
-                  <input id="1_a" name='post_open' checked value='1' type="radio">
-                  <label for="1_a">공개</label>
+              
+              <div class="flex gap-3">
+                <div class="w-full flex">
+                  <input id="1_a" type="radio" value="1" checked name="post_open" class="hidden peer">
+                  <label for="1_a" class="duration-200 w-full py-4 font-medium border-2 rounded border-[#4f4f4f] ps-5 peer-checked:text-white peer-checked:border-[#4f4f4f] peer-checked:bg-[#1f1f1f]">
+                    <div class="flex gap-1 place-items-center">
+                      <span class="material-symbols-outlined text-[#4f4f4f]">
+                        check_small
+                      </span>
+                      <p class="">
+                        공개
+                      </p>
+                    </div>
+                  </label>
                 </div>
-                <div class="p-3 w-full rounded bg-[#4f4f4f]">
-                  <input id="2_a" name='post_open' value='0' type="radio">
-                  <label for="2_a">비공개</label>
+                <div class="w-full flex">
+                  <input id="2_a" type="radio" value="0" name="post_open" class="hidden peer">
+                  <label for="2_a" class="duration-200 w-full py-4 font-medium border-2 rounded border-[#4f4f4f] ps-5 peer-checked:text-white peer-checked:border-[#4f4f4f] peer-checked:bg-[#1f1f1f]">
+                    <div class="flex gap-1 place-items-center">
+                      <span class="material-symbols-outlined text-[#4f4f4f]">
+                        check_small
+                      </span>
+                      <p class="">
+                        비공개
+                      </p>
+                    </div>
+                  </label>
                 </div>
               </div>
+
             </div>
             <div class="flex flex-col gap-2 w-full">
               <h2>댓글 작성</h2>
-              <div class="flex gap-2 w-full">
-                <div class="p-3 w-full rounded bg-[#4f4f4f]">
-                  <input id="1_b" name='comment_open' value="1" checked type="radio">
-                  <label for="1_b">허용</label>
+              
+              <div class="flex gap-3">
+
+                <div class="flex w-full">
+                  <input id="1_b" type="radio" value="1" checked name="comment_open" class="hidden peer">
+                  <label for="1_b" class="duration-200 w-full py-4 font-medium border-2 rounded border-[#4f4f4f] ps-5 peer-checked:text-white peer-checked:border-[#4f4f4f] peer-checked:bg-[#1f1f1f]">
+                    <div class="flex gap-1 place-items-center">
+                      <span class="material-symbols-outlined text-[#4f4f4f]">
+                        check_small
+                      </span>
+                      <p class="">
+                        공개
+                      </p>
+                    </div>
+                  </label>
                 </div>
-                <div class="p-3 w-full rounded bg-[#4f4f4f]">
-                  <input id="2_b" name='comment_open' value="0" type="radio">
-                  <label for="2_b">비허용</label>
+
+                <div class="flex w-full">
+                  <input id="2_b" type="radio" value="0" name="comment_open" class="hidden peer">
+                  <label for="2_b" class="duration-200 w-full py-4 font-medium border-2 rounded border-[#4f4f4f] ps-5 peer-checked:text-white peer-checked:border-[#4f4f4f] peer-checked:bg-[#1f1f1f]">
+                    <div class="flex gap-1 place-items-center">
+                      <span class="material-symbols-outlined text-[#4f4f4f]">
+                        check_small
+                      </span>
+                      <p class="">
+                        비공개
+                      </p>
+                    </div>
+                  </label>
                 </div>
+
               </div>
+
             </div>
           </div>
 
@@ -99,6 +141,10 @@
           file:bg-[#3f3f3f] file:text-white
           hover:file:bg-[#4f4f4f] duration-200"
           "/>
+
+          <!-- 첨부파일 미리보기 -->
+          <div id="preview" class="w-full flex gap-3 duration-200 h-52 bg-[#3f3f3f] rounded p-3">
+          </div>
 
           <!-- 구분선 -->
           <div class="border-b border-gray-500"></div>
@@ -271,6 +317,42 @@
         alert('게시글 답글 등록 중 서버 오류가 발생했습니다.');
       }
     });
+  });
+
+  // 첨부파일 미리보기
+  document.getElementById('userfile').addEventListener('change', function(e) {
+  var preview = document.getElementById('preview');
+  preview.innerHTML = ''; // 이전에 표시된 미리보기를 초기화
+
+  for (var i = 0; i < e.target.files.length; i++) {
+    var file = e.target.files[i];
+
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var div = document.createElement('div');
+      div.classList.add('preview-item'); // 클래스 추가
+      div.innerHTML = `
+        <div class="flex gap-3">
+          <div class="relative">
+            <img src="${e.target.result}" class="w-40 h-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none" />
+            <button class="remove-btn rounded-[50%] absolute top-2 duration-200 w-8 h-8 flex justify-center place-items-center right-2 p-2 bg-[#1f1f1f] hover:bg-red-500">
+              <span class="material-symbols-outlined">
+                close
+              </span>
+            </button>
+          </div>
+        </div>
+      `;
+
+      // 삭제 버튼 이벤트 리스너 설정
+      div.querySelector('.remove-btn').addEventListener('click', function() {
+        div.remove(); // 현재 div 요소 제거
+      });
+
+      preview.appendChild(div);
+    };
+      reader.readAsDataURL(file);
+    }
   });
   
 });
