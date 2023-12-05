@@ -266,7 +266,7 @@
           replyBox.empty();
           $.each(response.replies, function(i, reply) {
             var dateToShow = (new Date(reply.regdate).toDateString() === new Date().toDateString()) 
-                      ? reply.regdate.substr(11, 5) 
+                      ? reply.regdate.substr(11, 5)
                       : reply.regdate.substr(0, 10);
             // 답글 데이터를 HTML로 변환하여 추가
             replyBox.append(`

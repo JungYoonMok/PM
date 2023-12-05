@@ -330,7 +330,9 @@
                       <span class="material-symbols-outlined -scale-x-100">
                         arrow_left
                       </span>
-                      <p><?= $row->content ?></p>
+                      <p>
+                        <?= strpos($row->content, 'removed') ? '⛑️ 관리자에 의해 차단' : $row->content ?>
+                      </p>
                     </div>
                     <div class="flex gap-1 place-items-center">
                       <span class="material-symbols-outlined text-sm">
@@ -396,7 +398,6 @@
                         <?= empty($com->user_id) ? null : $com->user_id; ?>
                       </a>
                       <p>(등급)</p>
-                      <!-- <p>No: <?= $com->idx ?></p> -->
                     </div>
                     <div class="flex gap-2 text-sm text-gray-400 pr-2">
                       <p class="material-symbols-outlined text-md">
@@ -419,7 +420,7 @@
                       </p>
                       
                       <p id="reply_value<?= $com->idx ?>" class="<?= $com->delete_state ? 'hidden' : '' ?> w-full h-full">
-                        <?= empty($com->content) ? null : $com->content; ?>
+                        <?= strpos($com->content, 'removed') ? '⛑️ 관리자에 의해 차단' : $com->content ?>
                         <!-- 리플 수정 -->
                         <div id="reply_update<?= $com->idx ?>" class="w-full flex flex-col gap-3  text-sm hidden duration-200">
                           <!-- 원본 글 및 수정할 내용 -->
