@@ -75,8 +75,8 @@
             <?= substr((($level_converter['exp'] - $level_converter['previous_level_end_exp']) / ($level_converter['end_exp'] - $level_converter['previous_level_end_exp']) * 100), 0, 4) ?> %
           </p>
         </div>
-        <div class="w-full h-4 mb-4  bg-gray-200 rounded-full dark:bg-gray-600 duration-200">
-          <div class="h-4 bg-blue-600 rounded-full dark:bg-blue-500 duration-200 hover:scale-105" style="width: <?= (($level_converter['exp'] - $level_converter['previous_level_end_exp']) / ($level_converter['end_exp'] - $level_converter['previous_level_end_exp']) * 100) ?>%"></div>
+        <div class="w-full h-4 mb-4 bg-gray-200 rounded-full dark:bg-gray-600 duration-200">
+          <div class="h-4 mb-1 bg-blue-600 rounded-full dark:bg-blue-500 duration-200 hover:scale-105" style="width: <?= (($level_converter['exp'] - $level_converter['previous_level_end_exp']) / ($level_converter['end_exp'] - $level_converter['previous_level_end_exp']) * 100) ?>%"></div>
           <p>포인트 <?= $point_total ?></p>
         </div>
       </div>
@@ -175,7 +175,7 @@
         <div id="line" class="border-b border-gray-400"></div>
 
         <a href="#" id="notice"
-          class="deration-500 relative w-full duration-100 p-2 rounded hover:text-gray-100 <?= $this->uri->segment(2) == 'notice' ? 'bg-[#2f2f2f] hover:translate-x-1' : 'hover:bg-[#4f4f4f]' ?>">
+          class="deration-500 relative w-full duration-100 p-2 rounded hover:text-gray-100 <?= $this->uri->segment(1) == 'notice' ? 'bg-[#2f2f2f] hover:translate-x-1' : 'hover:bg-[#4f4f4f]' ?>">
           <span class="w-full h-full flex gap-5">
             <span class="material-symbols-outlined">
               notifications
@@ -193,7 +193,7 @@
         </a>
 
         <a href="/freeboard/list" id="freeboard"
-          class="deration-500 relative w-full duration-100 p-2 rounded hover:text-gray-100 <?= $this->uri->segment(2) == 'list' ? 'bg-[#2f2f2f] hover:translate-x-1' : 'hover:bg-[#4f4f4f]' ?>">
+          class="deration-500 relative w-full duration-100 p-2 rounded hover:text-gray-100 <?= $this->uri->segment(1) == 'freeboard' ? 'bg-[#2f2f2f] hover:translate-x-1' : 'hover:bg-[#4f4f4f]' ?>">
           <span class="w-full h-full flex gap-5">
             <span class="material-symbols-outlined">
               border_color
@@ -211,7 +211,7 @@
         </a>
 
         <a href="#" id="hellow"
-          class="deration-500 relative w-full duration-100 p-2 rounded hover:text-gray-100 <?= $this->uri->segment(2) == 'hellow' ? 'bg-[#2f2f2f] hover:translate-x-1' : 'hover:bg-[#4f4f4f]' ?>">
+          class="deration-500 relative w-full duration-100 p-2 rounded hover:text-gray-100 <?= $this->uri->segment(1) == 'hellow' ? 'bg-[#2f2f2f] hover:translate-x-1' : 'hover:bg-[#4f4f4f]' ?>">
           <span class="w-full h-full flex gap-5">
             <span class="material-symbols-outlined">
               waving_hand

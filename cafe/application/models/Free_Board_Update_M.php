@@ -23,14 +23,35 @@ class Free_Board_Update_M extends CI_Model {
       log_message('error', '게시글 수정 실패: ' . $this->db->error()['message']);
       return false;
     }
+  }
 
-    // $result = $this->db->insert('boards', $this->db->escape_str($data));
-    // if($result) {
-    //   return [ 'state' => TRUE, 'message' => '게시글 수정 성공' ];
-    // } else {
-    //   log_message('error', '게시글 수정 실패: ' . $this->db->error()['message']);
-    //   return [ 'state' => FALSE, 'message' => '게시글 수정 실패' ];
-    // }
+  public function get_file($idx) {
+    $board = $this->db->get_where('upload_file', ['boards_idx' => $idx]);
+    return $board->result();
+  }
+
+  public function insert_file($data) {
+    $result = $this->db->insert('upload_file', $data);
+    if($result) {
+      
+      return TRUE;
+    } else {
+      log_message('error', '게시글 등록 실패: ' . $this->db->error()['message']);
+      return FALSE;
+    }
+  }
+
+  public function file_delete($idx) {
+    $this->db->where('boards_idx', $idx);
+    // $this->db->where('file_name', $file_name);
+    // $this->db->where('full_path', $full_path);
+    $result = $this->db->delete('upload_file');
+    if($result) {
+      return TRUE;
+    } else {
+      log_message('error', '파일 삭제 실패: ' . $this->db->error()['message']);
+      return FALSE;
+    }
   }
 
 }

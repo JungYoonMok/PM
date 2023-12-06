@@ -131,10 +131,14 @@
 
             </div>
           </div>
+          
+          <!-- 첨부파일 미리보기 -->
+          <div id="preview" class="hidden w-full grid grid-cols-5 place-items-center border border-[#4f4f4f] justify-center gap-3 duration-200 min-h-[208px] bg-[#3f3f3f] rounded p-3">
+          </div>
 
           <!-- 첨부파일 -->
-          <div class="flex items-center justify-center w-full">
-            <label for="userfile" class="flex flex-col items-center justify-center w-full h-24 border-2 border-gray-500 border-dashed rounded-lg cursor-pointer hover:bg-[#2f2f2f] duration-200 bg-[#3f3f3f]">
+          <div id="file_control" class="flex place-items-center justify-center w-full">
+            <label for="userfile" class="flex flex-col items-center w-full justify-center h-52 border-2 border-gray-500 border-dashed rounded-lg cursor-pointer hover:bg-[#2f2f2f] duration-200 bg-[#3f3f3f]">
               <div class="flex gap-3 place-items-center justify-center">
                 <span class="material-symbols-outlined flex gap-2 place-items-center">
                   add_link
@@ -144,18 +148,6 @@
               </div>
               <input name="userfile[]" id="userfile" multiple type="file" class="hidden" />
             </label>
-          </div>
-
-          <!-- 첨부파일 미리보기 -->
-          <div id="preview" class="w-full flex gap-3 duration-200 h-52 bg-[#3f3f3f] rounded p-3">
-            <div class="flex gap-3 justify-center w-full place-items-center duration-200 animate-pulse">
-              <span class="material-symbols-outlined">
-                subdirectory_arrow_right
-              </span>
-              <p class="">
-                첨부할 파일을 선택하세요
-              </p>
-            </div>
           </div>
 
           <!-- 구분선 -->
@@ -256,9 +248,17 @@
     if (fileInput && fileInput.files.length > 0) {
       // 파일 처리 로직
       if (fileInput.files.length > 0) {
-        for (const file of selectedFiles) {
-          formData.append('userfile[]', file);
+
+        if(selectedFiles.length > 5) {
+          alert('파일은 최대 5개까지 업로드 가능합니다.');
+          return;
+        } else {
+
+          for (const file of selectedFiles) {
+            formData.append('userfile[]', file);
+          }
         }
+
       }
     } else {
       console.log("파일 입력 필드를 찾을 수 없습니다.");
@@ -307,9 +307,15 @@
 
     const fileInput = $('#userfile')[0];
     if (fileInput.files.length > 0) {
-      for (const file of fileInput.files) {
-        formData.append('userfile[]', file);
-      }
+      if(selectedFiles.length > 5) {
+          alert('파일은 최대 5개까지 업로드 가능합니다.');
+          return;
+        } else {
+
+          for (const file of selectedFiles) {
+            formData.append('userfile[]', file);
+          }
+        }
     }
 
     // AJAX 요청으로 게시글 생성 및 이미지 업로드 처리
@@ -359,12 +365,27 @@
         </div>
       `;
 
+      // 초기 세팅
+      $('#preview').removeClass('hidden');
+      $('#file_control').addClass('hidden');
+
       div.querySelector('.remove-btn').addEventListener('click', function() {
         let index = parseInt(div.getAttribute('data-index')); // 저장된 인덱스 사용
         selectedFiles.splice(index, 1); // 파일 목록에서 제거
+
         div.remove(); // 미리보기 제거
         // 인덱스 업데이트
         updateFileIndexes();
+
+        // 첨부 파일 지울 때마다 체크
+        if(selectedFiles < 1) {
+          $('#preview').addClass('hidden');
+          $('#file_control').removeClass('hidden');
+        } else {
+          $('#preview').removeClass('hidden');
+          $('#file_control').addClass('hidden');
+        }
+
       });
 
       preview.appendChild(div);

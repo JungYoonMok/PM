@@ -50,7 +50,7 @@
 
         <p>과거 프로필 사진</p>
         <!-- 동적 생성 -->
-        <div id="frofile_old" class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-10 max-h-48 p-3 rounded overflow-y-scroll gap-1"></div>
+        <div id="frofile_old" class="grid grid-cols-3 md:grid-cols-4 max-h-48 p-3 rounded overflow-y-scroll gap-1"></div>
 
       </div>
 

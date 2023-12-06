@@ -131,7 +131,7 @@
                 el : document.querySelector(".toast-custom-viewer"),
                 viewer:true,
                 theme: 'dark',
-                initialValue : '<?= $post->content ?>',
+                initialValue : '<?= strpos($post->content, 'removed') ? '<strong class="text-xl flex mt-20 justify-center place-items-center duration-200 animate-pulse">⛑️ 관리자에 의해 차단되었습니다</strong>' : $post->content ?>',
               });
             </script>
 
@@ -151,7 +151,6 @@
               thumb_up
             </button>
             <p class='bg-[#3f3f3f] rounded p-1 <?= $like_value !== 'none' ? $like_value ? 'bg-blue-500' : '싫어요'  : '' ?>'>좋아요</p>
-            <!-- <p class='bg-[#3f3f3f] rounded p-1 <?= $like_value !== 'none' ? $like_value ? '좋아요' : '싫어요'  : '' ?>'>좋아요</p> -->
           </div>
           <div class="text-center text-sm">
             <button
@@ -176,12 +175,6 @@
             <p title="파일 첨부는 최대 5개입니다">
               <?= count($file) ?> / 5
             </p>
-            <!-- <button id="file_list_onoff" class="flex gap-3 place-items-center duration-200 hover:translate-y-1">
-              <span class="material-symbols-outlined">
-                expand_all
-              </span>
-              <p>목록 닫기</p>
-            </button> -->
           </div>
           <div id="file_list" class="flex flex-col gap-3 bg-[#2f2f2f] rounded p-3 duration-200">
           <? foreach ($file as $file) : ?>
@@ -193,7 +186,9 @@
                 <div class="flex justify-between w-full">
                   <a href="/uploads/<?=$file->file_name ?>" download class="duration-200 hover:translate-x-3 flex gap-2 place-items-center">
                     <img src="/uploads/<?= $file->file_name ?>" width="100%" alt="img" class="w-10 rounded duration-200 hover:scale-[3.0]">
-                    <p><?= $file->file_name ?></p>
+                    <p>
+                      <?= $file->file_name ?>
+                    </p>
                   </a>
                   <div class="flex place-items-center gap-3 text-xs text-[#8f8f8f] font-bold">
                     <p class="duration-200 hidden md:inline-block">
