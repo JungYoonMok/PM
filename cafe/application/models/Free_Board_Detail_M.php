@@ -10,17 +10,29 @@ class Free_Board_Detail_M extends CI_Model {
     $this->load->model('common/user_point_exp_m');
   }
 
-  // 이전글 다음글
-//   SELECT
-//     BOARD_NO
-//  FROM
-//     BOARD_TB
-//  WHERE
-//   BOARD_NO IN (
-//     (SELECT BOARD_NO FROM BOARD_TB WHERE BOARD_NO < #{no}  ORDER BY BOARD_NO DESC LIMIT 1),
-//     (SELECT BOARD_NO FROM BOARD_TB WHERE BOARD_NO > #{no}  ORDER BY BOARD_NO LIMIT 1),
-//    );
-// 출처: https://solbel.tistory.com/683 [개발자의 끄적끄적:티스토리]
+  public function prev_post($idx) {
+    $this->db->select('idx, title');
+    $this->db->where('idx <', $idx);
+    $this->db->order_by('idx', 'desc');
+    $this->db->limit(1);
+    $prev = $this->db->get('boards')->row();
+    return $prev;
+  }
+
+  public function next_post($idx) {
+    $this->db->select('idx, title');
+    $this->db->where('idx >', $idx);
+    $this->db->order_by('idx', 'asc');
+    $this->db->limit(1);
+    $next = $this->db->get('boards')->row();
+    return $next;
+  }
+
+  public function pagination($idx) {
+    $this->db->where('boards_idx', $idx);
+    $result = $this->db->count_all_results('boards_comment');
+    return $result;
+  }
 
   public function point_exp_total($type, $user_id) { // 경험치, 포인트 합계
     $this->db->select_sum($type);

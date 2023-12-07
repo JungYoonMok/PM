@@ -165,9 +165,9 @@
       </div>
 
       <!-- 소개 -->
-      <div class="flex flex-col gap-3">
-        <p class="px-1 hover:text-white hover:-translate-y-1 duration-200 cursor-default text-base">
-          소개 - <span class="hover:text-white text-sm text-gray-300 whitespace-normal">다른 회원이 <?= $user->user_nickname ?>님의 소개글을 볼 수 있습니다</span>
+      <div class="flex flex-col gap-3 w-full">
+        <p class="px-1 hover:text-white hover:-translate-y-1 duration-200 cursor-default whitespace-nowrap max-w-min text-base">
+          소개 - <span class="hover:text-white text-sm text-gray-300 whitespace-normal md:whitespace-nowrap">다른 회원이 <?= $user->user_nickname ?>님의 소개글을 볼 수 있습니다</span>
         </p>
         <textarea id="memo" rows="5" type="text" class="w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#3f3f3f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200"><?= $user->user_memo ?></textarea>
         <!-- 소개 수정 버튼 -->

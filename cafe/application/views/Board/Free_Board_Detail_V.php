@@ -25,13 +25,36 @@
         </button>
       </div>
       <div>
-        <a href="#"
-          class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">이전글</a>
-        <a href="#"
-          class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">다음글</a>
-        <a href="/freeboard/list"
-          class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">목록</a>
+        <a href="#" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
+          이전글
+        </a>
+        <a href="#" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
+          다음글
+        </a>
+        <a href="/freeboard/list" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
+          목록
+        </a>
       </div>
+    </div>
+
+    <div class="p-3 flex place-items-center justify-around gap-3 bg-[#2f2f2f]">
+      <? if (isset($prev)): ?>
+        <a href="/<?= $this->uri->segment(1)?>/<?= $prev->idx?>" class="duration-200 rounded bg-[#4f4f4f] px-5 py-3 hover:bg-[#3f3f3f] flex gap-3">
+          <h3>〈 이전 게시물</h3>
+          <p><?= $prev->title ?></p>
+        </a>
+      <? else: ?>
+        <p>이전 게시물이 없습니다.</p>
+      <? endif; ?>
+
+      <? if (isset($next)): ?>
+        <a href="/<?= $this->uri->segment(1)?>/<?= $next->idx?>" class="duration-200 rounded bg-[#4f4f4f] px-5 py-3 hover:bg-[#3f3f3f] flex gap-3">
+          <p><?= $next->title ?></p>
+          <h3>다음 게시물 〉</h3>
+        </a>
+      <? else: ?>
+        <p>다음 게시물이 없습니다.</p>
+      <? endif; ?>
     </div>
 
     <div class="bg-[#2f2f2f] p-5 flex flex-col gap-5 border border-[#4f4f4f] rounded">

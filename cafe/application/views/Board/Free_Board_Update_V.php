@@ -134,7 +134,10 @@
           </div>
 
           <!-- 첨부파일 미리보기 -->
-          <div id="preview" class="shadow-xl w-full grid grid-cols-2 md:flex md:flex-wrap place-items-center border border-[#4f4f4f] justify-center gap-3 duration-200 min-h-[208px] bg-[#3f3f3f] rounded p-3">
+          <div class="flex flex-col gap-2">
+            <p>첨부 파일</p>
+            <div id="preview" class="shadow-xl w-full grid grid-cols-2 md:flex md:flex-wrap place-items-center border border-[#4f4f4f] justify-center gap-3 duration-200 min-h-[208px] bg-[#3f3f3f] rounded p-3">
+            </div>
           </div>
 
           <!-- 첨부파일 -->
