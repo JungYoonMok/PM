@@ -31,7 +31,7 @@ class Free_Board_Update_C extends CI_Controller {
   }
 
   public function file_delete() {
-    $idx = $this->input->post('id');
+    $idx = $this->input->post('name');
     // $file_name = $this->input->post('file_name');
     // $full_path = $this->input->post('full_path');
 
