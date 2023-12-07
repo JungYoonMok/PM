@@ -221,7 +221,7 @@ $(document).ready( () => {
 
   function updateFileIndexes() {
     document.querySelectorAll('.preview-item').forEach((item, index) => {
-      item.setAttribute('data-index', index);
+      item.setAttribute('data-index', index); // 미리보기 아이템 인덱스 업데이트
     });
   }
 
@@ -238,16 +238,16 @@ $(document).ready( () => {
     formData.append('post_open', $('input[name="post_open"]:checked').val());
     formData.append('comment_open', $('input[name="comment_open"]:checked').val());
 
-    // 이미지 파일이 있으면 formData에 추가
     const fileInput = $('input[type="file"]')[0];
+    // 이미지 파일이 있으면 formData에 추가
+    if(selectedFiles.length > 5) {
+      alert('파일은 최대 5개까지 업로드 가능합니다.');
+      return;
+    } 
+
     if (fileInput.files.length > 0) {
-      if(fileInput.length > 5) {
-        alert('파일은 최대 5개까지 업로드 가능합니다.');
-        return;
-      } else {
-        for (const file of selectedFiles) {
-          formData.append('userfile[]', file);
-        }
+      for (const file of selectedFiles) {
+        formData.append('userfile[]', file);
       }
     }
 
@@ -272,23 +272,37 @@ $(document).ready( () => {
       }
     });
   });
-  
-    existingFiles.forEach(function(fileItem, index) {
-      // 미리보기 생성 로직
-      createFilePreview(fileItem, index);
-      console.log(fileItem, index);
-    });
-  
-    function createFilePreview(fileItem, index) {
-      var previewContainer = document.getElementById('preview');
-      var div = document.createElement('div');
-      div.classList.add('preview-item');
-      div.setAttribute('data-index', index);
+
+  function createFilePreview(file, index, isExistingFile) {
+    var previewContainer = document.getElementById('preview');
+    var div = document.createElement('div');
+    div.classList.add('preview-item');
+    div.setAttribute('data-index', index);
+
+    // 파일 미리보기 HTML 구성 (기존 파일과 새 파일에 따라 다를 수 있음)
+    if (isExistingFile) {
+    // 기존 파일 미리보기
+    div.innerHTML = `
+      <div class="flex gap-3">
+        <div class="relative">
+          <img src="/uploads/${file.file_name}" class="w-40 h-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none" />
+          <button class="remove-btn existing-file-btn rounded-[50%] absolute top-2 duration-200 w-8 h-8 flex justify-center place-items-center right-2 p-2 bg-[#1f1f1f] hover:bg-red-500" data-file-id="${file.id}" data-file-name="${file.file_name}">
+            <span class="material-symbols-outlined">
+              close
+            </span>
+          </button>
+        </div>
+      </div>
+    `;
+  } else {
+    // 새 파일 미리보기
+    var reader = new FileReader();
+    reader.onload = function(e) {
       div.innerHTML = `
         <div class="flex gap-3">
           <div class="relative">
-            <img src="/uploads/${fileItem.file_name}" class="w-40 h-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none" />
-            <button class="remove-btn existing-file-btn rounded-[50%] absolute top-2 duration-200 w-8 h-8 flex justify-center place-items-center right-2 p-2 bg-[#1f1f1f] hover:bg-red-500" data-file-id="${fileItem.id}" data-file-name="${fileItem.file_name}">
+            <img src="${e.target.result}" class="w-40 h-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none" />
+            <button class="remove-btn rounded-[50%] absolute top-2 duration-200 w-8 h-8 flex justify-center place-items-center right-2 p-2 bg-[#1f1f1f] hover:bg-red-500">
               <span class="material-symbols-outlined">
                 close
               </span>
@@ -296,12 +310,34 @@ $(document).ready( () => {
           </div>
         </div>
       `;
-  
-      previewContainer.appendChild(div);
-  
-      // selectedFiles 배열에 파일 추가
-      selectedFiles.push(fileItem);
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // 삭제 버튼 이벤트 리스너
+  div.querySelector('.remove-btn').addEventListener('click', function() {
+    selectedFiles.splice(index, 1);
+    div.remove();
+    updateFileIndexes();
+
+    // if (isExistingFile) {
+    //   // 서버에 파일 삭제 요청
+    //   // 성공 시 selectedFiles에서 제거 및 미리보기 아이템 제거
+    // } else {
+    //   // 새 파일의 경우 단순히 selectedFiles에서 제거 및 미리보기 아이템 제거
+    //   selectedFiles.splice(index, 1);
+    //   div.remove();
+    //   updateFileIndexes();
+    // }
+  });
+
+  previewContainer.appendChild(div);
 }
+  
+   // 기존 파일 미리보기 생성
+  existingFiles.forEach(function(fileItem, index) {
+    createFilePreview(fileItem, index, true); // true는 기존 파일임을 나타냅니다.
+  });
 
   // 이벤트 리스너 추가: 서버에서 파일 삭제
   $(document).on('click', '.existing-file-btn', function(e) {
@@ -312,6 +348,7 @@ $(document).ready( () => {
     var div = this.parentElement.parentElement;
     var index = parseInt(div.getAttribute('data-index'));
 
+    console.log(fileId, fileName, div, index);
     // AJAX를 통해 서버에 파일 삭제 요청
     $.ajax({
       url: '/free_board_update_c/file_delete',
