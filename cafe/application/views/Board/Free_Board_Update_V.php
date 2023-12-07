@@ -9,7 +9,7 @@
 <div id="base" class="flex duration-200 bg-[#3f3f3f] text-gray-50 w-full relative">
 
   <!-- 메인 -->
-  <div class="md:mb-20 w-full p-5 flex flex-col gap-5">
+  <div class="md:mb-20 w-full p-1 md:p-5 flex flex-col gap-5">
 
     <!-- 계정 정보가 일치하지 않을시 -->
     <div id='error_form' class="duration-200 hidden flex p-5 animate-pulse gap-3 border bg-red-500 w-full opacity-80 rounded">
@@ -33,10 +33,10 @@
         <form class="flex flex-col gap-5" action="/free_board_create_c/create" method="post">
           
           <!-- 게시판 선택 및 제목 -->
-          <div class="bg-[#2f2f2f] flex gap-5">
+          <div class="bg-[#2f2f2f] flex flex-col md:flex-row gap-5">
   
             <!-- 셀렉터 -->
-            <div class="w-[30%]">
+            <div class="w-full md:w-[30%]">
               <!-- <label for="lang">Language</label> -->
               <select id='post_type' name='post_type' id="lang" required class="outline-none w-full text-whith rounded bg-[#4f4f4f] p-3">
                 <option class="hidden">
@@ -51,7 +51,7 @@
             </div>
   
             <!-- 제목입력 -->
-            <div class="w-[70%]">
+            <div class="w-full md:w-[70%]">
               <input id='post_title' name='post_title' value="<?= $post->title ?>" class="w-full outline-none text-whith rounded bg-[#4f4f4f] p-3" required name="title" type="text" placeholder="제목을 입력해주세요"/>
             </div>
   
@@ -134,7 +134,7 @@
           </div>
 
           <!-- 첨부파일 미리보기 -->
-          <div id="preview" class="w-full grid grid-cols-5 place-items-center border border-[#4f4f4f] justify-center gap-3 duration-200 min-h-[208px] bg-[#3f3f3f] rounded p-3">
+          <div id="preview" class="shadow-xl w-full grid grid-cols-2 md:flex md:flex-wrap place-items-center border border-[#4f4f4f] justify-center gap-3 duration-200 min-h-[208px] bg-[#3f3f3f] rounded p-3">
           </div>
 
           <!-- 첨부파일 -->
@@ -156,7 +156,7 @@
 
           <!-- 게시글 수정 -->
           <div class="w-full text-right">
-            <button id='create_btn' name='create_btn' class="p-3 w-[400px] rounded bg-blue-500 duration-200 hover:opacity-80">
+            <button id='create_btn' name='create_btn' class="p-3 w-full md:w-[400px] rounded bg-blue-500 duration-200 hover:opacity-80">
               게시글 수정
             </button>
             <!-- <input type="submit" class="p-3 w-[400px] rounded bg-blue-500 duration-200 hover:opacity-80" value="게시글 등록"></input> -->
@@ -240,10 +240,15 @@ $(document).ready( () => {
 
     const fileInput = $('input[type="file"]')[0];
     // 이미지 파일이 있으면 formData에 추가
-    if(selectedFiles.length > 5) {
-      alert('파일은 최대 5개까지 업로드 가능합니다.');
-      return;
-    } 
+
+    console.log('selectedFiles', selectedFiles.length);
+    console.log('existingFiles', existingFiles.length);
+    console.log('fileInput', fileInput.files.length);
+
+    // if(selectedFiles.length + existingFiles.length > 5) {
+    //   alert('파일은 최대 5개까지 업로드 가능합니다.');
+    //   return;
+    // }
 
     if (fileInput.files.length > 0) {
       for (const file of selectedFiles) {
@@ -283,7 +288,7 @@ $(document).ready( () => {
     if (isExistingFile) {
     // 기존 파일 미리보기
     div.innerHTML = `
-      <div class="flex gap-3">
+      <div class="gap-3">
         <div class="relative">
           <img src="/uploads/${file.file_name}" class="w-40 h-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none" />
           <button class="remove-btn existing-file-btn rounded-[50%] absolute top-2 duration-200 w-8 h-8 flex justify-center place-items-center right-2 p-2 bg-[#1f1f1f] hover:bg-red-500" data-file-id="${file.id}" data-file-name="${file.file_name}">
@@ -299,7 +304,7 @@ $(document).ready( () => {
     var reader = new FileReader();
     reader.onload = function(e) {
       div.innerHTML = `
-        <div class="flex gap-3">
+        <div class="gap-3">
           <div class="relative">
             <img src="${e.target.result}" class="w-40 h-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none" />
             <button class="remove-btn rounded-[50%] absolute top-2 duration-200 w-8 h-8 flex justify-center place-items-center right-2 p-2 bg-[#1f1f1f] hover:bg-red-500">
@@ -348,7 +353,6 @@ $(document).ready( () => {
     var div = this.parentElement.parentElement;
     var index = parseInt(div.getAttribute('data-index'));
 
-    console.log(fileId, fileName, div, index);
     // AJAX를 통해 서버에 파일 삭제 요청
     $.ajax({
       url: '/free_board_update_c/file_delete',

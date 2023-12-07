@@ -44,7 +44,7 @@ class Free_Board_Update_C extends CI_Controller {
   }
 
   public function upload_file($last_id) {
-    $max_files = 5; // 최대 파일 개수
+    $max_files = 50; // 최대 파일 개수
     $config['upload_path'] = './uploads/';
     $config['allowed_types'] = 'gif|jpg|png';
     $config['max_size'] = 0; // 1MB, 1024KB

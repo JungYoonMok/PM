@@ -10,6 +10,18 @@ class Free_Board_Detail_M extends CI_Model {
     $this->load->model('common/user_point_exp_m');
   }
 
+  // 이전글 다음글
+//   SELECT
+//     BOARD_NO
+//  FROM
+//     BOARD_TB
+//  WHERE
+//   BOARD_NO IN (
+//     (SELECT BOARD_NO FROM BOARD_TB WHERE BOARD_NO < #{no}  ORDER BY BOARD_NO DESC LIMIT 1),
+//     (SELECT BOARD_NO FROM BOARD_TB WHERE BOARD_NO > #{no}  ORDER BY BOARD_NO LIMIT 1),
+//    );
+// 출처: https://solbel.tistory.com/683 [개발자의 끄적끄적:티스토리]
+
   public function point_exp_total($type, $user_id) { // 경험치, 포인트 합계
     $this->db->select_sum($type);
     $this->db->where('members_user_id', $user_id);

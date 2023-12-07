@@ -43,7 +43,7 @@
             location_on
           </span>
           <a class="hover:underline duration-200" href="/freeboard/list">
-            <?= $post->board_type ?>
+            <?= ($post->board_type == 'notice' ? '공지사항' : ($post->board_type == 'freeboard' ? '자유게시판' : ($post->board_type == 'hellow' ? '가입인사' : 'what?' ) ) ) ?>
           </a>
           <p>〉</p>
           <button class="font-bold text-lg duration-200 hover:translate-y-1"
