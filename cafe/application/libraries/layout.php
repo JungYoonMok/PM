@@ -6,6 +6,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     public function __construct() {
       $this->obj = &get_instance(); // ci 코어 가져오기
+
       // $this->obj->load->model("user_model");
     }
 

@@ -42,7 +42,7 @@ class Free_Board_Update_M extends CI_Model {
   }
 
   public function file_delete($idx) {
-    $this->db->where('boards_idx', $idx);
+    $this->db->where('file_name', $idx);
     // $this->db->where('file_name', $file_name);
     // $this->db->where('full_path', $full_path);
     $result = $this->db->delete('upload_file');

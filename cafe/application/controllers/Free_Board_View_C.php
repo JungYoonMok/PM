@@ -8,6 +8,14 @@ class Free_Board_View_C extends CI_Controller {
     parent::__construct();
     $this->load->model('Free_Board_View_M', 'FBM');
   }
+
+  public function index() {
+    // 세션 체크
+    if(!$this->session->userdata('user_id')) {
+      redirect('/login');
+      [ 'state' => FALSE, 'message' => '로그인이 필요합니다' ];
+    }
+  }
   
   public function list() {
     // 페이지네이션

@@ -12,6 +12,12 @@ class Main extends CI_Controller {
 	}
 	
 	public function index()	{
+		// 세션 체크
+		if(!$this->session->userdata('user_id')) {
+			redirect('/login');
+			[ 'state' => FALSE, 'message' => '로그인이 필요합니다' ];
+		}
+		
 		$data['list'] = $this->main_model->GetBoardList();
 		$data['total'] = $this->main_model->GetBoardTotal();
 

@@ -6,7 +6,17 @@ date_default_timezone_set('Asia/Seoul');
     public function __construct() {
       parent::__construct();
       $this->load->model('My_Activity_M');
-    }      
+    }
+
+    public function index() {
+      // 세션 체크
+      if(!$this->session->userdata('user_id')) {
+        redirect('/login');
+        [ 'state' => FALSE, 'message' => '로그인이 필요합니다' ];
+      }
+      
+      $this->layout->custom_view('My_Activity_V');
+    }
 
     private function initialize_pagination($base_url, $total_rows, $per_page, $uri_segment, $num_links) {
       $config['base_url'] = $base_url;

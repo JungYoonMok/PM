@@ -39,7 +39,11 @@
             <div class="w-[30%]">
               <!-- <label for="lang">Language</label> -->
               <select id='post_type' name='post_type' id="lang" required class="outline-none w-full text-whith rounded bg-[#4f4f4f] p-3">
-                <option class="hidden" selected><?= ($post->board_type == 'freeboard' ? '자유게시판' : '') ?></option>
+                <option class="hidden">
+                  <?= $post->board_type == 'notice' ? '공지사항' : '' ?>
+                  <?= $post->board_type == 'freeboard' ? '자유게시판' : '' ?>
+                  <?= $post->board_type == 'hellow' ? '가입인사' : '' ?>
+                </option>
                 <option value="notice">공지사항</option>
                 <option value="freeboard">자유게시판</option>
                 <option value="hellow">가입인사</option>
@@ -235,16 +239,15 @@ $(document).ready( () => {
     const fileInput = $('input[type="file"]')[0];
     if (fileInput.files.length > 0) {
       if(fileInput.length > 5) {
-          alert('파일은 최대 5개까지 업로드 가능합니다.');
-          return;
-        } else {
-          for (const file of selectedFiles) {
-            formData.append('userfile[]', file);
-          }
+        alert('파일은 최대 5개까지 업로드 가능합니다.');
+        return;
+      } else {
+        for (const file of selectedFiles) {
+          formData.append('userfile[]', file);
         }
-    } else {
-      console.log("파일 입력 필드를 찾을 수 없습니다.");
+      }
     }
+
     // console.log(fileInput.length);
     // return alert(fileInput.files.length);
 
@@ -273,6 +276,7 @@ $(document).ready( () => {
   existingFiles.forEach(function(fileItem, index) {
     // 미리보기 생성 로직
     createFilePreview(fileItem, index);
+    console.log(fileItem, index);
   });
 
   function createFilePreview(fileItem, index) {
@@ -284,7 +288,7 @@ $(document).ready( () => {
       <div class="flex gap-3">
         <div class="relative">
           <img src="/uploads/${fileItem.file_name}" class="w-40 h-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none" />
-          <button class="remove-btn existing-file-btn rounded-[50%] absolute top-2 duration-200 w-8 h-8 flex justify-center place-items-center right-2 p-2 bg-[#1f1f1f] hover:bg-red-500" data-file-id="${fileItem.id}">
+          <button id="file_num" value="${fileItem.file_name}" class="remove-btn existing-file-btn rounded-[50%] absolute top-2 duration-200 w-8 h-8 flex justify-center place-items-center right-2 p-2 bg-[#1f1f1f] hover:bg-red-500" data-file-id="${fileItem.id}">
             <span class="material-symbols-outlined">
               close
             </span>
@@ -298,6 +302,9 @@ $(document).ready( () => {
     // 이벤트 리스너 추가: 서버에서 파일 삭제
     div.querySelector('.remove-btn').addEventListener('click', function() {
       // 여기에 파일 삭제 로직 추가
+      div.remove();
+      selectedFiles.splice(index, 1); // selectedFiles 배열에서 제거
+      updateFileIndexes(); // 인덱스 업데이트
     });
 
     // selectedFiles 배열에 파일 추가
@@ -306,43 +313,43 @@ $(document).ready( () => {
 
   $(document).on('click', '.existing-file-btn', function(e) {
     e.preventDefault();
+    
+    var fileId = $(this).data('file-id');
+    var div = this.parentElement.parentElement;
+    var index = parseInt(div.getAttribute('data-index'));
 
-  var fileId = $(this).data('file-id');
-  var div = this.parentElement.parentElement;
-  var index = parseInt(div.getAttribute('data-index'));
-
-  // AJAX를 통해 서버에 파일 삭제 요청
-  $.ajax({
-    // url: '/free_board_update_c/file_delete/' + fileId,
-    url: '/free_board_update_c/file_delete',
-    type: 'POST',
-    data: { id: fileId },
-    dataType: 'json',
-    success: function(response) {
-      // 파일 삭제 성공 시
-      if (response.state) {
-        div.remove();
-        selectedFiles.splice(index, 1); // selectedFiles 배열에서 제거
-        updateFileIndexes(); // 인덱스 업데이트
-        console.log(fileId);
-        return console.log('파일 삭제 성공: ', response);
-      } else {
-        alert('파일 삭제 실패: ' + response.message);
+    // AJAX를 통해 서버에 파일 삭제 요청
+    $.ajax({
+      // url: '/free_board_update_c/file_delete/' + fileId,
+      url: '/free_board_update_c/file_delete',
+      type: 'POST',
+      data: { 
+        id: $('#file_num').val(),
+      },
+      dataType: 'json',
+      success: function(response) {
+        // 파일 삭제 성공 시
+        if (response.state) {
+          div.remove();
+          selectedFiles.splice(index, 1); // selectedFiles 배열에서 제거
+          updateFileIndexes(); // 인덱스 업데이트
+          console.log('파일 삭제 성공: ', response);
+          return;
+        } else {
+          alert('파일 삭제 실패: ' + response.message);
+        }
+      },
+      error: function() {
+        alert('파일 삭제 중 오류 발생');
       }
-    },
-    error: function() {
-      alert('파일 삭제 중 오류 발생');
-    }
+    });
   });
-
-});
 
 function updateFileIndexes() {
   document.querySelectorAll('.preview-item').forEach((item, index) => {
     item.setAttribute('data-index', index);
   });
 }
-
 
 document.getElementById('userfile').addEventListener('change', function(e) {
   var preview = document.getElementById('preview');

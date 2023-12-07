@@ -10,6 +10,12 @@ class Free_Board_Create_C extends CI_Controller {
   }
   
   public function index() {
+    // 세션 체크
+    if(!$this->session->userdata('user_id')) {
+      redirect('/login');
+      [ 'state' => FALSE, 'message' => '로그인이 필요합니다' ];
+    }
+    
     $this->layout->custom_view('board/free_board_create_v');
   }
 
