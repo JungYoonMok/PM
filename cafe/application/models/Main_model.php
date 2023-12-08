@@ -13,11 +13,25 @@ class Main_model extends CI_Model {
     return $result;
   }
   
-  public function GetBoardTotal() {
-    $result = $this->db->query('SELECT idx FROM boards')->num_rows();
+  public function GetBoardTotal($type) {
+    $result = $this->db->query("SELECT idx FROM boards WHERE board_type = '.$type.'")->num_rows();
     return $result;
   }
-}
 
+  public function BoardList() {
+    $this->db->select('boards.*,');
+    $this->db->select('(SELECT COUNT(*) FROM board_like WHERE like_type = 1 AND boards_idx = boards.idx) as like_count', FALSE);
+    $this->db->select('(SELECT COUNT(*) FROM board_like WHERE like_type = 0 AND boards_idx = boards.idx) as dislike_count', FALSE);
+    $this->db->select('(SELECT COUNT(*) FROM boards as reply WHERE reply.group_idx = boards.idx AND reply.group_order > 0) as reply_count', FALSE);
+    $this->db->select('(SELECT COUNT(*) FROM upload_file WHERE boards_idx = boards.idx) as file', FALSE);
+    $this->db->select('(SELECT user_profile FROM members WHERE user_id = boards.user_id) as profile', FALSE);
+    // $this->db->where('board_type', 'freeboard');
+    $this->db->order_by('idx', 'desc');
+    
+    $query = $this->db->get('boards');
+    
+    return $query->result();
+  }
+}
 
 ?>

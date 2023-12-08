@@ -111,9 +111,12 @@
           <div class="flex justify-between place-items-center">
 
             <div class="flex gap-1 place-items-center">
-              <p class="text-sm">
-                ${li.idx}
+
+              <img src="/uploads/${li.profile}" alt="img" class="w-10 ${li.profile ? '' : 'hidden'}">
+              <p class="material-symbols-outlined text-4xl text-gray-400 flex place-items-center justify-center ${li.profile ? 'hidden' : ''}">
+                person
               </p>
+
               <p class="p-2">
                 ${li.user_id}
               </p>
@@ -165,7 +168,7 @@
               ${li.title}
             </p>
 
-            <div>
+            <div class="text-[#9f9f9f]">
               <span class="material-symbols-outlined">
                 ${li.content.indexOf('<img') != -1 ? 'image' : ''}
               </span>
@@ -270,7 +273,7 @@
                       : reply.regdate.substr(0, 10);
             // 답글 데이터를 HTML로 변환하여 추가
             replyBox.append(`
-            <div class="border-b border-gray-500 flex justify-between place-items-center p-5 bg-[#1f1f1f] duration-200 rounded shadow-md">
+            <div class="border-b border-gray-500 flex flex-col md:flex-row justify-between place-items-center p-5 bg-[#1f1f1f] duration-200 rounded shadow-md">
 
               <div class="flex place-items-center gap-3 w-full duration-200">
               
@@ -309,7 +312,7 @@
                     ${reply.title}
                   </p>
                   
-                  <div>
+                  <div class="text-[#9f9f9f]">
                     <span class="material-symbols-outlined">
                       ${reply.content.indexOf('<img') != -1 ? 'image' : ''}
                     </span>
@@ -325,6 +328,7 @@
               <div class="flex text-xs text-[#9f9f9f] duration-200 place-items-center">
 
                 <div class="p-2 flex gap-2 place-items-center">
+
                   <span class="material-symbols-outlined">
                     person
                   </span>

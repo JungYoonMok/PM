@@ -5,16 +5,17 @@ date_default_timezone_set('Asia/Seoul');
   class My_Activity_C extends CI_Controller {
     public function __construct() {
       parent::__construct();
+
+      // 세션 체크
+    if(!$this->session->userdata('user_id')) {
+      redirect('/login');
+      [ 'state' => FALSE, 'message' => '로그인이 필요합니다' ];
+    }
+    
       $this->load->model('My_Activity_M');
     }
 
     public function index() {
-      // 세션 체크
-      if(!$this->session->userdata('user_id')) {
-        redirect('/login');
-        [ 'state' => FALSE, 'message' => '로그인이 필요합니다' ];
-      }
-      
       $this->layout->custom_view('My_Activity_V');
     }
 

@@ -6,16 +6,16 @@ class User_information_C extends CI_Controller {
   public function __construct() {
     parent::__construct();
 
-    $this->load->model('User_Information_M', 'model');
-  }
-
-  public function index() {
     // 세션 체크
     if(!$this->session->userdata('user_id')) {
       redirect('/login');
       [ 'state' => FALSE, 'message' => '로그인이 필요합니다' ];
     }
+    
+    $this->load->model('User_Information_M', 'model');
+  }
 
+  public function index() {
     $user_id = $this->session->userdata('user_id');
     $data['user'] = $this->model->user_data($user_id);
     // $data['user_profile_show'] = $this->user_profile_show();

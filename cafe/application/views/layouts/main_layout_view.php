@@ -154,15 +154,10 @@
 <body>
 
   <!-- 베이스 -->
-  <div
-  class="
-  flex duration-200 justify-between">
+  <div class="flex duration-200 justify-between <?= ($this->uri->segment(1) == 'login' ? 'h-full' : ($this->uri->segment(1) == 'register' ? 'h-full' : ($this->uri->segment(1) == '' ? 'h-full' : '' ) ) ) ?>">
 
     <!-- 사이드 -->
-    <div
-    class="
-    w-full max-w-[300px] z-30 <?= $this->session->userdata('user_id') ? 'hidden md:inline-block' : 'hidden'?>
-    ">
+    <div class="w-full max-w-[300px] z-30 <?= $this->session->userdata('user_id') ? 'hidden lg:inline-block' : 'hidden'?>">
       <!-- 메뉴 -->
       <div class="fixed bg-[#2f2f2f] w-[300px] border-r border-[#5f5f5f] h-full">
         <?= $side ?>
@@ -173,20 +168,20 @@
     <!-- 메인 -->
     <div class="flex flex-col justify-between w-full h-full">
 
-      <div>
+      <div class="">
         <!-- 헤더 -->
         <div class="">
           <?= $header ?>
         </div>
           
         <!-- 컨텐츠 -->
-        <div>
+        <div class="">
           <?= $contents ?>
         </div>
       </div>
       
       <!-- 웨이브 -->
-      <div id="wave" class="hidden z-40 -mt-10">
+      <div id="wave" class="w-full hidden z-40 -mt-10">
         <? $this->load->view('wave') ?>
       </div>
 

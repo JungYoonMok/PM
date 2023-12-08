@@ -7,15 +7,12 @@ class Free_board_Detail_C extends CI_Controller {
   public function __construct() {
     parent::__construct();
 
-    $this->load->model('Free_Board_Detail_M', 'FBM');
-  }
-
-  public function index() {
-    // 세션 체크
     if(!$this->session->userdata('user_id')) {
       redirect('/login');
       [ 'state' => FALSE, 'message' => '로그인이 필요합니다' ];
     }
+
+    $this->load->model('Free_Board_Detail_M', 'FBM');
   }
 
   public function post_delete() {

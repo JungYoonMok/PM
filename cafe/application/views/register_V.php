@@ -1,4 +1,4 @@
-<div class="bg-[#3f3f3f] duration-200 text-gray-50">
+<div class="bg-[#3f3f3f] flex justify-center place-content-center h-full duration-200 text-gray-50">
 
   <div class="py-5 md:py-10 p-1 md:p-5 grid place-items-center">
 

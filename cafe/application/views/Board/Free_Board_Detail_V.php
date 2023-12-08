@@ -14,47 +14,34 @@
   <div class="md:mb-20 w-full p-1 mt-4 md:mt-0 md:p-5 flex flex-col gap-5 drop-shadow-2xl">
 
     <!-- 수정하기, 이전, 다음, 목록 -->
-    <div class="flex justify-between gap-3 opacity-90">
-      <div class="<?= $this->session->userdata('user_id') == $post->user_id ? '' : 'hidden' ?>">
-        <a href="/freeboard/update/<?= $post->idx ?>"
-          class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-[9px] rounded">수정하기</a>
+    <div class="flex justify-between place-items-center gap-3 opacity-90">
+      <div class="<?= $this->session->userdata('user_id') == $post->user_id ? '' : 'hidden' ?> flex gap-1">
+        <a href="/freeboard/update/<?= $post->idx ?>">
+          <p class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-[9px] rounded">
+            수정하기
+          </p>
+        </a>
         <button
           onclick="post_delete(<?= $post->idx ?>)"
           class="cursor-pointer bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
           삭제하기
         </button>
       </div>
-      <div>
-        <a href="#" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
-          이전글
-        </a>
-        <a href="#" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
-          다음글
-        </a>
+      <div class="flex gap-1">
+        <? if (isset($prev)): ?>
+          <a title="이전글: <?= $prev->title ?>" href="/<?= $this->uri->segment(1)?>/<?= $prev->idx?>" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
+            이전글
+          </a>
+        <? endif; ?>
+        <? if (isset($next)): ?>
+          <a title="다음글: <?= $next->title ?>" href="/<?= $this->uri->segment(1)?>/<?= $next->idx?>" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
+            다음글
+          </a>
+        <? endif; ?>
         <a href="/freeboard/list" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
           목록
         </a>
       </div>
-    </div>
-
-    <div class="p-3 flex place-items-center justify-around gap-3 bg-[#2f2f2f]">
-      <? if (isset($prev)): ?>
-        <a href="/<?= $this->uri->segment(1)?>/<?= $prev->idx?>" class="duration-200 rounded bg-[#4f4f4f] px-5 py-3 hover:bg-[#3f3f3f] flex gap-3">
-          <h3>〈 이전 게시물</h3>
-          <p><?= $prev->title ?></p>
-        </a>
-      <? else: ?>
-        <p>이전 게시물이 없습니다.</p>
-      <? endif; ?>
-
-      <? if (isset($next)): ?>
-        <a href="/<?= $this->uri->segment(1)?>/<?= $next->idx?>" class="duration-200 rounded bg-[#4f4f4f] px-5 py-3 hover:bg-[#3f3f3f] flex gap-3">
-          <p><?= $next->title ?></p>
-          <h3>다음 게시물 〉</h3>
-        </a>
-      <? else: ?>
-        <p>다음 게시물이 없습니다.</p>
-      <? endif; ?>
     </div>
 
     <div class="bg-[#2f2f2f] p-5 flex flex-col gap-5 border border-[#4f4f4f] rounded">
@@ -89,12 +76,15 @@
         <!-- 작성자 및 게시글 정보 -->
         <div class="flex flex-col md:flex-row gap-3 md:gap-0 justify-between place-items-center">
           <div class="w-full flex gap-3 place-content-start">
-            <div
-              class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border border-[#4f4f4f] h-14 w-14 bg-[#3f3f3f]">
+            <? if ($user->user_profile == '' || null) : ?>
+              <p class="material-symbols-outlined text-5xl text-gray-400 flex place-items-center justify-center">
+                person
+              </p>
+            <? else : ?>
               <img width="100%" src="/uploads/<?= $user->user_profile ?>"
-                class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400">
+                class="material-symbols-outlined rounded-[50%] w-16 h-16 text-gray-400 duration-200">
               </img>
-            </div>
+            <? endif ?>
             <div>
               <a href="#" class="font-bold hover:underline hover:opacity-80 duration-200">
                 <?= $post->user_id; ?>(등급)
@@ -254,7 +244,7 @@
               </div>
 
               <div class="">
-                <p class="text-base"><?= $post->user_id?></p>
+                <p class="text-base"><?= $user->user_nickname ?>(<?= $post->user_id?>)</p>
                 <p>회원등급 : 지하계 / Level <?= $level_converter['level'] ?></p>
               </div>
             </div>
@@ -286,7 +276,7 @@
 
               <div class="text-xs flex flex-col gap-1">
                 <p>자기소개</p>
-                <div class="p-2 rounded bg-[#2f2f2f]">
+                <div class="px-2 py-3 rounded bg-[#2f2f2f]">
                   <p><?= $user->user_memo ?></p>
                 </div>
               </div>
@@ -588,15 +578,15 @@
           <div class="border-b border-[#4f4f4f]"></div>
 
           <!-- 댓글 메인 -->
-          <form id="test" action="/free_board_detail/comment_create" method="post" class="flex flex-col gap-3">
+          <form action="/free_board_detail/comment_create" method="post" class="flex flex-col gap-3">
 
             <!-- 내용 -->
-            <div>
+            <div class="">
               <input name="board_id" type="number" hidden value="<?= $post->idx ?>"></input>
               <input name="board_type" type="text" hidden value="<?= $post->board_type ?>"></input>
               <input name="user_id" type="text" hidden value="<?= $this->session->userdata('user_id') ?>"></input>
               <textarea name="contents" placeholder="댓글을 적어주세요" required cols="30" rows="5"
-                class="w-full rounded bg-[#2f2f2f] p-3 outline-none"></textarea>
+              class="w-full rounded bg-[#2f2f2f] p-3 outline-none duration-200 hover:bg-[#3f3f3f] focus:bg-[#3f3f3f]"></textarea>
             </div>
 
             <!-- 기능 -->
@@ -630,15 +620,18 @@
           답글
         </a>
       </div>
-      <div class="flex gap-2">
-        <a href="#" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
-          이전글
-        </a>
-        <a href="#" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
-          다음글
-        </a>
-        <a href="/freeboard/list"
-          class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
+      <div class="flex gap-1">
+        <? if (isset($prev)): ?>
+          <a title="이전글: <?= $prev->title ?>" href="/<?= $this->uri->segment(1)?>/<?= $prev->idx?>" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
+            이전글
+          </a>
+        <? endif; ?>
+        <? if (isset($next)): ?>
+          <a title="다음글: <?= $next->title ?>" href="/<?= $this->uri->segment(1)?>/<?= $next->idx?>" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
+            다음글
+          </a>
+        <? endif; ?>
+        <a href="/freeboard/list" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
           목록
         </a>
       </div>

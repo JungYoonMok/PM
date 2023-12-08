@@ -6,15 +6,14 @@ class Free_Board_View_C extends CI_Controller {
 
   public function __construct() {
     parent::__construct();
-    $this->load->model('Free_Board_View_M', 'FBM');
-  }
 
-  public function index() {
     // 세션 체크
     if(!$this->session->userdata('user_id')) {
       redirect('/login');
       [ 'state' => FALSE, 'message' => '로그인이 필요합니다' ];
     }
+    
+    $this->load->model('Free_Board_View_M', 'FBM');
   }
   
   public function list() {
@@ -70,6 +69,7 @@ class Free_Board_View_C extends CI_Controller {
     } else {
       // 일반 페이지 로드 요청에 대한 처리
       $data['list'] = $list;
+      $data['user'] = $this->FBM->get_user('test');
       $data['total'] = $total;
       $data['links'] = $this->pagination->create_links();
 

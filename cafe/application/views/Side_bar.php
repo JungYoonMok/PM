@@ -86,7 +86,7 @@
 
       <!-- 기타 -->
       <div class="flex gap-2 flex-col text-sm">
-        <div class="flex place-content-between">
+        <!-- <div class="flex place-content-between">
           <div class="flex gap-2">
             <span class="material-symbols-outlined text-green-500">
               nature
@@ -97,7 +97,7 @@
             class="hover:underline underline-offset-4 hover:scale-[97%] hover:opacity-90 duration-200 decoration-2 decoration-yellow-500">
             등급 안내
           </a>
-        </div>
+        </div> -->
         <div class="flex place-content-between">
           <div class="flex gap-2">
             <span class="material-symbols-outlined">
@@ -163,7 +163,14 @@
 
         <!-- 커뮤니티 -->
         <div class="flex justify-between p-3">
-          <p class="font-bold">커뮤니티</p>
+          <div class="flex gap-3 place-items-center">
+            <p class="font-bold">커뮤니티</p>
+            <div id="new_post" >
+              <p class="<?= $freeboard_total == 0 ? "hidden" : "" ?> h-5 w-5 rounded-[50%] bg-blue-500 border border-[#5f5f5f] text-xs pl-[4.5px] pt-[1px] duration-200 animate-pulse">
+                N
+              </p>
+            </div>
+          </div>
           <button id="board_list_btn" class="duration-200">
             <span class="material-symbols-outlined">
               expand_more
@@ -241,18 +248,18 @@
         </div> -->
         
         <div class="flex flex-col gap-3">
-          <div class="flex justify-around">
+          <div class="flex justify-between">
             <div class="flex gap-2 place-items-center">
               <span class="material-symbols-outlined">
                 face
               </span>
               <p>방문자</p>
             </div>
-            <div class="flex place-items-center">
+            <div class="flex place-items-center px-3 py-1 bg-[#4f4f4f] rounded">
               <span class="
               material-symbols-outlined
               <?= ($site_visit_today - $site_visit_yesterday) == 0 ? 'hidden' : '' ?>
-              <?= ($site_visit_today - $site_visit_yesterday) < 0 ? 'text-red-500 rotate-180' : 'text-green-500' ?>">
+              <?= ($site_visit_today - $site_visit_yesterday) < 0 ? 'text-red-400 rotate-180' : 'text-green-500' ?>">
                 arrow_drop_up
               </span>
               <p>
@@ -267,18 +274,18 @@
         </div>
 
         <div class="flex flex-col gap-3">
-          <div class="flex justify-around">
+          <div class="flex justify-between">
             <div class="flex gap-2 place-items-center">
               <span class="material-symbols-outlined">
                 person
               </span>
               <p>회원수</p>
             </div>
-            <div class="flex place-items-center">
-            <span class="
+            <div class="flex place-items-center px-3 py-1 bg-[#4f4f4f] rounded">
+              <span class="
               material-symbols-outlined
               <?= ($user_register_today - $user_register_yesterday) == 0 ? 'hidden' : '' ?>
-              <?= ($user_register_today - $user_register_yesterday) < 0 ? 'text-red-500 rotate-180' : 'text-green-500' ?>">
+              <?= ($user_register_today - $user_register_yesterday) < 0 ? 'text-red-400 rotate-180' : 'text-green-500' ?>">
                 arrow_drop_up
               </span>
               <p>
@@ -318,12 +325,14 @@
       $('#freeboard').removeClass('hidden');
       $('#hellow').removeClass('hidden');
       $('#line').removeClass('hidden');
+      $('#new_post').addClass('hidden');
     } else {
       $('#board_list_btn').addClass('rotate-180');
       $('#notice').addClass('hidden');
       $('#freeboard').addClass('hidden');
       $('#hellow').addClass('hidden');
       $('#line').addClass('hidden');
+      $('#new_post').removeClass('hidden');
     }
   }
 
@@ -336,6 +345,7 @@
       $('#freeboard').addClass('hidden');
       $('#hellow').addClass('hidden');
       $('#line').addClass('hidden');
+      $('#new_post').removeClass('hidden');
       localStorage.setItem('board_list_btn', 'off');
     } else {
       $('#board_list_btn').removeClass('rotate-180');
@@ -343,6 +353,7 @@
       $('#freeboard').removeClass('hidden');
       $('#hellow').removeClass('hidden');
       $('#line').removeClass('hidden');
+      $('#new_post').addClass('hidden');
       localStorage.setItem('board_list_btn', 'on');
     }
   })
