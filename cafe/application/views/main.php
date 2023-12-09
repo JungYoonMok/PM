@@ -26,94 +26,101 @@
     </div> -->
 
     <!-- 메인 -->
-    <div class="w-full p-1 md:p-5 flex flex-col gap-5">
+    <div class="w-full p-1 pt-5 md:p-5 flex flex-col gap-5">
 
       <!-- 최근게시글 -->
       <div class="w-full drop-shadow-xl">
         <div class="flex bg-[#1f1f1f] rounded-t-xl drop-shadow-2xl items-center place-content-between">
           <div class="opacity-90 p-3 flex w-full justify-between">
-            <h2>최근 게시글</h2>
-            <p><?= $total_freeboard ?></p>
+            <div class="flex gap-2">
+              <span class="material-symbols-outlined">
+                newspaper
+              </span>
+              <h2>최근 게시글</h2>
+            </div>
+            <p class="text-[#9f9f9f]">모든 게시글 <?= $total_notice + $total_freeboard + $total_hellow?>개</p>
           </div>
         </div>
 
-        <div class="bg-[#2f2f2f] w-full p-1 rounded flex flex-col gap-5 shadow-inner overflow-x-auto ">
+        <div class="bg-[#2f2f2f] w-full border border-[#4f4f4f] rounded flex flex-col gap-5 shadow-inner overflow-x-auto ">
           <table class="text-gray-50 text-center whitespace-nowrap min-w-[500px]">
-            <thead class="text-sm bg-[#3f3f3f] h-10">
+            <thead class="text-sm font-[s-core2] bg-[#3f3f3f] h-10">
               <th class="">
                 ID
               </th>
               <th class="">
                 분류
               </th>
-              <th class="max-w-[40%] md:max-w-[50%] w-full">
+              <th class=" w-full">
                 제목
               </th>
               <th class="">
-                <span title="게시글 작성자" class="material-symbols-outlined">
+                <span title="게시글 작성자" class="material-symbols-outlined text-[20px]">
                   person
                 </span>
               </th>
               <th class="">
-                <span title="게시글 작성 날짜" class="material-symbols-outlined">
+                <span title="게시글 작성 날짜" class="material-symbols-outlined text-[20px]">
                   calendar_month
                 </span>
               </th>
               <th class="">
-                <span title="추천, 비추천 합계" class="material-symbols-outlined">
+                <span title="추천, 비추천 합계" class="material-symbols-outlined text-[20px]">
                   thumbs_up_down
                 </span>
               </th>
               <th class="">
-                <span title="조회수" class="material-symbols-outlined">
+                <span title="조회수" class="material-symbols-outlined text-[20px]">
                   visibility
                 </span>
               </th>
             </thead>
             <? foreach ($board_list as $li): ?>
-              <tr class="border-b border-[#4f4f4f] text-sm">
-                <td class="p-2 py-3">
-                  <?= $li->idx ?>
-                </td>
-                <td class="p-2 py-3">
-                  <?= ($li->board_type == 'freeboard' ? '자유게시판' : ($li->board_type == 'freeboard' ? '자유게시판' : ($li->board_type == 'freeboard' ? '자유게시판' : '' ) ) ) ?>
-                </td>
-                <td class="text-left duration-150 hover:scale-[0.98]">
-                  <a href="/<?= $li->board_type?>/<?= $li->idx ?>" class="flex gap-2">
-                    <p class="bg-red-500 rounded-full px-2 py-1 text-xs <?= $li->hit > 100 ? '' : 'hidden' ?>">
-                      인기
+              <tbody class="duration-200 hover:bg-[#4f4f4f]">
+                <tr class="border-b border-[#4f4f4f] text-sm">
+                  <td class="px-3 md:px-5 py-3">
+                    <?= $li->idx ?>
+                  </td>
+                  <td class="px-3 md:px-5 py-3">
+                    <?= ($li->board_type == 'notice' ? '공지사항' : ($li->board_type == 'freeboard' ? '자유게시판' : ($li->board_type == 'hellow' ? '가입인사' : '' ) ) ) ?>
+                  </td>
+                  <td class="text-left duration-150 hover:scale-[0.98]">
+                    <a href="/<?= $li->board_type?>/<?= $li->idx ?>" class="flex gap-2 place-items-center">
+                      <p class="bg-red-500 rounded-full px-2 py-1 text-xs <?= $li->hit > 50 ? '' : 'hidden' ?>">
+                        인기
+                      </p>
+                      <p class="bg-[#4f4f4f] rounded-full px-2 py-1 text-xs <?= $li->group_order > 0 ? '' : 'hidden' ?>">
+                        답글
+                      </p>
+                      <p class="">
+                        <?= $li->title ?>
+                      </p>
+                      <div class="">
+                        <span class="material-symbols-outlined text-[16px]">
+                          <?= strpos($li->content, '<img') ? 'image' : '' ?>
+                        </span>
+                        <span class="material-symbols-outlined text-[16px]">
+                          <?= $li->file > 0 ? 'attachment' : '' ?>
+                        </span>
+                      </div>
+                    </a>
+                  </td>
+                  <td class="px-3 md:px-5 flex gap-2 mx-auto justify-center place-items-center text-center">
+                    <img src="/uploads/<?= $li->profile ?>" alt="img" class="p-0.5 border border-[#4f4f4f] w-10 h-10 rounded-[50%] <?= $li->profile ? '' : 'hidden'?>">
+                    <p class="material-symbols-outlined text-2xl text-gray-400 flex place-items-center justify-center <?= $li->profile ? 'hidden' : '' ?>">
+                      person
                     </p>
-                    <p class="bg-[#4f4f4f] rounded-full px-2 py-1 text-xs <?= $li->group_order > 0 ? '' : 'hidden' ?>">
-                      답글
+                    <p class="tracking-wider">
+                      <?= $li->user_id ?>
                     </p>
-                    <p class="">
-                      <?= $li->title ?>
-                    </p>
-                    <div>
-                      <span class="material-symbols-outlined text-sm">
-                        <?= strpos($li->content, '<img') ? 'image' : '' ?>
-                      </span>
-                      <span class="material-symbols-outlined text-sm">
-                        <?= $li->file > 0 ? 'attachment' : '' ?>
-                      </span>
-                    </div>
-                  </a>
-                </td>
-                <td class="flex gap-1 mx-auto justify-center place-items-center text-center">
-                  <img src="/uploads/<?= $li->profile ?>" alt="img" class="w-10 rounded-[50%] <?= $li->profile ? '' : 'hidden'?>">
-                  <p class="material-symbols-outlined text-2xl text-gray-400 flex place-items-center justify-center <?= $li->profile ? 'hidden' : '' ?>">
-                    person
-                  </p>
-                  <p>
-                    <?= $li->user_id ?>
-                  </p>
-                </td>
-                <td class="">
-                  <?= (empty($li->regdate) ? '-' : date("Y-m-d") == substr($li->regdate, 5, 5)) ? substr($li->regdate, 10, 6) : substr($li->regdate, 5, 5); ?>
-                </td>
-                <td><?= $li->like_count - $li->dislike_count ?></td>
-                <td><?= $li->hit?></td>
-              </tr>
+                  </td>
+                  <td class="px-3 md:px-5">
+                    <?= (date("Y-m-d") == substr($li->regdate, 0, 10)) ? substr($li->regdate, 11, 5) : substr($li->regdate, 5, 5); ?>
+                  </td>
+                  <td class="px-3"><?= $li->like_count - $li->dislike_count ?></td>
+                  <td class="px-3"><?= $li->hit?></td>
+                </tr>
+              </tbody>
             <? endforeach ?>
           </table>
         </div>
@@ -124,168 +131,170 @@
         <!-- 공지사항 -->
         <div class="w-full drop-shadow-xl">
           <div class="flex bg-[#1f1f1f] rounded mb-3 drop-shadow-2xl items-center place-content-between">
-            <div class="opacity-90 p-3 flex gap-1">
+            <div class="opacity-90 p-3 flex justify-between w-full gap-1">
+              <div class="flex gap-2">
+                <span class="material-symbols-outlined">
+                  notifications
+                </span>
               <h2>공지사항</h2>
+              </div>
+              <p class="text-[#9f9f9f]">모든 게시글 <?= $total_notice ?>개</p>
             </div>
           </div>
 
-          <div class="bg-[#2f2f2f] w-full p-1 rounded flex flex-col gap-5 shadow-inner overflow-x-auto">
+          <div class="bg-[#2f2f2f] w-full border border-[#4f4f4f] rounded flex flex-col gap-5 shadow-inner overflow-x-auto">
             <table class="text-gray-50 text-center whitespace-nowrap min-w-[500px]">
               <thead class="text-sm bg-[#3f3f3f] h-10">
-                <th class="">
-                  ID
-                </th>
-                <th class="max-w-[40%] md:max-w-[50%] w-full">
+                <th class="w-full">
                   제목
                 </th>
                 <th class="">
-                  <span title="게시글 작성자" class="material-symbols-outlined">
+                  <span title="게시글 작성자" class="material-symbols-outlined text-[20px]">
                     person
                   </span>
                 </th>
                 <th class="">
-                  <span title="게시글 작성 날짜" class="material-symbols-outlined">
+                  <span title="게시글 작성 날짜" class="material-symbols-outlined text-[20px]">
                     calendar_month
                   </span>
                 </th>
                 <th class="">
-                  <span title="추천, 비추천 합계" class="material-symbols-outlined">
+                  <span title="추천, 비추천 합계" class="material-symbols-outlined text-[20px]">
                     thumbs_up_down
                   </span>
                 </th>
                 <th class="">
-                  <span title="조회수" class="material-symbols-outlined">
+                  <span title="조회수" class="material-symbols-outlined text-[20px]">
                     visibility
                   </span>
                 </th>
               </thead>
               <? foreach ($board_list as $li): ?>
-                <tr class="border-b border-[#4f4f4f] text-sm">
-                  <td class="p-2 py-3">
-                    <?= $li->idx ?>
-                  </td>
-                  
-                  <td class="text-left duration-150 hover:scale-[0.98]">
-                    <a href="/<?= $li->board_type?>/<?= $li->idx ?>" class="flex gap-2">
-                      <p class="bg-red-500 rounded-full px-2 py-1 text-xs <?= $li->hit > 100 ? '' : 'hidden' ?>">
-                        인기
+                <tbody class="duration-200 hover:bg-[#4f4f4f]">
+                  <tr class="border-b border-[#4f4f4f] text-sm">
+                    
+                    <td class="pl-3 text-left duration-150 hover:scale-[0.98]">
+                      <a href="/<?= $li->board_type?>/<?= $li->idx ?>" class="flex gap-2 place-items-center">
+                        <p class="bg-red-500 rounded-full px-2 py-1 text-xs <?= $li->hit > 100 ? '' : 'hidden' ?>">
+                          인기
+                        </p>
+                        <p class="bg-[#4f4f4f] rounded-full px-2 py-1 text-xs <?= $li->group_order > 0 ? '' : 'hidden' ?>">
+                          답글
+                        </p>
+                        <p class="">
+                          <?= $li->title ?>
+                        </p>
+                        <div>
+                          <span class="material-symbols-outlined text-[16px]">
+                            <?= strpos($li->content, '<img') ? 'image' : '' ?>
+                          </span>
+                          <span class="material-symbols-outlined text-[16px]">
+                            <?= $li->file > 0 ? 'attachment' : '' ?>
+                          </span>
+                        </div>
+                      </a>
+                    </td>
+                    <td class="px-3 md:px-5 flex gap-2 justify-center place-items-center text-center">
+                      <img src="/uploads/<?= $li->profile ?>" alt="img" class="p-0.5 border border-[#4f4f4f] w-10 h-10 rounded-[50%] <?= $li->profile ? '' : 'hidden'?>">
+                      <p class="material-symbols-outlined text-2xl text-gray-400 flex place-items-center justify-center <?= $li->profile ? 'hidden' : '' ?>">
+                        person
                       </p>
-                      <p class="bg-[#4f4f4f] rounded-full px-2 py-1 text-xs <?= $li->group_order > 0 ? '' : 'hidden' ?>">
-                        답글
+                      <p class="tracking-wider">
+                        <?= $li->user_id ?>
                       </p>
-                      <p class="">
-                        <?= $li->title ?>
-                      </p>
-                      <div>
-                        <span class="material-symbols-outlined text-sm">
-                          <?= strpos($li->content, '<img') ? 'image' : '' ?>
-                        </span>
-                        <span class="material-symbols-outlined text-sm">
-                          <?= $li->file > 0 ? 'attachment' : '' ?>
-                        </span>
-                      </div>
-                    </a>
-                  </td>
-                  <td class="flex gap-1 justify-center place-items-center text-center">
-                    <img src="/uploads/<?= $li->profile ?>" alt="img" class="w-10 rounded-[50%] <?= $li->profile ? '' : 'hidden'?>">
-                    <p class="material-symbols-outlined text-2xl text-gray-400 flex place-items-center justify-center <?= $li->profile ? 'hidden' : '' ?>">
-                      person
-                    </p>
-                    <p>
-                      <?= $li->user_id ?>
-                    </p>
-                  </td>
-                  <td class="">
-                    <?= (empty($li->regdate) ? '-' : date("Y-m-d") == substr($li->regdate, 5, 5)) ? substr($li->regdate, 10, 6) : substr($li->regdate, 5, 5); ?>
-                  </td>
-                  <td><?= $li->like_count - $li->dislike_count ?></td>
-                  <td><?= $li->hit?></td>
-                </tr>
+                    </td>
+                    <td class="px-3 md:px-5">
+                      <?= (empty($li->regdate) ? '-' : date("Y-m-d") == substr($li->regdate, 5, 5)) ? substr($li->regdate, 10, 6) : substr($li->regdate, 5, 5); ?>
+                    </td>
+                    <td class="px-3"><?= $li->like_count - $li->dislike_count ?></td>
+                    <td class="px-3"><?= $li->hit?></td>
+                  </tr>
+                </tbody>
               <? endforeach ?>
             </table>
           </div>
         </div>
 
         <!-- 최근 댓글 -->
-        <div class="w-full drop-shadow-xl">
+        <div class="w-full mt-5 lg:mt-0 drop-shadow-xl">
           <div class="flex bg-[#1f1f1f] rounded mb-3 drop-shadow-2xl items-center place-content-between">
-            <div class="opacity-90 p-3 flex gap-1">
+            <div class="opacity-90 p-3 flex justify-between w-full gap-1">
+              <div class="flex gap-2">
+                <span class="material-symbols-outlined">
+                  chat_bubble
+                </span>
               <h2>최근 댓글</h2>
+              </div>
+              <p class="text-[#9f9f9f]">모든 댓글 <?= $total_comment ?>개</p>
             </div>
           </div>
 
-          <div class="bg-[#2f2f2f] w-full p-1 rounded flex flex-col gap-5 shadow-inner overflow-x-auto">
+          <div class="bg-[#2f2f2f] w-full border border-[#4f4f4f] rounded flex flex-col gap-5 shadow-inner overflow-x-auto">
             <table class="text-gray-50 text-center whitespace-nowrap">
               <thead class="text-sm bg-[#3f3f3f] h-10">
-                <th class="">ID</th>
-                <th class="w-[50%]">제목</th>
+                <th class="w-full">제목</th>
                 <th class="">
-                  <span title="게시글 작성자" class="material-symbols-outlined">
+                  <span title="게시글 작성자" class="material-symbols-outlined text-[20px]">
                     person
                   </span>
                 </th>
                 <th class="">
-                  <span title="게시글 작성 날짜" class="material-symbols-outlined">
+                  <span title="게시글 작성 날짜" class="material-symbols-outlined text-[20px]">
                     calendar_month
                   </span>
                 </th>
                 <th class="">
-                  <span title="추천, 비추천 합계" class="material-symbols-outlined">
+                  <span title="추천, 비추천 합계" class="material-symbols-outlined text-[20px]">
                     thumbs_up_down
                   </span>
                 </th>
                 <th class="">
-                  <span title="조회수" class="material-symbols-outlined">
+                  <span title="조회수" class="material-symbols-outlined text-[20px]">
                     visibility
-                  </span>
-                </th>
-                <th class="">
-                  <span title="신고 수" class="material-symbols-outlined">
-                    e911_emergency
                   </span>
                 </th>
               </thead>
               <? foreach ($board_list as $li): ?>
-                <tr class="border-b border-[#4f4f4f] text-sm">
-                  <td class="p-2 py-3"><?= $li->idx ?></td>
-                  
-                  <td class="text-left duration-150 hover:scale-[0.98]">
-                    <a href="/<?= $li->board_type?>/<?= $li->idx ?>" class="flex gap-2">
-                      <p class="bg-red-500 rounded-full px-2 py-1 text-xs <?= $li->hit > 100 ? '' : 'hidden' ?>">
-                        인기
+                <tbody class="duration-200 hover:bg-[#4f4f4f]">
+                  <tr class="border-b border-[#4f4f4f] text-sm">
+                    
+                    <td class="pl-3 text-left duration-150 hover:scale-[0.98]">
+                      <a href="/<?= $li->board_type?>/<?= $li->idx ?>" class="flex gap-2 place-items-center">
+                        <p class="bg-red-500 rounded-full px-2 py-1 text-xs <?= $li->hit > 100 ? '' : 'hidden' ?>">
+                          인기
+                        </p>
+                        <p class="bg-[#4f4f4f] rounded-full px-2 py-1 text-xs <?= $li->group_order > 0 ? '' : 'hidden' ?>">
+                          답글
+                        </p>
+                        <p class="">
+                          <?= $li->title ?>
+                        </p>
+                        <div>
+                          <span class="material-symbols-outlined text-[16px]">
+                            <?= strpos($li->content, '<img') ? 'image' : '' ?>
+                          </span>
+                          <span class="material-symbols-outlined text-[16px]">
+                            <?= $li->file > 0 ? 'attachment' : '' ?>
+                          </span>
+                        </div>
+                      </a>
+                    </td>
+                    <td class="px-3 md:px-5 flex gap-2 justify-center place-items-center text-center">
+                      <img src="/uploads/<?= $li->profile ?>" alt="img" class="p-0.5 border border-[#4f4f4f] w-10 h-10 rounded-[50%] <?= $li->profile ? '' : 'hidden'?>">
+                      <p class="material-symbols-outlined text-2xl text-gray-400 flex place-items-center justify-center <?= $li->profile ? 'hidden' : '' ?>">
+                        person
                       </p>
-                      <p class="bg-[#4f4f4f] rounded-full px-2 py-1 text-xs <?= $li->group_order > 0 ? '' : 'hidden' ?>">
-                        답글
+                      <p>
+                        <?= $li->user_id ?>
                       </p>
-                      <p class="">
-                        <?= $li->title ?>
-                      </p>
-                      <div>
-                        <span class="material-symbols-outlined text-sm">
-                          <?= strpos($li->content, '<img') ? 'image' : '' ?>
-                        </span>
-                        <span class="material-symbols-outlined text-sm">
-                          <?= $li->file > 0 ? 'attachment' : '' ?>
-                        </span>
-                      </div>
-                    </a>
-                  </td>
-                  <td class="flex gap-1 justify-center place-items-center text-center">
-                    <img src="/uploads/<?= $li->profile ?>" alt="img" class="w-10 rounded-[50%] <?= $li->profile ? '' : 'hidden'?>">
-                    <p class="material-symbols-outlined text-2xl text-gray-400 flex place-items-center justify-center <?= $li->profile ? 'hidden' : '' ?>">
-                      person
-                    </p>
-                    <p>
-                      <?= $li->user_id ?>
-                    </p>
-                  </td>
-                  <td class="">
-                    <?= (empty($li->regdate) ? '-' : date("Y-m-d") == substr($li->regdate, 5, 5)) ? substr($li->regdate, 10, 6) : substr($li->regdate, 5, 5); ?>
-                  </td>
-                  <td><?= $li->like_count - $li->dislike_count ?></td>
-                  <td><?= $li->hit?></td>
-                  <td>0</td>
-                </tr>
+                    </td>
+                    <td class="px-3 md:px-5">
+                      <?= (empty($li->regdate) ? '-' : date("Y-m-d") == substr($li->regdate, 5, 5)) ? substr($li->regdate, 10, 6) : substr($li->regdate, 5, 5); ?>
+                    </td>
+                    <td class="px-3"><?= $li->like_count - $li->dislike_count ?></td>
+                    <td class="px-3"><?= $li->hit?></td>
+                  </tr>
+                </tbody>
               <? endforeach ?>
             </table>
           </div>
@@ -297,160 +306,170 @@
         <!-- 자유게시판 -->
         <div class="w-full drop-shadow-xl">
           <div class="flex bg-[#1f1f1f] rounded mb-3 drop-shadow-2xl items-center place-content-between">
-            <div class="opacity-90 p-3 flex gap-1">
-              <h2>자유게시판</h2>
+            <div class="opacity-90 p-3 flex justify-between w-full gap-1">
+              <div class="flex gap-2">
+                <span class="material-symbols-outlined">
+                  post
+                </span>
+                <h2>자유게시판</h2>
+              </div>
+              <p class="text-[#9f9f9f]">모든 게시글 <?= $total_freeboard ?>개</p>
             </div>
           </div>
 
-          <div class="bg-[#2f2f2f] w-full p-1 rounded flex flex-col gap-5 shadow-inner overflow-x-auto">
+          <div class="bg-[#2f2f2f] w-full border border-[#4f4f4f] rounded flex flex-col gap-5 shadow-inner overflow-x-auto">
             <table class="text-gray-50 text-center whitespace-nowrap min-w-[500px]">
               <thead class="text-sm bg-[#3f3f3f] h-10">
-                <th class="">ID</th>
-                <th class="max-w-[40%] md:max-w-[50%] w-full">제목</th>
+                <th class="w-full">제목</th>
                 <th class="">
-                  <span title="게시글 작성자" class="material-symbols-outlined">
+                  <span title="게시글 작성자" class="material-symbols-outlined text-[20px]">
                     person
                   </span>
                 </th>
                 <th class="">
-                  <span title="게시글 작성 날짜" class="material-symbols-outlined">
+                  <span title="게시글 작성 날짜" class="material-symbols-outlined text-[20px]">
                     calendar_month
                   </span>
                 </th>
                 <th class="">
-                  <span title="추천, 비추천 합계" class="material-symbols-outlined">
+                  <span title="추천, 비추천 합계" class="material-symbols-outlined text-[20px]">
                     thumbs_up_down
                   </span>
                 </th>
                 <th class="">
-                  <span title="조회수" class="material-symbols-outlined">
+                  <span title="조회수" class="material-symbols-outlined text-[20px]">
                     visibility
                   </span>
                 </th>
               </thead>
               <? foreach ($board_list as $li): ?>
-                <tr class="border-b border-[#4f4f4f] text-sm">
-                  <td class="p-2 py-3"><?= $li->idx ?></td>
-                  
-                  <td class="text-left duration-150 hover:scale-[0.98]">
-                    <a href="/<?= $li->board_type?>/<?= $li->idx ?>" class="flex gap-2">
-                      <p class="bg-red-500 rounded-full px-2 py-1 text-xs <?= $li->hit > 100 ? '' : 'hidden' ?>">
-                        인기
+                <tbody class="duration-200 hover:bg-[#4f4f4f]">
+                  <tr class="border-b border-[#4f4f4f] text-sm">
+                    
+                    <td class="pl-3 text-left duration-150 hover:scale-[0.98]">
+                      <a href="/<?= $li->board_type?>/<?= $li->idx ?>" class="flex gap-2 place-items-center">
+                        <p class="bg-red-500 rounded-full px-2 py-1 text-xs <?= $li->hit > 100 ? '' : 'hidden' ?>">
+                          인기
+                        </p>
+                        <p class="bg-[#4f4f4f] rounded-full px-2 py-1 text-xs <?= $li->group_order > 0 ? '' : 'hidden' ?>">
+                          답글
+                        </p>
+                        <p class="">
+                          <?= $li->title ?>
+                        </p>
+                        <div>
+                          <span class="material-symbols-outlined text-[16px]">
+                            <?= strpos($li->content, '<img') ? 'image' : '' ?>
+                          </span>
+                          <span class="material-symbols-outlined text-[16px]">
+                            <?= $li->file > 0 ? 'attachment' : '' ?>
+                          </span>
+                        </div>
+                      </a>
+                    </td>
+                    <td class="px-3 md:px-5 flex gap-2 justify-center place-items-center text-center">
+                      <img src="/uploads/<?= $li->profile ?>" alt="img" class="p-0.5 border border-[#4f4f4f] w-10 h-10 rounded-[50%] <?= $li->profile ? '' : 'hidden'?>">
+                      <p class="material-symbols-outlined text-2xl text-gray-400 flex place-items-center justify-center <?= $li->profile ? 'hidden' : '' ?>">
+                        person
                       </p>
-                      <p class="bg-[#4f4f4f] rounded-full px-2 py-1 text-xs <?= $li->group_order > 0 ? '' : 'hidden' ?>">
-                        답글
+                      <p class="tracking-wider">
+                        <?= $li->user_id ?>
                       </p>
-                      <p class="">
-                        <?= $li->title ?>
-                      </p>
-                      <div>
-                        <span class="material-symbols-outlined text-sm">
-                          <?= strpos($li->content, '<img') ? 'image' : '' ?>
-                        </span>
-                        <span class="material-symbols-outlined text-sm">
-                          <?= $li->file > 0 ? 'attachment' : '' ?>
-                        </span>
-                      </div>
-                    </a>
-                  </td>
-                  <td class="flex gap-1 justify-center place-items-center text-center">
-                    <img src="/uploads/<?= $li->profile ?>" alt="img" class="w-10 rounded-[50%] <?= $li->profile ? '' : 'hidden'?>">
-                    <p class="material-symbols-outlined text-2xl text-gray-400 flex place-items-center justify-center <?= $li->profile ? 'hidden' : '' ?>">
-                      person
-                    </p>
-                    <p>
-                      <?= $li->user_id ?>
-                    </p>
-                  </td>
-                  <td class="">
-                    <?= (empty($li->regdate) ? '-' : date("Y-m-d") == substr($li->regdate, 5, 5)) ? substr($li->regdate, 10, 6) : substr($li->regdate, 5, 5); ?>
-                  </td>
-                  <td><?= $li->like_count - $li->dislike_count ?></td>
-                  <td><?= $li->hit?></td>
-                </tr>
+                    </td>
+                    <td class="px-3 md:px-5">
+                      <?= (empty($li->regdate) ? '-' : date("Y-m-d") == substr($li->regdate, 5, 5)) ? substr($li->regdate, 10, 6) : substr($li->regdate, 5, 5); ?>
+                    </td>
+                    <td class="px-3"><?= $li->like_count - $li->dislike_count ?></td>
+                    <td class="px-3"><?= $li->hit?></td>
+                  </tr>
+                </tbody>
               <? endforeach ?>
             </table>
           </div>
         </div>
 
         <!-- 가입인사 -->
-        <div class="w-full drop-shadow-xl">
+        <div class="w-full mt-5 lg:mt-0 drop-shadow-xl">
           <div class="flex bg-[#1f1f1f] rounded mb-3 drop-shadow-2xl items-center place-content-between">
-            <div class="opacity-90 p-3 flex gap-1">
-              <h2>가입인사</h2>
+            <div class="opacity-90 p-3 flex justify-between w-full gap-1">
+              <div class="flex gap-2">
+                <span class="material-symbols-outlined">
+                  front_hand
+                </span>
+                <h2>가입인사</h2>
+              </div>
+              <p class="text-[#9f9f9f]">모든 게시글 <?= $total_hellow?>개</p>
             </div>
           </div>
 
-          <div class="bg-[#2f2f2f] w-full p-1 rounded flex flex-col gap-5 shadow-inner overflow-x-auto">
+          <div class="bg-[#2f2f2f] w-full border border-[#4f4f4f] rounded flex flex-col gap-5 shadow-inner overflow-x-auto">
             <table class="text-gray-50 text-center whitespace-nowrap min-w-[500px]">
               <thead class="text-sm bg-[#3f3f3f] h-10">
-                <th class="">
-                  ID
-                </th>
-                <th class="max-w-[40%] md:max-w-[50%] w-full">
+                <th class="w-full">
                   제목
                 </th>
                 <th class="">
-                  <span title="게시글 작성자" class="material-symbols-outlined">
+                  <span title="게시글 작성자" class="material-symbols-outlined text-[20px]">
                     person
                   </span>
                 </th>
                 <th class="">
-                  <span title="게시글 작성 날짜" class="material-symbols-outlined">
+                  <span title="게시글 작성 날짜" class="material-symbols-outlined text-[20px]">
                     calendar_month
                   </span>
                 </th>
                 <th class="">
-                  <span title="추천, 비추천 합계" class="material-symbols-outlined">
+                  <span title="추천, 비추천 합계" class="material-symbols-outlined text-[20px]">
                     thumbs_up_down
                   </span>
                 </th>
                 <th class="">
-                  <span title="조회수" class="material-symbols-outlined">
+                  <span title="조회수" class="material-symbols-outlined text-[20px]">
                     visibility
                   </span>
                 </th>
               </thead>
               <? foreach ($board_list as $li): ?>
-                <tr class="border-b border-[#4f4f4f] text-sm">
-                  <td class="p-2 py-3"><?= $li->idx ?></td>
-                  
-                  <td class="text-left duration-150 hover:scale-[0.98]">
-                    <a href="/<?= $li->board_type?>/<?= $li->idx ?>" class="flex gap-2">
-                      <p class="bg-red-500 rounded-full px-2 py-1 text-xs <?= $li->hit > 100 ? '' : 'hidden' ?>">
-                        인기
+                <tbody class="duration-200 hover:bg-[#4f4f4f]">
+                  <tr class="border-b border-[#4f4f4f] text-sm">
+                    
+                    <td class="pl-3 text-left duration-150 hover:scale-[0.98]">
+                      <a href="/<?= $li->board_type?>/<?= $li->idx ?>" class="flex gap-2 place-items-center">
+                        <p class="bg-red-500 rounded-full px-2 py-1 text-xs <?= $li->hit > 100 ? '' : 'hidden' ?>">
+                          인기
+                        </p>
+                        <p class="bg-[#4f4f4f] rounded-full px-2 py-1 text-xs <?= $li->group_order > 0 ? '' : 'hidden' ?>">
+                          답글
+                        </p>
+                        <p class="">
+                          <?= $li->title ?>
+                        </p>
+                        <div>
+                          <span class="material-symbols-outlined text-[16px]">
+                            <?= strpos($li->content, '<img') ? 'image' : '' ?>
+                          </span>
+                          <span class="material-symbols-outlined text-[16px]">
+                            <?= $li->file > 0 ? 'attachment' : '' ?>
+                          </span>
+                        </div>
+                      </a>
+                    </td>
+                    <td class="px-3 md:px-5 flex gap-2 justify-center place-items-center text-center">
+                      <img src="/uploads/<?= $li->profile ?>" alt="img" class="p-0.5 border border-[#4f4f4f] w-10 h-10 rounded-[50%] <?= $li->profile ? '' : 'hidden'?>">
+                      <p class="material-symbols-outlined text-2xl text-gray-400 flex place-items-center justify-center <?= $li->profile ? 'hidden' : '' ?>">
+                        person
                       </p>
-                      <p class="bg-[#4f4f4f] rounded-full px-2 py-1 text-xs <?= $li->group_order > 0 ? '' : 'hidden' ?>">
-                        답글
+                      <p class="tracking-wider">
+                        <?= $li->user_id ?>
                       </p>
-                      <p class="">
-                        <?= $li->title ?>
-                      </p>
-                      <div>
-                        <span class="material-symbols-outlined text-sm">
-                          <?= strpos($li->content, '<img') ? 'image' : '' ?>
-                        </span>
-                        <span class="material-symbols-outlined text-sm">
-                          <?= $li->file > 0 ? 'attachment' : '' ?>
-                        </span>
-                      </div>
-                    </a>
-                  </td>
-                  <td class="flex gap-1 justify-center place-items-center text-center">
-                    <img src="/uploads/<?= $li->profile ?>" alt="img" class="w-10 rounded-[50%] <?= $li->profile ? '' : 'hidden'?>">
-                    <p class="material-symbols-outlined text-2xl text-gray-400 flex place-items-center justify-center <?= $li->profile ? 'hidden' : '' ?>">
-                      person
-                    </p>
-                    <p>
-                      <?= $li->user_id ?>
-                    </p>
-                  </td>
-                  <td class="">
-                    <?= (empty($li->regdate) ? '-' : date("Y-m-d") == substr($li->regdate, 5, 5)) ? substr($li->regdate, 10, 6) : substr($li->regdate, 5, 5); ?>
-                  </td>
-                  <td><?= $li->like_count - $li->dislike_count ?></td>
-                  <td><?= $li->hit?></td>
-                </tr>
+                    </td>
+                    <td class="px-3 md:px-5">
+                      <?= (empty($li->regdate) ? '-' : date("Y-m-d") == substr($li->regdate, 5, 5)) ? substr($li->regdate, 10, 6) : substr($li->regdate, 5, 5); ?>
+                    </td>
+                    <td class="px-3"><?= $li->like_count - $li->dislike_count ?></td>
+                    <td class="px-3"><?= $li->hit?></td>
+                  </tr>
+                </tbody>
               <? endforeach ?>
             </table>
           </div>

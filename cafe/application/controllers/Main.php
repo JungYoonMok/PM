@@ -7,6 +7,8 @@ class Main extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 
+		// $this->output->cache(10);
+
 		// 세션 체크
     if(!$this->session->userdata('user_id')) {
       redirect('/login');
@@ -20,10 +22,12 @@ class Main extends CI_Controller {
 	public function index()	{
 		
 		$data['list'] = $this->main_model->GetBoardList();
+		$data['board_list'] = $this->main_model->BoardList();
+
 		$data['total_notice'] = $this->main_model->GetBoardTotal('notice');
 		$data['total_freeboard'] = $this->main_model->GetBoardTotal('freeboard');
 		$data['total_hellow'] = $this->main_model->GetBoardTotal('hellow');
-		$data['board_list'] = $this->main_model->BoardList();
+		$data['total_comment'] = $this->main_model->GetCommentTotal();
 
 		$this->layout->custom_view('main', $data);
 	}

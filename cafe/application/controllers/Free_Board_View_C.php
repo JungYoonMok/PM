@@ -69,7 +69,7 @@ class Free_Board_View_C extends CI_Controller {
     } else {
       // 일반 페이지 로드 요청에 대한 처리
       $data['list'] = $list;
-      $data['user'] = $this->FBM->get_user('test');
+      // $data['user'] = $this->FBM->get_user('test2');
       $data['total'] = $total;
       $data['links'] = $this->pagination->create_links();
 

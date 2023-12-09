@@ -14,8 +14,14 @@ class Main_model extends CI_Model {
   }
   
   public function GetBoardTotal($type) {
-    $result = $this->db->query("SELECT idx FROM boards WHERE board_type = '.$type.'")->num_rows();
-    return $result;
+    $this->db->where('board_type', $type);
+    $this->db->from('boards');
+    return $this->db->count_all_results();
+  }
+
+  public function GetCommentTotal() {
+    $this->db->from('boards_comment');
+    return $this->db->count_all_results();
   }
 
   public function BoardList() {
@@ -27,7 +33,7 @@ class Main_model extends CI_Model {
     $this->db->select('(SELECT user_profile FROM members WHERE user_id = boards.user_id) as profile', FALSE);
     // $this->db->where('board_type', 'freeboard');
     $this->db->order_by('idx', 'desc');
-    
+    $this->db->limit(10);
     $query = $this->db->get('boards');
     
     return $query->result();

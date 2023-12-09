@@ -25,6 +25,7 @@ class Free_Board_View_M extends CI_Model {
     $this->db->select('(SELECT COUNT(*) FROM boards as reply WHERE reply.group_idx = boards.idx AND reply.group_order > 0) as reply_count', FALSE);
     $this->db->select('(SELECT COUNT(*) FROM upload_file WHERE boards_idx = boards.idx) as file', FALSE);
     $this->db->select('(SELECT user_profile FROM members WHERE user_id = boards.user_id) as profile', FALSE);
+    $this->db->select('(SELECT user_nickname FROM members WHERE user_id = boards.user_id) as nickname', FALSE);
     $this->db->where('board_type', 'freeboard');
     $this->db->where('group_order', '0'); // 답글이 아닌 경우 제외
     $this->db->order_by('idx', 'desc');

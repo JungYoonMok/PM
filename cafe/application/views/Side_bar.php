@@ -71,7 +71,7 @@
       <div class="flex flex-col gap-3 p-3 duration-200 rounded border border-[#4f4f4f] bg-[#3f3f3f] text-sm font-[s-core5]">
         <div class="flex justify-between">
           <p>경험치 <?= $level_converter['exp'] ?> / <?= $level_converter['end_exp'] ?></p>
-          <p class="text-right tracking-wider">
+          <p class="text-right">
             <?= substr((($level_converter['exp'] - $level_converter['previous_level_end_exp']) / ($level_converter['end_exp'] - $level_converter['previous_level_end_exp']) * 100), 0, 4) ?> %
           </p>
         </div>

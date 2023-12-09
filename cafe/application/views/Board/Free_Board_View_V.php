@@ -110,20 +110,20 @@
           
           <div class="flex justify-between place-items-center">
 
-            <div class="flex gap-1 place-items-center">
+            <div class="flex gap-1 place-items-center py-2 px-5 bg-[#2f2f2f] rounded rounded-r-2xl">
 
-              <img src="/uploads/${li.profile}" alt="img" class="w-10 ${li.profile ? '' : 'hidden'}">
+              <img src="/uploads/${li.profile}" alt="img" class="rounded-[50%] border border-[#4f4f4f] w-10 h-10 ${li.profile ? '' : 'hidden'}">
               <p class="material-symbols-outlined text-4xl text-gray-400 flex place-items-center justify-center ${li.profile ? 'hidden' : ''}">
                 person
               </p>
 
-              <p class="p-2">
-                ${li.user_id}
+              <p class="text-sm tracking-wider">
+                ${li.nickname}
               </p>
             </div>
 
             <div class="p-2 flex gap-2 text-sm text-[#9f9f9f] place-items-center">
-              <span class="material-symbols-outlined">
+              <span class="material-symbols-outlined text-[20px]">
                 schedule
               </span>
               <p>
@@ -184,7 +184,7 @@
             <div class="flex text-xs duration-200 text-[#9f9f9f] place-items-center">
 
               <div class="p-2 flex gap-2 duration-200 place-items-center">
-                <span class="material-symbols-outlined">
+                <span class="material-symbols-outlined text-[20px]">
                   visibility
                 </span>
                 <p>
@@ -193,7 +193,7 @@
               </div>
 
               <div class="p-2 flex gap-2 duration-200 place-items-center">
-                <span class="material-symbols-outlined">
+                <span class="material-symbols-outlined text-[20px]">
                   thumb_up
                 </span>
                 <p>
@@ -202,7 +202,7 @@
               </div>
 
               <div class="p-2 flex gap-2 duration-200 place-items-center">
-                <span class="material-symbols-outlined">
+                <span class="material-symbols-outlined text-[20px]">
                   thumb_down
                 </span>
                 <p>
@@ -216,7 +216,7 @@
               <span class="material-symbols-outlined rotate-180 text-[#9f9f9f]">
                 reply
               </span>
-              <button id="post_reply_show_btn" value="${li.idx}" class="hover:opacity-80 duration-200 hover:underline flex gap-1">
+              <button id="post_reply_show_btn" value="${li.idx}" class="hover:-translate-x-1 decoration-2 hover:opacity-80 duration-200 hover:underline flex gap-1">
                 <p id="post_reply_text${li.idx}">
                   답글보기
                 </p>
@@ -273,9 +273,9 @@
                       : reply.regdate.substr(0, 10);
             // 답글 데이터를 HTML로 변환하여 추가
             replyBox.append(`
-            <div class="border-b border-gray-500 flex flex-col md:flex-row justify-between place-items-center p-5 bg-[#1f1f1f] duration-200 rounded shadow-md">
+            <div class="border-b border-gray-500 justify-center flex flex-col md:flex-row md:justify-between place-items-center p-5 bg-[#3f3f3f] md:bg-[#0f0f0f] duration-200 rounded shadow-md">
 
-              <div class="flex place-items-center gap-3 w-full duration-200">
+              <div class="flex place-items-center gap-3 md:w-full duration-200">
               
                 <span class="material-symbols-outlined rotate-180 text-[#9f9f9f] ">
                   reply
@@ -329,16 +329,16 @@
 
                 <div class="p-2 flex gap-2 place-items-center">
 
-                  <span class="material-symbols-outlined">
+                  <span class="material-symbols-outlined text-[20px]">
                     person
                   </span>
-                  <p class="text-base text-white font-[s-core6]">
+                  <p class="text-[14px] tracking-wider">
                     ${reply.user_id}
                   </p>
                 </div>
 
                 <div class="p-2 flex gap-2 place-items-center">
-                  <span class="material-symbols-outlined text-md">
+                  <span class="material-symbols-outlined text-[20px]">
                     visibility
                   </span>
                   <p class="text-md font-[s-core6]">
@@ -347,7 +347,7 @@
                 </div>
 
                 <div class="p-2 flex gap-2 place-items-center">
-                  <span class="material-symbols-outlined text-md">
+                  <span class="material-symbols-outlined text-[20px]">
                     thumbs_up_down
                   </span>
                   <p class="text-md font-[s-core6] ${reply.like_count - reply.dislike_count < 0 ? 'text-red-400' : 'text-gray-300'}">
@@ -356,7 +356,7 @@
                 </div>
 
                 <div class="p-2 flex gap-2 place-items-center">
-                  <span class="material-symbols-outlined text-md">
+                  <span class="material-symbols-outlined text-[20px]">
                     schedule
                   </span>
                   <p class="min-w-[70px] text-md font-[s-core6] whitespace-nowrap">
