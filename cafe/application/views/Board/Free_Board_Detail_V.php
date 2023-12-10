@@ -87,41 +87,41 @@
             <? endif ?>
             <div>
               <a href="#" class="font-bold hover:underline hover:opacity-80 duration-200">
-                <?= $post->user_id; ?>(등급)
+                <?= $post->user_id; ?>
               </a>
               <div>
                 hi
               </div>
             </div>
           </div>
-          <div class="flex flex-wrap md:flex-nowrap md:whitespace-nowrap gap-7 text-sm">
-            <div class="flex gap-2">
-              <span class="material-symbols-outlined">
+          <div class="flex flex-wrap md:flex-nowrap md:whitespace-nowrap gap-5 text-xs">
+            <div class="flex place-items-center gap-2">
+              <span class="material-symbols-outlined text-[20px]">
                 visibility
               </span>
               <p><?= $hit->hit; ?></p>
             </div>
-            <div class="flex gap-2">
-              <span class="material-symbols-outlined">
+            <div class="flex place-items-center gap-2">
+              <span class="material-symbols-outlined text-[20px]">
                 chat_bubble
               </span>
               <p><?= $comment_count->cnt ?></p>
             </div>
-            <div class="flex gap-2">
-              <span class="material-symbols-outlined">
+            <div class="flex place-items-center gap-2">
+              <span class="material-symbols-outlined text-[20px]">
                 thumb_up
               </span>
               <p><?= $like_count1->cnt ?></p>
             </div>
-            <div class="flex gap-2">
-              <span class="material-symbols-outlined">
+            <div class="flex place-items-center gap-2">
+              <span class="material-symbols-outlined text-[20px]">
                 thumb_down
               </span>
               <p><?= $like_count2->cnt ?></p>
             </div>
             <input type="text" id="link" value="http://localhost/freeboard/<?= $post->idx; ?>" class="hidden" />
-            <button onclick=CopyUrlToClipboard() class="flex gap-2 hover:opacity-70 duration-200 hover:translate-y-1">
-              <span class="material-symbols-outlined">
+            <button onclick=CopyUrlToClipboard() class="flex place-items-center gap-2 hover:opacity-70 duration-200">
+              <span class="material-symbols-outlined text-[20px]">
                 link
               </span>
               <p class="">URL 복사</p>

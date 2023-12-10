@@ -139,12 +139,24 @@
           <!-- 첨부파일 -->
           <div id="file_control" class="flex place-items-center justify-center w-full">
             <label for="userfile" class="flex flex-col items-center w-full justify-center h-52 border-2 border-gray-500 border-dashed rounded-lg cursor-pointer hover:bg-[#2f2f2f] duration-200 bg-[#3f3f3f]">
-              <div class="flex gap-3 place-items-center justify-center">
-                <span class="material-symbols-outlined flex gap-2 place-items-center">
-                  add_link
-                </span>
-                <p class="text-sm text-gray-500 dark:text-gray-300">파일을 첨부하려면 클릭하세요</p>
-                <!-- <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p> -->
+              <div class="flex flex-col gap-3 place-items-center justify-center text-sm">
+                <div class="flex place-items-center gap-3 duration-200 animate-pulse">
+                  <span class="material-symbols-outlined flex gap-2 place-items-center">
+                    add_link
+                  </span>
+                  <p class="">
+                    파일을 첨부하려면 클릭하세요
+                  </p>
+                </div>
+                <div class="flex gap-2">
+                  <? $file_type = array('JPG', 'JPEG', 'PNG', 'GIF', 'TXT', 'ZIP') ?>
+                  <? foreach($file_type as $list):?>
+                    <p class="bg-[#4f4f4f] px-2 py-0.5 rounded border border-[#5f5f5f]">
+                      <?= $list ?>
+                    </p>
+                  <? endforeach ?>
+                  <!-- <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p> -->
+                </div>
               </div>
               <input name="userfile[]" id="userfile" multiple type="file" class="hidden" />
             </label>

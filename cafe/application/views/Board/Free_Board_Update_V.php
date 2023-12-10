@@ -20,7 +20,10 @@
     <div class="bg-[#2f2f2f] p-5 flex flex-col gap-5 border border-gray-500 rounded">
       
       <div class="">
-        <p>게시글 수정하기</p>
+        <div class="flex gap-3">
+          <p>"<?= $post->title ?>"</p>
+          <p>수정하기 🪄</p>
+        </div>
         <input id="bd_id" name="bd_id" type="number" hidden value="<?= $post->idx ?>">
       </div>
 
@@ -134,7 +137,7 @@
           </div>
 
           <!-- 첨부파일 미리보기 -->
-          <div class="flex flex-col gap-2">
+          <div id="file_preview" class="flex flex-col gap-2">
             <p>첨부 파일</p>
             <div id="preview" class="shadow-xl w-full grid grid-cols-2 md:flex md:flex-wrap place-items-center border border-[#4f4f4f] justify-center gap-3 duration-200 min-h-[208px] bg-[#3f3f3f] rounded p-3">
             </div>
@@ -152,10 +155,15 @@
                     파일을 첨부하려면 클릭하세요
                   </p>
                 </div>
-                <p>
-                  jpg / jpeg / png / gif / txt / zip;
-                </p>
-                <!-- <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p> -->
+                <div class="flex gap-2">
+                  <? $file_type = array('JPG', 'JPEG', 'PNG', 'GIF', 'TXT', 'ZIP') ?>
+                  <? foreach($file_type as $list):?>
+                    <p class="bg-[#4f4f4f] px-2 py-0.5 rounded border border-[#5f5f5f]">
+                      <?= $list ?>
+                    </p>
+                  <? endforeach ?>
+                  <!-- <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p> -->
+                </div>
               </div>
               <input name="userfile[]" id="userfile" multiple type="file" class="hidden" />
             </label>
@@ -192,6 +200,9 @@
 
 // ajax 게시글 등록
 $(document).ready( () => {
+
+  // 첨부파일 미리보기 div의 가시성 설정
+  updateFilePreviewVisibility();
 
   // 토스트 UI 에디터 인스턴스 생성
   editor = new toastui.Editor({
@@ -344,6 +355,8 @@ $(document).ready( () => {
       div.remove();
       updateFileIndexes();
     }
+    // 첨부파일 미리보기 div의 가시성 설정
+    updateFilePreviewVisibility();
   });
 
   previewContainer.appendChild(div);
@@ -375,6 +388,8 @@ $(document).ready( () => {
           existingFiles.splice(index, 1);
           // div.remove();
           // updateFileIndexes();
+          // 첨부파일 미리보기 div의 가시성 설정
+          updateFilePreviewVisibility();
         } else {
           alert('파일 삭제 실패: ' + response.message);
         }
@@ -383,6 +398,8 @@ $(document).ready( () => {
         alert('파일 삭제 중 오류 발생');
       }
     });
+    // 첨부파일 미리보기 div의 가시성 설정
+    updateFilePreviewVisibility();
   });
 
   document.getElementById('userfile').addEventListener('change', function(e) {
@@ -415,13 +432,29 @@ $(document).ready( () => {
           div.remove(); // 미리보기 제거
           selectedFiles.splice(index, 1); // selectedFiles 배열에서 제거
           updateFileIndexes(); // 인덱스 업데이트
+          
+          // 첨부파일 미리보기 div의 가시성 설정
+          updateFilePreviewVisibility();
         });
 
         preview.appendChild(div);
       };
       reader.readAsDataURL(file);
     }
+    // 첨부파일 미리보기 div의 가시성 설정
+    updateFilePreviewVisibility();
   });
+
+  // 파일 미리보기 div 가시성 업데이트 함수
+  function updateFilePreviewVisibility() {
+    console.log('함수 호출', existingFiles.length + selectedFiles.length);
+    
+    if (existingFiles.length + selectedFiles.length > 0) {
+      $("#file_preview").show(); // 파일이 있으면 보여줌
+    } else {
+      $("#file_preview").hide(); // 파일이 없으면 숨김
+    }
+  }
 
 });
 
