@@ -32,13 +32,13 @@
       <div class="w-full drop-shadow-xl">
         <div class="flex bg-[#1f1f1f] rounded-t-xl drop-shadow-2xl items-center place-content-between">
           <div class="opacity-90 p-3 flex w-full justify-between">
-            <div class="flex gap-2">
-              <span class="material-symbols-outlined">
+            <div class="flex gap-2 place-items-center">
+              <span class="material-symbols-outlined text-[20px]">
                 newspaper
               </span>
               <h2>최근 게시글</h2>
             </div>
-            <p class="text-[#9f9f9f]">모든 게시글 <?= $total_notice + $total_freeboard + $total_hellow?>개</p>
+            <p class="text-[#9f9f9f] text-sm">모든 게시글 <?= $total_notice + $total_freeboard + $total_hellow?>개</p>
           </div>
         </div>
 
@@ -132,13 +132,13 @@
         <div class="w-full drop-shadow-xl">
           <div class="flex bg-[#1f1f1f] rounded mb-3 drop-shadow-2xl items-center place-content-between">
             <div class="opacity-90 p-3 flex justify-between w-full gap-1">
-              <div class="flex gap-2">
-                <span class="material-symbols-outlined">
+              <div class="flex gap-2 place-items-center">
+                <span class="material-symbols-outlined text-[20px]">
                   notifications
                 </span>
-              <h2>공지사항</h2>
+                <h2>공지사항</h2>
               </div>
-              <p class="text-[#9f9f9f]">모든 게시글 <?= $total_notice ?>개</p>
+              <p class="text-[#9f9f9f] text-sm">모든 게시글 <?= $total_notice ?>개</p>
             </div>
           </div>
 
@@ -219,13 +219,13 @@
         <div class="w-full mt-5 lg:mt-0 drop-shadow-xl">
           <div class="flex bg-[#1f1f1f] rounded mb-3 drop-shadow-2xl items-center place-content-between">
             <div class="opacity-90 p-3 flex justify-between w-full gap-1">
-              <div class="flex gap-2">
-                <span class="material-symbols-outlined">
+              <div class="flex gap-2 place-items-center">
+                <span class="material-symbols-outlined text-[20px]">
                   chat_bubble
                 </span>
-              <h2>최근 댓글</h2>
+                <h2>최근 댓글</h2>
               </div>
-              <p class="text-[#9f9f9f]">모든 댓글 <?= $total_comment ?>개</p>
+              <p class="text-[#9f9f9f] text-sm">모든 댓글 <?= $total_comment ?>개</p>
             </div>
           </div>
 
@@ -307,13 +307,13 @@
         <div class="w-full drop-shadow-xl">
           <div class="flex bg-[#1f1f1f] rounded mb-3 drop-shadow-2xl items-center place-content-between">
             <div class="opacity-90 p-3 flex justify-between w-full gap-1">
-              <div class="flex gap-2">
-                <span class="material-symbols-outlined">
+              <div class="flex gap-2 place-items-center">
+                <span class="material-symbols-outlined text-[20px]">
                   post
                 </span>
                 <h2>자유게시판</h2>
               </div>
-              <p class="text-[#9f9f9f]">모든 게시글 <?= $total_freeboard ?>개</p>
+              <p class="text-[#9f9f9f] text-sm">모든 게시글 <?= $total_freeboard ?>개</p>
             </div>
           </div>
 
@@ -392,13 +392,13 @@
         <div class="w-full mt-5 lg:mt-0 drop-shadow-xl">
           <div class="flex bg-[#1f1f1f] rounded mb-3 drop-shadow-2xl items-center place-content-between">
             <div class="opacity-90 p-3 flex justify-between w-full gap-1">
-              <div class="flex gap-2">
-                <span class="material-symbols-outlined">
+              <div class="flex gap-2 place-items-center">
+                <span class="material-symbols-outlined text-[20px]">
                   front_hand
                 </span>
                 <h2>가입인사</h2>
               </div>
-              <p class="text-[#9f9f9f]">모든 게시글 <?= $total_hellow?>개</p>
+              <p class="text-[#9f9f9f] text-sm">모든 게시글 <?= $total_hellow?>개</p>
             </div>
           </div>
 

@@ -85,12 +85,17 @@
                 class="material-symbols-outlined rounded-[50%] w-16 h-16 text-gray-400 duration-200">
               </img>
             <? endif ?>
-            <div>
-              <a href="#" class="font-bold hover:underline hover:opacity-80 duration-200">
-                <?= $post->user_id; ?>
-              </a>
+            <div class="flex flex-col gap-1">
+              <div class="flex gap-2 place-items-center">
+                <a href="#" class="font-bold hover:underline hover:opacity-80 duration-200">
+                  <?= $post->user_id; ?>
+                </a>
+                <p class="text-sm px-2 py-0.5 bg-[#3f3f3f] rounded border border-[#5f5f5f]">
+                  Lv.<?= $level_converter['level'] ?>
+                </p>
+              </div>
               <div>
-                hi
+                <p>반갑습니다~!</p>
               </div>
             </div>
           </div>

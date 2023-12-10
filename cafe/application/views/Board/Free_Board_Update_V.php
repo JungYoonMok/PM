@@ -447,8 +447,6 @@ $(document).ready( () => {
 
   // 파일 미리보기 div 가시성 업데이트 함수
   function updateFilePreviewVisibility() {
-    console.log('함수 호출', existingFiles.length + selectedFiles.length);
-    
     if (existingFiles.length + selectedFiles.length > 0) {
       $("#file_preview").show(); // 파일이 있으면 보여줌
     } else {

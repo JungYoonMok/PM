@@ -133,7 +133,10 @@
           </div>
           
           <!-- 첨부파일 미리보기 -->
-          <div id="preview" class="hidden w-full grid grid-cols-5 place-items-center border border-[#4f4f4f] justify-center gap-3 duration-200 min-h-[208px] bg-[#3f3f3f] rounded p-3">
+          <div id="file_preview" class="flex flex-col gap-2">
+            <p>첨부 파일</p>
+            <div id="preview" class="shadow-xl w-full grid grid-cols-2 md:flex md:flex-wrap place-items-center border border-[#4f4f4f] justify-center gap-3 duration-200 min-h-[208px] bg-[#3f3f3f] rounded p-3">
+            </div>
           </div>
 
           <!-- 첨부파일 -->
@@ -203,6 +206,12 @@
 
   $(document).ready(() => {
 
+    // 첨부파일 미리보기
+    var selectedFiles = [];
+
+    // 첨부파일 미리보기 div의 가시성 설정
+    updateFilePreviewVisibility();
+
     // 토스트 UI 에디터 인스턴스 생성
     editor = new toastui.Editor({
     el: document.querySelector('#editor'),
@@ -239,9 +248,6 @@
       }
     }
   });
-
-  // 첨부파일 미리보기
-  var selectedFiles = [];
 
   $('#create_btn').click((e) => { // 게시글 등록
     e.preventDefault();
@@ -287,11 +293,11 @@
       success: (response) => {
         if (response.state) {
           // location.href = '/freeboard/' + response.last_id;
-          location.href = '/freeboard/list';
           console.log('성공: ', response);
+          location.href = '/freeboard/list';
         } else {
-          alert('게시글 등록 실패: ' + response.message);
           console.log('실패: ', response);
+          alert('게시글 등록 실패: ' + response.message);
         }
       }, error: function(xhr, status, error) {
         // 여기서 xhr는 XMLHttpRequest 객체, status는 문자열 상태, error는 오류
@@ -377,10 +383,6 @@
         </div>
       `;
 
-      // 초기 세팅
-      $('#preview').removeClass('hidden');
-      $('#file_control').addClass('hidden');
-
       div.querySelector('.remove-btn').addEventListener('click', function() {
         let index = parseInt(div.getAttribute('data-index')); // 저장된 인덱스 사용
         selectedFiles.splice(index, 1); // 파일 목록에서 제거
@@ -389,22 +391,26 @@
         // 인덱스 업데이트
         updateFileIndexes();
 
-        // 첨부 파일 지울 때마다 체크
-        if(selectedFiles < 1) {
-          $('#preview').addClass('hidden');
-          $('#file_control').removeClass('hidden');
-        } else {
-          $('#preview').removeClass('hidden');
-          $('#file_control').addClass('hidden');
-        }
-
+        // 첨부파일 미리보기 div의 가시성 설정
+        updateFilePreviewVisibility();
       });
 
       preview.appendChild(div);
     };
     reader.readAsDataURL(file);
   }
+  // 첨부파일 미리보기 div의 가시성 설정
+  updateFilePreviewVisibility();
 });
+
+  // 파일 미리보기 div 가시성 업데이트 함수
+  function updateFilePreviewVisibility() {
+    if (selectedFiles && selectedFiles.length > 0) {
+      $("#file_preview").show(); // 파일이 있으면 보여줌
+    } else {
+      $("#file_preview").hide(); // 파일이 없으면 숨김
+    }
+  }
 
 function updateFileIndexes() {
   document.querySelectorAll('.preview-item').forEach((item, index) => {

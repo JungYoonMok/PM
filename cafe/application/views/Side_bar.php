@@ -43,12 +43,12 @@
         <div class="flex flex-col gap-1">
           
           <!-- 닉네임 및 등급 -->
-          <div class="flex gap-3">
+          <div class="flex gap-3 place-items-center">
             <a class="hover:underline underline-offset-4 hover:scale-[97%] hover:opacity-90 duration-200 decoration-2 decoration-yellow-500"
               href="/user_information_c">
               <?= $this->session->userdata('user_nickname') ?>
             </a>
-            <p class="bg-[#3f3f3f] px-1.5 py-0.5 rounded text-sm font-bold">
+            <p class="bg-[#3f3f3f] px-1.5 py-0.5 rounded text-sm border border-[#5f5f5f]">
               Lv.<?= $level_converter['level'] ?>
             </p>
           </div>
@@ -140,20 +140,20 @@
       <!-- 글쓰기 및 채팅 -->
       <div class="flex flex-col gap-3 text-center">
         <a href="/post_create"
-          class="p-2 w-full hover:text-white hover:underline rounded hover:opacity-80 duration-150 bg-[#3f3f3f]">
+          class="px-3 py-2 w-full rounded bg-blue-500 duration-200 hover:opacity-80">
           카페 글쓰기
         </a>
       </div>
 
       <!-- 검색 -->
-      <div class="flex">
+      <!-- <div class="flex">
         <input
           class="bg-[#5f5f5f] w-full rounded-l hover:bg-[#4f4f4f] border-[#5f5f5f] border focus:bg-[#4f4f4f] focus:border-blue-500 duration-150 outline-none p-2"
           type="text">
         <button class="bg-blue-500 w-[30%] p-2 rounded-r hover:opacity-80 duration-200 whitespace-nowrap">
           검색
         </button>
-      </div>
+      </div> -->
 
       <!-- 구분선 -->
       <div class="border-b my-3 border-gray-400"></div>
