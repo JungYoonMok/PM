@@ -248,10 +248,10 @@ $(document).ready( () => {
     console.log('existingFiles', existingFiles.length);
     console.log('fileInput', fileInput.files.length);
 
-    // if(selectedFiles.length + existingFiles.length > 5) {
-    //   alert('파일은 최대 5개까지 업로드 가능합니다.');
-    //   return;
-    // }
+    if(selectedFiles.length + existingFiles.length > 5) {
+      alert('파일은 최대 5개까지 업로드 가능합니다.');
+      return;
+    }
 
     if (fileInput.files.length > 0) {
       for (const file of selectedFiles) {
@@ -324,19 +324,18 @@ $(document).ready( () => {
 
   // 삭제 버튼 이벤트 리스너
   div.querySelector('.remove-btn').addEventListener('click', function() {
-    selectedFiles.splice(index, 1);
-    div.remove();
-    updateFileIndexes();
-
-    // if (isExistingFile) {
-    //   // 서버에 파일 삭제 요청
-    //   // 성공 시 selectedFiles에서 제거 및 미리보기 아이템 제거
-    // } else {
-    //   // 새 파일의 경우 단순히 selectedFiles에서 제거 및 미리보기 아이템 제거
-    //   selectedFiles.splice(index, 1);
-    //   div.remove();
-    //   updateFileIndexes();
-    // }
+    if (isExistingFile) {
+      // 서버에 파일 삭제 요청
+      // 성공 시 selectedFiles에서 제거 및 미리보기 아이템 제거
+      // selectedFiles.splice(index, 1);
+      div.remove();
+      // updateFileIndexes();
+    } else {
+      // 새 파일의 경우 단순히 selectedFiles에서 제거 및 미리보기 아이템 제거
+      selectedFiles.splice(index, 1);
+      div.remove();
+      updateFileIndexes();
+    }
   });
 
   previewContainer.appendChild(div);
@@ -365,9 +364,6 @@ $(document).ready( () => {
       success: function(response) {
         // 파일 삭제 성공 시
         if (response.state) {
-          div.remove();
-          selectedFiles.splice(index, 1); // selectedFiles 배열에서 제거
-          updateFileIndexes(); // 인덱스 업데이트
           console.log('파일 삭제 성공: ', response);
         } else {
           alert('파일 삭제 실패: ' + response.message);
