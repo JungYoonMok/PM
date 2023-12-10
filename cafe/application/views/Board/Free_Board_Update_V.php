@@ -143,11 +143,18 @@
           <!-- 첨부파일 -->
           <div id="file_control" class="flex place-items-center justify-center w-full">
             <label for="userfile" class="flex flex-col items-center w-full justify-center h-52 border-2 border-gray-500 border-dashed rounded-lg cursor-pointer hover:bg-[#2f2f2f] duration-200 bg-[#3f3f3f]">
-              <div class="flex gap-3 place-items-center justify-center">
-                <span class="material-symbols-outlined flex gap-2 place-items-center">
-                  add_link
-                </span>
-                <p class="text-sm text-gray-500 dark:text-gray-300">파일을 첨부하려면 클릭하세요</p>
+              <div class="flex flex-col gap-3 place-items-center justify-center text-sm">
+                <div class="flex place-items-center gap-3 duration-200 animate-pulse">
+                  <span class="material-symbols-outlined flex gap-2 place-items-center">
+                    add_link
+                  </span>
+                  <p class="">
+                    파일을 첨부하려면 클릭하세요
+                  </p>
+                </div>
+                <p>
+                  jpg / jpeg / png / gif / txt / zip;
+                </p>
                 <!-- <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p> -->
               </div>
               <input name="userfile[]" id="userfile" multiple type="file" class="hidden" />
@@ -179,9 +186,9 @@
 
 <script>
   // 첨부파일 미리보기
-  var selectedFiles = [];
+  let selectedFiles = [];
   let editorInstance;
-  var existingFiles = <?= json_encode($file); ?>;
+  let existingFiles = <?= json_encode($file); ?>;
 
 // ajax 게시글 등록
 $(document).ready( () => {
@@ -241,12 +248,14 @@ $(document).ready( () => {
     formData.append('post_open', $('input[name="post_open"]:checked').val());
     formData.append('comment_open', $('input[name="comment_open"]:checked').val());
 
+    formData.append('old_file', existingFiles.length);
+
     const fileInput = $('input[type="file"]')[0];
     // 이미지 파일이 있으면 formData에 추가
 
-    console.log('selectedFiles', selectedFiles.length);
-    console.log('existingFiles', existingFiles.length);
-    console.log('fileInput', fileInput.files.length);
+    console.log('추가 ', 'selectedFiles', selectedFiles.length);
+    console.log('기존 ', 'existingFiles', existingFiles.length);
+    // console.log('크리에이트 버튼', 'fileInput', fileInput.files.length);
 
     if(selectedFiles.length + existingFiles.length > 5) {
       alert('파일은 최대 5개까지 업로드 가능합니다.');
@@ -269,8 +278,9 @@ $(document).ready( () => {
       dataType: 'json',
       success: (response) => {
         if (response.state) {
+          // location.href = '/freeboard/' + $('#bd_id').val();
+          location.reload();
           return console.log('게시글 수정 성공: ', response);
-          location.href = '/freeboard/' + $('#bd_id').val();
         } else {
           alert('게시글 수정 실패: ' + response.message);
         }
@@ -327,9 +337,7 @@ $(document).ready( () => {
     if (isExistingFile) {
       // 서버에 파일 삭제 요청
       // 성공 시 selectedFiles에서 제거 및 미리보기 아이템 제거
-      // selectedFiles.splice(index, 1);
       div.remove();
-      // updateFileIndexes();
     } else {
       // 새 파일의 경우 단순히 selectedFiles에서 제거 및 미리보기 아이템 제거
       selectedFiles.splice(index, 1);
@@ -341,7 +349,7 @@ $(document).ready( () => {
   previewContainer.appendChild(div);
 }
   
-   // 기존 파일 미리보기 생성
+  // 기존 파일 미리보기 생성
   existingFiles.forEach(function(fileItem, index) {
     createFilePreview(fileItem, index, true); // true는 기존 파일임을 나타냅니다.
   });
@@ -362,9 +370,11 @@ $(document).ready( () => {
       data: { id: fileId, name: fileName },
       dataType: 'json',
       success: function(response) {
-        // 파일 삭제 성공 시
         if (response.state) {
           console.log('파일 삭제 성공: ', response);
+          existingFiles.splice(index, 1);
+          // div.remove();
+          // updateFileIndexes();
         } else {
           alert('파일 삭제 실패: ' + response.message);
         }

@@ -43,10 +43,11 @@ class Free_Board_Update_C extends CI_Controller {
     }
   }
 
-  public function upload_file($last_id) {
-    $max_files = 50; // 최대 파일 개수
+  public function post_update() {
+
+    $max_files = 5; // 최대 파일 개수
     $config['upload_path'] = './uploads/';
-    $config['allowed_types'] = 'gif|jpg|png';
+    $config['allowed_types'] = 'jpg|jpeg|png|gif|txt|zip';
     $config['max_size'] = 0; // 1MB, 1024KB
     $this->load->library('upload', $config);
     
@@ -69,57 +70,37 @@ class Free_Board_Update_C extends CI_Controller {
           // 오류 처리
           log_message('error', '파일 업로드 실패: ' . $this->upload->display_errors());
         } else {
-          // 업로드 제한
           $filesCount = count($_FILES['userfile']['name']);
-          if ($filesCount > $max_files) {
+          $oldFile = $this->input->post('old_file');
+          // 업로드 제한
+          if ($filesCount + $oldFile > $max_files) {
             echo json_encode(['state' => FALSE, 'message' => '파일은 최대 ' . $max_files . '개까지 업로드 가능합니다']);
             return;
+          } else {
+
+            // 파일 정보 저장
+            $uploadData = $this->upload->data();
+            
+            $fileData[] = [
+              'boards_idx' => $this->input->post('idx'), // 초기값
+              'file_type' => $uploadData['image_type'],
+              'file_name' => $uploadData['file_name'],
+              'width' => $uploadData['image_width'],
+              'height' => $uploadData['image_height'],
+              'file_size' => $uploadData['file_size'],
+              'full_path' => $uploadData['full_path'],
+              'user_id' => $this->session->userdata('user_id'),
+              'regdate' => date("Y-m-d H:i:s")
+            ];
+            
           }
-          // 파일 정보 저장
-          $uploadData = $this->upload->data();
-          
-          $fileData[] = [
-            'boards_idx' => $this->input->post('idx'), // 초기값
-            'file_type' => $uploadData['image_type'],
-            'file_name' => $uploadData['file_name'],
-            'width' => $uploadData['image_width'],
-            'height' => $uploadData['image_height'],
-            'file_size' => $uploadData['file_size'],
-            'full_path' => $uploadData['full_path'],
-            'user_id' => $this->session->userdata('user_id'),
-            'regdate' => date("Y-m-d H:i:s")
-          ];
 
         }
       }
     }
     foreach ($fileData as $file) {
-      // $file['boards_idx'] = $last_id;
       $this->Free_Board_Create_M->insert_file($file);
     }
-  }
-
-  public function post_update() {
-    
-    // $config['upload_path'] = './uploads/';
-    // $config['allowed_types'] = 'gif|jpg|png';
-    // $config['max_size'] = 0;
-    // $this->load->library('upload', $config);
-
-    // $filePath = '';
-    // // 파일 업로드 시도
-    // if (!empty($_FILES['userfile']['name'])) {
-    //   if (!$this->upload->do_upload('userfile')) {
-    //     $error = strip_tags($this->upload->display_errors());
-    //     // 바로 에러 메시지를 반환하고 프로세스를 종료합니다.
-    //     echo json_encode(['state' => FALSE, 'message' => '이미지 업로드 실패: ' . $error]);
-    //     return; // 더 이상 진행하지 않고 종료합니다.
-    //   } else {
-    //     $uploadData = $this->upload->data();
-    //     // $filePath = $uploadData['userfile']; // 업로드된 파일의 경로
-    //     $filePath = $uploadData['full_path']; // 업로드된 파일의 경로
-    //   }
-    // }
 
     // 폼 벨리데이션으로 폼의 필수값을 지정
     // $this->form_validation->set_rules('post_type', 'Post_Type', 'required');
@@ -140,9 +121,8 @@ class Free_Board_Update_C extends CI_Controller {
 
     // if($this->form_validation->run()) {
       $idx = $this->input->post('idx');
+      // $this->upload_file();
       $result = $this->FBM->post_update($idx, $data);
-
-      $this->upload_file($this->input->post('idx'));
 
       if($result) {
         echo json_encode([ 'state' => TRUE, 'message' => '게시글 수정을 성공했습니다', 'idx' => $idx, 'data' => $data ]);
