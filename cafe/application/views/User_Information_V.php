@@ -6,10 +6,10 @@
   <div class="flex flex-col gap-5 mt-5 m-1 lg:m-5 rounded text-gray-50">
     
     <!-- 프로필 사진 -->
-    <div class="grid lg:flex lg:justify-between rounded-tl-md rounded-tr-md gap-5 shadow-2xl border border-[#4f4f4f] bg-[#2f2f2f] p-5">
+    <div class="flex flex-col w-full gap-3 rounded-tl-md rounded-tr-md shadow-2xl border border-[#4f4f4f] bg-[#2f2f2f]">
 
       <!-- 좌측 -->
-      <div class="lg:p-5 w-full flex flex-col place-items-center justify-center gap-5">
+      <div class="p-5 w-full flex flex-col place-items-center justify-center gap-5">
 
         <!-- 프로필 -->
         <div class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border border-gray-500 h-20 w-20 bg-[#3f3f3f]">
@@ -50,7 +50,7 @@
 
         <p>과거 프로필 사진</p>
         <!-- 동적 생성 -->
-        <div id="frofile_old" class="grid grid-cols-3 md:grid-cols-4 max-h-48 p-3 rounded overflow-y-scroll gap-1"></div>
+        <div id="frofile_old" class="grid w-full border border-[#4f4f4f] justify-center place-items-center grid-cols-3 md:grid-cols-4 max-h-48 p-3 rounded overflow-y-scroll gap-1"></div>
 
       </div>
 
@@ -452,15 +452,20 @@
           //           : frofile.regdate.substr(0, 10);
           // 답글 데이터를 HTML로 변환하여 추가
           frofileBox.append(`
-          <div class="flex justify-center place-items-center border p-1 rounded border-[#4f4f4f]">
-            <img src="/uploads/${frofile.file_name}" title="업로드: ${frofile.regdate}" class="w-20 duration-200 hover:scale-110"></img>
+          <div class="flex justify-center place-items-center rounded">
+            <img src="/uploads/${frofile.file_name}" title="업로드: ${frofile.regdate}" class="w-20 h-20 rounded duration-200 hover:scale-110"></img>
           </div>
           `);
         });
       } else {
+        $('#frofile_old').removeClass('grid');
+        $('#frofile_old').removeClass('grid-cols-3');
+        $('#frofile_old').removeClass('md:grid-cols-4');
         frofileBox.append(`
-        <div class="absolute">
-          <p class="duration-200 animate-pulse">데이터가 없습니다.</p>
+        <div class="w-full h-full">
+          <p class="duration-200 text-[#9f9f9f] py-16 border border-[#4f4f4f] shadow-xl bg-[#3f3f3f] rounded text-center">
+            데이터가 없습니다.
+          </p>
         </div>
         `);
       }
