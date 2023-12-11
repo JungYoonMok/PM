@@ -22,11 +22,14 @@ class Main extends CI_Controller {
 	public function index()	{
 		
 		$data['list'] = $this->main_model->GetBoardList();
+
 		$data['board_list'] = $this->main_model->BoardList();
 
+		// 게시글 토탈
 		$data['total_notice'] = $this->main_model->GetBoardTotal('notice');
 		$data['total_freeboard'] = $this->main_model->GetBoardTotal('freeboard');
 		$data['total_hellow'] = $this->main_model->GetBoardTotal('hellow');
+
 		$data['total_comment'] = $this->main_model->GetCommentTotal();
 
 		$this->layout->custom_view('main', $data);

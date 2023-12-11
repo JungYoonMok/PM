@@ -251,7 +251,7 @@
           <div class="flex justify-between">
             <div class="flex gap-2 place-items-center">
               <span class="material-symbols-outlined">
-                face
+                person
               </span>
               <p>방문자</p>
             </div>
@@ -263,21 +263,41 @@
                 arrow_drop_up
               </span>
               <p>
-                <?= ($site_visit_today - $site_visit_yesterday) ?>
+                <?= ($site_visit_today - $site_visit_yesterday == 0 ? '-' : $site_visit_today - $site_visit_yesterday )?>
               </p>
             </div>
           </div>
           <div class="bg-[#2f2f2f] rounded p-3 flex justify-around">
-            <p>오늘 <?= $site_visit_today ?></p>
-            <p>어제 <?= $site_visit_yesterday ?></p>
+            <div class="flex flex-col gap-2 justify-center place-items-center">
+              <p class="">오늘</p>
+              <p class="text-base font-[s-core6]">
+                <?= $site_visit_today == 0 ? '-' : $site_visit_today ?>
+              </p>
+            </div>
+            <div class="flex flex-col gap-2 justify-center place-items-center">
+              <p class="">어제</p>
+              <p class="text-base font-[s-core6]">
+                <?= $site_visit_yesterday == 0 ? '-' : $site_visit_yesterday ?>
+              </p>
+            </div>
           </div>
         </div>
+
+        <!-- 총 방문 -->
+        <div class="flex justify-around bg-[#3f3f3f] rounded py-2">
+          <p>총 방문</p>
+          <p><?= $visit_total ?> 회</p>
+        </div>
+
+        <!-- 구분선 -->
+        <div class="border-b border-gray-400"></div>        
 
         <div class="flex flex-col gap-3">
           <div class="flex justify-between">
             <div class="flex gap-2 place-items-center">
               <span class="material-symbols-outlined">
-                person
+                <!-- account_circle -->
+                badge
               </span>
               <p>회원수</p>
             </div>
@@ -289,23 +309,30 @@
                 arrow_drop_up
               </span>
               <p>
-                <?= ($user_register_today - $user_register_yesterday) ?>
+                <?= ($user_register_today - $user_register_yesterday == 0 ? '-' : $user_register_today - $user_register_yesterday )?>
               </p>
             </div>
           </div>
           <div class="bg-[#2f2f2f] rounded p-3 flex justify-around">
-            <p>오늘 <?= $user_register_today ?></p>
-            <p>어제 <?= $user_register_yesterday ?></p>
+            <div class="flex flex-col gap-2 justify-center place-items-center">
+              <p class="">오늘</p>
+              <p class="text-base font-[s-core6]">
+                <?= $user_register_today == 0 ? '-' : $user_register_today ?>
+              </p>
+            </div>
+            <div class="flex flex-col gap-2 justify-center place-items-center">
+              <p class="">어제</p>
+              <p class="text-base font-[s-core6]">
+                <?= $user_register_yesterday == 0 ? '-' : $user_register_yesterday ?>
+              </p>
+            </div>
           </div>
         </div>
 
-        <!-- 구분선 -->
-        <div class="border-b border-gray-400"></div>
-
-        <!-- 총 방문 -->
-        <div class="flex justify-around">
-          <p>총 방문</p>
-          <p><?= $visit_total ?></p>
+        <!-- 총 회원수 -->
+        <div class="flex justify-around bg-[#3f3f3f] rounded py-2">
+          <p>총 회원수</p>
+          <p><?= $member_total ?> 명</p>
         </div>
 
       </div>

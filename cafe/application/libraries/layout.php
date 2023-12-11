@@ -138,6 +138,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
       return $total_count->num_rows() ?? 0;
     }
 
+    public function member_total() { // 방문 회원수
+      $total_count = $this->obj->db->get("members");
+      return $total_count->num_rows() ?? 0;
+    }
+
     function custom_view( $view = "", $page_view_data = [] ) {
 
       // 헤더에서 사용할 데이터 뽑기
@@ -161,6 +166,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
       $side_view_data['user_register_yesterday'] = $this->user_register('yesterday');
 
       $side_view_data['visit_total'] = $this->visit_total();
+      $side_view_data['member_total'] = $this->member_total();
 
       //사이드에서 사용할 데이터 뽑기
       $layout_view_data = [

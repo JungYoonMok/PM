@@ -105,16 +105,16 @@
                       </div>
                     </a>
                   </td>
-                  <td class="px-3 md:px-5 flex gap-2 mx-auto justify-center place-items-center text-center">
+                  <td class="px-3 flex gap-2 mx-auto justify-center place-items-center text-center">
                     <img src="/uploads/<?= $li->profile ?>" alt="img" class="p-0.5 border border-[#4f4f4f] w-8 h-8 mt-1 rounded-[50%] <?= $li->profile ? '' : 'hidden'?>">
-                    <p class="material-symbols-outlined text-2xl text-gray-400 flex place-items-center justify-center <?= $li->profile ? 'hidden' : '' ?>">
+                    <p class="material-symbols-outlined w-8 h-8 p-0.5 rounded-[50%] mt-1 text-gray-400 flex place-items-center justify-center <?= $li->profile ? 'hidden' : '' ?>">
                       person
                     </p>
                     <p class="tracking-wider">
                       <?= $li->user_id ?>
                     </p>
                   </td>
-                  <td class="px-3 md:px-5">
+                  <td class="px-3">
                     <?= (date("Y-m-d") == substr($li->regdate, 0, 10)) ? substr($li->regdate, 11, 5) : substr($li->regdate, 5, 5); ?>
                   </td>
                   <td class="px-3"><?= $li->like_count - $li->dislike_count ?></td>
@@ -126,7 +126,6 @@
         </div>
       </div>
       
-      <!-- 최근 게시물, 최근 댓글 -->
       <div class="flex-row lg:flex w-full gap-5">
         <!-- 공지사항 -->
         <div class="w-full drop-shadow-xl">
@@ -194,16 +193,16 @@
                         </div>
                       </a>
                     </td>
-                    <td class="px-3 md:px-5 flex gap-2 justify-center place-items-center text-center">
+                    <td class="px-3 flex gap-2 justify-center place-items-center text-center">
                       <img src="/uploads/<?= $li->profile ?>" alt="img" class="p-0.5 border border-[#4f4f4f] w-8 h-8 mt-1 rounded-[50%] <?= $li->profile ? '' : 'hidden'?>">
-                      <p class="material-symbols-outlined text-2xl text-gray-400 flex place-items-center justify-center <?= $li->profile ? 'hidden' : '' ?>">
+                      <p class="material-symbols-outlined w-8 h-8 p-0.5 rounded-[50%] mt-1 text-gray-400 flex place-items-center justify-center <?= $li->profile ? 'hidden' : '' ?>">
                         person
                       </p>
                       <p class="tracking-wider">
                         <?= $li->user_id ?>
                       </p>
                     </td>
-                    <td class="px-3 md:px-5">
+                    <td class="px-3">
                       <?= (empty($li->regdate) ? '-' : date("Y-m-d") == substr($li->regdate, 5, 5)) ? substr($li->regdate, 10, 6) : substr($li->regdate, 5, 5); ?>
                     </td>
                     <td class="px-3"><?= $li->like_count - $li->dislike_count ?></td>
@@ -279,16 +278,16 @@
                         </div>
                       </a>
                     </td>
-                    <td class="px-3 md:px-5 flex gap-2 justify-center place-items-center text-center">
+                    <td class="px-3 flex gap-2 justify-center place-items-center text-center">
                       <img src="/uploads/<?= $li->profile ?>" alt="img" class="p-0.5 border border-[#4f4f4f] w-8 h-8 mt-1 rounded-[50%] <?= $li->profile ? '' : 'hidden'?>">
-                      <p class="material-symbols-outlined text-2xl text-gray-400 flex place-items-center justify-center <?= $li->profile ? 'hidden' : '' ?>">
+                      <p class="material-symbols-outlined w-8 h-8 rounded-[50%] mt-1 p-0.5 text-gray-400 flex place-items-center justify-center <?= $li->profile ? 'hidden' : '' ?>">
                         person
                       </p>
                       <p>
                         <?= $li->user_id ?>
                       </p>
                     </td>
-                    <td class="px-3 md:px-5">
+                    <td class="px-3">
                       <?= (empty($li->regdate) ? '-' : date("Y-m-d") == substr($li->regdate, 5, 5)) ? substr($li->regdate, 10, 6) : substr($li->regdate, 5, 5); ?>
                     </td>
                     <td class="px-3"><?= $li->like_count - $li->dislike_count ?></td>
@@ -367,16 +366,16 @@
                         </div>
                       </a>
                     </td>
-                    <td class="px-3 md:px-5 flex gap-2 justify-center place-items-center text-center">
+                    <td class="px-3 flex gap-2 justify-center place-items-center text-center">
                       <img src="/uploads/<?= $li->profile ?>" alt="img" class="p-0.5 border border-[#4f4f4f] w-8 h-8 mt-1 rounded-[50%] <?= $li->profile ? '' : 'hidden'?>">
-                      <p class="material-symbols-outlined text-2xl text-gray-400 flex place-items-center justify-center <?= $li->profile ? 'hidden' : '' ?>">
+                      <p class="material-symbols-outlined w-8 h-8 p-0.5 rounded-[50%] mt-1 text-gray-400 flex place-items-center justify-center <?= $li->profile ? 'hidden' : '' ?>">
                         person
                       </p>
                       <p class="tracking-wider">
                         <?= $li->user_id ?>
                       </p>
                     </td>
-                    <td class="px-3 md:px-5">
+                    <td class="px-3">
                       <?= (empty($li->regdate) ? '-' : date("Y-m-d") == substr($li->regdate, 5, 5)) ? substr($li->regdate, 10, 6) : substr($li->regdate, 5, 5); ?>
                     </td>
                     <td class="px-3"><?= $li->like_count - $li->dislike_count ?></td>
@@ -454,16 +453,16 @@
                         </div>
                       </a>
                     </td>
-                    <td class="px-3 md:px-5 flex gap-2 justify-center place-items-center text-center">
+                    <td class="px-3 flex gap-2 justify-center place-items-center text-center">
                       <img src="/uploads/<?= $li->profile ?>" alt="img" class="p-0.5 border border-[#4f4f4f] w-8 h-8 mt-1 rounded-[50%] <?= $li->profile ? '' : 'hidden'?>">
-                      <p class="material-symbols-outlined text-2xl text-gray-400 flex place-items-center justify-center <?= $li->profile ? 'hidden' : '' ?>">
+                      <p class="material-symbols-outlined w-8 h-8 p-0.5 rounded-[50%] mt-1 text-gray-400 flex place-items-center justify-center <?= $li->profile ? 'hidden' : '' ?>">
                         person
                       </p>
                       <p class="tracking-wider">
                         <?= $li->user_id ?>
                       </p>
                     </td>
-                    <td class="px-3 md:px-5">
+                    <td class="px-3">
                       <?= (empty($li->regdate) ? '-' : date("Y-m-d") == substr($li->regdate, 5, 5)) ? substr($li->regdate, 10, 6) : substr($li->regdate, 5, 5); ?>
                     </td>
                     <td class="px-3"><?= $li->like_count - $li->dislike_count ?></td>

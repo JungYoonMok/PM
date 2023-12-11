@@ -75,58 +75,66 @@
 
         <!-- 작성자 및 게시글 정보 -->
         <div class="flex flex-col md:flex-row gap-3 md:gap-0 justify-between place-items-center">
-          <div class="w-full flex gap-3 place-content-start">
-            <? if ($user->user_profile == '' || null) : ?>
-              <p class="material-symbols-outlined text-5xl text-gray-400 flex place-items-center justify-center">
-                person
-              </p>
-            <? else : ?>
-              <img width="100%" src="/uploads/<?= $user->user_profile ?>"
-                class="material-symbols-outlined rounded-[50%] w-16 h-16 text-gray-400 duration-200">
-              </img>
-            <? endif ?>
-            <div class="flex flex-col gap-1">
-              <div class="flex gap-2 place-items-center">
-                <a href="#" class="font-bold hover:underline hover:opacity-80 duration-200">
-                  <?= $post->user_id; ?>
-                </a>
-                <p class="text-sm px-2 py-0.5 bg-[#3f3f3f] rounded border border-[#5f5f5f]">
-                  Lv.<?= $level_converter['level'] ?>
+          
+          <div class="border border-[#5f5f5f] px-5 py-2 rounded rounded-r-2xl shadow-lg">
+            <div class="w-full flex gap-3 place-content-start">
+              <? if ($user->user_profile == '' || null) : ?>
+                <p class="material-symbols-outlined text-5xl text-[#9f9f9f] flex place-items-center justify-center">
+                  person
                 </p>
-              </div>
-              <div>
-                <p>반갑습니다~!</p>
+              <? else : ?>
+                <img width="100%" src="/uploads/<?= $user->user_profile ?>"
+                  class="material-symbols-outlined rounded-[50%] w-16 h-16 text-[#9f9f9f] duration-200">
+                </img>
+              <? endif ?>
+              <div class="flex flex-col gap-1">
+                <div class="flex gap-2 place-items-center">
+                  <p class="text-sm px-2 py-0.5 bg-[#3f3f3f] rounded border border-[#4f4f4f]">
+                    Lv.<?= $level_converter['level'] ?>
+                  </p>
+                  <a href="#" class="hover:underline hover:opacity-80 duration-200">
+                    <?= $user->user_nickname; ?>
+                    ( <?= $post->user_id; ?> )
+                  </a>
+                </div>
+                <div class="max-w-[300px] whitespace-normal">
+                  <p class="text-sm">
+                    <?= mb_strimwidth($user->user_memo, 0, 50, '...') ?>
+                    <!-- Point <?= $user_point ?> | Exp <?= $user_exp ?> -->
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-          <div class="flex flex-wrap md:flex-nowrap md:whitespace-nowrap gap-5 text-xs">
+
+          <div class="flex flex-wrap md:flex-nowrap md:whitespace-nowrap gap-5 text-xs md:text-sm">
             <div class="flex place-items-center gap-2">
-              <span class="material-symbols-outlined text-[20px]">
+              <span class="material-symbols-outlined text-[20px] md:text-[25px]">
                 visibility
               </span>
               <p><?= $hit->hit; ?></p>
             </div>
             <div class="flex place-items-center gap-2">
-              <span class="material-symbols-outlined text-[20px]">
+              <span class="material-symbols-outlined text-[20px] md:text-[25px]">
                 chat_bubble
               </span>
               <p><?= $comment_count->cnt ?></p>
             </div>
             <div class="flex place-items-center gap-2">
-              <span class="material-symbols-outlined text-[20px]">
+              <span class="material-symbols-outlined text-[20px] md:text-[25px]">
                 thumb_up
               </span>
               <p><?= $like_count1->cnt ?></p>
             </div>
             <div class="flex place-items-center gap-2">
-              <span class="material-symbols-outlined text-[20px]">
+              <span class="material-symbols-outlined text-[20px] md:text-[25px]">
                 thumb_down
               </span>
               <p><?= $like_count2->cnt ?></p>
             </div>
             <input type="text" id="link" value="http://localhost/freeboard/<?= $post->idx; ?>" class="hidden" />
             <button onclick=CopyUrlToClipboard() class="flex place-items-center gap-2 hover:opacity-70 duration-200">
-              <span class="material-symbols-outlined text-[20px]">
+              <span class="material-symbols-outlined text-[20px] md:text-[25px]">
                 link
               </span>
               <p class="">URL 복사</p>
@@ -249,7 +257,7 @@
               </div>
 
               <div class="">
-                <p class="text-base"><?= $user->user_nickname ?>(<?= $post->user_id?>)</p>
+                <p class="text-base"><?= $user->user_nickname ?> ( <?= $post->user_id ?> )</p>
                 <p>회원등급 : 지하계 / Level <?= $level_converter['level'] ?></p>
               </div>
             </div>
@@ -282,7 +290,7 @@
               <div class="text-xs flex flex-col gap-1">
                 <p>자기소개</p>
                 <div class="px-2 py-3 rounded bg-[#2f2f2f]">
-                  <p><?= $user->user_memo ?></p>
+                <?= mb_strimwidth($user->user_memo, 0, 50, '...') ?>
                 </div>
               </div>
 
