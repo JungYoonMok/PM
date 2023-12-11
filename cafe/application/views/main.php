@@ -1,8 +1,8 @@
 <!-- 메인 틀 -->
-<div id="base" class="duration-200 h-full bg-[#3f3f3f] text-gray-50">
+<div id="base" class="duration-200  bg-[#3f3f3f] text-gray-50">
 
   <!-- 메인 베이스 -->
-  <div class="flex flex-col w-full h-full">
+  <div class="flex flex-col w-full">
 
     <div>
       <p></p>
@@ -117,7 +117,7 @@
                   <td class="px-3">
                     <?= (date("Y-m-d") == substr($li->regdate, 0, 10)) ? substr($li->regdate, 11, 5) : substr($li->regdate, 5, 5); ?>
                   </td>
-                  <td class="px-3"><?= $li->like_count - $li->dislike_count ?></td>
+                  <td class="px-3 <?= ($li->like_count - $li->dislike_count) < 0 ? 'text-red-400' : '' ?>"><?= $li->like_count - $li->dislike_count ?></td>
                   <td class="px-3"><?= $li->hit?></td>
                 </tr>
               </tbody>
@@ -205,7 +205,7 @@
                     <td class="px-3">
                       <?= (empty($li->regdate) ? '-' : date("Y-m-d") == substr($li->regdate, 5, 5)) ? substr($li->regdate, 10, 6) : substr($li->regdate, 5, 5); ?>
                     </td>
-                    <td class="px-3"><?= $li->like_count - $li->dislike_count ?></td>
+                    <td class="px-3 <?= ($li->like_count - $li->dislike_count) < 0 ? 'text-red-400' : '' ?>"><?= $li->like_count - $li->dislike_count ?></td>
                     <td class="px-3"><?= $li->hit?></td>
                   </tr>
                 </tbody>
@@ -290,7 +290,7 @@
                     <td class="px-3">
                       <?= (empty($li->regdate) ? '-' : date("Y-m-d") == substr($li->regdate, 5, 5)) ? substr($li->regdate, 10, 6) : substr($li->regdate, 5, 5); ?>
                     </td>
-                    <td class="px-3"><?= $li->like_count - $li->dislike_count ?></td>
+                    <td class="px-3 <?= ($li->like_count - $li->dislike_count) < 0 ? 'text-red-400' : '' ?>"><?= $li->like_count - $li->dislike_count ?></td>
                     <td class="px-3"><?= $li->hit?></td>
                   </tr>
                 </tbody>
@@ -378,7 +378,7 @@
                     <td class="px-3">
                       <?= (empty($li->regdate) ? '-' : date("Y-m-d") == substr($li->regdate, 5, 5)) ? substr($li->regdate, 10, 6) : substr($li->regdate, 5, 5); ?>
                     </td>
-                    <td class="px-3"><?= $li->like_count - $li->dislike_count ?></td>
+                    <td class="px-3 <?= ($li->like_count - $li->dislike_count) < 0 ? 'text-red-400' : '' ?>"><?= $li->like_count - $li->dislike_count ?></td>
                     <td class="px-3"><?= $li->hit?></td>
                   </tr>
                 </tbody>
@@ -465,7 +465,7 @@
                     <td class="px-3">
                       <?= (empty($li->regdate) ? '-' : date("Y-m-d") == substr($li->regdate, 5, 5)) ? substr($li->regdate, 10, 6) : substr($li->regdate, 5, 5); ?>
                     </td>
-                    <td class="px-3"><?= $li->like_count - $li->dislike_count ?></td>
+                    <td class="px-3 <?= ($li->like_count - $li->dislike_count) < 0 ? 'text-red-400' : '' ?>"><?= $li->like_count - $li->dislike_count ?></td>
                     <td class="px-3"><?= $li->hit?></td>
                   </tr>
                 </tbody>

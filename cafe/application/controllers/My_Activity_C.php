@@ -7,10 +7,10 @@ date_default_timezone_set('Asia/Seoul');
       parent::__construct();
 
       // 세션 체크
-    if(!$this->session->userdata('user_id')) {
-      redirect('/login');
-      [ 'state' => FALSE, 'message' => '로그인이 필요합니다' ];
-    }
+      if(!$this->session->userdata('user_id')) {
+        redirect('/login');
+        [ 'state' => FALSE, 'message' => '로그인이 필요합니다' ];
+      }
     
       $this->load->model('My_Activity_M');
     }
@@ -62,12 +62,15 @@ date_default_timezone_set('Asia/Seoul');
 
     public function post() {
       // 페이지네이션 설정을 공통 메소드를 호출하여 초기화
-      $this->initialize_pagination("/my_activity/post", $this->db->count_all('boards'), 20, 3 ?? 0, 3);
+      $pagi = $this->My_Activity_M->pagination_post();
+      $per_page = 20;
+
+      $this->initialize_pagination("/my_activity/post", $pagi, $per_page, 3 ?? 0, 3);
       
       $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
       $data['links'] = $this->pagination->create_links();
       
-      $data['post'] = $this->My_Activity_M->get_post(20, $page);
+      $data['post'] = $this->My_Activity_M->get_post($per_page, $page);
       $this->layout->custom_view('/My_Activity/Post_V', $data);
     }
   

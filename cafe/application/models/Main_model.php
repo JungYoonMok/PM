@@ -26,9 +26,6 @@ class Main_model extends CI_Model {
 
   public function BoardList() {
     $this->db->select('boards.*,');
-    $this->db->select("(SELECT board_type FROM boards WHERE board_type = 'notice') as notice", FALSE);
-    $this->db->select("(SELECT board_type FROM boards WHERE board_type = 'freeboad') as freeboard", FALSE);
-    $this->db->select("(SELECT board_type FROM boards WHERE board_type = 'hellow') as hellow", FALSE);
     $this->db->select('(SELECT COUNT(*) FROM board_like WHERE like_type = 1 AND boards_idx = boards.idx) as like_count', FALSE);
     $this->db->select('(SELECT COUNT(*) FROM board_like WHERE like_type = 0 AND boards_idx = boards.idx) as dislike_count', FALSE);
     $this->db->select('(SELECT COUNT(*) FROM boards as reply WHERE reply.group_idx = boards.idx AND reply.group_order > 0) as reply_count', FALSE);

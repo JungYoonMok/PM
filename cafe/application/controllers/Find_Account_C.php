@@ -9,11 +9,7 @@ class Find_Account_C extends CI_Controller {
   }
 
   public function index() {
-    // 세션 체크
-    if(!$this->session->userdata('user_id')) {
-      redirect('/login');
-      [ 'state' => FALSE, 'message' => '로그인이 필요합니다' ];
-    }
+
     
     $this->layout->custom_view('Find_Account_V');
   }

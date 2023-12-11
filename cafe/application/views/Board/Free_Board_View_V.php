@@ -414,7 +414,6 @@ $(document).ready(function() {
     fetchBoardList(page); // 페이지 번호를 인자로 넘겨 해당 페이지 데이터를 불러오는 함수
   });
 
-
   $('#search_btn').click(function(e) {
     // function search_click() {
     e.preventDefault();
@@ -422,6 +421,11 @@ $(document).ready(function() {
   // 변수 지정
   let searchType = $('#search_type').val();
   let searchText = $('#search_text').val();
+
+  if(searchText == '') {
+    alert('검색어를 입력해주세요');
+    return;
+  }
 
   // 날짜
   var today = new Date();
@@ -434,14 +438,12 @@ $(document).ready(function() {
   $.ajax({
     url: "/Free_Board_View_C/search", // AJAX를 처리할 컨트롤러 메소드
     type: "GET", // 데이터를 가져오므로 GET 사용
-    data: {
-      type: searchType,
-      text: searchText
-    },
+    data: { type: searchType, text: searchText },
     dataType: "json",
     success: function(response) {
       if(response.state) {
-        $('.pagination').show();
+        // $('.pagination').show();
+        $('.pagination').hide();
         // 테이블 초기화
         $('#table').empty();
         // 검색 결과를 테이블에 추가

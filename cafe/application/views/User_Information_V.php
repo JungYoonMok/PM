@@ -4,56 +4,85 @@
 
   <!-- 메인 틀 -->
   <div class="flex flex-col gap-5 mt-5 m-1 lg:m-5 rounded text-gray-50">
-    
-    <!-- 프로필 사진 -->
-    <div class="flex flex-col w-full gap-3 rounded-tl-md rounded-tr-md shadow-2xl border border-[#4f4f4f] bg-[#2f2f2f]">
 
-      <!-- 좌측 -->
-      <div class="p-5 w-full flex flex-col place-items-center justify-center gap-5">
-
-        <!-- 프로필 -->
-        <div class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border border-gray-500 h-20 w-20 bg-[#3f3f3f]">
-          <? if ($this->session->userdata('user_profile') == '' || null) : ?>
-            <p class="material-symbols-outlined text-5xl text-gray-400 flex place-items-center justify-center">
-              person
-            </p>
-          <? else : ?>
-            <img width="100%" src="/uploads/<?= $this->session->userdata('user_profile') ?>"
-              class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400 duration-200">
-            </img>
-            <div class="absolute -bottom-3 w-full">
-              <p class="text-xs text-center bg-[#3f3f3f] rounded px-1">
-                현재
-              </p>
-            </div>
-          <? endif ?>
+    <!-- 내정보, 프사 -->
+    <div class="flex flex-col md:flex-row w-full gap-3">
+      <div class="flex flex-col w-full gap-3 rounded-tl-md rounded-tr-md shadow-2xl border border-[#4f4f4f] bg-[#2f2f2f]">
+        <div class="p-5">
+          <p>내 정보</p>
         </div>
-
-        <!-- 파일 업로드 -->
-        <form id="upload_form" enctype="multipart/form-data" class="flex flex-col gap-3 place-items-center place-content-center justify-center">
-          <input type="file" name="userfile" 
-          class="
-            file:mr-4 file:py-2 file:px-4
-            file:rounded-full file:border-0
-            file:text-sm file:font-semibold
-          file:bg-[#3f3f3f] file:text-white
-          hover:file:bg-[#4f4f4f] duration-200" />
-          <button id="upload_button" class="px-3 py-1 w-[50%] lg:w-[40%] bg-blue-500 rounded hover:translate-y-1 duration-200">
-            적용하기
-          </button>
-        </form>
-
       </div>
-
-      <!-- 우측 -->
-      <div class="p-5 w-full flex flex-col gap-3">
-
-        <p>과거 프로필 사진</p>
-        <!-- 동적 생성 -->
-        <div id="frofile_old" class="grid w-full border border-[#4f4f4f] justify-center place-items-center grid-cols-3 md:grid-cols-4 max-h-48 p-3 rounded overflow-y-scroll gap-1"></div>
-
+        
+      <!-- 프로필 사진 -->
+      <div class="flex flex-col w-full gap-3 rounded-tl-md rounded-tr-md shadow-2xl border border-[#4f4f4f] bg-[#2f2f2f]">
+  
+        <div class="p-5 w-full flex flex-col gap-10">
+  
+          <div class="flex justify-around place-items-center">
+  
+            <!-- 프로필 -->
+            <div class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border border-gray-500 h-20 w-20 bg-[#3f3f3f]">
+              <? if ($this->session->userdata('user_profile') == '' || null) : ?>
+                <p class="material-symbols-outlined text-5xl text-gray-400 flex place-items-center justify-center">
+                  person
+                </p>
+              <? else : ?>
+                <img width="100%" src="/uploads/<?= $this->session->userdata('user_profile') ?>"
+                  class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400 duration-200">
+                </img>
+                <div class="absolute -bottom-3 w-full">
+                  <p class="text-xs text-center bg-[#3f3f3f] rounded px-1">
+                    현재
+                  </p>
+                </div>
+              <? endif ?>
+            </div>
+  
+            <!-- 프로필 -->
+            <div class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border border-gray-500 h-20 w-20 bg-[#3f3f3f]">
+              <? if ($this->session->userdata('user_profile') == '' || null) : ?>
+                <p class="material-symbols-outlined text-5xl text-gray-400 flex place-items-center justify-center">
+                  person
+                </p>
+              <? else : ?>
+                <img width="100%" src="/uploads/<?= $this->session->userdata('user_profile') ?>"
+                  class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400 duration-200">
+                </img>
+                <div class="absolute -bottom-3 w-full">
+                  <p class="text-xs text-center bg-blue-500 rounded px-1">
+                    변경
+                  </p>
+                </div>
+              <? endif ?>
+            </div>
+  
+          </div>
+  
+          <!-- 파일 업로드 -->
+          <form id="upload_form" enctype="multipart/form-data" class="flex flex-col gap-3 place-items-center place-content-center justify-center">
+            <input type="file" name="userfile" 
+            class="
+              file:mr-4 file:py-2 file:px-4
+              file:rounded-full file:border-0
+              file:text-sm file:font-semibold
+            file:bg-[#3f3f3f] file:text-white
+            hover:file:bg-[#4f4f4f] duration-200" />
+            <button id="upload_button" class="px-3 py-2 w-full bg-blue-500 rounded hover:translate-y-1 duration-200">
+              적용하기
+            </button>
+          </form>
+  
+        </div>
+  
+        <div class="p-5 w-full flex flex-col gap-3">
+  
+          <p>과거 프로필 사진</p>
+          <!-- 동적 생성 -->
+          <div id="frofile_old" class="grid w-full border border-[#4f4f4f] justify-center place-items-center grid-cols-3 md:grid-cols-4 max-h-48 p-3 rounded overflow-y-scroll gap-1"></div>
+  
+        </div>
+  
       </div>
-
     </div>
       
     <!-- 구분선 -->

@@ -17,46 +17,54 @@
             <th class="">ID</th>
             <th class="">분류</th>
             <th class="w-[40%]">제목</th>
-            <!-- <th class="">작성자</th> -->
             <th class="">작성날짜</th>
             <th class="">추천</th>
             <th class="">비추천</th>
             <th class="">조회수</th>
-            <th class="">신고</th>
           </thead>
           <tbody class="">
 
           <? if (!empty($post)) { foreach($post as $li) : ?>
             <tr class="border-b border-[#4f4f4f]">
               <td class="p-2"><?= $li->idx ?></td>
-              <td class="p-2"><?= $li->board_type ?></td>
+              <td class="p-2">
+                <?= ($li->board_type == 'notice' ? '공지사항' : ($li->board_type == 'freeboard' ? '자유게시판' : ($li->board_type == 'hellow' ? '가입인사' : '' ) ) ) ?>
+              </td>
               <td class="text-left">
-                <a href="/freeboard/<?= $li->idx ?>" class="flex gap-2">
+                <a href="/freeboard/<?= $li->idx ?>" class="flex place-items-center gap-1">
                   <p class="bg-red-500 rounded-full px-2 py-1 text-xs <?= $li->hit > 100 ? '' : 'hidden' ?>">
                     인기
                   </p>
                   <p class="bg-[#4f4f4f] rounded-full px-2 py-1 text-xs <?= $li->group_order > 0 ? '' : 'hidden' ?>">
                     답글
                   </p>
-                  <?= $li->title ?>
-                  <span class="text-[#9f9f9f]">
-                    <!-- 댓글 개수 -->
-                    <?= empty($post_comment) ? "(0)" : ($post_comment) ?>
+                  <p>
+                    <?= $li->title ?>
+                    <div class="">
+                      <span class="material-symbols-outlined text-[16px] <?= strpos($li->content, '<img') ? '' : 'hidden' ?>">
+                        <?= strpos($li->content, '<img') ? 'image' : '' ?>
+                      </span>
+                      <span class="material-symbols-outlined text-[16px] <?= $li->file > 0 ? '' : 'hidden' ?>">
+                        <?= $li->file > 0 ? 'attachment' : '' ?>
+                      </span>
+                    </div>
+                  </p>
+                  <span class="text-[#9f9f9f] <?= $li->comment_count == 0 ? 'hidden' : '' ?>">
+                    (<?= $li->comment_count ?? 0 ?>)
+                  </span>
+                  <span class="text-[#9f9f9f] <?= $li->reply_count == 0 ? 'hidden' : '' ?>">
+                    답글<?= $li->reply_count ?? 0 ?>
                   </span>
                 </a>
               </td>
-              <!-- <td><?= $li->user_id ?></td> -->
               <td class="tracking-wide">
-                <?= (empty($li->regdate) ? '-' : date("Y-m-d") == substr($li->regdate, 0, 10)) ? substr($li->regdate, 10, 6) : substr($li->regdate, 0, 10); ?>
+                <?= (date("Y-m-d") == substr($li->regdate, 0, 10)) ? substr($li->regdate, 10, 6) : substr($li->regdate, 5, 6); ?>
               </td>
               <td>
-                <?= $li->hit ?>
+                <?= $li->like_count ?>
               </td>
               <td>
-                <?= $li->hit ?>
-              </td>
-              <td>
-                <?= $li->hit ?>
+                <?= $li->dislike_count ?>
               </td>
               <td>
                 <?= $li->hit ?>
