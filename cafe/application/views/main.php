@@ -181,7 +181,7 @@
                           답글
                         </p>
                         <p class="">
-                          <?= $li->title ?>
+                          <?= mb_strimwidth($li->title,0, 40, ' ..') ?>
                         </p>
                         <div>
                           <span class="material-symbols-outlined text-[16px]">
@@ -266,7 +266,7 @@
                           답글
                         </p>
                         <p class="">
-                          <?= $li->title ?>
+                          <?= mb_strimwidth($li->title,0, 40, ' ..') ?>
                         </p>
                         <div>
                           <span class="material-symbols-outlined text-[16px]">
@@ -354,7 +354,7 @@
                           답글
                         </p>
                         <p class="">
-                          <?= $li->title ?>
+                          <?= mb_strimwidth($li->title,0, 40, ' ..') ?>
                         </p>
                         <div>
                           <span class="material-symbols-outlined text-[16px]">
@@ -441,7 +441,7 @@
                           답글
                         </p>
                         <p class="">
-                          <?= $li->title ?>
+                          <?= mb_strimwidth($li->title,0, 40, ' ..') ?>
                         </p>
                         <div>
                           <span class="material-symbols-outlined text-[16px]">

@@ -14,7 +14,7 @@
   <div class="md:mb-20 w-full p-1 mt-4 md:mt-0 md:p-5 flex flex-col gap-5 drop-shadow-2xl">
 
     <!-- 수정하기, 이전, 다음, 목록 -->
-    <div class="flex justify-between place-items-center gap-3 opacity-90">
+    <div class="flex justify-between place-items-center gap-3 opacity-90 whitespace-nowrap overflow-x-auto overflow-y-hidden">
       <div class="<?= $this->session->userdata('user_id') == $post->user_id ? '' : 'hidden' ?> flex gap-1">
         <a href="/freeboard/update/<?= $post->idx ?>">
           <p class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-[9px] rounded">
@@ -27,6 +27,9 @@
           삭제하기
         </button>
       </div>
+
+      <p class="md:hidden">|</p>
+
       <div class="flex gap-1">
         <? if (isset($prev)): ?>
           <a title="이전글: <?= $prev->title ?>" href="/<?= $this->uri->segment(1)?>/<?= $prev->idx?>" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
@@ -74,10 +77,10 @@
       <div class="flex flex-col gap-5">
 
         <!-- 작성자 및 게시글 정보 -->
-        <div class="flex flex-col md:flex-row gap-3 md:gap-0 justify-between place-items-center">
-          
-          <div class="border border-[#5f5f5f] px-5 py-2 rounded rounded-r-2xl shadow-lg">
-            <div class="w-full flex gap-3 place-content-start">
+        <div class="flex flex-col md:flex-row gap-3 md:gap-0 justify-between place-items-center border md:border-none shadow-xl md:shadow-none border-[#4f4f4f] rounded py-3">
+
+          <div class="md:border border-[#5f5f5f] px-5 py-2 rounded md:rounded-r-2xl md:shadow-lg">
+            <div class="w-full flex gap-10 md:gap-5 place-content-start">
               <? if ($user->user_profile == '' || null) : ?>
                 <p class="material-symbols-outlined text-5xl text-[#9f9f9f] flex place-items-center justify-center">
                   person
@@ -99,15 +102,14 @@
                 </div>
                 <div class="max-w-[300px] whitespace-normal">
                   <p class="text-sm">
-                    <?= mb_strimwidth($user->user_memo, 0, 50, '...') ?>
-                    <!-- Point <?= $user_point ?> | Exp <?= $user_exp ?> -->
+                    <?= mb_strimwidth($user->user_memo, 0, 50, ' ..') ?>
                   </p>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="flex flex-wrap md:flex-nowrap md:whitespace-nowrap gap-5 text-xs md:text-sm">
+          <div class="flex  overflow-x-auto overflow-y-hidden  md:flex-nowrap md:whitespace-nowrap gap-5 text-xs md:text-sm bg-[#3f3f3f] md:bg-[#2f2f2f] px-5 md:px-0 py-2 md:py-0 rounded md:rounded-none">
             <div class="flex place-items-center gap-2">
               <span class="material-symbols-outlined text-[20px] md:text-[25px]">
                 visibility
@@ -132,6 +134,7 @@
               </span>
               <p><?= $like_count2->cnt ?></p>
             </div>
+
             <input type="text" id="link" value="http://localhost/freeboard/<?= $post->idx; ?>" class="hidden" />
             <button onclick=CopyUrlToClipboard() class="flex place-items-center gap-2 hover:opacity-70 duration-200">
               <span class="material-symbols-outlined text-[20px] md:text-[25px]">
@@ -139,6 +142,7 @@
               </span>
               <p class="">URL 복사</p>
             </button>
+
           </div>
         </div>
 
@@ -290,7 +294,7 @@
               <div class="text-xs flex flex-col gap-1">
                 <p>자기소개</p>
                 <div class="px-2 py-3 rounded bg-[#2f2f2f]">
-                <?= mb_strimwidth($user->user_memo, 0, 50, '...') ?>
+                <?= mb_strimwidth($user->user_memo, 0, 50, ' ..') ?>
                 </div>
               </div>
 
@@ -316,7 +320,7 @@
                         arrow_left
                       </span>
                       <a href="/<?= $row->board_type ?>/<?= $row->idx ?>" class="duration-200 hover:text-[#9f9f9f]">
-                        <?= substr($row->title, 0, 20) ?> <span class="text-gray-400">..</span>
+                        <?= mb_strimwidth($row->title, 0, 40, ' ..') ?>
                       </a>
                     </div>
                     <div class="flex gap-1 place-items-center">
@@ -352,7 +356,7 @@
                         arrow_left
                       </span>
                       <p>
-                        <?= strpos($row->content, 'removed') ? '⛑️ 관리자에 의해 차단' : $row->content ?>
+                        <?= strpos($row->content, 'removed') ? '⛑️ 관리자에 의해 차단' : mb_strimwidth($row->content, 0, 40, ' ..') ?>
                       </p>
                     </div>
                     <div class="flex gap-1 place-items-center">
