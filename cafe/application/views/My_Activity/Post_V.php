@@ -1,3 +1,11 @@
+<!-- <?
+  $seg = $this->uri->segment(2);
+  ($seg == 'post' ? $seg = $post :
+  ($seg == 'post_like' ? $seg = $post_like :
+  ($seg == 'post_notlike' ? $seg = $post_notlike :
+  ($seg == 'delete_post' ? $seg = $delete_post :
+  'null' ) ) ) );
+?> -->
 <!-- 베이스 -->
 <div class="p-1 md:p-5 flex flex-col gap-0 text-gray-50">
 
@@ -18,22 +26,14 @@
             <th class="">분류</th>
             <th class="w-[40%]">제목</th>
             <th class="">작성날짜</th>
-            <th class="">추천</th>
-            <th class="">비추천</th>
+            <th class="">좋아요</th>
+            <th class="">싫어요</th>
             <th class="">조회수</th>
           </thead>
           <tbody class="">
-          베이스
-        <?
-          $seg = $this->uri->segment(2);
-          ($seg == 'post' ? $seg = $post :
-          ($seg == 'post_like' ? $seg = $post_like :
-          ($seg == 'post_notlike' ? $seg = $post_notlike :
-          ($seg == 'delete_post' ? $seg = $delete_post :
-          'null' ) ) ) );
-        ?>
-          <? if (!empty($seg)) : ?> 
-          <? foreach($seg as $li) : ?>
+
+          <? if (!empty($post)) : ?> 
+          <? foreach($post as $li) : ?>
             <tr class="border-b border-[#4f4f4f]">
               <td class="p-2"><?= $li->idx ?></td>
               <td class="p-2">
