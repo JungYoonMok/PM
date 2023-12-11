@@ -93,7 +93,8 @@ date_default_timezone_set('Asia/Seoul');
       $data['links'] = $this->pagination->create_links(); // 페이지네이션 링크 생성
       
       $data['post_like'] = $this->My_Activity_M->get_post_like(10, $page);
-      $this->layout->custom_view('/My_Activity/Post_Like_V', $data);
+      $this->layout->custom_view('/My_Activity/Post_V', $data);
+      // $this->layout->custom_view('/My_Activity/Post_Like_V', $data);
     }
     
     public function post_notlike() {

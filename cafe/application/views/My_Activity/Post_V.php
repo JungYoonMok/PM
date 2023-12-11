@@ -23,8 +23,17 @@
             <th class="">조회수</th>
           </thead>
           <tbody class="">
-
-          <? if (!empty($post)) { foreach($post as $li) : ?>
+          베이스
+        <?
+          $seg = $this->uri->segment(2);
+          ($seg == 'post' ? $seg = $post :
+          ($seg == 'post_like' ? $seg = $post_like :
+          ($seg == 'post_notlike' ? $seg = $post_notlike :
+          ($seg == 'delete_post' ? $seg = $delete_post :
+          'null' ) ) ) );
+        ?>
+          <? if (!empty($seg)) : ?> 
+          <? foreach($seg as $li) : ?>
             <tr class="border-b border-[#4f4f4f]">
               <td class="p-2"><?= $li->idx ?></td>
               <td class="p-2">
@@ -70,10 +79,8 @@
                 <?= $li->hit ?>
               </td>
             </tr>
-          <? endforeach; } else { ?>
-            <!-- <p>데이터가 없습니다</p> -->
-          <? } ?>
-
+            <? endforeach; ?>
+            <? endif; ?>
           </tbody>
         </table>
         
