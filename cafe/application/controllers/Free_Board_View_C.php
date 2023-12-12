@@ -75,6 +75,7 @@ class Free_Board_View_C extends CI_Controller {
 
       $this->layout->custom_view('board/free_board_view_v', $data);
     }
+    
   }
   
   public function search() {
@@ -143,6 +144,5 @@ class Free_Board_View_C extends CI_Controller {
       echo json_encode(['state' => FALSE, 'message' => '답글이 없습니다.']);
     }
   }
-
 }
 ?>

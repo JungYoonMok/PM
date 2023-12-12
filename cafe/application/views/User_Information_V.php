@@ -21,7 +21,7 @@
           <div class="flex justify-around place-items-center">
   
             <!-- 프로필 -->
-            <div class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border border-gray-500 h-20 w-20 bg-[#3f3f3f]">
+            <div class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border-2 border-gray-500 h-20 w-20 bg-[#3f3f3f]">
               <? if ($this->session->userdata('user_profile') == '' || null) : ?>
                 <p class="material-symbols-outlined text-5xl text-gray-400 flex place-items-center justify-center">
                   person
@@ -37,9 +37,15 @@
                 </div>
               <? endif ?>
             </div>
+
+            <div>
+              <span class="material-symbols-outlined cursor-default rotate-[270deg] duration-200 animate-pulse text-[#9f9f9f] text-4xl">
+                stat_minus_2
+              </span>
+            </div>
   
             <!-- 프로필 -->
-            <div class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border border-gray-500 h-20 w-20 bg-[#3f3f3f]">
+            <div class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border-2 border-blue-500 h-20 w-20 bg-[#3f3f3f]">
               <? if ($this->session->userdata('user_profile') == '' || null) : ?>
                 <p class="material-symbols-outlined text-5xl text-gray-400 flex place-items-center justify-center">
                   person
@@ -61,7 +67,7 @@
           <!-- 파일 업로드 -->
           <form id="upload_form" enctype="multipart/form-data" class="flex flex-col gap-3 place-items-center place-content-center justify-center">
             <input type="file" name="userfile" 
-            class="
+            class="cursor-pointer
               file:mr-4 file:py-2 file:px-4
               file:rounded-full file:border-0
               file:text-sm file:font-semibold
@@ -481,8 +487,18 @@
           //           : frofile.regdate.substr(0, 10);
           // 답글 데이터를 HTML로 변환하여 추가
           frofileBox.append(`
-          <div class="flex justify-center place-items-center rounded">
+          <div class="relative flex justify-center place-items-center rounded">
             <img src="/uploads/${frofile.file_name}" title="업로드: ${frofile.regdate}" class="w-20 h-20 rounded duration-200 hover:scale-110"></img>
+            <button title="해당 프로필 삭제" class="remove-btn hover:scale-125 rounded-[50%] absolute top-1 duration-200 w-5 h-5 flex justify-center place-items-center right-1 p-1 bg-[#1f1f1f] hover:bg-red-500">
+              <span class="material-symbols-outlined text-[20px]">
+                close
+              </span>
+            </button>
+            <button title="해당 프로필 적용" class="update-btn hover:scale-125 rounded-[50%] absolute top-1 duration-200 w-5 h-5 flex justify-center place-items-center left-1 p-1 bg-[#1f1f1f] hover:bg-red-500">
+              <span class="material-symbols-outlined text-[20px]">
+                check
+              </span>
+            </button>
           </div>
           `);
         });

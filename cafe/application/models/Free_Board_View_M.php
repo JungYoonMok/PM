@@ -61,7 +61,6 @@ class Free_Board_View_M extends CI_Model {
     $this->db->limit($limit, $start);
     
     $query = $this->db->get('boards');
-    
     return $query->result();
   }
   

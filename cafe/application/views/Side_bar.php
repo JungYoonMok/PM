@@ -19,7 +19,7 @@
       <div class="flex my-3 gap-3">
         <!-- 프로필 -->
         <div
-          class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border border-gray-500 h-20 w-20  bg-[#3f3f3f]">
+          class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border-2 border-gray-500 h-20 w-20  bg-[#3f3f3f]">
 
           <? if ($this->session->userdata('user_profile') == '' || null) : ?>
             <p class="material-symbols-outlined text-5xl text-gray-400 flex place-items-center justify-center">
