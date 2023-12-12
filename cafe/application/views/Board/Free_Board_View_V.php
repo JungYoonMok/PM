@@ -103,14 +103,23 @@
       ${(li.board_state == true && li.board_delete == false) ? '' : 'opacity-80' }
       ">
 
-        <div class="
-        border border-[#4f4f4f] duration-200 rounded shadow-md hover:shadow-xl p-2 flex flex-col gap-3
-        ${(li.board_state == true && li.board_delete == false) ? 'bg-[#1f1f1f] hover:bg-[#2f2f2f]' : 'bg-[#2f2f2f] '}
-        ">
+      
+      <div class="relative
+      border border-[#4f4f4f] duration-200 rounded shadow-md hover:shadow-xl p-2 flex flex-col gap-3
+      ${(li.board_state == true && li.board_delete == false) ? 'bg-[#1f1f1f] hover:bg-[#2f2f2f]' : 'bg-[#2f2f2f] '}
+      ">
+          
+          <div class="absolute top-0 text-center w-full ${(new Date(li.regdate).toDateString() === new Date().toDateString()) ? '' : 'hidden'}">
+            <p class="flex place-content-center justify-center">
+              <span class="bg-[#4f4f4f] px-10 py-0 rounded-b-2xl duration-200 animate-pulse border border-[#5f5f5f] border-t-0">
+                new
+              </span>
+            </p>
+          </div>
           
           <div class="flex justify-between place-items-center">
 
-            <div class="flex gap-1 place-items-center py-2 px-5 bg-[#2f2f2f] rounded rounded-r-2xl">
+            <div class="flex gap-1 place-items-center py-2 px-5 bg-[#1f1f1f] border border-[#5f5f5f] rounded rounded-r-2xl">
 
               <img src="/uploads/${li.profile}" alt="img" class="rounded-[50%] border border-[#4f4f4f] w-10 h-10 ${li.profile ? '' : 'hidden'}">
               <p class="material-symbols-outlined text-4xl text-gray-400 flex place-items-center justify-center ${li.profile ? 'hidden' : ''}">
@@ -181,20 +190,20 @@
 
           <div class="flex justify-between duration-200">
 
-            <div class="flex text-xs duration-200 text-[#9f9f9f] place-items-center">
+            <div class="flex text-xs font-[s-core6] duration-200 text-[#9f9f9f] place-items-center">
 
-              <div class="flex place-items-center">
+              <a href="/${li.board_type}/${li.idx}/#comments" class="flex place-items-center duration-200 hover:text-white">
                 <div class="flex gap-2">
                   <span class="material-symbols-outlined text-[20px]">
                     chat_bubble
                   </span>
                   <p>${li.comment_count}</p>
                 </div>
-              </div>
+              </a>
 
-              <div class="px-5">|</div>
+              <div class="pl-3 pr-1">|</div>
 
-              <div class="flex">
+              <div class="flex place-items-center">
                 <div class="p-2 flex gap-2 duration-200 place-items-center">
                   <span class="material-symbols-outlined text-[20px]">
                     visibility
@@ -204,21 +213,12 @@
                   </p>
                 </div>
 
-                <div class="p-2 flex gap-2 duration-200 place-items-center">
+                <div class="p-2 flex gap-2 place-items-center">
                   <span class="material-symbols-outlined text-[20px]">
-                    thumb_up
+                    thumbs_up_down
                   </span>
-                  <p>
-                    ${li.like_count}
-                  </p>
-                </div>
-
-                <div class="p-2 flex gap-2 duration-200 place-items-center">
-                  <span class="material-symbols-outlined text-[20px]">
-                    thumb_down
-                  </span>
-                  <p>
-                    ${li.dislike_count}
+                  <p class="text-md ${li.like_count - li.dislike_count < 0 ? 'text-red-400' : ''}">
+                    ${li.like_count - li.dislike_count}
                   </p>
                 </div>
               </div>
@@ -294,9 +294,9 @@
                   reply
                 </span>
 
-                <a href="/freeboard/${reply.idx}" class="h-30 gap-3 flex w-full duration-200 hover:translate-y-1 hover:text-white">
+                <div class="h-30 gap-3 flex place-items-center w-full duration-200 hover:translate-y-1 hover:text-white">
 
-                  <div class="flex gap-2">
+                  <div class="flex gap-2 place-items-center">
 
                     <div class="wrap ${reply.board_state == true && 'hidden'}">
                       <span class="material-symbols-outlined duration-200 hover:opacity-80 text-[#9f9f9f]">
@@ -321,17 +321,27 @@
 
                   </div>
 
-                  <p class="">
-                    ${reply.title}
-                  </p>
+                  <div class="flex gap-2 place-items-center place-content-center">
+                    <a href="/${reply.board_type}/${reply.idx}">
+                      ${reply.title}
+                    </a>
+                    <a href="/${reply.board_type}/${reply.idx}/#comments" class="flex place-items-center duration-200 text-[#9f9f9f] hover:text-white">
+                      <div class="flex gap-2 place-items-center">
+                        <p class="material-symbols-outlined text-[20px]">
+                          chat_bubble
+                        </p>
+                        <p>${reply.comment_count}</p>
+                      </div>
+                    </a>
+                  </div>
                   
-                  <div class="text-[#9f9f9f]">
+                  <div class="text-[#9f9f9f] mt-1">
                     <span class="material-symbols-outlined">
                       ${reply.content.indexOf('<img') != -1 ? 'image' : ''}
                     </span>
                     <span class="material-symbols-outlined">
                       ${reply.file > 0 ? 'attachment' : ''}
-                      </span>
+                    </span>
                   </div>
 
                 </a>
@@ -363,7 +373,7 @@
                   <span class="material-symbols-outlined text-[20px]">
                     thumbs_up_down
                   </span>
-                  <p class="text-md font-[s-core6] ${reply.like_count - reply.dislike_count < 0 ? 'text-red-400' : 'text-gray-300'}">
+                  <p class="text-md font-[s-core6] ${reply.like_count - reply.dislike_count < 0 ? 'text-red-400' : ''}">
                     ${reply.like_count - reply.dislike_count}
                   </p>
                 </div>

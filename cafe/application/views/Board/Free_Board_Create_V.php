@@ -21,8 +21,8 @@
 
     <div class="bg-[#2f2f2f] p-5 flex flex-col gap-5 border border-[#4f4f4f] shadow-2xl rounded">
 
-      <div class="">
-        <p>
+      <div class="text-center">
+        <p class="">
           <?= $this->uri->segment(1) == 'post_create' ? '글쓰기' : '' ;?>
           <?= $this->uri->segment(1) == 'post_create_reply' ? '"'.$board->title.'" 글에 답글쓰기' : NULL?>
         </p>
@@ -62,7 +62,7 @@
 
           <div class="flex flex-col md:flex-row gap-3">
             <div class="flex flex-col gap-2 w-full">
-              <h2>게시글 공개</h2>
+              <h2>게시글 공개 여부</h2>
               
               <div class="flex gap-3">
                 <div class="w-full flex">
@@ -95,7 +95,7 @@
 
             </div>
             <div class="flex flex-col gap-2 w-full">
-              <h2>댓글 작성</h2>
+              <h2>댓글 작성 여부</h2>
               
               <div class="flex gap-3">
 
@@ -107,7 +107,7 @@
                         check_small
                       </span>
                       <p class="">
-                        공개
+                        허용
                       </p>
                     </div>
                   </label>
@@ -121,7 +121,7 @@
                         check_small
                       </span>
                       <p class="">
-                        비공개
+                        비허용
                       </p>
                     </div>
                   </label>
