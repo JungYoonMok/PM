@@ -84,6 +84,27 @@ class User_information_C extends CI_Controller {
     }
   }
 
+  public function delete_profile() {
+    $profileId = $this->input->post('profileId');
+
+    if ($this->model->delete_profile($profileId)) {
+      echo json_encode(['state' => TRUE, 'message' => '프로필 사진이 삭제되었습니다']);
+    } else {
+      echo json_encode(['state' => FALSE, 'message' => '프로필 사진 삭제에 실패했습니다']);
+    }
+  }
+
+  public function update_profile() {
+    $profileId = $this->input->post('profileId');
+    $userId = $this->session->userdata('user_id');
+
+    if ($this->model->update_profile($userId, $profileId)) {
+      echo json_encode(['state' => TRUE, 'message' => '프로필 사진이 업데이트되었습니다']);
+    } else {
+      echo json_encode(['state' => FALSE, 'message' => '프로필 사진 업데이트에 실패했습니다']);
+    }
+  }
+
   public function update_nickname() {
     $data = [
       'user_id' => $this->session->userdata('user_id'),

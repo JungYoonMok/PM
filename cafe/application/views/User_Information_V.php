@@ -84,7 +84,7 @@
   
           <p>과거 프로필 사진</p>
           <!-- 동적 생성 -->
-          <div id="frofile_old" class="grid w-full border border-[#4f4f4f] justify-center place-items-center grid-cols-3 md:grid-cols-4 max-h-48 p-3 rounded overflow-y-scroll gap-1"></div>
+          <div id="profile_old" class="grid w-full border border-[#4f4f4f] justify-center place-items-center grid-cols-3 md:grid-cols-4 max-h-48 p-3 rounded overflow-y-scroll gap-1"></div>
   
         </div>
   
@@ -478,23 +478,20 @@
     dataType: 'json',
     success: function(response) {
       // 답글 데이터로 UI 업데이트
-      var frofileBox = $('#frofile_old');
-      frofileBox.empty();
+      var profileBox = $('#profile_old');
+      profileBox.empty();
       if (response.state) {
-        $.each(response.data, function(i, frofile) {
-          // var dateToShow = (new Date(frofile.regdate).toDateString() === new Date().toDateString()) 
-          //           ? frofile.regdate.substr(11, 5) 
-          //           : frofile.regdate.substr(0, 10);
+        $.each(response.data, function(i, profile) {
           // 답글 데이터를 HTML로 변환하여 추가
-          frofileBox.append(`
+          profileBox.append(`
           <div class="relative flex justify-center place-items-center rounded">
-            <img src="/uploads/${frofile.file_name}" title="업로드: ${frofile.regdate}" class="w-20 h-20 rounded duration-200 hover:scale-110"></img>
-            <button title="해당 프로필 삭제" class="remove-btn hover:scale-125 rounded-[50%] absolute top-1 duration-200 w-5 h-5 flex justify-center place-items-center right-1 p-1 bg-[#1f1f1f] hover:bg-red-500">
+            <img src="/uploads/${profile.file_name}" title="업로드: ${profile.regdate}" class="w-20 h-20 rounded duration-200"></img>
+            <button title="해당 프로필 삭제" data-profileId="${profile.file_name}2" class="remove-btn hover:scale-125 rounded-[50%] absolute top-1 duration-200 w-5 h-5 flex justify-center place-items-center right-1 p-1 bg-[#1f1f1f] hover:bg-red-500">
               <span class="material-symbols-outlined text-[20px]">
                 close
               </span>
             </button>
-            <button title="해당 프로필 적용" class="update-btn hover:scale-125 rounded-[50%] absolute top-1 duration-200 w-5 h-5 flex justify-center place-items-center left-1 p-1 bg-[#1f1f1f] hover:bg-red-500">
+            <button title="해당 프로필 적용" data-profileId="${profile.file_name}1" class="update-btn hover:scale-125 rounded-[50%] absolute top-1 duration-200 w-5 h-5 flex justify-center place-items-center left-1 p-1 bg-[#1f1f1f] hover:bg-red-500">
               <span class="material-symbols-outlined text-[20px]">
                 check
               </span>
@@ -503,10 +500,10 @@
           `);
         });
       } else {
-        $('#frofile_old').removeClass('grid');
-        $('#frofile_old').removeClass('grid-cols-3');
-        $('#frofile_old').removeClass('md:grid-cols-4');
-        frofileBox.append(`
+        $('#profile_old').removeClass('grid');
+        $('#profile_old').removeClass('grid-cols-3');
+        $('#profile_old').removeClass('md:grid-cols-4');
+        profileBox.append(`
         <div class="w-full h-full">
           <p class="duration-200 text-[#9f9f9f] py-16 border border-[#4f4f4f] shadow-xl bg-[#3f3f3f] rounded text-center">
             데이터가 없습니다.
@@ -520,18 +517,44 @@
     }
   });
 
-  // 모달 버튼에 대한 이벤트
-  // const button = document.querySelector('button');
-  // const dialog = document.querySelector('dialog');
-  // $(document).on('click', button, function() {
-  //   dialog.showModal();
-  // });
-  // $(document).on('click', dialog, function() {
-  //   console.log(dialog.returnValue);
-  // });
-  // $(document).on('click', 'button[value="close"]', function() {
-  //   dialog.close();
-  // });
+  // 프로필 삭제
+  $(document).on('click', '.remove-btn', function(e) {
+    e.preventDefault();
+    var profileId = $(this).data('profileId'); // 프로필 ID를 가져옵니다.
+    return console.log('삭제했습니다', profileId);
+
+    $.ajax({
+      url: '/user_information_c/delete_profile',
+      type: 'POST',
+      data: { profileId: profileId },
+      success: function(response) {
+        // 성공적으로 처리됐을 때의 로직
+      },
+      error: function(error) {
+        // 오류 처리
+      }
+    });
+  });
+
+  // 프로필 업데이트
+  $(document).on('click', '.update-btn', function(e) {
+    e.preventDefault();
+    var profileId = $(this).data('profileId'); // 프로필 ID를 가져옵니다.
+    return console.log('업데이트했습니다', profileId);
+
+    $.ajax({
+      url: '/user_information_c/update_profile',
+      type: 'POST',
+      data: { profileId: profileId },
+      success: function(response) {
+        // 성공적으로 처리됐을 때의 로직
+      },
+      error: function(error) {
+        // 오류 처리
+      }
+    });
+  });
+
   
   // 비밀번호 표시 토글 버튼에 대한 이벤트
   $(document).on('click', '#eye_on', function() {
