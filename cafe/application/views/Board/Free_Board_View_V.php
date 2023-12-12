@@ -183,31 +183,44 @@
 
             <div class="flex text-xs duration-200 text-[#9f9f9f] place-items-center">
 
-              <div class="p-2 flex gap-2 duration-200 place-items-center">
-                <span class="material-symbols-outlined text-[20px]">
-                  visibility
-                </span>
-                <p>
-                  ${li.hit}
-                </p>
+              <div class="flex place-items-center">
+                <div class="flex gap-2">
+                  <span class="material-symbols-outlined text-[20px]">
+                    chat_bubble
+                  </span>
+                  <p>${li.comment_count}</p>
+                </div>
               </div>
 
-              <div class="p-2 flex gap-2 duration-200 place-items-center">
-                <span class="material-symbols-outlined text-[20px]">
-                  thumb_up
-                </span>
-                <p>
-                  ${li.like_count}
-                </p>
-              </div>
+              <div class="px-5">|</div>
 
-              <div class="p-2 flex gap-2 duration-200 place-items-center">
-                <span class="material-symbols-outlined text-[20px]">
-                  thumb_down
-                </span>
-                <p>
-                  ${li.dislike_count}
-                </p>
+              <div class="flex">
+                <div class="p-2 flex gap-2 duration-200 place-items-center">
+                  <span class="material-symbols-outlined text-[20px]">
+                    visibility
+                  </span>
+                  <p>
+                    ${li.hit}
+                  </p>
+                </div>
+
+                <div class="p-2 flex gap-2 duration-200 place-items-center">
+                  <span class="material-symbols-outlined text-[20px]">
+                    thumb_up
+                  </span>
+                  <p>
+                    ${li.like_count}
+                  </p>
+                </div>
+
+                <div class="p-2 flex gap-2 duration-200 place-items-center">
+                  <span class="material-symbols-outlined text-[20px]">
+                    thumb_down
+                  </span>
+                  <p>
+                    ${li.dislike_count}
+                  </p>
+                </div>
               </div>
 
             </div>

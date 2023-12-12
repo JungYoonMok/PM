@@ -75,12 +75,16 @@ date_default_timezone_set('Asia/Seoul');
     }
   
     public function comment() {
-      $this->initialize_pagination("/my_activity/comment", $this->db->count_all('boards_comment'), 10, 3 ?? 0, 3);
+      $pagi = $this->My_Activity_M->get_comment_total();
+      $data['page'] = $pagi;
+      $per_page = 10;
+
+      $this->initialize_pagination("/my_activity/comment", $pagi, $per_page, 3 ?? 0, 3);
       
       $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0; // 현재 페이지 번호
       $data['links'] = $this->pagination->create_links(); // 페이지네이션 링크 생성
       
-      $data['comment'] = $this->My_Activity_M->get_comment(10, $page);
+      $data['comment'] = $this->My_Activity_M->get_comment($per_page, $page);
       $data['comment_total'] = $this->My_Activity_M->get_comment_total();
       
       $this->layout->custom_view('/My_Activity/Comment_V', $data);
@@ -116,12 +120,16 @@ date_default_timezone_set('Asia/Seoul');
     }
     
     public function delete_post() {
-      $this->initialize_pagination("/my_activity/delete_post", $this->db->count_all('boards_comment'), 10, 3 ?? 0, 3);
+      $pagi = $this->My_Activity_M->pagination_delete_post();
+      $data['page'] = $pagi;
+      $per_page = 20;
+
+      $this->initialize_pagination("/my_activity/delete_post", $pagi, $per_page, 3 ?? 0, 3);
 
       $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0; // 현재 페이지 번호
       $data['links'] = $this->pagination->create_links(); // 페이지네이션 링크 생성
       
-      $data['delete_post'] = $this->My_Activity_M->get_delete_post(10, $page);
+      $data['delete_post'] = $this->My_Activity_M->get_delete_post($per_page, $page);
       $this->layout->custom_view('/My_Activity/Delete_Post_V', $data);
     }
 

@@ -18,16 +18,17 @@
             <th class="px-3">분류</th>
             <th class="px-3 w-full">제목</th>
             <th class="px-3">작성날짜</th>
+            <th class="px-3">삭제날짜</th>
             <th class="px-3">좋아요</th>
             <th class="px-3">조회수</th>
           </thead>
           
           <? if (!empty($delete_post)) : ?> 
             <? foreach($delete_post as $li) : ?>
-              <tbody class="duration-200 hover:bg-[#4f4f4f]">
+            <tbody class="duration-200 hover:bg-[#4f4f4f]">
             <tr class="border-b border-[#4f4f4f]">
               <td class="p-2">
-                <?= $li->idx ?>
+                <?= (date("Y-m-d") == substr($li->delete_date, 0, 10)) ? '<p class="text-blue-400 px-2 py-0.5 rounded text-sm">new</p>' : $li->idx ?>
               </td>
               <td class="p-2">
                 <?= ($li->board_type == 'notice' ? '공지사항' : ($li->board_type == 'freeboard' ? '자유게시판' : ($li->board_type == 'hellow' ? '가입인사' : '' ) ) ) ?>
@@ -61,6 +62,9 @@
               </td>
               <td class="tracking-wide">
                 <?= (date("Y-m-d") == substr($li->regdate, 0, 10)) ? substr($li->regdate, 10, 6) : substr($li->regdate, 5, 6); ?>
+              </td>
+              <td class="tracking-wide text-red-400">
+                <?= (date("Y-m-d") == substr($li->delete_date, 0, 10)) ? substr($li->delete_date, 10, 6) : substr($li->delete_date, 5, 6); ?>
               </td>
               <td>
                 <?= $li->like_count - $li->dislike_count ?>

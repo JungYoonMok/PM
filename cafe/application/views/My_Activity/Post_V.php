@@ -36,13 +36,13 @@
               <tbody class="duration-200 hover:bg-[#4f4f4f]">
             <tr class="border-b border-[#4f4f4f]">
               <td class="p-2">
-                <?= $li->idx ?>
+                <?= (date("Y-m-d") == substr($li->regdate, 0, 10)) ? '<p class="text-blue-400 px-2 py-0.5 rounded text-sm">new</p>' : $li->idx ?>
               </td>
               <td class="p-2">
                 <?= ($li->board_type == 'notice' ? '공지사항' : ($li->board_type == 'freeboard' ? '자유게시판' : ($li->board_type == 'hellow' ? '가입인사' : '' ) ) ) ?>
               </td>
               <td class="flex mt-1.5">
-                <a href="/freeboard/<?= $li->idx ?>" class="flex place-items-center gap-1">
+                <a href="/<?= $li->board_type ?>/<?= $li->idx ?>" class="flex place-items-center gap-1">
                   <p class="bg-red-500 rounded-full px-2 py-1 text-xs <?= $li->hit > 100 ? '' : 'hidden' ?>">
                     인기
                   </p>
@@ -60,7 +60,7 @@
                       </span>
                     </div>
                   </p>
-                  <a href="/freeboard/<?= $li->idx ?>/#comments" class="underline-offset-4 duration-200 hover:underline decoration-2 text-[#9f9f9f] <?= $li->comment_count == 0 ? 'hidden' : '' ?>">
+                  <a href="/<?= $li->board_type ?>/<?= $li->idx ?>/#comments" class="underline-offset-4 duration-200 hover:underline decoration-2 text-[#9f9f9f] <?= $li->comment_count == 0 ? 'hidden' : '' ?>">
                     (<?= $li->comment_count ?? 0 ?>)
                   </a>
                   <p class="text-[#9f9f9f] <?= $li->reply_count == 0 ? 'hidden' : '' ?>">

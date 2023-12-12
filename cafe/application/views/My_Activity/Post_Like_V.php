@@ -26,7 +26,7 @@
               <tbody class="duration-200 hover:bg-[#4f4f4f]">
             <tr class="border-b border-[#4f4f4f]">
               <td class="p-2">
-                <?= $li->idx ?>
+                <?= (date("Y-m-d") == substr($li->regdate, 0, 10)) ? '<p class="text-blue-400 px-2 py-0.5 rounded text-sm">new</p>' : $li->idx ?>
               </td>
               <td class="p-2">
                 <?= ($li->board_type == 'notice' ? '공지사항' : ($li->board_type == 'freeboard' ? '자유게시판' : ($li->board_type == 'hellow' ? '가입인사' : '' ) ) ) ?>
