@@ -87,23 +87,31 @@ date_default_timezone_set('Asia/Seoul');
     }
     
     public function post_like() {
-      $this->initialize_pagination("/my_activity/post_like", $this->db->count_all('boards_comment'), 10, 3 ?? 0, 3);
+      $pagi = $this->My_Activity_M->pagination_post_like(TRUE);
+      $data['page'] = $pagi;
+      $per_page = 20;
+
+      $this->initialize_pagination("/my_activity/post_like", $pagi, $per_page, 3 ?? 0, 3);
       
       $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0; // 현재 페이지 번호
       $data['links'] = $this->pagination->create_links(); // 페이지네이션 링크 생성
       
-      $data['post_like'] = $this->My_Activity_M->get_post_like(10, $page);
+      $data['post_like'] = $this->My_Activity_M->get_post_like(1, $per_page, $page);
       // $this->layout->custom_view('/My_Activity/Post_V', $data);
       $this->layout->custom_view('/My_Activity/Post_Like_V', $data);
     }
     
     public function post_notlike() {
-      $this->initialize_pagination("/my_activity/post_notlike", $this->db->count_all('boards_comment'), 10, 3 ?? 0, 3);
+      $pagi = $this->My_Activity_M->pagination_post_like(FALSE);
+      $data['page'] = $pagi;
+      $per_page = 20;
+
+      $this->initialize_pagination("/my_activity/post_notlike", $pagi, $per_page, 3 ?? 0, 3);
       
       $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0; // 현재 페이지 번호
       $data['links'] = $this->pagination->create_links(); // 페이지네이션 링크 생성
       
-      $data['post_notlike'] = $this->My_Activity_M->get_post_notlike(10, $page);
+      $data['post_notlike'] = $this->My_Activity_M->get_post_like(0, $per_page, $page);
       $this->layout->custom_view('/My_Activity/Post_NotLike_V', $data);
     }
     

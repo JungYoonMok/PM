@@ -22,24 +22,26 @@
       <div class="bg-[#2f2f2f] w-full p-1 rounded flex flex-col gap-5 shadow-inner overflow-x-auto">
         <table class="text-gray-50 text-center whitespace-nowrap">
           <thead class="text-sm bg-[#3f3f3f] h-10">
-            <th class="">ID</th>
-            <th class="">분류</th>
-            <th class="w-[40%]">제목</th>
-            <th class="">작성날짜</th>
-            <th class="">좋아요</th>
-            <th class="">싫어요</th>
-            <th class="">조회수</th>
+            <th class="px-3">ID</th>
+            <th class="px-3">분류</th>
+            <th class="px-3 w-full">제목</th>
+            <th class="px-3">작성날짜</th>
+            <th class="px-3">좋아요</th>
+            <th class="px-3">싫어요</th>
+            <th class="px-3">조회수</th>
           </thead>
-          <tbody class="">
-
+          
           <? if (!empty($post)) : ?> 
-          <? foreach($post as $li) : ?>
+            <? foreach($post as $li) : ?>
+              <tbody class="duration-200 hover:bg-[#4f4f4f]">
             <tr class="border-b border-[#4f4f4f]">
-              <td class="p-2"><?= $li->idx ?></td>
+              <td class="p-2">
+                <?= $li->idx ?>
+              </td>
               <td class="p-2">
                 <?= ($li->board_type == 'notice' ? '공지사항' : ($li->board_type == 'freeboard' ? '자유게시판' : ($li->board_type == 'hellow' ? '가입인사' : '' ) ) ) ?>
               </td>
-              <td class="text-left">
+              <td class="flex mt-1.5">
                 <a href="/freeboard/<?= $li->idx ?>" class="flex place-items-center gap-1">
                   <p class="bg-red-500 rounded-full px-2 py-1 text-xs <?= $li->hit > 100 ? '' : 'hidden' ?>">
                     인기
@@ -47,8 +49,8 @@
                   <p class="bg-[#4f4f4f] rounded-full px-2 py-1 text-xs <?= $li->group_order > 0 ? '' : 'hidden' ?>">
                     답글
                   </p>
-                  <p>
-                    <?= $li->title ?>
+                  <p class="">
+                    <?= mb_strimwidth($li->title, 0, 50, ' ..') ?>
                     <div class="">
                       <span class="material-symbols-outlined text-[16px] <?= strpos($li->content, '<img') ? '' : 'hidden' ?>">
                         <?= strpos($li->content, '<img') ? 'image' : '' ?>
@@ -58,12 +60,12 @@
                       </span>
                     </div>
                   </p>
-                  <span class="text-[#9f9f9f] <?= $li->comment_count == 0 ? 'hidden' : '' ?>">
+                  <a href="/freeboard/<?= $li->idx ?>/#comments" class="underline-offset-4 duration-200 hover:underline decoration-2 text-[#9f9f9f] <?= $li->comment_count == 0 ? 'hidden' : '' ?>">
                     (<?= $li->comment_count ?? 0 ?>)
-                  </span>
-                  <span class="text-[#9f9f9f] <?= $li->reply_count == 0 ? 'hidden' : '' ?>">
+                  </a>
+                  <p class="text-[#9f9f9f] <?= $li->reply_count == 0 ? 'hidden' : '' ?>">
                     답글<?= $li->reply_count ?? 0 ?>
-                  </span>
+                  </p>
                 </a>
               </td>
               <td class="tracking-wide">
@@ -79,9 +81,9 @@
                 <?= $li->hit ?>
               </td>
             </tr>
+          </tbody>
             <? endforeach; ?>
             <? endif; ?>
-          </tbody>
         </table>
         
         <div class="<?= empty($post) ? 'inline-block' : 'hidden' ?> text-center">
