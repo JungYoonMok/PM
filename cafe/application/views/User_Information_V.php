@@ -20,14 +20,14 @@
   
           <div class="flex justify-around place-items-center">
   
-            <!-- 프로필 -->
+            <!-- 현재 프로필 -->
             <div class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border-2 border-gray-500 h-20 w-20 bg-[#3f3f3f]">
               <? if ($this->session->userdata('user_profile') == '' || null) : ?>
                 <p class="material-symbols-outlined text-5xl text-gray-400 flex place-items-center justify-center">
                   person
                 </p>
               <? else : ?>
-                <img width="100%" src="/uploads/<?= $this->session->userdata('user_profile') ?>"
+                <img src="/uploads/<?= $this->session->userdata('user_profile') ?>"
                   class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400 duration-200">
                 </img>
                 <div class="absolute -bottom-3 w-full">
@@ -44,14 +44,14 @@
               </span>
             </div>
   
-            <!-- 프로필 -->
+            <!-- 변경할 프로필 -->
             <div class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border-2 border-blue-500 h-20 w-20 bg-[#3f3f3f]">
               <? if ($this->session->userdata('user_profile') == '' || null) : ?>
                 <p class="material-symbols-outlined text-5xl text-gray-400 flex place-items-center justify-center">
                   person
                 </p>
               <? else : ?>
-                <img width="100%" src="/uploads/<?= $this->session->userdata('user_profile') ?>"
+                <img src="/uploads/<?= $this->session->userdata('user_profile') ?>"
                   class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400 duration-200">
                 </img>
                 <div class="absolute -bottom-3 w-full">
@@ -484,14 +484,14 @@
         $.each(response.data, function(i, profile) {
           // 답글 데이터를 HTML로 변환하여 추가
           profileBox.append(`
-          <div class="relative flex justify-center place-items-center rounded">
-            <img src="/uploads/${profile.file_name}" title="업로드: ${profile.regdate}" class="w-20 h-20 rounded duration-200"></img>
-            <button title="해당 프로필 삭제" data-profileId="${profile.file_name}2" class="remove-btn hover:scale-125 rounded-[50%] absolute top-1 duration-200 w-5 h-5 flex justify-center place-items-center right-1 p-1 bg-[#1f1f1f] hover:bg-red-500">
+          <div class="profile-container relative flex justify-center place-items-center rounded">
+            <img src="/uploads/${profile.file_name}" title="업로드 - ${profile.regdate}" class="w-20 h-20 rounded duration-200 border-2 border-[#4f4f4f] border-dashed"></img>
+            <button title="해당 프로필 삭제" data-profileid="${profile.file_name}" class="remove-btn hover:scale-125 rounded-[50%] absolute top-1 duration-200 w-5 h-5 flex justify-center place-items-center right-1 p-1 bg-[#1f1f1f] hover:bg-red-500">
               <span class="material-symbols-outlined text-[20px]">
                 close
               </span>
             </button>
-            <button title="해당 프로필 적용" data-profileId="${profile.file_name}1" class="update-btn hover:scale-125 rounded-[50%] absolute top-1 duration-200 w-5 h-5 flex justify-center place-items-center left-1 p-1 bg-[#1f1f1f] hover:bg-red-500">
+            <button title="해당 프로필 적용" data-profileid="${profile.file_name}" class="update-btn hover:scale-125 rounded-[50%] absolute top-1 duration-200 w-5 h-5 flex justify-center place-items-center left-1 p-1 bg-[#1f1f1f] hover:bg-red-500">
               <span class="material-symbols-outlined text-[20px]">
                 check
               </span>
@@ -520,8 +520,8 @@
   // 프로필 삭제
   $(document).on('click', '.remove-btn', function(e) {
     e.preventDefault();
-    var profileId = $(this).data('profileId'); // 프로필 ID를 가져옵니다.
-    return console.log('삭제했습니다', profileId);
+    var profileId = $(this).data('profileid'); // 프로필 ID를 가져옵니다.
+    var button = $(this); // 현재 클릭된 버튼을 저장
 
     $.ajax({
       url: '/user_information_c/delete_profile',
@@ -529,9 +529,12 @@
       data: { profileId: profileId },
       success: function(response) {
         // 성공적으로 처리됐을 때의 로직
+        console.log('성공: ', response);
+        button.closest('.profile-container').remove(); // 예를 들어, 각 프로필 요소가 .profile-container 클래스를 가지고 있다고 가정
       },
       error: function(error) {
         // 오류 처리
+        console.log('실패: ', error);
       }
     });
   });
@@ -539,8 +542,11 @@
   // 프로필 업데이트
   $(document).on('click', '.update-btn', function(e) {
     e.preventDefault();
-    var profileId = $(this).data('profileId'); // 프로필 ID를 가져옵니다.
-    return console.log('업데이트했습니다', profileId);
+    var profileId = $(this).data('profileid'); // 프로필 ID를 가져옵니다.
+
+    if(!confirm('해당 프로필을 적용하시겠습니까?')) {
+      return;
+    }
 
     $.ajax({
       url: '/user_information_c/update_profile',
@@ -548,13 +554,15 @@
       data: { profileId: profileId },
       success: function(response) {
         // 성공적으로 처리됐을 때의 로직
+        console.log('성공: ', response);
+        location.reload();
       },
       error: function(error) {
         // 오류 처리
+        console.log('실패: ', error);
       }
     });
   });
-
   
   // 비밀번호 표시 토글 버튼에 대한 이벤트
   $(document).on('click', '#eye_on', function() {

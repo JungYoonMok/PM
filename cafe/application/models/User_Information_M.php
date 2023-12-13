@@ -31,14 +31,14 @@ class User_Information_M extends CI_Model {
   }
 
   public function delete_profile($profileId) {
-    $this->db->where('id', $profileId);
+    $this->db->where('file_name', $profileId);
     return $this->db->delete('upload_file'); // 'upload_file'은 프로필 사진을 저장하는 테이블 이름
   }
 
   public function update_profile($userId, $profileId) {
     // 먼저 해당 프로필 사진의 파일명을 가져옵니다
     $this->db->select('file_name');
-    $this->db->where('id', $profileId);
+    $this->db->where('file_name', $profileId);
     $profile = $this->db->get('upload_file')->row();
 
     if ($profile) {

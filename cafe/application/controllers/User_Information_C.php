@@ -99,6 +99,11 @@ class User_information_C extends CI_Controller {
     $userId = $this->session->userdata('user_id');
 
     if ($this->model->update_profile($userId, $profileId)) {
+      // 세션 정보 업데이트
+      $user_data = [
+        'user_profile' => $profileId,
+      ];
+      $this->session->set_userdata($user_data);
       echo json_encode(['state' => TRUE, 'message' => '프로필 사진이 업데이트되었습니다']);
     } else {
       echo json_encode(['state' => FALSE, 'message' => '프로필 사진 업데이트에 실패했습니다']);
