@@ -92,14 +92,20 @@
   
         <div class="p-5 w-full flex flex-col gap-3">
   
-          <p>과거 프로필 사진</p>
+          <div class="flex justify-between">
+            <p>과거 프로필 사진</p>
+            <div class="flex text-[#9f9f9f]">
+              <p id="file_count"></p>
+              <p>개</p>
+            </div>
+          </div>
           <!-- 동적 생성 -->
           <div 
           id="profile_old" 
           class="
           flex flex-wrap gap-3 w-full border bg-[#3f3f3f] shadow-md border-[#2f2f2f] justify-center place-items-center max-h-50 p-3 rounded overflow-y-scroll
           ">
-        </div>
+          </div>
   
         </div>
   
@@ -537,26 +543,32 @@
       // 답글 데이터로 UI 업데이트
       var profileBox = $('#profile_old');
       profileBox.empty();
+      var file_count = 0;  // 파일 카운트를 초기화
       if (response.state) {
         $.each(response.data, function(i, profile) {
+          file_count++;  // 각 프로필을 순회할 때마다 카운트 증가
           // 답글 데이터를 HTML로 변환하여 추가
           profileBox.append(`
           <div class="profile-container relative flex justify-center place-items-center rounded">
-            <img src="/uploads/${profile.file_name}" title="업로드 - ${profile.regdate}" class="w-20 h-20 rounded duration-200"></img>
-            <button title="해당 프로필 삭제" data-profileid="${profile.file_name}" class="remove-btn hover:scale-125 rounded-[50%] absolute top-1 duration-200 w-5 h-5 flex justify-center place-items-center right-1 p-1 bg-[#1f1f1f] hover:bg-red-500">
-              <span class="material-symbols-outlined text-[20px]">
-                close
-              </span>
-            </button>
-            <button title="해당 프로필 적용" data-profileid="${profile.file_name}" class="update-btn hover:scale-125 rounded-[50%] absolute top-1 duration-200 w-5 h-5 flex justify-center place-items-center left-1 p-1 bg-[#1f1f1f] hover:bg-green-500">
-              <span class="material-symbols-outlined text-[20px]">
-                check
-              </span>
-            </button>
+          <img src="/uploads/${profile.file_name}" title="업로드 - ${profile.regdate}" class="w-20 h-20 rounded duration-200"></img>
+          <button title="해당 프로필 삭제" data-profileid="${profile.file_name}" class="remove-btn hover:scale-125 rounded-[50%] absolute top-1 duration-200 w-5 h-5 flex justify-center place-items-center right-1 p-1 bg-[#1f1f1f] hover:bg-red-500">
+          <span class="material-symbols-outlined text-[20px]">
+          close
+          </span>
+          </button>
+          <button title="해당 프로필 적용" data-profileid="${profile.file_name}" class="update-btn hover:scale-125 rounded-[50%] absolute top-1 duration-200 w-5 h-5 flex justify-center place-items-center left-1 p-1 bg-[#1f1f1f] hover:bg-green-500">
+          <span class="material-symbols-outlined text-[20px]">
+          check
+          </span>
+          </button>
           </div>
           `);
         });
+        $('#file_count').html(file_count);  // 프로필 개수 업데이트
       } else {
+        // 데이터가 없는 경우의 처리...
+        $('#file_count').html(0);  // 파일 개수를 0으로 설정
+
         $('#profile_old').removeClass('grid');
         $('#profile_old').removeClass('grid-cols-3');
         $('#profile_old').removeClass('md:grid-cols-4');
@@ -570,6 +582,7 @@
       }
     },
     error: function() {
+      $('#file_count').html('Error');  // 오류 발생시 표시 변경
       alert('프로필 사진을 불러오는 중 오류가 발생했습니다.');
     }
   });
