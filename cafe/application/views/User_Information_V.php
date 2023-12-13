@@ -14,7 +14,7 @@
       </div>
         
       <!-- 프로필 사진 -->
-      <div class="flex flex-col w-full gap-3 rounded-tl-md rounded-tr-md shadow-2xl border border-[#4f4f4f] bg-[#2f2f2f]">
+      <div class="flex flex-col w-full rounded-tl-md rounded-tr-md shadow-2xl border border-[#4f4f4f] bg-[#2f2f2f]">
   
         <div class="p-5 w-full flex flex-col gap-10">
   
@@ -39,7 +39,7 @@
             </div>
 
             <div>
-              <span class="material-symbols-outlined cursor-default rotate-[270deg] duration-200 animate-pulse text-[#9f9f9f] text-4xl">
+              <span id="arrow_profile" class="material-symbols-outlined cursor-default rotate-[270deg] duration-200 animate-pulse text-[#9f9f9f] text-4xl">
                 stat_minus_2
               </span>
             </div>
@@ -63,37 +63,29 @@
                 </div>
               </div>
             </div>
-            <!-- <div id="on_profile" class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border-2 border-blue-500 h-20 w-20 bg-[#3f3f3f]">
-              <? if (!$this->session->userdata('user_profile') == '' || null) : ?>
-                <p class="material-symbols-outlined text-5xl text-gray-400 flex place-items-center justify-center">
-                  person
-                </p>
-              <? else : ?>
-                <img src="/uploads/<?= $this->session->userdata('user_profile') ?>"
-                  class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400 duration-200">
-                </img>
-                <div class="absolute -bottom-3 w-full">
-                  <p class="text-xs text-center bg-blue-500 rounded px-1">
-                    변경
-                  </p>
-                </div>
-              <? endif ?>
-            </div> -->
   
           </div>
   
           <!-- 파일 업로드 -->
-          <form id="upload_form" enctype="multipart/form-data" class="flex flex-col gap-3 place-items-center place-content-center justify-center">
+          <form id="upload_form" accept=".jpg, .jpeg, .png, .gif" enctype="multipart/form-data" class="flex flex-col gap-3 place-items-center place-content-center justify-center">
             <input type="file" name="userfile" 
-            class="cursor-pointer
+            class="cursor-pointer w-full
               file:mr-4 file:py-2 file:px-4
               file:rounded-full file:border-0
               file:text-sm file:font-semibold
             file:bg-[#3f3f3f] file:text-white
             hover:file:bg-[#4f4f4f] duration-200" />
-            <button id="upload_button" class="px-3 py-2 w-full bg-blue-500 rounded hover:translate-y-1 duration-200">
+            <button id="upload_button" class="border border-blue-500 hover:border-[#3f3f3f] px-3 py-2 w-full bg-blue-500 rounded hover:translate-y-1 duration-200">
               적용하기
             </button>
+            <div class="flex gap-2 text-sm">
+              <? $file_type = ['JPG', 'JPEG', 'PNG', 'GIF'] ?>
+              <? foreach($file_type as $list):?>
+                <p class="bg-[#4f4f4f] px-2 py-0.5 rounded border border-[#5f5f5f]">
+                  <?= $list ?>
+                </p>
+              <? endforeach ?>
+            </div>
           </form>
   
         </div>
@@ -102,7 +94,12 @@
   
           <p>과거 프로필 사진</p>
           <!-- 동적 생성 -->
-          <div id="profile_old" class="grid w-full border border-[#4f4f4f] justify-center place-items-center grid-cols-3 md:grid-cols-4 max-h-48 p-3 rounded overflow-y-scroll gap-1"></div>
+          <div 
+          id="profile_old" 
+          class="
+          flex flex-wrap gap-3 w-full border bg-[#3f3f3f] shadow-md border-[#2f2f2f] justify-center place-items-center max-h-50 p-3 rounded overflow-y-scroll
+          ">
+        </div>
   
         </div>
   
@@ -467,12 +464,31 @@
     if (file) {
       // FileReader 객체 생성
       var reader = new FileReader();
+      var fileName = file.name;
+      var fileExtension = fileName.split('.').pop().toLowerCase();
+
+      // 확장자가 jpg인지 확인
+      if (['jpg', 'jpeg', 'png', 'gif'].indexOf(fileExtension) === -1) {
+        alert('JPG, JPEG, GIF 파일만 업로드 가능합니다.');
+        this.value = ''; // 입력 필드 초기화
+        return false;
+      }
 
       // 파일 읽기가 완료되었을 때 실행될 함수 정의
       reader.onload = function(e) {
         // 미리보기 이미지의 src 속성을 변경
         $('#on_profile').removeClass('hidden');
         $('#basic_profile').addClass('hidden');
+
+        $('#arrow_profile').removeClass('text-[#9f9f9f]');
+        $('#arrow_profile').removeClass('anumate-pulse');
+        $('#arrow_profile').addClass('text-green-500');
+        $('#arrow_profile').addClass('animate-bounce');
+        
+        $('#upload_button').addClass('bg-green-500');
+        $('#upload_button').addClass('border-green-500');
+        $('#upload_button').removeClass('bg-blue-500');
+        $('#upload_button').removeClass('border-blue-500');
 
         $('#on_profile img').attr('src', e.target.result);
       };
@@ -526,13 +542,13 @@
           // 답글 데이터를 HTML로 변환하여 추가
           profileBox.append(`
           <div class="profile-container relative flex justify-center place-items-center rounded">
-            <img src="/uploads/${profile.file_name}" title="업로드 - ${profile.regdate}" class="w-20 h-20 rounded duration-200 border-2 border-[#4f4f4f] border-dashed"></img>
+            <img src="/uploads/${profile.file_name}" title="업로드 - ${profile.regdate}" class="w-20 h-20 rounded duration-200"></img>
             <button title="해당 프로필 삭제" data-profileid="${profile.file_name}" class="remove-btn hover:scale-125 rounded-[50%] absolute top-1 duration-200 w-5 h-5 flex justify-center place-items-center right-1 p-1 bg-[#1f1f1f] hover:bg-red-500">
               <span class="material-symbols-outlined text-[20px]">
                 close
               </span>
             </button>
-            <button title="해당 프로필 적용" data-profileid="${profile.file_name}" class="update-btn hover:scale-125 rounded-[50%] absolute top-1 duration-200 w-5 h-5 flex justify-center place-items-center left-1 p-1 bg-[#1f1f1f] hover:bg-red-500">
+            <button title="해당 프로필 적용" data-profileid="${profile.file_name}" class="update-btn hover:scale-125 rounded-[50%] absolute top-1 duration-200 w-5 h-5 flex justify-center place-items-center left-1 p-1 bg-[#1f1f1f] hover:bg-green-500">
               <span class="material-symbols-outlined text-[20px]">
                 check
               </span>
@@ -585,7 +601,7 @@
     e.preventDefault();
     var profileId = $(this).data('profileid'); // 프로필 ID를 가져옵니다.
 
-    if(!confirm('해당 프로필을 적용하시겠습니까?')) {
+    if(!confirm(profileId + ' 프로필로 적용하시겠습니까?')) {
       return;
     }
 
