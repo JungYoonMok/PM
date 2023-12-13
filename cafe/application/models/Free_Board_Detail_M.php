@@ -10,6 +10,13 @@ class Free_Board_Detail_M extends CI_Model {
     $this->load->model('common/user_point_exp_m');
   }
 
+  public function bottom_list($segment) {
+    $result = $this->db->get_where('boards', ['board_type' => $segment]);
+    $this->db->order_by('idx', 'desc');
+    $this->db->limit(10);
+    return $result->result();
+  }
+
   public function prev_post($segment, $idx) {
     $this->db->select('idx, title, group_order');
     $this->db->where('idx <', $idx);

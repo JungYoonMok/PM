@@ -12,17 +12,6 @@
         <? $this->load->view('/Board/Board_Top_V');?>
       </div>
       
-      <div class="flex justify-between place-items-center">
-        <a href="/post_create" class="border outline-none border-[#4f4f4f] py-3 px-16 rounded hover:bg-[#2f2f2f] duration-200 bg-[#1f1f1f]">
-          <p>글쓰기</p>
-        </a>
-        <div class="flex gap-5 bg-[#1f1f1f] px-5 py-3">
-          <p class="">정렬</p>
-          <p class="text-[#4f4f4f]">|</p>
-          <p class="">최신순</p>
-        </div>
-      </div>
-      
       <div class="bg-[#2f2f2f] border border-[#4f4f4f] w-full p-5 rounded flex flex-col gap-5 relative drop-shadow-2xl">
         <!-- 검색 기능 -->
         <div class="flex flex-col md:flex-row gap-2">

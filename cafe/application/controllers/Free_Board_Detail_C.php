@@ -84,7 +84,7 @@ class Free_board_Detail_C extends CI_Controller {
     $data['user_exp'] = $this->FBM->point_exp_total('exp', $data['post']->user_id);
     
     $data['comment'] = $this->FBM->get_comments($idx, $config['per_page'], $page);
-    $data['list'] = $this->db->get_where('boards', ['board_type' => 'freeboard'])->result();
+    $data['list'] = $this->FBM->bottom_list($this->uri->segment(1));
 
     $data['level_converter'] = $this->level_converter($this->point_exp_total('exp'));
 
