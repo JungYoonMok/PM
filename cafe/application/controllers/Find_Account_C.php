@@ -5,6 +5,13 @@ date_default_timezone_set('Asia/Seoul');
 class Find_Account_C extends CI_Controller {
   public function __construct() {
     parent::__construct();
+
+    // 세션 체크
+    if($this->session->userdata('user_id')) {
+      redirect('/');
+      [ 'state' => FALSE, 'message' => '로그인이 필요합니다' ];
+    }
+
     $this->load->model('Find_Account_M');
   }
 

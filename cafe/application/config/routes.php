@@ -6,8 +6,10 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 // 라우트
+$route['notice/list'] = 'notice_board_view_c/list';
 $route['notice/(:num)'] = 'free_board_detail_c/show/$1';
 
+$route['hellow/list'] = 'hellow_board_view_c/list';
 $route['hellow/(:num)'] = 'free_board_detail_c/show/$1';
 
 $route['freeboard/list'] = 'free_board_view_c/list';

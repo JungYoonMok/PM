@@ -181,7 +181,7 @@
       </div>
       
       <!-- 웨이브 -->
-      <div id="wave" class="w-full hidden z-40 -mt-10">
+      <div id="wave" class="w-full bottom-0 hidden z-40 -mt-10">
         <? $this->load->view('wave') ?>
       </div>
 

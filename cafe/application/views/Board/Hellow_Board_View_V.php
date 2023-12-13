@@ -265,7 +265,7 @@
 
     // 서버에 답글 데이터 요청
     $.ajax({
-      url: '/Free_Board_View_C/post_reply_show',
+      url: '/Hellow_Board_View_C/post_reply_show',
       type: 'POST',
       data: { idx: postId },
       dataType: 'json',
@@ -403,7 +403,7 @@
 // 게시판 목록을 가져오는 AJAX 호출
 function fetchBoardList(page) {
   $.ajax({
-    url: '/Free_Board_View_C/list/'+ page,
+    url: '/Hellow_Board_View_C/list/'+ page,
     type: 'GET',
     dataType: 'json',
     success: function(response) {
@@ -453,7 +453,7 @@ $(document).ready(function() {
   
   // AJAX 요청
   $.ajax({
-    url: "/Free_Board_View_C/search", // AJAX를 처리할 컨트롤러 메소드
+    url: "/Hellow_Board_View_C/search", // AJAX를 처리할 컨트롤러 메소드
     type: "GET", // 데이터를 가져오므로 GET 사용
     data: { type: searchType, text: searchText },
     dataType: "json",

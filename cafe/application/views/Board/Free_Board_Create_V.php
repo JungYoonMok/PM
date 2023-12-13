@@ -21,9 +21,9 @@
 
     <div class="bg-[#2f2f2f] p-5 flex flex-col gap-5 border border-[#4f4f4f] shadow-2xl rounded">
 
-      <div class="text-center">
-        <p class="">
-          <?= $this->uri->segment(1) == 'post_create' ? '글쓰기' : '' ;?>
+      <div class="text-center py-10 rounded">
+        <p class="font-[s-core5] text-xl relative">
+          <?= $this->uri->segment(1) == 'post_create' ? '<p title="편 - 안" class="absolute whitespace-nowrap lg:cursor-help font-[s-core5] text-xl duration-200 lg:rotate-[25deg] lg:hover:rotate-0">글쓰기</p>' : '' ;?>
           <?= $this->uri->segment(1) == 'post_create_reply' ? '"'.$board->title.'" 글에 답글쓰기' : NULL?>
         </p>
       </div>
@@ -36,13 +36,13 @@
         <form class="flex flex-col gap-5" action="<?= $this->uri->segment(1) == 'post_create' ? '/free_board_create_c/create' : '/free_board_create_c/create_reply'?>" method="post" enctype="multipart/form-data">
 
           <!-- 게시판 선택 및 제목 -->
-          <div class="bg-[#2f2f2f] flex flex-col md:flex-row gap-5">
+          <div class="flex flex-col md:flex-row gap-5">
 
             <!-- 셀렉터 -->
             <div class="w-full md:w-[40%] <?= $this->uri->segment(1) == 'post_create_reply' ? 'hidden' : '' ;?>">
-              <select id='post_type' name='post_type' required value="안녕"
-                class="outline-none w-full text-whith rounded bg-[#4f4f4f] p-3">
-                <option class="" hidden value="안녕2" disabled selected>게시판 선택</option>
+              <select id='post_type' name='post_type' required
+                class="outline-none w-full text-whith rounded bg-[#3f3f3f] border border-[#4f4f4f] p-3">
+                <option class="" hidden disabled selected>게시판 선택</option>
                 <option value="notice">공지사항</option>
                 <option value="freeboard">자유게시판</option>
                 <option value="hellow">가입인사</option>
@@ -52,7 +52,7 @@
             <!-- 제목입력 -->
             <div class="w-full">
               <input id='post_title' name='post_title' required type="text" placeholder="제목을 입력해주세요"
-                class="w-full outline-none text-whith rounded bg-[#4f4f4f] p-3" />
+                class="w-full outline-none text-whith rounded bg-[#3f3f3f] border border-[#4f4f4f] p-3" />
             </div>
 
           </div>
@@ -292,9 +292,7 @@
       dataType: 'json',
       success: (response) => {
         if (response.state) {
-          // location.href = '/freeboard/' + response.last_id;
-          console.log('성공: ', response);
-          location.href = '/freeboard/list';
+          location.href =  '/' + $('#post_type').val() + '/' + response.last_id;
         } else {
           console.log('실패: ', response);
           alert('게시글 등록 실패: ' + response.message);
@@ -346,9 +344,7 @@
       dataType: 'json',
       success: (response) => {
         if (response.state) {
-          // location.href = '/freeboard/' + response.last_id;
-          location.href = '/freeboard/list';
-          console.log('성공: ', response);
+          location.href =  '/' + $('#board_type').val() + '/' + response.last_id;
         } else {
           alert('게시글 답글 등록 실패: ' + response.message);
         }

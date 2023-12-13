@@ -11,7 +11,7 @@
       <div>
         <? $this->load->view('/Board/Board_Top_V');?>
       </div>
-      
+
       <div class="flex justify-between place-items-center">
         <a href="/post_create" class="border outline-none border-[#4f4f4f] py-3 px-16 rounded hover:bg-[#2f2f2f] duration-200 bg-[#1f1f1f]">
           <p>글쓰기</p>
@@ -265,7 +265,7 @@
 
     // 서버에 답글 데이터 요청
     $.ajax({
-      url: '/Free_Board_View_C/post_reply_show',
+      url: '/Notice_Board_View_C/post_reply_show',
       type: 'POST',
       data: { idx: postId },
       dataType: 'json',
@@ -403,7 +403,7 @@
 // 게시판 목록을 가져오는 AJAX 호출
 function fetchBoardList(page) {
   $.ajax({
-    url: '/Free_Board_View_C/list/'+ page,
+    url: '/Notice_Board_View_C/list/'+ page,
     type: 'GET',
     dataType: 'json',
     success: function(response) {
@@ -453,7 +453,7 @@ $(document).ready(function() {
   
   // AJAX 요청
   $.ajax({
-    url: "/Free_Board_View_C/search", // AJAX를 처리할 컨트롤러 메소드
+    url: "/Notice_Board_View_C/search", // AJAX를 처리할 컨트롤러 메소드
     type: "GET", // 데이터를 가져오므로 GET 사용
     data: { type: searchType, text: searchText },
     dataType: "json",

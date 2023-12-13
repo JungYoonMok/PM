@@ -32,16 +32,16 @@
 
       <div class="flex gap-1">
         <? if (isset($prev)): ?>
-          <a title="이전글: <?= $prev->title ?>" href="/<?= $this->uri->segment(1)?>/<?= $prev->idx?>" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
+          <a title="이전글 - <?= $prev->group_order == 0 ? '' : '[답글] ' ?><?= $prev->title ?>" href="/<?= $this->uri->segment(1)?>/<?= $prev->idx?>" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
             이전글
           </a>
         <? endif; ?>
         <? if (isset($next)): ?>
-          <a title="다음글: <?= $next->title ?>" href="/<?= $this->uri->segment(1)?>/<?= $next->idx?>" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
+          <a title="다음글 - <?= $next->group_order == 0 ? '' : '[답글] ' ?><?= $next->title ?>" href="/<?= $this->uri->segment(1)?>/<?= $next->idx?>" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
             다음글
           </a>
         <? endif; ?>
-        <a href="/freeboard/list" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
+        <a href="/<?= $this->uri->segment(1) ?>/list" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
           목록
         </a>
       </div>
@@ -274,14 +274,23 @@
               </div>
               <div class="flex justify-between">
                 <p>[레벨 <?= $level_converter['level'] ?>] - 진행률</p>
+
+                <?
+                  // 토탈 경험치 변수
+                  $exp_per = substr((($level_converter['exp'] - $level_converter['previous_level_end_exp']) / ($level_converter['end_exp'] - $level_converter['previous_level_end_exp']) * 100), 0, 4);
+                ?>
+                
                 <p>
-                  <?= substr((($level_converter['exp'] - $level_converter['previous_level_end_exp']) / ($level_converter['end_exp'] - $level_converter['previous_level_end_exp']) * 100), 0, 4) ?> %
+                  <?= $exp_per ?> %
                 </p>
               </div>
-              <div class="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-600 duration-200">
+              <div class="w-full h-2 rounded-full bg-gray-600 duration-200">
                 <div 
-                  class="h-2 bg-blue-600 rounded-full dark:bg-blue-500 duration-200 hover:scale-105" 
-                  style="width: <?= (($level_converter['exp'] - $level_converter['previous_level_end_exp']) / ($level_converter['end_exp'] - $level_converter['previous_level_end_exp']) * 100) ?>%">
+                  class="h-2 rounded-full duration-200 hover:scale-105 
+                  <?= ($exp_per > 90 ? 'bg-red-500' : 'bg-blue-500') ?>
+                  <?= ($exp_per > 95 ? 'animate-pulse' : 'bg-blue-500') ?>
+                  " 
+                  style="width: <?= $exp_per ?>%">
                 </div>
               </div>
               <div class="flex justify-between">
@@ -320,7 +329,7 @@
                         arrow_left
                       </span>
                       <a href="/<?= $row->board_type ?>/<?= $row->idx ?>" class="duration-200 hover:text-[#9f9f9f]">
-                        <?= mb_strimwidth($row->title, 0, 40, ' ..') ?>
+                        <?= mb_strimwidth($row->title, 0, 30, ' ..') ?>
                       </a>
                     </div>
                     <div class="flex gap-1 place-items-center">
@@ -356,7 +365,7 @@
                         arrow_left
                       </span>
                       <p>
-                        <?= strpos($row->content, 'removed') ? '⛑️ 관리자에 의해 차단' : mb_strimwidth($row->content, 0, 40, ' ..') ?>
+                        <?= strpos($row->content, 'removed') ? '⛑️ 관리자에 의해 차단' : mb_strimwidth($row->content, 0, 30, ' ..') ?>
                       </p>
                     </div>
                     <div class="flex gap-1 place-items-center">
@@ -639,16 +648,16 @@
       </div>
       <div class="flex gap-1">
         <? if (isset($prev)): ?>
-          <a title="이전글: <?= $prev->title ?>" href="/<?= $this->uri->segment(1)?>/<?= $prev->idx?>" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
+          <a title="이전글 - <?= $prev->group_order == 0 ? '' : '[답글] ' ?><?= $prev->title ?>" href="/<?= $this->uri->segment(1)?>/<?= $prev->idx?>" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
             이전글
           </a>
         <? endif; ?>
         <? if (isset($next)): ?>
-          <a title="다음글: <?= $next->title ?>" href="/<?= $this->uri->segment(1)?>/<?= $next->idx?>" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
+          <a title="다음글 - <?= $next->group_order == 0 ? '' : '[답글] ' ?><?= $next->title ?>" href="/<?= $this->uri->segment(1)?>/<?= $next->idx?>" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
             다음글
           </a>
         <? endif; ?>
-        <a href="/freeboard/list" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
+        <a href="/<?= $this->uri->segment(1) ?>/list" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
           목록
         </a>
       </div>

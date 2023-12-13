@@ -155,9 +155,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
       $side_view_data['exp_total'] = $this->point_exp_total('exp');
       $side_view_data['level_converter'] = $this->level_converter($this->point_exp_total('exp'));
       
+      $side_view_data['notice_total'] = $this->board_total('notice');
       $side_view_data['freeboard_total'] = $this->board_total('freeboard');
-      $side_view_data['freeboard_total'] = $this->board_total('freeboard');
-      $side_view_data['freeboard_total'] = $this->board_total('freeboard');
+      $side_view_data['hellow_total'] = $this->board_total('hellow');
       
       $side_view_data['site_visit_today'] = $this->site_visit('today');
       $side_view_data['site_visit_yesterday'] = $this->site_visit('yesterday');

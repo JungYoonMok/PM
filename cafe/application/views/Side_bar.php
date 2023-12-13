@@ -67,16 +67,27 @@
         
       </div>
 
+      <?
+        // 토탈 경험치 변수
+        $exp_per = substr((($level_converter['exp'] - $level_converter['previous_level_end_exp']) / ($level_converter['end_exp'] - $level_converter['previous_level_end_exp']) * 100), 0, 4);
+      ?>
+      
       <!-- 경험치, 포인트 -->
       <div class="flex flex-col gap-3 p-3 duration-200 rounded border border-[#4f4f4f] bg-[#3f3f3f] text-sm font-[s-core5]">
         <div class="flex justify-between">
           <p>경험치 <?= $level_converter['exp'] ?> / <?= $level_converter['end_exp'] ?></p>
           <p class="text-right">
-            <?= substr((($level_converter['exp'] - $level_converter['previous_level_end_exp']) / ($level_converter['end_exp'] - $level_converter['previous_level_end_exp']) * 100), 0, 4) ?> %
+            <?= $exp_per ?>%
           </p>
         </div>
-        <div class="w-full h-4 mb-4 bg-gray-200 rounded-full dark:bg-gray-600 duration-200">
-          <div class="h-4 mb-1 bg-blue-600 rounded-full dark:bg-blue-500 duration-200 hover:scale-105" style="width: <?= (($level_converter['exp'] - $level_converter['previous_level_end_exp']) / ($level_converter['end_exp'] - $level_converter['previous_level_end_exp']) * 100) ?>%"></div>
+        <div class="w-full h-4 mb-4 rounded-full bg-gray-600 duration-200">
+          <div 
+            class="h-4 mb-1 rounded-full duration-200 hover:scale-105 
+            <?= ($exp_per > 90 ? 'bg-red-500' : 'bg-blue-500') ?>
+            <?= ($exp_per > 95 ? 'animate-pulse' : 'bg-blue-500') ?>
+            " 
+            style="width: <?= $exp_per ?>%">
+          </div>
           <p>포인트 <?= $point_total ?></p>
         </div>
       </div>
@@ -181,7 +192,7 @@
         <!-- 구분선 -->
         <div id="line" class="border-b border-gray-400"></div>
 
-        <a href="#" id="notice"
+        <a href="/notice/list" id="notice"
           class="deration-500 relative w-full duration-100 p-2 rounded hover:text-gray-100 <?= $this->uri->segment(1) == 'notice' ? 'bg-[#2f2f2f] hover:translate-x-1' : 'hover:bg-[#4f4f4f]' ?>">
           <span class="w-full h-full flex gap-5">
             <span class="material-symbols-outlined">
@@ -189,12 +200,12 @@
             </span>
             <div class="flex place-content-around">
               <p class="">공지사항</p>
-              <!-- <p class="
+              <p class="
               w-8 duration-200 border border-blue-400 opacity-80 drop-shadow-2xl animate-pulse absolute right-2 bg-blue-500 px-2 py-1 rounded text-xs flex place-content-center
-              <?= $freeboard_total == 0 ? "hidden" : "" ?>
+              <?= $notice_total == 0 ? "hidden" : "" ?>
               ">
-              <?= $freeboard_total ?>
-              </p> -->
+              <?= $notice_total ?>
+              </p>
             </div>
           </span>
         </a>
@@ -217,7 +228,7 @@
           </span>
         </a>
 
-        <a href="#" id="hellow"
+        <a href="/hellow/list" id="hellow"
           class="deration-500 relative w-full duration-100 p-2 rounded hover:text-gray-100 <?= $this->uri->segment(1) == 'hellow' ? 'bg-[#2f2f2f] hover:translate-x-1' : 'hover:bg-[#4f4f4f]' ?>">
           <span class="w-full h-full flex gap-5">
             <span class="material-symbols-outlined">
@@ -225,11 +236,11 @@
             </span>
             <div class="flex place-content-around">
               <p class="">가입인사</p>
-              <!-- <p class="w-8 duration-200 border border-blue-400 opacity-80 drop-shadow-2xl animate-pulse absolute right-2 bg-blue-500 px-2 py-1 rounded text-xs flex place-content-center
-              <?= $freeboard_total == 0 ? "hidden" : "" ?>
+              <p class="w-8 duration-200 border border-blue-400 opacity-80 drop-shadow-2xl animate-pulse absolute right-2 bg-blue-500 px-2 py-1 rounded text-xs flex place-content-center
+              <?= $hellow_total == 0 ? "hidden" : "" ?>
               ">
-              <?= $freeboard_total ?>
-              </p> -->
+              <?= $hellow_total ?>
+              </p>
             </div>
           </span>
         </a>
