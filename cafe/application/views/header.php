@@ -7,7 +7,7 @@
       <div class="pt-3 pb-3 hover:scale-110 duration-200">
         <a href="/" class="font-['Nosifer'] flex justify-start place-items-center gap-3 text-xl text-[#fff] drop-shadow-2xl">
           <div class="rounded-[50%] w-[50px] duration-200 hover:animate-spin">
-            <img src="/assets/image/world1.gif" alt="logo_img">
+            <!-- <img src="/assets/image/world1.gif" alt="logo_img"> -->
           </div>
           <p class="duration-200 text-md md:text-base">
             hellow world !!
