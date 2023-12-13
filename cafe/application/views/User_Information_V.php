@@ -75,7 +75,7 @@
               file:text-sm file:font-semibold
             file:bg-[#3f3f3f] file:text-white
             hover:file:bg-[#4f4f4f] duration-200" />
-            <button id="upload_button" class="border border-blue-500 hover:border-[#3f3f3f] px-3 py-2 w-full bg-blue-500 rounded hover:translate-y-1 duration-200">
+            <button id="upload_button" class="hidden border border-blue-500 hover:border-[#3f3f3f] px-3 py-2 w-full bg-blue-500 rounded hover:translate-y-1 duration-200">
               적용하기
             </button>
             <div class="flex gap-2 text-sm">
@@ -497,6 +497,8 @@
         $('#upload_button').removeClass('border-blue-500');
 
         $('#on_profile img').attr('src', e.target.result);
+
+        $('#upload_button').removeClass('hidden');
       };
 
       // 파일 읽기 시작
