@@ -46,7 +46,25 @@
   
             <!-- 변경할 프로필 -->
             <div class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border-2 border-blue-500 h-20 w-20 bg-[#3f3f3f]">
-              <? if ($this->session->userdata('user_profile') == '' || null) : ?>
+              <p id="basic_profile" class="material-symbols-outlined text-5xl text-gray-400 flex place-items-center justify-center">
+                person
+              </p>
+              <div class="absolute -bottom-3 w-full">
+                <p class="text-xs text-center bg-blue-500 rounded px-1">
+                  변경
+                </p>
+              </div>
+              <div id="on_profile" class="hidden">
+                <img class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400 duration-200"></img>
+                <div class="absolute -bottom-3 w-full">
+                  <p class="text-xs text-center bg-blue-500 rounded px-1">
+                    변경
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- <div id="on_profile" class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border-2 border-blue-500 h-20 w-20 bg-[#3f3f3f]">
+              <? if (!$this->session->userdata('user_profile') == '' || null) : ?>
                 <p class="material-symbols-outlined text-5xl text-gray-400 flex place-items-center justify-center">
                   person
                 </p>
@@ -60,7 +78,7 @@
                   </p>
                 </div>
               <? endif ?>
-            </div>
+            </div> -->
   
           </div>
   
@@ -442,10 +460,33 @@
     });
   });
 
+  // 파일 입력 필드의 변경을 감지
+  $('input[type="file"]').on('change', function(e) {
+    var file = e.target.files[0];
+
+    if (file) {
+      // FileReader 객체 생성
+      var reader = new FileReader();
+
+      // 파일 읽기가 완료되었을 때 실행될 함수 정의
+      reader.onload = function(e) {
+        // 미리보기 이미지의 src 속성을 변경
+        $('#on_profile').removeClass('hidden');
+        $('#basic_profile').addClass('hidden');
+
+        $('#on_profile img').attr('src', e.target.result);
+      };
+
+      // 파일 읽기 시작
+      reader.readAsDataURL(file);
+    }
+  });
+
   // 파일 업로드
   $(document).ready(function(){
     $('#upload_button').click(function(e){
       e.preventDefault();
+
       var formData = new FormData($('#upload_form')[0]);
 
       if($('#upload_form input[name=userfile]').val() == ''){
