@@ -52,6 +52,7 @@ class User_Information_M extends CI_Model {
   }
 
   public function user_profile_show($user_id) {
+    $this->db->limit(50);
     $data = $this->db->get_where('upload_file', [ 'boards_idx' => '0', 'user_id' => $user_id ]);
     if($data->num_rows() > 0) {
       return $data->result();
@@ -116,19 +117,6 @@ class User_Information_M extends CI_Model {
       return TRUE;
     } else {
       log_message('error', '소개 변경 실패: ' . $this->db->error()['message']);
-      return FALSE;
-    }
-  }
-
-  // 방치된 코드
-  public function update_uesr_data($user_id, $data) {
-    $this->db->where( 'user_id', $user_id );
-    $this->db->update('members', $data);
-
-    if ($this->db->affected_rows() > 0) {
-      return TRUE;
-    } else {
-      log_message('error', '회원정보 변경 실패: ' . $this->db->error()['message']);
       return FALSE;
     }
   }

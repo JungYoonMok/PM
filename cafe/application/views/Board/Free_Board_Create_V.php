@@ -73,7 +73,7 @@
                         check_small
                       </span>
                       <p class="">
-                        공개
+                        멤버 공개
                       </p>
                     </div>
                   </label>
@@ -86,7 +86,7 @@
                         check_small
                       </span>
                       <p class="">
-                        비공개
+                        나만 보기
                       </p>
                     </div>
                   </label>
@@ -107,7 +107,7 @@
                         check_small
                       </span>
                       <p class="">
-                        허용
+                        작성 가능
                       </p>
                     </div>
                   </label>
@@ -121,7 +121,7 @@
                         check_small
                       </span>
                       <p class="">
-                        비허용
+                        작성 불가
                       </p>
                     </div>
                   </label>

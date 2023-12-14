@@ -34,7 +34,7 @@
         <!-- 공지사항 -->
         <div class="
         <?= $this->uri->segment(1) == 'notice' ? 'hidden' : '' ?> 
-        bg-[#2f2f2f] border shadow-2xl border-[#4f4f4f] opacity-90 p-5 flex flex-col gap-5
+        bg-[#2f2f2f] border shadow-2xl border-[#4f4f4f] opacity-90 p-5 flex flex-col
         ">
           <div class="flex gap-3 place-items-center">
             <span class="material-symbols-outlined duration-200">
@@ -51,14 +51,14 @@
             </div>
           </div>
             
-          <div class="text-gray-50 w-full py-3 lg:justify-center relative flex gap-3 overflow-x-auto overflow-y-auto">
+          <div class="text-gray-50 w-full py-6 px-2 lg:justify-center relative flex gap-3 overflow-x-auto overflow-y-auto">
           <? foreach ($notice_list as $li) : ?>
-            <div class="flex flex-col justify-between shadow-xl w-full max-w-[300px] min-w-[250px] xl:min-w-min h-full min-h-[150px] gap-3 bg-[#0f0f0f] border border-[#4f4f4f] hover:border-[#0f0f0f] p-3 rounded duration-200 hover:translate-y-1">
+            <a href="/<?= $li->board_type?>/<?= $li->idx?>" class="flex flex-col justify-between shadow-xl hover:shadow-lg hover:shadow-blue-400 w-full max-w-[300px] min-w-[250px] xl:min-w-min h-full min-h-[150px] gap-3 bg-[#0f0f0f] border border-[#4f4f4f] hover:border-[#0f0f0f] p-3 rounded duration-200 hover:translate-y-1">
 
-              <div class="flex gap-3">
-                <a href="/<?= $li->board_type?>/<?= $li->idx?>" class="duration-200 hover:opacity-70">
-                  <?= mb_strimwidth($li->title, 0, 60, ' ..') ?>
-                </a>
+              <div class="flex gap-3 text-sm">
+                <p class="duration-200 hover:text-white">
+                  <?= mb_strimwidth($li->title, 0, 70, ' ..') ?>
+                </p>
               </div>
               
               <div class="flex flex-col text-sm">
@@ -83,7 +83,7 @@
 
               </div>
 
-            </div>
+            </a>
           <? endforeach; ?>
           </div>
 

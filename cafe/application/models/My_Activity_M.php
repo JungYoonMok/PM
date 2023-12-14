@@ -54,7 +54,7 @@
       $this->db->from('boards');
       $this->db->join('board_like', 'boards.idx = board_like.boards_idx', 'left');
       $this->db->where('boards.user_id', $user_id);
-      $this->db->where('boards.board_type', 'freeboard');
+      // $this->db->where('boards.board_type', 'freeboard');
       $this->db->order_by('boards.idx', 'desc');
       $this->db->limit($limit, $start);
       
@@ -78,7 +78,8 @@
       $this->db->from('boards');
       $this->db->join('boards_comment', 'boards.idx = boards_comment.boards_idx', 'left');
       $this->db->where('boards_comment.user_id', $user_id); // 사용자가 작성한 댓글이 있는 게시물
-      $this->db->where('boards.board_delete', '0');
+      $this->db->where('boards_comment.delete_state', '0');
+      // $this->db->where('boards.board_delete', '0');
       // $this->db->where('boards.board_type', 'freeboard'); // 필요에 따라 주석 해제
       $this->db->order_by('boards_comment.idx', 'desc');
       $this->db->limit($limit, $start);
@@ -96,7 +97,8 @@
 
     public function get_comment_total() {
       $this->db->where('delete_state', '0'); // 삭제한 댓글 제외
-      $query = $this->db->get_where('boards_comment', ['user_id' => $this->session->userdata('user_id') ]);
+      $this->db->where('user_id', $this->session->userdata('user_id')); // 삭제한 댓글 제외
+      $query = $this->db->get('boards_comment');
       if($query->num_rows() > 0) {
         return $query->num_rows();
       } else {

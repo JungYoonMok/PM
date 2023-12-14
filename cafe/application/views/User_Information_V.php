@@ -94,9 +94,9 @@
   
           <div class="flex justify-between">
             <p>과거 프로필 사진</p>
-            <div class="flex text-[#9f9f9f]">
+            <div class="flex gap-1 text-[#9f9f9f] text-sm">
               <p id="file_count"></p>
-              <p>개</p>
+              <p>/ 50개</p>
             </div>
           </div>
           <!-- 동적 생성 -->

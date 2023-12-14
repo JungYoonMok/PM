@@ -16,7 +16,7 @@ date_default_timezone_set('Asia/Seoul');
     }
 
     public function index() {
-      $this->layout->custom_view('My_Activity_V');
+      // $this->layout->custom_view('My_Activity_V');
     }
 
     private function initialize_pagination($base_url, $total_rows, $per_page, $uri_segment, $num_links) {
