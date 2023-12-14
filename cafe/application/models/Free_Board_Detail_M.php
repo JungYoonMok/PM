@@ -11,10 +11,31 @@ class Free_Board_Detail_M extends CI_Model {
   }
 
   public function bottom_list($segment) {
-    $result = $this->db->get_where('boards', ['board_type' => $segment]);
-    $this->db->order_by('idx', 'desc');
-    $this->db->limit(10);
-    return $result->result();
+    $this->db->limit(15);
+    $this->db->select('boards.*,
+    (SELECT COUNT(*) FROM board_like WHERE like_type = 1 AND boards_idx = boards.idx) as like_count,
+    (SELECT COUNT(*) FROM board_like WHERE like_type = 0 AND boards_idx = boards.idx) as dislike_count,
+    (SELECT COUNT(*) FROM boards as reply WHERE reply.group_idx = boards.idx AND reply.group_order > 0) as reply_count,
+    (SELECT COUNT(*) FROM upload_file WHERE boards_idx = boards.idx) as file,
+    (SELECT user_profile FROM members WHERE user_id = boards.user_id) as profile,
+    (SELECT user_nickname FROM members WHERE user_id = boards.user_id) as nickname,
+    (SELECT COUNT(*) FROM boards_comment WHERE boards_idx = boards.idx) as comment_count'
+  );
+  $this->db->from('boards');
+  $this->db->join('board_like', 'boards.idx = board_like.boards_idx', 'left');
+  // $this->db->where('boards.user_id', $user_id);
+  $this->db->where('boards.board_type', $segment);
+  $this->db->order_by('boards.idx', 'desc');
+  // $this->db->limit($limit, $start);
+  
+  $query = $this->db->get();
+  
+  return $query->result();
+
+    // $this->db->limit(15);
+    // $result = $this->db->get_where('boards', ['board_type' => $segment]);
+    // $this->db->order_by('idx', 'desc');
+    // return $result->result();
   }
 
   public function prev_post($segment, $idx) {

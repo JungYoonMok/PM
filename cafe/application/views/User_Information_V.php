@@ -99,12 +99,13 @@
               <p>/ 50개</p>
             </div>
           </div>
+
           <!-- 동적 생성 -->
           <div 
-          id="profile_old" 
-          class="
-          flex flex-wrap gap-3 w-full border bg-[#1f1f1f] shadow-md border-[#3f3f3f] justify-center place-items-center h-full max-h-52 p-3 rounded overflow-y-scroll
-          ">
+            id="profile_old" 
+            class="
+            flex flex-wrap gap-3 w-full border bg-[#1f1f1f] shadow-md border-[#3f3f3f] justify-center place-items-center h-full max-h-52 p-3 rounded overflow-y-scroll-auto
+            ">
           </div>
   
         </div>

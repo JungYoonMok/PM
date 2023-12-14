@@ -41,7 +41,8 @@
             <!-- 셀렉터 -->
             <div class="w-full md:w-[30%]">
               <!-- <label for="lang">Language</label> -->
-              <select id='post_type' name='post_type' id="lang" required class="outline-none w-full text-whith rounded bg-[#4f4f4f] p-3">
+              <input id="board_type" hidden value="<?= $post->board_type ?>" type="text">
+              <select id='post_type' name='post_type' required class="outline-none w-full text-whith rounded bg-[#4f4f4f] p-3">
                 <option class="hidden">
                   <?= $post->board_type == 'notice' ? '공지사항' : '' ?>
                   <?= $post->board_type == 'freeboard' ? '자유게시판' : '' ?>
@@ -289,9 +290,9 @@ $(document).ready( () => {
       dataType: 'json',
       success: (response) => {
         if (response.state) {
-          // location.href = '/freeboard/' + $('#bd_id').val();
-          location.reload();
-          return console.log('게시글 수정 성공: ', response);
+          location.href = '/' + $('#board_type').val() +'/' + $('#bd_id').val();
+          // location.reload();
+          // return console.log('게시글 수정 성공: ', response);
         } else {
           alert('게시글 수정 실패: ' + response.message);
         }

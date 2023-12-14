@@ -23,7 +23,9 @@ $route['post_create'] = 'free_board_create_c';
 $route['post_create_reply/(:num)'] = 'free_board_create_c/create_reply_index/$1';
 
 // 업데이트
+$route['notice/update/(:num)'] = 'free_board_update_c/update/$1';
 $route['freeboard/update/(:num)'] = 'free_board_update_c/update/$1';
+$route['hellow/update/(:num)'] = 'free_board_update_c/update/$1';
 
 $route['free_board_detail/comment_create'] = 'free_board_detail_c/comment_create';
 $route['free_board_detail/reply_comment_create'] = 'free_board_detail_c/reply_comment_create';

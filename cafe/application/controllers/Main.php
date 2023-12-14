@@ -16,14 +16,17 @@ class Main extends CI_Controller {
     }
 		
 		$this->load->model('main_model');
-		$this->load->library('layout');
 	}
 	
 	public function index()	{
 		
 		$data['list'] = $this->main_model->GetBoardList();
 
-		$data['board_list'] = $this->main_model->BoardList();
+		$data['board_list'] = $this->main_model->BoardList('all');
+		$data['board_notice'] = $this->main_model->BoardList('notice');
+		$data['get_comment'] = $this->main_model->get_comment();
+		$data['board_freeboard'] = $this->main_model->BoardList('freeboard');
+		$data['board_hellow'] = $this->main_model->BoardList('hellow');
 
 		// 게시글 토탈
 		$data['total_notice'] = $this->main_model->GetBoardTotal('notice');

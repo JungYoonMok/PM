@@ -293,6 +293,7 @@
       success: (response) => {
         if (response.state) {
           location.href =  '/' + $('#post_type').val() + '/' + response.last_id;
+          // location.href =  '/' + $('#board_type').val() + '/' + response.last_id;
         } else {
           console.log('실패: ', response);
           alert('게시글 등록 실패: ' + response.message);

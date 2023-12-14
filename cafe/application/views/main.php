@@ -110,8 +110,8 @@
                     <p class="material-symbols-outlined w-8 h-8 p-0.5 rounded-[50%] mt-1 text-gray-400 flex place-items-center justify-center <?= $li->profile ? 'hidden' : '' ?>">
                       person
                     </p>
-                    <p class="tracking-wider">
-                      <?= $li->user_id ?>
+                    <p class="tracking-wider mt-1">
+                      <?= $li->nickname ?>
                     </p>
                   </td>
                   <td class="px-3">
@@ -168,7 +168,7 @@
                   </span>
                 </th>
               </thead>
-              <? foreach ($board_list as $li): ?>
+              <? foreach ($board_notice as $li): ?>
                 <tbody class="duration-200 hover:bg-[#4f4f4f]">
                   <tr class="border-b border-[#4f4f4f] text-sm">
                     
@@ -198,12 +198,12 @@
                       <p class="material-symbols-outlined w-8 h-8 p-0.5 rounded-[50%] mt-1 text-gray-400 flex place-items-center justify-center <?= $li->profile ? 'hidden' : '' ?>">
                         person
                       </p>
-                      <p class="tracking-wider">
-                        <?= $li->user_id ?>
+                      <p class="mt-1">
+                        <?= $li->nickname ?>
                       </p>
                     </td>
                     <td class="px-3">
-                      <?= (empty($li->regdate) ? '-' : date("Y-m-d") == substr($li->regdate, 5, 5)) ? substr($li->regdate, 10, 6) : substr($li->regdate, 5, 5); ?>
+                      <?= (date("Y-m-d") == substr($li->regdate, 0, 10)) ? substr($li->regdate, 11, 5) : substr($li->regdate, 5, 5); ?>
                     </td>
                     <td class="px-3 <?= ($li->like_count - $li->dislike_count) < 0 ? 'text-red-400' : '' ?>"><?= $li->like_count - $li->dislike_count ?></td>
                     <td class="px-3"><?= $li->hit?></td>
@@ -231,51 +231,30 @@
           <div class="bg-[#2f2f2f] w-full border border-[#4f4f4f] rounded flex flex-col gap-5 shadow-inner overflow-x-auto">
             <table class="text-gray-50 text-center whitespace-nowrap">
               <thead class="text-sm bg-[#3f3f3f] h-10">
-                <th class="w-full">제목</th>
+                <th class="w-full">댓글</th>
                 <th class="">
-                  <span title="게시글 작성자" class="material-symbols-outlined text-[20px]">
+                  <span title="댓글 작성자" class="material-symbols-outlined text-[20px]">
                     person
                   </span>
                 </th>
                 <th class="">
-                  <span title="게시글 작성 날짜" class="material-symbols-outlined text-[20px]">
+                  <span title="댓글 작성 날짜" class="material-symbols-outlined text-[20px]">
                     calendar_month
                   </span>
                 </th>
-                <th class="">
-                  <span title="추천, 비추천 합계" class="material-symbols-outlined text-[20px]">
-                    thumbs_up_down
-                  </span>
-                </th>
-                <th class="">
-                  <span title="조회수" class="material-symbols-outlined text-[20px]">
-                    visibility
-                  </span>
-                </th>
               </thead>
-              <? foreach ($board_list as $li): ?>
+              <? foreach ($get_comment as $li): ?>
                 <tbody class="duration-200 hover:bg-[#4f4f4f]">
                   <tr class="border-b border-[#4f4f4f] text-sm">
                     
                     <td class="pl-3 text-left duration-150 hover:scale-[0.98]">
-                      <a href="/<?= $li->board_type?>/<?= $li->idx ?>" class="flex gap-2 place-items-center">
-                        <p class="bg-red-500 rounded-full px-2 py-1 text-xs <?= $li->hit > 100 ? '' : 'hidden' ?>">
-                          인기
-                        </p>
-                        <p class="bg-[#4f4f4f] rounded-full px-2 py-1 text-xs <?= $li->group_order > 0 ? '' : 'hidden' ?>">
-                          답글
-                        </p>
+                      <a href="/<?= $li->board_type?>/<?= $li->boards_idx ?>/#comments" class="flex gap-2 place-items-center">
+                        <span class="material-symbols-outlined text-[20px]">
+                          chat_bubble
+                        </span>
                         <p class="">
-                          <?= mb_strimwidth($li->title,0, 40, ' ..') ?>
+                          <?= mb_strimwidth($li->content,0, 40, ' ..') ?>
                         </p>
-                        <div>
-                          <span class="material-symbols-outlined text-[16px]">
-                            <?= strpos($li->content, '<img') ? 'image' : '' ?>
-                          </span>
-                          <span class="material-symbols-outlined text-[16px]">
-                            <?= $li->file > 0 ? 'attachment' : '' ?>
-                          </span>
-                        </div>
                       </a>
                     </td>
                     <td class="px-3 flex gap-2 justify-center place-items-center text-center">
@@ -283,15 +262,13 @@
                       <p class="material-symbols-outlined w-8 h-8 rounded-[50%] mt-1 p-0.5 text-gray-400 flex place-items-center justify-center <?= $li->profile ? 'hidden' : '' ?>">
                         person
                       </p>
-                      <p>
-                        <?= $li->user_id ?>
+                      <p class="mt-1">
+                        <?= $li->nickname ?>
                       </p>
                     </td>
                     <td class="px-3">
-                      <?= (empty($li->regdate) ? '-' : date("Y-m-d") == substr($li->regdate, 5, 5)) ? substr($li->regdate, 10, 6) : substr($li->regdate, 5, 5); ?>
+                      <?= (date("Y-m-d") == substr($li->regdate, 0, 10)) ? substr($li->regdate, 11, 5) : substr($li->regdate, 5, 5); ?>
                     </td>
-                    <td class="px-3 <?= ($li->like_count - $li->dislike_count) < 0 ? 'text-red-400' : '' ?>"><?= $li->like_count - $li->dislike_count ?></td>
-                    <td class="px-3"><?= $li->hit?></td>
                   </tr>
                 </tbody>
               <? endforeach ?>
@@ -341,7 +318,7 @@
                   </span>
                 </th>
               </thead>
-              <? foreach ($board_list as $li): ?>
+              <? foreach ($board_freeboard as $li): ?>
                 <tbody class="duration-200 hover:bg-[#4f4f4f]">
                   <tr class="border-b border-[#4f4f4f] text-sm">
                     
@@ -371,12 +348,12 @@
                       <p class="material-symbols-outlined w-8 h-8 p-0.5 rounded-[50%] mt-1 text-gray-400 flex place-items-center justify-center <?= $li->profile ? 'hidden' : '' ?>">
                         person
                       </p>
-                      <p class="tracking-wider">
-                        <?= $li->user_id ?>
+                      <p class="mt-1">
+                        <?= $li->nickname ?>
                       </p>
                     </td>
                     <td class="px-3">
-                      <?= (empty($li->regdate) ? '-' : date("Y-m-d") == substr($li->regdate, 5, 5)) ? substr($li->regdate, 10, 6) : substr($li->regdate, 5, 5); ?>
+                      <?= (date("Y-m-d") == substr($li->regdate, 0, 10)) ? substr($li->regdate, 11, 5) : substr($li->regdate, 5, 5); ?>
                     </td>
                     <td class="px-3 <?= ($li->like_count - $li->dislike_count) < 0 ? 'text-red-400' : '' ?>"><?= $li->like_count - $li->dislike_count ?></td>
                     <td class="px-3"><?= $li->hit?></td>
@@ -428,7 +405,7 @@
                   </span>
                 </th>
               </thead>
-              <? foreach ($board_list as $li): ?>
+              <? foreach ($board_hellow as $li): ?>
                 <tbody class="duration-200 hover:bg-[#4f4f4f]">
                   <tr class="border-b border-[#4f4f4f] text-sm">
                     
@@ -458,12 +435,12 @@
                       <p class="material-symbols-outlined w-8 h-8 p-0.5 rounded-[50%] mt-1 text-gray-400 flex place-items-center justify-center <?= $li->profile ? 'hidden' : '' ?>">
                         person
                       </p>
-                      <p class="tracking-wider">
-                        <?= $li->user_id ?>
+                      <p class="mt-1">
+                        <?= $li->nickname ?>
                       </p>
                     </td>
                     <td class="px-3">
-                      <?= (empty($li->regdate) ? '-' : date("Y-m-d") == substr($li->regdate, 5, 5)) ? substr($li->regdate, 10, 6) : substr($li->regdate, 5, 5); ?>
+                      <?= (date("Y-m-d") == substr($li->regdate, 0, 10)) ? substr($li->regdate, 11, 5) : substr($li->regdate, 5, 5); ?>
                     </td>
                     <td class="px-3 <?= ($li->like_count - $li->dislike_count) < 0 ? 'text-red-400' : '' ?>"><?= $li->like_count - $li->dislike_count ?></td>
                     <td class="px-3"><?= $li->hit?></td>

@@ -16,7 +16,7 @@
     <!-- 수정하기, 이전, 다음, 목록 -->
     <div class="flex justify-between place-items-center gap-3 opacity-90 whitespace-nowrap overflow-x-auto overflow-y-hidden">
       <div class="<?= $this->session->userdata('user_id') == $post->user_id ? '' : 'hidden' ?> flex gap-1">
-        <a href="/freeboard/update/<?= $post->idx ?>">
+        <a href="/<?= $post->board_type ?>/update/<?= $post->idx ?>">
           <p class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-[9px] rounded">
             수정하기
           </p>
@@ -55,7 +55,7 @@
           <span class="material-symbols-outlined">
             location_on
           </span>
-          <a class="hover:underline duration-200" href="/freeboard/list">
+          <a class="hover:underline duration-200" href="/<?= $post->board_type ?>/list">
             <?= ($post->board_type == 'notice' ? '공지사항' : ($post->board_type == 'freeboard' ? '자유게시판' : ($post->board_type == 'hellow' ? '가입인사' : 'what?' ) ) ) ?>
           </a>
           <p>〉</p>
@@ -410,12 +410,26 @@
                 <!-- 작성자 -->
                 <div class="flex gap-3 relative">
                   <!-- 프로필 -->
-                  <div class="drop-shadow-2xl flex rounded-[50%] place-content-center border border-[#4f4f4f] h-14 w-14 bg-[#3f3f3f]">
+
+                  <div class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border border-gray-500 h-16 w-16 bg-[#3f3f3f]">
+                    <? if ($user->user_profile == '' || null) : ?>
+                      <p class="material-symbols-outlined text-5xl text-gray-400 flex place-items-center justify-center">
+                        person
+                      </p>
+                    <? else : ?>
+                      <img width="100%" src="/uploads/<?= $user->user_profile ?>"
+                        class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400 duration-200">
+                      </img>
+                    <? endif ?>
+                  </div>
+                
+                  <!-- <div class="drop-shadow-2xl flex rounded-[50%] place-content-center border border-[#4f4f4f] h-14 w-14 bg-[#3f3f3f]">
                     <img 
                       width="100%" src="/uploads/<?= $user->user_profile ?>"
                       class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400">
                     </img>
-                  </div>
+                  </div> -->
+
                   <div class="<?= $post->user_id == $com->user_id ? 'inline-block' : 'hidden' ?> absolute top-12 w-full">
                     <p class="text-xs text-center bg-blue-500 rounded px-1">
                       작성자
@@ -668,18 +682,19 @@
       <table class="text-gray-50 text-center whitespace-nowrap">
         <thead class="text-sm bg-[#3f3f3f] h-10">
           <th class="">ID</th>
-          <th class="w-[50%]">제목</th>
+          <th class="w-full">제목</th>
           <th class="">작성자</th>
           <th class="">작성날짜</th>
           <th class="">추천</th>
           <th class="">비추천</th>
           <th class="">조회수</th>
-          <th class="">신고</th>
         </thead>
         <? foreach ($list as $li): ?>
           <tr class="border-b border-[#4f4f4f] text-sm">
-            <td class="p-2"><?= $li->idx ?></td>
-            <td class="text-left">
+            <td class="p-2 px-3">
+              <?= $li->idx ?>
+            </td>
+            <td class="text-left px-3">
               <a href="/freeboard/<?= $li->idx ?>" class="flex gap-2">
                 <p class="bg-red-500 rounded-full px-2 py-1 text-xs <?= $li->hit > 100 ? '' : 'hidden' ?>">
                   인기
@@ -690,17 +705,19 @@
                 <p><?= $li->title ?></p>
               </a>
             </td>
-            <td>
-              <?= $li->user_id ?>
+            <td class="flex place-items-center gap-2 px-3">
+              <img src="/uploads/<?= $li->profile ?>" alt="img" class="p-0.5 border border-[#4f4f4f] w-8 h-8 mt-1 rounded-[50%] <?= $li->profile ? '' : 'hidden'?>">
+              <p class="material-symbols-outlined w-8 h-8 rounded-[50%] mt-1 p-0.5 text-gray-400 flex place-items-center justify-center <?= $li->profile ? 'hidden' : '' ?>">
+                person
+              </p>
+              <?= $li->nickname ?>
             </td>
-            <td class="">
-              <!-- <?= $li->regdate ?> -->
-              <?= (empty($li->regdate) ? '-' : date("Y-m-d") == substr($li->regdate, 0, 10)) ? substr($li->regdate, 10, 6) : substr($li->regdate, 0, 10); ?>
+            <td class="px-3">
+              <?= (date("Y-m-d") == substr($li->regdate, 0, 10)) ? substr($li->regdate, 11, 5) : substr($li->regdate, 5, 5); ?>
             </td>
-            <td>1</td>
-            <td>2</td>
-            <td><?= $li->hit?></td>
-            <td>3</td>
+            <td class="px-3"><?= $li->like_count ?></td>
+            <td class="px-3"><?= $li->dislike_count ?></td>
+            <td class="px-3"><?= $li->hit ?></td>
           </tr>
         <? endforeach ?>
       </table>
