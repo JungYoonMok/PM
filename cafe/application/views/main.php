@@ -38,38 +38,40 @@
               </span>
               <h2>최근 게시글</h2>
             </div>
-            <p class="text-[#9f9f9f] text-sm">모든 게시글 <?= $total_notice + $total_freeboard + $total_hellow?>개</p>
+            <p class="text-[#9f9f9f] text-sm <?= empty($board_list) ? 'hidden' : '' ?>">
+              모든 게시글 <?= $total_notice + $total_freeboard + $total_hellow?>개
+            </p>
           </div>
         </div>
 
         <div class="bg-[#2f2f2f] w-full border border-[#4f4f4f] rounded flex flex-col gap-5 shadow-inner overflow-x-auto ">
           <table class="text-gray-50 text-center whitespace-nowrap min-w-[500px]">
-            <thead class="text-sm font-[s-core2] bg-[#3f3f3f] h-10">
+            <thead class="text-sm font-[s-core2] bg-[#3f3f3f] h-10 <?= empty($board_list) ? 'hidden' : '' ?>">
               <th class="">
                 ID
               </th>
               <th class="">
                 분류
               </th>
-              <th class=" w-full">
+              <th class="w-full">
                 제목
               </th>
-              <th class="">
+              <th class="px-3">
                 <span title="게시글 작성자" class="material-symbols-outlined text-[20px]">
                   person
                 </span>
               </th>
-              <th class="">
+              <th class="px-3">
                 <span title="게시글 작성 날짜" class="material-symbols-outlined text-[20px]">
                   calendar_month
                 </span>
               </th>
-              <th class="">
+              <th class="px-3">
                 <span title="추천, 비추천 합계" class="material-symbols-outlined text-[20px]">
                   thumbs_up_down
                 </span>
               </th>
-              <th class="">
+              <th class="px-3">
                 <span title="조회수" class="material-symbols-outlined text-[20px]">
                   visibility
                 </span>
@@ -123,6 +125,11 @@
               </tbody>
             <? endforeach ?>
           </table>
+          <div class="<?= empty($board_list) ? '' : 'hidden' ?> relative">
+            <p class="flex justify-center place-items-center py-10">
+              데이터가 없습니다
+            </p>
+          </div>
         </div>
       </div>
       
@@ -137,32 +144,34 @@
                 </span>
                 <h2>공지사항</h2>
               </div>
-              <p class="text-[#9f9f9f] text-sm">모든 게시글 <?= $total_notice ?>개</p>
+              <p class="text-[#9f9f9f] text-sm <?= empty($board_notice) ? 'hidden' : '' ?>">
+                모든 게시글 <?= $total_notice ?>개
+              </p>
             </div>
           </div>
 
           <div class="bg-[#2f2f2f] w-full border border-[#4f4f4f] rounded flex flex-col gap-5 shadow-inner overflow-x-auto">
             <table class="text-gray-50 text-center whitespace-nowrap min-w-[500px]">
-              <thead class="text-sm bg-[#3f3f3f] h-10">
+              <thead class="text-sm bg-[#3f3f3f] h-10 <?= empty($board_notice) ? 'hidden' : '' ?>">
                 <th class="w-full">
                   제목
                 </th>
-                <th class="">
+                <th class="px-3">
                   <span title="게시글 작성자" class="material-symbols-outlined text-[20px]">
                     person
                   </span>
                 </th>
-                <th class="">
+                <th class="px-3">
                   <span title="게시글 작성 날짜" class="material-symbols-outlined text-[20px]">
                     calendar_month
                   </span>
                 </th>
-                <th class="">
+                <th class="px-3">
                   <span title="추천, 비추천 합계" class="material-symbols-outlined text-[20px]">
                     thumbs_up_down
                   </span>
                 </th>
-                <th class="">
+                <th class="px-3">
                   <span title="조회수" class="material-symbols-outlined text-[20px]">
                     visibility
                   </span>
@@ -211,6 +220,11 @@
                 </tbody>
               <? endforeach ?>
             </table>
+            <div class="<?= empty($board_notice) ? '' : 'hidden' ?> relative">
+              <p class="flex justify-center place-items-center py-10">
+                데이터가 없습니다
+              </p>
+            </div>
           </div>
         </div>
 
@@ -224,21 +238,23 @@
                 </span>
                 <h2>최근 댓글</h2>
               </div>
-              <p class="text-[#9f9f9f] text-sm">모든 댓글 <?= $total_comment ?>개</p>
+              <p class="text-[#9f9f9f] text-sm <?= empty($get_comment) ? 'hidden' : '' ?>">
+                모든 댓글 <?= $total_comment ?>개
+              </p>
             </div>
           </div>
 
           <div class="bg-[#2f2f2f] w-full border border-[#4f4f4f] rounded flex flex-col gap-5 shadow-inner overflow-x-auto">
             <table class="text-gray-50 text-center whitespace-nowrap">
-              <thead class="text-sm bg-[#3f3f3f] h-10">
+              <thead class="text-sm bg-[#3f3f3f] h-10 <?= empty($get_comment) ? 'hidden' : '' ?>">
                 <th class="w-full">댓글</th>
                 <th class="">
-                  <span title="댓글 작성자" class="material-symbols-outlined text-[20px]">
+                  <span title="댓글 작성자" class="material-symbols-outlined text-[20px] px-3">
                     person
                   </span>
                 </th>
                 <th class="">
-                  <span title="댓글 작성 날짜" class="material-symbols-outlined text-[20px]">
+                  <span title="댓글 작성 날짜" class="material-symbols-outlined text-[20px] px-3">
                     calendar_month
                   </span>
                 </th>
@@ -273,6 +289,11 @@
                 </tbody>
               <? endforeach ?>
             </table>
+            <div class="<?= empty($get_comment) ? '' : 'hidden' ?> relative">
+              <p class="flex justify-center place-items-center py-10">
+                데이터가 없습니다
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -289,30 +310,32 @@
                 </span>
                 <h2>자유게시판</h2>
               </div>
-              <p class="text-[#9f9f9f] text-sm">모든 게시글 <?= $total_freeboard ?>개</p>
+              <p class="text-[#9f9f9f] text-sm <?= empty($board_freeboard) ? 'hidden' : '' ?>">
+                모든 게시글 <?= $total_freeboard ?>개
+              </p>
             </div>
           </div>
 
           <div class="bg-[#2f2f2f] w-full border border-[#4f4f4f] rounded flex flex-col gap-5 shadow-inner overflow-x-auto">
             <table class="text-gray-50 text-center whitespace-nowrap min-w-[500px]">
-              <thead class="text-sm bg-[#3f3f3f] h-10">
+              <thead class="text-sm bg-[#3f3f3f] h-10 <?= empty($board_freeboard) ? 'hidden' : '' ?>">
                 <th class="w-full">제목</th>
-                <th class="">
+                <th class="px-3">
                   <span title="게시글 작성자" class="material-symbols-outlined text-[20px]">
                     person
                   </span>
                 </th>
-                <th class="">
+                <th class="px-3">
                   <span title="게시글 작성 날짜" class="material-symbols-outlined text-[20px]">
                     calendar_month
                   </span>
                 </th>
-                <th class="">
+                <th class="px-3">
                   <span title="추천, 비추천 합계" class="material-symbols-outlined text-[20px]">
                     thumbs_up_down
                   </span>
                 </th>
-                <th class="">
+                <th class="px-3">
                   <span title="조회수" class="material-symbols-outlined text-[20px]">
                     visibility
                   </span>
@@ -361,6 +384,11 @@
                 </tbody>
               <? endforeach ?>
             </table>
+            <div class="<?= empty($board_freeboard) ? '' : 'hidden' ?> relative">
+              <p class="flex justify-center place-items-center py-10">
+                데이터가 없습니다
+              </p>
+            </div>
           </div>
         </div>
 
@@ -374,32 +402,34 @@
                 </span>
                 <h2>가입인사</h2>
               </div>
-              <p class="text-[#9f9f9f] text-sm">모든 게시글 <?= $total_hellow?>개</p>
+              <p class="text-[#9f9f9f] text-sm <?= empty($board_hellow) ? 'hidden' : '' ?>">
+                모든 게시글 <?= $total_hellow?>개
+              </p>
             </div>
           </div>
 
           <div class="bg-[#2f2f2f] w-full border border-[#4f4f4f] rounded flex flex-col gap-5 shadow-inner overflow-x-auto">
             <table class="text-gray-50 text-center whitespace-nowrap min-w-[500px]">
-              <thead class="text-sm bg-[#3f3f3f] h-10">
+              <thead class="text-sm bg-[#3f3f3f] h-10 <?= empty($board_hellow) ? 'hidden' : '' ?>">
                 <th class="w-full">
                   제목
                 </th>
-                <th class="">
+                <th class="px-3">
                   <span title="게시글 작성자" class="material-symbols-outlined text-[20px]">
                     person
                   </span>
                 </th>
-                <th class="">
+                <th class="px-3">
                   <span title="게시글 작성 날짜" class="material-symbols-outlined text-[20px]">
                     calendar_month
                   </span>
                 </th>
-                <th class="">
+                <th class="px-3">
                   <span title="추천, 비추천 합계" class="material-symbols-outlined text-[20px]">
                     thumbs_up_down
                   </span>
                 </th>
-                <th class="">
+                <th class="px-3">
                   <span title="조회수" class="material-symbols-outlined text-[20px]">
                     visibility
                   </span>
@@ -448,6 +478,11 @@
                 </tbody>
               <? endforeach ?>
             </table>
+            <div class="<?= empty($board_hellow) ? '' : 'hidden' ?> relative">
+              <p class="flex justify-center place-items-center py-10">
+                데이터가 없습니다
+              </p>
+            </div>
           </div>
         </div>
       </div>

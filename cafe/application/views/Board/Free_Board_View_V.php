@@ -66,7 +66,7 @@
                 <!-- 구분선 -->
                 <div class="border-b border-gray-500 place-items-center"></div>
 
-                <div class="flex justify-around place-items-center">
+                <div class="flex justify-around place-items-center mt-2">
                   <div class="flex gap-2 place-items-center">
                     <img src="/uploads/<?= $li->profile ?>" alt="img" class="p-0.5 border border-[#4f4f4f] w-8 h-8 mt-1 rounded-[50%] <?= $li -> profile ? '' : 'hidden'?>">
                     <p class="material-symbols-outlined w-8 h-8 p-0.5 rounded-[50%] mt-1 text-gray-400 flex place-items-center justify-center <?= $li -> profile ? 'hidden' : '' ?>">
@@ -88,8 +88,10 @@
           </div>
 
           <!-- 데이터 없을시 -->
-          <div class="<?= empty($notice_list) ? 'inline-block' : 'hidden' ?> text-center">
-            <p>데이터가 없습니다</p>
+          <div class="<?= empty($notice_list) ? '' : 'hidden' ?> relative">
+            <p class="flex justify-center place-items-center py-10">
+              데이터가 없습니다
+            </p>
           </div>
 
         </div>
@@ -141,8 +143,10 @@
           </div>
 
           <!-- 데이터 없을시 -->
-          <div class="<?= empty($list) ? 'inline-block' : 'hidden' ?> text-center">
-            <p>데이터가 없습니다</p>
+          <div class="<?= empty($list) ? '' : 'hidden' ?> relative">
+            <p class="flex justify-center place-items-center py-10">
+              데이터가 없습니다
+            </p>
           </div>
 
         </div>

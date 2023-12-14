@@ -178,7 +178,7 @@
             <p class="font-bold">커뮤니티</p>
             <div id="new_post" >
               <p class="
-              <?= ($notice_total == 0 ? "hidden" : ($freeboard_total == 0 ? "hidden" : ($hellow_total == 0 ? "hidden" : '' ) ) ) ?> 
+              <?= ($notice_total + $freeboard_total + $hellow_total) == 0 ? "hidden" : '' ?> 
               h-5 w-5 rounded-[50%] bg-blue-500 border border-[#5f5f5f] text-xs pl-[4.5px] pt-[1px] duration-200 animate-pulse">
                 N
               </p>

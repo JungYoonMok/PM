@@ -322,31 +322,30 @@
               </p>
               <div class="flex flex-col gap-3 px-2">
               <? foreach( $get_post as $row ) : ?>
-                <? if (!empty($row)) : ?>
-                  <div class="flex justify-between gap-3">
-                    <div class="flex gap-1 place-items-center">
-                      <span class="material-symbols-outlined -scale-x-100">
-                        arrow_left
-                      </span>
-                      <a href="/<?= $row->board_type ?>/<?= $row->idx ?>" class="duration-200 hover:text-[#9f9f9f]">
-                        <?= mb_strimwidth($row->title, 0, 30, ' ..') ?>
-                      </a>
-                    </div>
-                    <div class="flex gap-1 place-items-center">
-                      <span class="material-symbols-outlined text-sm">
-                        schedule
-                      </span>
-                      <p>
-                        <?= date("Y-m-d") == substr($row->regdate, 0, 10) ? substr($row->regdate, 10, 6) : substr($row->regdate, 0, 10); ?>
-                      </p>
-                    </div>
+                <div class="flex justify-between gap-3">
+                  <div class="flex gap-1 place-items-center">
+                    <span class="material-symbols-outlined -scale-x-100">
+                      arrow_left
+                    </span>
+                    <a href="/<?= $row->board_type ?>/<?= $row->idx ?>" class="duration-200 hover:text-[#9f9f9f]">
+                      <?= mb_strimwidth($row->title, 0, 30, ' ..') ?>
+                    </a>
                   </div>
-                <? else: ?>
-                  <p class="">
+                  <div class="flex gap-1 place-items-center">
+                    <span class="material-symbols-outlined text-sm">
+                      schedule
+                    </span>
+                    <p>
+                      <?= date("Y-m-d") == substr($row->regdate, 0, 10) ? substr($row->regdate, 10, 6) : substr($row->regdate, 0, 10); ?>
+                    </p>
+                  </div>
+                </div>
+              <? endforeach ?>
+                <div class="<?= empty($get_post) ? '' : 'hidden' ?> relative">
+                  <p class="flex justify-center place-items-center py-10">
                     데이터가 없습니다
                   </p>
-                <? endif; ?>
-              <? endforeach ?>
+                </div>
               </div>
             </div>
 
@@ -358,31 +357,30 @@
               </p>
               <div class="flex flex-col gap-3 px-2">
               <? foreach( $get_comment as $row ) : ?>
-                <? if (!empty($row)) : ?>
-                  <div class="flex justify-between gap-3">
-                    <div class="flex gap-1 place-items-center">
-                      <span class="material-symbols-outlined -scale-x-100">
-                        arrow_left
-                      </span>
-                      <p>
-                        <?= strpos($row->content, 'removed') ? '⛑️ 관리자에 의해 차단' : mb_strimwidth($row->content, 0, 30, ' ..') ?>
-                      </p>
-                    </div>
-                    <div class="flex gap-1 place-items-center">
-                      <span class="material-symbols-outlined text-sm">
-                        schedule
-                      </span>
-                      <p>
-                        <?= date("Y-m-d") == substr($row->regdate, 0, 10) ? substr($row->regdate, 10, 6) : substr($row->regdate, 0, 10); ?>
-                      </p>
-                    </div>
-                  </div>
-                  <? else : ?>
-                    <p class="">
-                      데이터가 없습니다
+                <div class="flex justify-between gap-3">
+                  <div class="flex gap-1 place-items-center">
+                    <span class="material-symbols-outlined -scale-x-100">
+                      arrow_left
+                    </span>
+                    <p>
+                      <?= strpos($row->content, 'removed') ? '⛑️ 관리자에 의해 차단' : mb_strimwidth($row->content, 0, 30, ' ..') ?>
                     </p>
-                  <? endif; ?>
-                <? endforeach ?>
+                  </div>
+                  <div class="flex gap-1 place-items-center">
+                    <span class="material-symbols-outlined text-sm">
+                      schedule
+                    </span>
+                    <p>
+                      <?= date("Y-m-d") == substr($row->regdate, 0, 10) ? substr($row->regdate, 10, 6) : substr($row->regdate, 0, 10); ?>
+                    </p>
+                  </div>
+                </div>
+              <? endforeach ?>
+                <div class="<?= empty($get_comment) ? '' : 'hidden' ?> relative">
+                  <p class="flex justify-center place-items-center py-10">
+                    데이터가 없습니다
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -683,11 +681,11 @@
         <thead class="text-sm bg-[#3f3f3f] h-10">
           <th class="">ID</th>
           <th class="w-full">제목</th>
-          <th class="">작성자</th>
-          <th class="">작성날짜</th>
-          <th class="">추천</th>
-          <th class="">비추천</th>
-          <th class="">조회수</th>
+          <th class="px-3">작성자</th>
+          <th class="px-3">작성날짜</th>
+          <th class="px-3">추천</th>
+          <th class="px-3">비추천</th>
+          <th class="px-3">조회수</th>
         </thead>
         <? foreach ($list as $li): ?>
           <tr class="border-b border-[#4f4f4f] text-sm">
@@ -705,12 +703,14 @@
                 <p><?= $li->title ?></p>
               </a>
             </td>
-            <td class="flex place-items-center gap-2 px-3">
+            <td class="flex justify-center place-items-center gap-2 px-5">
               <img src="/uploads/<?= $li->profile ?>" alt="img" class="p-0.5 border border-[#4f4f4f] w-8 h-8 mt-1 rounded-[50%] <?= $li->profile ? '' : 'hidden'?>">
               <p class="material-symbols-outlined w-8 h-8 rounded-[50%] mt-1 p-0.5 text-gray-400 flex place-items-center justify-center <?= $li->profile ? 'hidden' : '' ?>">
                 person
               </p>
-              <?= $li->nickname ?>
+              <p>
+                <?= $li->nickname ?>
+              </p>
             </td>
             <td class="px-3">
               <?= (date("Y-m-d") == substr($li->regdate, 0, 10)) ? substr($li->regdate, 11, 5) : substr($li->regdate, 5, 5); ?>
