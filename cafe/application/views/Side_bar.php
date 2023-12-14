@@ -44,7 +44,7 @@
           
           <!-- 닉네임 및 등급 -->
           <div class="flex gap-3 place-items-center">
-            <a class="hover:underline underline-offset-4 hover:scale-[97%] hover:opacity-90 duration-200 decoration-2 decoration-yellow-500"
+            <a class="hover:underline underline-offset-4 hover:scale-[97%] hover:opacity-90 duration-200 decoration-2 decoration-white"
               href="/user_information_c">
               <?= $this->session->userdata('user_nickname') ?>
             </a>
@@ -105,7 +105,7 @@
             <p>소나무</p>
           </div>
           <a href="#"
-            class="hover:underline underline-offset-4 hover:scale-[97%] hover:opacity-90 duration-200 decoration-2 decoration-yellow-500">
+            class="hover:underline underline-offset-4 hover:scale-[97%] hover:opacity-90 duration-200 decoration-2 decoration-white">
             등급 안내
           </a>
         </div> -->
@@ -123,12 +123,12 @@
             <span class="material-symbols-outlined">
               post
             </span>
-            <a href="/my_activity/post" class="hover:underline underline-offset-4 hover:opacity-90 duration-200 decoration-2 decoration-yellow-500">
+            <a href="/my_activity/post" class="hover:underline underline-offset-4 hover:opacity-90 duration-200 decoration-2 decoration-white">
               내가 쓴 게시글
             </a>
           </div>
           <a href="/my_activity/post"
-            class="hover:underline underline-offset-4 hover:opacity-90 duration-200 decoration-2 decoration-yellow-500">
+            class="hover:underline underline-offset-4 hover:opacity-90 duration-200 decoration-2 decoration-white">
             <?= $post_total ?> 개
           </a>
         </div>
@@ -137,12 +137,12 @@
             <span class="material-symbols-outlined rotate-180">
               reply
             </span>
-            <a href="/my_activity/comment" class="hover:underline underline-offset-4 hover:opacity-90 duration-200 decoration-2 decoration-yellow-500">
+            <a href="/my_activity/comment" class="hover:underline underline-offset-4 hover:opacity-90 duration-200 decoration-2 decoration-white">
               내가 쓴 댓글
             </a>
           </div>
           <a href="/my_activity/comment"
-            class="hover:underline underline-offset-4 hover:opacity-90 duration-200 decoration-2 decoration-yellow-500">
+            class="hover:underline underline-offset-4 hover:opacity-90 duration-200 decoration-2 decoration-white">
             <?= $comment_total ?> 개
           </a>
         </div>
@@ -177,7 +177,9 @@
           <div class="flex gap-3 place-items-center">
             <p class="font-bold">커뮤니티</p>
             <div id="new_post" >
-              <p class="<?= $freeboard_total == 0 ? "hidden" : "" ?> h-5 w-5 rounded-[50%] bg-blue-500 border border-[#5f5f5f] text-xs pl-[4.5px] pt-[1px] duration-200 animate-pulse">
+              <p class="
+              <?= ($notice_total == 0 ? "hidden" : ($freeboard_total == 0 ? "hidden" : ($hellow_total == 0 ? "hidden" : '' ) ) ) ?> 
+              h-5 w-5 rounded-[50%] bg-blue-500 border border-[#5f5f5f] text-xs pl-[4.5px] pt-[1px] duration-200 animate-pulse">
                 N
               </p>
             </div>

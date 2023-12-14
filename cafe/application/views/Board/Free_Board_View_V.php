@@ -1,55 +1,110 @@
 <!-- 메인 틀 -->
 <div id="base" class="flex duration-200 bg-[#3f3f3f] text-gray-50 w-full relative">
-
+<input id="seg" type="text" value="<?= $this->uri->segment(1) ?>" hidden>
   <!-- 메인 베이스 -->
   <div class="flex flex-col justify-between w-full">
 
     <!-- 메인 -->
     <div class="gap-3 w-full p-1 md:p-5 flex flex-col">
 
-    <div class="flex flex-col gap-5">
+      <div class="flex flex-col gap-5">
 
-      <div class="bg-[#2f2f2f] border shadow-2xl border-[#4f4f4f] opacity-90 p-5 flex flex-col gap-5">
+        <div class="bg-[#2f2f2f] border shadow-2xl border-[#4f4f4f] opacity-90 p-5 flex flex-col gap-5">
 
-        <!-- 상단 정보 및 정보 -->
-        <div class="flex gap-1">
-          <p>
-            <?= 
-            ($this->uri->segment(1) == 'notice' ? '공지사항' : 
-            ($this->uri->segment(1) == 'freeboard' ? '자유게시판' : 
-            ($this->uri->segment(1) == 'hellow' ? '가입인사' :
-            '어디지? 어딜까' ) ) );
-            ?>
-            - 전체 게시물</p>
-          <p id='total_value' class="font-bold animate-pulse"></p>
-          <p>개</p>
+          <!-- 상단 정보 및 정보 -->
+          <div class="flex gap-1">
+            <p>
+              <?= 
+              ($this->uri->segment(1) == 'notice' ? '공지사항' :
+              ($this->uri->segment(1) == 'freeboard' ? '자유게시판' :
+              ($this->uri->segment(1) == 'hellow' ? '가입인사' :
+              '어디지? 어딜까' ) ) );
+              ?>
+              - 전체 게시물</p>
+            <p id='total_value' class="font-bold animate-pulse"></p>
+            <p>개</p>
+          </div>
+
+          <div class="<?= $this->uri->segment(1) == 'notice' ? 'hidden' : '' ?> border border-[#4f4f4f] p-3 rounded bg-[#1f1f1f]">
+            <p>자유로운 소통의 공간입니다, 악의적인 글은 삼가해 주세요 😉</p>
+          </div>
+
         </div>
 
-        <div class="border border-[#4f4f4f] p-3 rounded bg-[#1f1f1f]">
-          <p>자유로운 소통의 공간입니다, 악의적인 글은 삼가해 주세요 😉</p>
+        <!-- 공지사항 -->
+        <div class="
+        <?= $this->uri->segment(1) == 'notice' ? 'hidden' : '' ?> 
+        bg-[#2f2f2f] border shadow-2xl border-[#4f4f4f] opacity-90 p-5 flex flex-col gap-5
+        ">
+          <div class="flex gap-3 place-items-center">
+            <span class="material-symbols-outlined duration-200">
+              notifications
+            </span>
+            <div class="flex justify-between w-full">
+              <p>공지사항</p>
+              <a href="/notice/list" class="flex gap-2 place-items-center duration-200 hover:translate-x-1">
+                <p>더보기</p>
+                <span class="material-symbols-outlined text-[20px]">
+                  arrow_forward_ios
+                </span>
+              </a>
+            </div>
+          </div>
+            
+          <div class="text-gray-50 w-full py-3 lg:justify-center relative flex gap-3 overflow-x-auto overflow-y-auto">
+          <? foreach ($notice_list as $li) : ?>
+            <div class="flex flex-col justify-between shadow-xl w-full max-w-[300px] min-w-[250px] xl:min-w-min h-full min-h-[150px] gap-3 bg-[#0f0f0f] border border-[#4f4f4f] hover:border-[#0f0f0f] p-3 rounded duration-200 hover:translate-y-1">
+
+              <div class="flex gap-3">
+                <a href="/<?= $li->board_type?>/<?= $li->idx?>" class="duration-200 hover:opacity-70">
+                  <?= mb_strimwidth($li->title, 0, 60, ' ..') ?>
+                </a>
+              </div>
+              
+              <div class="flex flex-col text-sm">
+
+                <!-- 구분선 -->
+                <div class="border-b border-gray-500 place-items-center"></div>
+
+                <div class="flex justify-around place-items-center">
+                  <div class="flex gap-2 place-items-center">
+                    <img src="/uploads/<?= $li->profile ?>" alt="img" class="p-0.5 border border-[#4f4f4f] w-8 h-8 mt-1 rounded-[50%] <?= $li -> profile ? '' : 'hidden'?>">
+                    <p class="material-symbols-outlined w-8 h-8 p-0.5 rounded-[50%] mt-1 text-gray-400 flex place-items-center justify-center <?= $li -> profile ? 'hidden' : '' ?>">
+                      person
+                    </p>
+                    <p class="tracking-wider">
+                      <?= $li->nickname ?>
+                    </p>
+                  </div>
+                  <p>
+                    <?= (date("Y-m-d") == substr($li->regdate, 0, 10)) ? substr($li->regdate, 11, 5) : substr($li->regdate, 5, 5); ?>
+                  </p>
+                </div>
+
+              </div>
+
+            </div>
+          <? endforeach; ?>
+          </div>
+
+          <!-- 데이터 없을시 -->
+          <div class="<?= empty($notice_list) ? 'inline-block' : 'hidden' ?> text-center">
+            <p>데이터가 없습니다</p>
+          </div>
+
         </div>
 
-      </div>
-
-      <!-- 공지사항 -->
-      <div class="
-      <?= $this->uri->segment(1) == 'notice' ? 'hidden' : '' ?> 
-      bg-[#2f2f2f] border shadow-2xl border-[#4f4f4f] opacity-90 p-5 flex flex-col gap-5
-      ">
-        <p>공지사항</p>
-      </div>
-
-      <!-- 상단 메뉴 -->
-      <div class="flex justify-between place-items-center">
-        <a href="/post_create" class="border outline-none border-[#4f4f4f] py-3 px-16 rounded hover:bg-[#2f2f2f] duration-200 bg-[#1f1f1f]">
-          <p>글쓰기</p>
-        </a>
-        <div class="flex gap-5 bg-[#1f1f1f] px-5 py-3">
-          <p class="">정렬</p>
-          <p class="text-[#4f4f4f]">|</p>
-          <p class="">최신순</p>
+        <!-- 상단 메뉴 -->
+        <div class="flex justify-between place-items-center">
+          <a href="/post_create" class="border outline-none border-[#4f4f4f] py-3 px-16 rounded hover:bg-[#2f2f2f] duration-200 bg-[#1f1f1f]">
+            <p>글쓰기</p>
+          </a>
+          <div class="flex gap-5 bg-[#1f1f1f] px-5 py-3">
+            <p class="">정렬</p>
+            <p class="text-[#4f4f4f]">|</p>
+            <p class="">최신순</p>
+          </div>
         </div>
-      </div>
 
       </div>
       
@@ -109,6 +164,8 @@
 <script src="/javascript/board/board_view.js"></script>
 
 <script>
+
+$(document).ready(function() {
 
   // AJAX 요청 성공 시 호출되는 함수
   function updateTableWithFetchedData(list, links) {
@@ -275,8 +332,8 @@
   $('.pagination').html(links);
 }
 
-  // 게시글 답글 보기
-  $(document).on('click', '#post_reply_show_btn', function(e) {
+// 게시글 답글 보기
+$(document).on('click', '#post_reply_show_btn', function(e) {
   e.preventDefault();
   var postId = $(this).val();
 
@@ -431,9 +488,9 @@
 });
 
 // 게시판 목록을 가져오는 AJAX 호출
-function fetchBoardList(page) {
+function fetchBoardList(type, page) {
   $.ajax({
-    url: '/Free_Board_View_C/list/'+ page,
+    url: '/Free_Board_View_C/list_' + type + '/'+ page,
     type: 'GET',
     dataType: 'json',
     success: function(response) {
@@ -451,14 +508,12 @@ function fetchBoardList(page) {
   });
 }
 
-$(document).ready(function() {
-
-  fetchBoardList();
+  fetchBoardList($('#seg').val());
 
   $(document).on('click', '.pagination a', function(e) {
     e.preventDefault();
     var page = $(this).attr('href').split('list/')[1];
-    fetchBoardList(page); // 페이지 번호를 인자로 넘겨 해당 페이지 데이터를 불러오는 함수
+    fetchBoardList($('#seg').val(), page); // 페이지 번호를 인자로 넘겨 해당 페이지 데이터를 불러오는 함수
   });
 
   $('#search_btn').click(function(e) {
@@ -485,7 +540,7 @@ $(document).ready(function() {
   $.ajax({
     url: "/Free_Board_View_C/search", // AJAX를 처리할 컨트롤러 메소드
     type: "GET", // 데이터를 가져오므로 GET 사용
-    data: { type: searchType, text: searchText },
+    data: { type: searchType, text: searchText, segment: $('#seg').val() },
     dataType: "json",
     success: function(response) {
       if(response.state) {

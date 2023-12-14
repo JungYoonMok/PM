@@ -6,14 +6,15 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 // 라우트
-$route['notice/list'] = 'free_board_view_c/list';
+$route['notice/list'] = 'free_board_view_c/list_notice';
 $route['notice/(:num)'] = 'free_board_detail_c/show/$1';
 
-$route['hellow/list'] = 'free_board_view_c/list';
+$route['hellow/list'] = 'free_board_view_c/list_hellow';
 $route['hellow/(:num)'] = 'free_board_detail_c/show/$1';
 
-$route['freeboard/list'] = 'free_board_view_c/list';
+$route['freeboard/list'] = 'free_board_view_c/list_freeboard';
 $route['freeboard/list/(:num)'] = 'free_board_view_c/list/$1';
+
 $route['freeboard/(:num)'] = 'free_board_detail_c/show/$1';
 $route['freeboard/(:num)/(:num)'] = 'free_board_detail_c/show/$1/$1';
 

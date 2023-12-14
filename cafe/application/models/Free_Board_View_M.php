@@ -8,15 +8,31 @@ class Free_Board_View_M extends CI_Model {
     parent::__construct();
   }
 
-  public function pagination() {
-    $this->db->where('board_type', 'freeboard');
+  public function notice_list() {
+    $this->db->select('boards.*,');
+    $this->db->select('(SELECT COUNT(*) FROM boards as reply WHERE reply.group_idx = boards.idx AND reply.group_order > 0) as reply_count', FALSE);
+    $this->db->select('(SELECT COUNT(*) FROM boards_comment WHERE boards_idx = boards.idx) as comment_count', FALSE);
+    $this->db->select('(SELECT user_profile FROM members WHERE user_id = boards.user_id) as profile', FALSE);
+    $this->db->select('(SELECT user_nickname FROM members WHERE user_id = boards.user_id) as nickname', FALSE);
+    $this->db->where('board_type', 'notice');
+    $this->db->where('group_order', '0'); // 답글이 아닌 경우 제외
+    $this->db->where('board_delete', '0'); // 삭제된글 제외
+    $this->db->order_by('idx', 'desc');
+    $this->db->limit(5);
+    $query = $this->db->get('boards');
+
+    return $query->result();
+  }
+
+  public function pagination($seg) {
+    $this->db->where('board_type', $seg);
     $this->db->where('group_order', '0');
     $this->db->where('board_delete', '0'); // 삭제된글 제외
     $result = $this->db->count_all_results('boards');
     return $result;
   }
 
-  public function pagination_seach($type, $search_text) {
+  public function pagination_seach($seg, $type, $search_text) {
     // 검색 타입에 따른 컬럼 설정
     switch ($type) {
       case '제목만':
@@ -28,7 +44,7 @@ class Free_Board_View_M extends CI_Model {
       // 기타 검색 타입들...
     }
 
-    $this->db->where('board_type', 'freeboard');
+    $this->db->where('board_type', $seg);
     $this->db->where('group_order', '0');
     $this->db->where('board_delete', '0'); // 삭제된글 제외
     $result = $this->db->count_all_results('boards');
@@ -45,8 +61,7 @@ class Free_Board_View_M extends CI_Model {
     return $board;
   }
 
-  public function GetBoardList($limit, $start) {
-    $test = 
+  public function GetBoardList($seg, $limit, $start) {
     $this->db->select('boards.*,');
     $this->db->select('(SELECT COUNT(*) FROM board_like WHERE like_type = 1 AND boards_idx = boards.idx) as like_count', FALSE);
     $this->db->select('(SELECT COUNT(*) FROM board_like WHERE like_type = 0 AND boards_idx = boards.idx) as dislike_count', FALSE);
@@ -55,21 +70,22 @@ class Free_Board_View_M extends CI_Model {
     $this->db->select('(SELECT user_profile FROM members WHERE user_id = boards.user_id) as profile', FALSE);
     $this->db->select('(SELECT user_nickname FROM members WHERE user_id = boards.user_id) as nickname', FALSE);
     $this->db->select('(SELECT COUNT(*) FROM boards_comment WHERE boards_idx = boards.idx) as comment_count', FALSE);
-    $this->db->where('board_type', $this->uri->segment(1));
+    $this->db->where('board_type', $seg);
     $this->db->where('group_order', '0'); // 답글이 아닌 경우 제외
     $this->db->where('board_delete', '0'); // 삭제된글 제외
     $this->db->order_by('idx', 'desc');
     $this->db->limit($limit, $start);
     $query = $this->db->get('boards');
+
     return $query->result();
   }
   
-  public function GetBoardTotal() {
-    $result = $this->db->query("SELECT idx FROM boards WHERE board_type = 'freeboard' ;")->num_rows();
+  public function GetBoardTotal($seg) {
+    $result = $this->db->query("SELECT idx FROM boards WHERE board_type = '".$seg."' ;")->num_rows();
     return $result;
   }
 
-  public function search($type, $search_text, $limit, $start) {
+  public function search($seg, $type, $search_text, $limit, $start) {
     $this->db->select('boards.*,');
     $this->db->select('(SELECT COUNT(*) FROM board_like WHERE like_type = 1 AND boards_idx = boards.idx) as like_count', FALSE);
     $this->db->select('(SELECT COUNT(*) FROM board_like WHERE like_type = 0 AND boards_idx = boards.idx) as dislike_count', FALSE);
@@ -78,7 +94,7 @@ class Free_Board_View_M extends CI_Model {
     $this->db->select('(SELECT user_profile FROM members WHERE user_id = boards.user_id) as profile', FALSE);
     $this->db->select('(SELECT user_nickname FROM members WHERE user_id = boards.user_id) as nickname', FALSE);
     $this->db->select('(SELECT COUNT(*) FROM boards_comment WHERE boards_idx = boards.idx) as comment_count', FALSE);
-    $this->db->where('board_type', 'freeboard');
+    $this->db->where('board_type', $seg);
     $this->db->where('group_order', '0'); // 답글이 아닌 경우 제외
     $this->db->where('board_delete', '0'); // 삭제된글 제외
     $this->db->order_by('idx', 'desc');

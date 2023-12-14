@@ -103,7 +103,7 @@
           <div 
           id="profile_old" 
           class="
-          flex flex-wrap gap-3 w-full border bg-[#3f3f3f] shadow-md border-[#2f2f2f] justify-center place-items-center max-h-50 p-3 rounded overflow-y-scroll
+          flex flex-wrap gap-3 w-full border bg-[#1f1f1f] shadow-md border-[#3f3f3f] justify-center place-items-center h-full max-h-52 p-3 rounded overflow-y-scroll
           ">
           </div>
   
@@ -552,17 +552,17 @@
           // 답글 데이터를 HTML로 변환하여 추가
           profileBox.append(`
           <div class="profile-container relative flex justify-center place-items-center rounded">
-          <img src="/uploads/${profile.file_name}" title="업로드 - ${profile.regdate}" class="w-20 h-20 rounded duration-200"></img>
-          <button title="해당 프로필 삭제" data-profileid="${profile.file_name}" class="remove-btn hover:scale-125 rounded-[50%] absolute top-1 duration-200 w-5 h-5 flex justify-center place-items-center right-1 p-1 bg-[#1f1f1f] hover:bg-red-500">
-          <span class="material-symbols-outlined text-[20px]">
-          close
-          </span>
-          </button>
-          <button title="해당 프로필 적용" data-profileid="${profile.file_name}" class="update-btn hover:scale-125 rounded-[50%] absolute top-1 duration-200 w-5 h-5 flex justify-center place-items-center left-1 p-1 bg-[#1f1f1f] hover:bg-green-500">
-          <span class="material-symbols-outlined text-[20px]">
-          check
-          </span>
-          </button>
+            <img src="/uploads/${profile.file_name}" title="업로드 - ${profile.regdate}" class="w-20 h-20 rounded duration-200"></img>
+            <button title="${profile.file_name} 프로필 삭제" data-profileid="${profile.file_name}" class="remove-btn hover:scale-125 rounded-[50%] absolute top-1 duration-200 w-5 h-5 flex justify-center place-items-center right-1 p-1 bg-[#1f1f1f] hover:bg-red-500">
+              <span class="material-symbols-outlined text-[20px]">
+                close
+              </span>
+            </button>
+            <button title="${profile.file_name} 프로필로 적용하기" data-profileid="${profile.file_name}" class="update-btn hover:scale-125 rounded-[50%] absolute top-1 duration-200 w-5 h-5 flex justify-center place-items-center left-1 p-1 bg-[#1f1f1f] hover:bg-green-500">
+              <span class="material-symbols-outlined text-[20px]">
+                check
+              </span>
+            </button>
           </div>
           `);
         });
@@ -594,6 +594,10 @@
     e.preventDefault();
     var profileId = $(this).data('profileid'); // 프로필 ID를 가져옵니다.
     var button = $(this); // 현재 클릭된 버튼을 저장
+
+    if(!confirm(profileId + ' 프로필로 삭제하시겠습니까?')) {
+      return;
+    }
 
     $.ajax({
       url: '/user_information_c/delete_profile',
