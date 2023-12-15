@@ -249,7 +249,7 @@
             <div class="flex gap-2 place-items-center">
 
               <div class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border border-gray-500 h-16 w-16 bg-[#3f3f3f]">
-                <? if ($user->user_profile == '' || null) : ?>
+                <? if (empty($user->user_profile)) : ?>
                   <p class="material-symbols-outlined text-5xl text-gray-400 flex place-items-center justify-center">
                     person
                   </p>
@@ -410,24 +410,16 @@
                   <!-- 프로필 -->
 
                   <div class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border border-gray-500 h-16 w-16 bg-[#3f3f3f]">
-                    <? if ($user->user_profile == '' || null) : ?>
+                    <? if (empty($com->user_profile)) : ?>
                       <p class="material-symbols-outlined text-5xl text-gray-400 flex place-items-center justify-center">
                         person
                       </p>
                     <? else : ?>
-                      <img width="100%" src="/uploads/<?= $user->user_profile ?>"
+                      <img width="100%" src="/uploads/<?= $com->user_profile ?>"
                         class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400 duration-200">
                       </img>
                     <? endif ?>
                   </div>
-                
-                  <!-- <div class="drop-shadow-2xl flex rounded-[50%] place-content-center border border-[#4f4f4f] h-14 w-14 bg-[#3f3f3f]">
-                    <img 
-                      width="100%" src="/uploads/<?= $user->user_profile ?>"
-                      class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400">
-                    </img>
-                  </div> -->
-
                   <div class="<?= $post->user_id == $com->user_id ? 'inline-block' : 'hidden' ?> absolute top-12 w-full">
                     <p class="text-xs text-center bg-blue-500 rounded px-1">
                       작성자
@@ -539,8 +531,9 @@
                     <input name="group_idx" type="number" hidden value="<?= $com->group_idx ?>"></input>
                     <input name="group_order" type="number" hidden value="<?= $com->group_order ?>"></input>
                     <input name="depth" type="number" hidden value="<?= $com->depth ?>"></input>
-
+                    
                     <input id='bd_id' name="board_id" type="number" hidden value="<?= $post->idx ?>"></input>
+                    <input id='post_user_id' name="post_user_id" type="text" hidden value="<?= $post->user_id ?>"></input>
                     <input name="board_type" type="text" hidden value="<?= $post->board_type ?>"></input>
                     <input name="user_id" type="text" hidden value="<?= $this->session->userdata('user_id') ?>"></input>
 
@@ -568,11 +561,6 @@
           <? endforeach ?>
           
         </div>
-
-        <!-- 뷰에서 페이지네이션 링크 출력 -->
-        <!-- <div class="my-5 <?= $post->board_comment ? '' : 'hidden' ?>"> -->
-          <?= $links; ?>
-        <!-- </div> -->
 
         <!-- 댓글 리스트 없을때 -->
         <div class="flex justify-center bg-[#1f1f1f] p-5 border border-[#4f4f4f] <?= empty($comment) ? '' : 'hidden' ?>">

@@ -63,13 +63,15 @@ function post_delete($idx){
     dataType: 'json',
     data: { 
       idx: $idx,
+      boards_idx: $('#bd_id').val(),
     },
     success: response => {
       if(response.state) {
         location.reload();
       } else {
-        console.log(response);
-        $('#error_txt').text(response.message); // 에러 메시지 출력
+        alert(response.message);
+        // console.log(response);
+        // $('#error_txt').text(response.message); // 에러 메시지 출력
       }
     },
     error: ( response, s, e ) => {
@@ -89,14 +91,14 @@ function comment_update($idx){
     dataType: 'json',
     data: { 
       idx: $idx,
+      boards_idx: $('#bd_id').val(),
       content: $('#comment_update_value' + $idx).val(),
     },
     success: response => {
       if(response.state) {
         location.reload();
       } else {
-        console.log(response);
-        $('#error_txt').text(response.message); // 에러 메시지 출력
+        alert(response.message);
       }
     },
     error: ( response, s, e ) => {
@@ -121,8 +123,9 @@ function comment_delete($idx){
       if(response.state) {
         location.reload();
       } else {
-        console.log(response);
-        $('#error_txt').text(response.message); // 에러 메시지 출력
+        alert(response.message);
+        // console.log(response);
+        // $('#error_txt').text(response.message); // 에러 메시지 출력
       }
     },
     error: ( response, s, e ) => {

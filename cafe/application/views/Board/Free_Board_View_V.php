@@ -30,71 +30,74 @@
           </div>
 
         </div>
-
         <!-- 공지사항 -->
-        <div class="
-        <?= $this->uri->segment(1) == 'notice' ? 'hidden' : '' ?> 
-        bg-[#2f2f2f] border shadow-2xl border-[#4f4f4f] opacity-90 p-5 flex flex-col
-        ">
-          <div class="flex gap-3 place-items-center">
-            <span class="material-symbols-outlined duration-200">
-              notifications
-            </span>
-            <div class="flex justify-between w-full">
-              <p>공지사항</p>
-              <a href="/notice/list" class="flex gap-2 place-items-center duration-200 hover:translate-x-1">
-                <p>더보기</p>
-                <span class="material-symbols-outlined text-[20px]">
-                  arrow_forward_ios
-                </span>
-              </a>
-            </div>
-          </div>
-            
-          <div class="text-gray-50 w-full py-6 px-2 lg:justify-center relative flex gap-3 overflow-x-auto overflow-y-auto">
-          <? foreach ($notice_list as $li) : ?>
-            <a href="/<?= $li->board_type?>/<?= $li->idx?>" class="flex flex-col justify-between shadow-xl hover:shadow-lg hover:shadow-blue-400 w-full max-w-[300px] min-w-[250px] xl:min-w-min h-full min-h-[150px] gap-3 bg-[#0f0f0f] border border-[#4f4f4f] hover:border-[#0f0f0f] p-3 rounded duration-200 hover:translate-y-1">
-
-              <div class="flex gap-3 text-sm">
-                <p class="duration-200 hover:text-white">
-                  <?= mb_strimwidth($li->title, 0, 70, ' ..') ?>
-                </p>
+        <? if($this->uri->segment(1) != 'notice') : ?>
+          
+          <div class="
+          <?= $this->uri->segment(1) == 'notice' ? 'hidden' : '' ?> 
+          bg-[#2f2f2f] border shadow-2xl border-[#4f4f4f] opacity-90 p-5 flex flex-col
+          ">
+            <div class="flex gap-3 place-items-center">
+              <span class="material-symbols-outlined duration-200">
+                notifications
+              </span>
+              <div class="flex justify-between w-full">
+                <p>공지사항</p>
+                <a href="/notice/list" class="flex gap-2 place-items-center duration-200 hover:translate-x-1">
+                  <p>더보기</p>
+                  <span class="material-symbols-outlined text-[20px]">
+                    arrow_forward_ios
+                  </span>
+                </a>
               </div>
+            </div>
               
-              <div class="flex flex-col text-sm">
-
-                <!-- 구분선 -->
-                <div class="border-b border-gray-500 place-items-center"></div>
-
-                <div class="flex justify-around place-items-center mt-2">
-                  <div class="flex gap-2 place-items-center">
-                    <img src="/uploads/<?= $li->profile ?>" alt="img" class="p-0.5 border border-[#4f4f4f] w-8 h-8 mt-1 rounded-[50%] <?= $li -> profile ? '' : 'hidden'?>">
-                    <p class="material-symbols-outlined w-8 h-8 p-0.5 rounded-[50%] mt-1 text-gray-400 flex place-items-center justify-center <?= $li -> profile ? 'hidden' : '' ?>">
-                      person
-                    </p>
-                    <p class="tracking-wider">
-                      <?= $li->nickname ?>
-                    </p>
-                  </div>
-                  <p>
-                    <?= (date("Y-m-d") == substr($li->regdate, 0, 10)) ? substr($li->regdate, 11, 5) : substr($li->regdate, 5, 5); ?>
+            <div class="text-gray-50 w-full py-6 px-2 lg:justify-center relative flex gap-3 overflow-x-auto overflow-y-auto">
+            <? foreach ($notice_list as $li) : ?>
+              <a href="/<?= $li->board_type?>/<?= $li->idx?>" class="flex flex-col justify-between shadow-xl hover:shadow-lg hover:shadow-blue-400 w-full max-w-[300px] min-w-[250px] xl:min-w-min h-full min-h-[150px] gap-3 bg-[#0f0f0f] border border-[#4f4f4f] hover:border-[#0f0f0f] p-3 rounded duration-200 hover:translate-y-1">
+  
+                <div class="flex gap-3 text-sm">
+                  <p class="duration-200 hover:text-white">
+                    <?= mb_strimwidth($li->title, 0, 70, ' ..') ?>
                   </p>
                 </div>
-
-              </div>
-
-            </a>
-          <? endforeach; ?>
+                
+                <div class="flex flex-col text-sm">
+  
+                  <!-- 구분선 -->
+                  <div class="border-b border-gray-500 place-items-center"></div>
+  
+                  <div class="flex justify-around place-items-center mt-2">
+                    <div class="flex gap-2 place-items-center">
+                      <img src="/uploads/<?= $li->profile ?>" alt="img" class="p-0.5 border border-[#4f4f4f] w-8 h-8 mt-1 rounded-[50%] <?= $li -> profile ? '' : 'hidden'?>">
+                      <p class="material-symbols-outlined w-8 h-8 p-0.5 rounded-[50%] mt-1 text-gray-400 flex place-items-center justify-center <?= $li -> profile ? 'hidden' : '' ?>">
+                        person
+                      </p>
+                      <p class="tracking-wider">
+                        <?= $li->nickname ?>
+                      </p>
+                    </div>
+                    <p>
+                      <?= (date("Y-m-d") == substr($li->regdate, 0, 10)) ? substr($li->regdate, 11, 5) : substr($li->regdate, 5, 5); ?>
+                    </p>
+                  </div>
+  
+                </div>
+  
+              </a>
+            <? endforeach; ?>
+            </div>
+  
+            <!-- 데이터 없을시 -->
+            <div class="<?= empty($notice_list) ? '' : 'hidden' ?> relative">
+              <p class="flex justify-center place-items-center py-10">
+                데이터가 없습니다
+              </p>
+            </div>
+  
           </div>
-
-          <!-- 데이터 없을시 -->
-          <div class="<?= empty($notice_list) ? '' : 'hidden' ?> relative">
-            <p class="flex justify-center place-items-center py-10">
-              데이터가 없습니다
-            </p>
-          </div>
-
-        </div>
+          
+        <? endif ?>
 
         <!-- 상단 메뉴 -->
         <div class="flex justify-between place-items-center">

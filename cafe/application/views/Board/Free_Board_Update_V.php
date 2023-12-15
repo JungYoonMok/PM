@@ -71,7 +71,7 @@
               
               <div class="flex gap-3">
                 <div class="w-full flex">
-                  <input id="1_a" type="radio" value="1" checked name="post_open" class="hidden peer">
+                  <input id="1_a" type="radio" value="1" <?= $post->board_state ? 'checked' : ''?> name="post_open" class="hidden peer">
                   <label for="1_a" class="duration-200 w-full py-4 font-medium border-2 rounded border-[#4f4f4f] ps-5 peer-checked:text-white peer-checked:border-[#4f4f4f] peer-checked:bg-[#1f1f1f]">
                     <div class="flex gap-1 place-items-center">
                       <span class="material-symbols-outlined text-[#4f4f4f]">
@@ -84,7 +84,7 @@
                   </label>
                 </div>
                 <div class="w-full flex">
-                  <input id="2_a" type="radio" value="0" name="post_open" class="hidden peer">
+                  <input id="2_a" type="radio" value="0" <?= !$post->board_state ? 'checked' : ''?> name="post_open" class="hidden peer">
                   <label for="2_a" class="duration-200 w-full py-4 font-medium border-2 rounded border-[#4f4f4f] ps-5 peer-checked:text-white peer-checked:border-[#4f4f4f] peer-checked:bg-[#1f1f1f]">
                     <div class="flex gap-1 place-items-center">
                       <span class="material-symbols-outlined text-[#4f4f4f]">
@@ -105,7 +105,7 @@
               <div class="flex gap-3">
 
                 <div class="flex w-full">
-                  <input id="1_b" type="radio" value="1" checked name="comment_open" class="hidden peer">
+                  <input id="1_b" type="radio" value="1" <?= $post->board_comment ? 'checked' : ''?> name="comment_open" class="hidden peer">
                   <label for="1_b" class="duration-200 w-full py-4 font-medium border-2 rounded border-[#4f4f4f] ps-5 peer-checked:text-white peer-checked:border-[#4f4f4f] peer-checked:bg-[#1f1f1f]">
                     <div class="flex gap-1 place-items-center">
                       <span class="material-symbols-outlined text-[#4f4f4f]">
@@ -119,7 +119,7 @@
                 </div>
 
                 <div class="flex w-full">
-                  <input id="2_b" type="radio" value="0" name="comment_open" class="hidden peer">
+                  <input id="2_b" type="radio" value="0" <?= !$post->board_comment ? 'checked' : ''?> name="comment_open" class="hidden peer">
                   <label for="2_b" class="duration-200 w-full py-4 font-medium border-2 rounded border-[#4f4f4f] ps-5 peer-checked:text-white peer-checked:border-[#4f4f4f] peer-checked:bg-[#1f1f1f]">
                     <div class="flex gap-1 place-items-center">
                       <span class="material-symbols-outlined text-[#4f4f4f]">

@@ -114,12 +114,22 @@ class Free_Board_Detail_M extends CI_Model {
   }
 
   public function get_comments($idx, $limit, $start) {
+    $this->db->select('boards_comment.*, members.user_profile');
+    $this->db->from('boards_comment');
+    $this->db->join('members', 'boards_comment.user_id = members.user_id', 'left');
+    $this->db->where('boards_comment.boards_idx', $idx);
     $this->db->order_by('group_idx', 'asc');
     $this->db->order_by('group_order', 'asc');
     $this->db->limit($limit, $start);
-    $comment = $this->db->get_where('boards_comment', ['boards_idx' => $idx ]) -> result();
-    // $comment = $this->db->get_where('boards_comment', ['boards_idx' => $idx, 'delete_state' => FALSE ]) -> result();
+    $comment = $this->db->get()->result();
     return $comment;
+
+    // $this->db->order_by('group_idx', 'asc');
+    // $this->db->order_by('group_order', 'asc');
+    // $this->db->limit($limit, $start);
+    // $comment = $this->db->get_where('boards_comment', ['boards_idx' => $idx ]) -> result();
+    // // $comment = $this->db->get_where('boards_comment', ['boards_idx' => $idx, 'delete_state' => FALSE ]) -> result();
+    // return $comment;
   }
 
   public function comments_create() {

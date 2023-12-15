@@ -16,6 +16,18 @@ class Free_board_Detail_C extends CI_Controller {
   }
 
   public function post_delete() {
+
+    // 작성자가 아니면 삭제 불가능
+    $board_id = $this->input->post('boards_idx');
+    $board = $this->FBM->get_post($board_id)->user_id;
+
+    $user_id = $board;
+    if($user_id != $this->session->userdata('user_id')) {
+      echo json_encode([ 'state' => FALSE, 'message' => $this->input->post('post_user_id') ]);
+      // return;
+      exit;
+    }
+
     $result =  $this->FBM->post_delete();
     if($result) {
       echo json_encode([ 'state' => TRUE, 'message' => '게시글 삭제 성공' ]);
@@ -24,7 +36,12 @@ class Free_board_Detail_C extends CI_Controller {
     }
   }
 
+  private $board_number; // 초기 보드 아이디
+
   public function show($idx) {
+    // 초기 보드 아이디 지정
+    $this->board_number = $idx;
+
     // 페이지네이션
     $config['base_url'] = "/freeboard/" . $idx . "/"; // 기본 URL 설정
     $config['total_rows'] = $this->FBM->pagination($idx); // 전체 행의 수
@@ -101,11 +118,12 @@ class Free_board_Detail_C extends CI_Controller {
     } else {
       $data['like_value'] = 'none';
     }
-    // if($like_value->like_type == true) {
-    //   $data['like_value'] = '좋아요';
-    // } else {
-    //   $data['like_value'] = '싫어요';
-    // }
+
+    // 게시글 작성자와 로그인한 유저가 같은지 확인 비밀글 체크
+    $hide_check = $data['post']->user_id == $this->session->userdata('user_id');
+    if($hide_check === FALSE && $data['post']->board_state === '0') {
+      return redirect('/' . $data['post']->board_type . '/list');
+    }
     
     $this->layout->custom_view('board/free_board_detail_v', $data);
   }
@@ -155,6 +173,16 @@ class Free_board_Detail_C extends CI_Controller {
     //   show_error('AJAX 요청만 가능합니다.', 403);
     // }
 
+    $board_id = $this->input->post('board_id');
+    $board = $this->FBM->get_post($board_id);
+    
+    // 댓글 작성 비활성일 때
+    if($board->board_comment == 0) {
+      // echo json_encode([ 'state' => FALSE, 'message' => '댓글이 비활성화 되어 있습니다' ]);
+      redirect("/" . $board->board_type . '/list');
+      return;
+    } 
+
     // 폼 벨리데이션으로 폼의 필수값을 지정
     $this->form_validation->set_rules('board_id', 'Board_id', 'required');
     $this->form_validation->set_rules('board_type', 'Board_type', 'required');
@@ -162,30 +190,55 @@ class Free_board_Detail_C extends CI_Controller {
     $this->form_validation->set_rules('user_id', 'User_id', 'required');
 
     if ($this->form_validation->run()) {
-
-      // if ($result) {
-      //   echo json_encode(['status' => 'success', 'message' => '댓글이 추가되었습니다.']);
-      // } else {
-      //   echo json_encode(['status' => 'error', 'message' => '댓글 추가에 실패했습니다.']);
-      // }
-      $board_id = $this->input->post('board_id');
-
-      // board 라는 별칭 안에 store를 실행
       $this->FBM->comments_create();
-
-      // 정상적이면 리다이렉트 실행
-      redirect("/freeboard/" . $board_id);
-
+      redirect("/" . $board->board_type ."/" . $board_id);
     } else {
-      echo "Board Create Error..";
+      echo "벨리데이션 검증 실패";
     }
   }
 
   public function reply_comment_create() {
+    $board_id = $this->input->post('board_id');
+    $board = $this->FBM->get_post($board_id);
+    
+    // 댓글 작성 비활성일 때
+    if($board->board_comment == 0) {
+      echo json_encode([ 'state' => FALSE, 'message' => '댓글이 비활성화 되어 있습니다' ]);
+      redirect("/" . $board->board_type . '/list');
+      return;
+    } 
+
     $this->FBM->reply_create();
   }
 
   public function reply_update() {
+    $board_id = $this->input->post('boards_idx');
+    $board = $this->FBM->get_post($board_id);
+
+    if (!$board) {
+      // 오류 처리 로직
+      echo json_encode([
+        'state' => FALSE,
+        'message' => '게시글을 찾을 수 없습니다',
+        'comment_idx' => $this->input->post('idx'),
+        'board_idx' => $board_id,
+      ]);
+      return;
+    }
+
+    // 댓글 작성 비활성일 때
+    if($board->board_comment === '0') {
+      // AJAX 요청에 대한 응답으로 JSON 메시지 전송
+      echo json_encode([ 
+        'state' => FALSE,
+        'message' => '댓글이 비활성화 되어 있습니다',
+        'comment_idx' => $this->input->post('idx'),
+        'board_idx' => $board_id,
+      ]);
+      exit; // 스크립트 실행 중지
+    }
+    
+    // 댓글 수정 로직
     $data = [
       'idx' => $this->input->post('idx'),
       'content' => $this->input->post('content'),
@@ -198,9 +251,20 @@ class Free_board_Detail_C extends CI_Controller {
     } else {
       echo json_encode([ 'state' => FALSE, 'message' => '댓글 수정 실패']);
     }
+
   }
 
   public function reply_delete() {
+    $board_id = $this->input->post('board_id');
+    $board = $this->FBM->get_post($board_id);
+    
+    // 댓글 작성 비활성일 때
+    if($board->board_comment == 0) {
+      // echo json_encode([ 'state' => FALSE, 'message' => '댓글이 비활성화 되어 있습니다' ]);
+      redirect("/" . $board->board_type . '/list');
+      return;
+    } 
+
     $idx = $this->input->post('idx');
     $result = $this->FBM->reply_delete($idx);
     if($result) {

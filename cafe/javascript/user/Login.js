@@ -23,7 +23,10 @@ $(document).ready( () => {
       url: '/Login_C/login',
       type: 'post',
       dataType: 'json',
-      data: { username: $('#user_id').val(), password: $('#user_pw').val() },
+      data: { 
+        username: $('#user_id').val(),
+        password: $('#user_pw').val(),
+      },
       success: response => {
 
         if (response.state) { // 로그인 성공시 메인페이지로 이동
