@@ -5,23 +5,32 @@
     <div class="bg-[#2f2f2f] border border-[#4f4f4f] w-[400px] md:w-[500px] px-5 py-10 rounded flex flex-col gap-5 relative drop-shadow-2xl">
 
       <!-- 계정 정보가 일치하지 않을시 -->
-      <div id='error_form' class="duration-200 hidden flex p-5 animate-pulse gap-3 border bg-red-500 w-full opacity-80 rounded">
-        <span class="material-symbols-outlined">error</span>
-        <p id='error_txt' class=""><?= validation_errors(); ?></p>
+      <div id='error_form' class="relative duration-200 hidden flex p-5 gap-3 border border-[#4f4f4f] bg-[#1f1f1f] w-full rounded">
+        <span class="material-symbols-outlined">
+          error
+        </span>
+        <p id='error_txt'>
+          <?= validation_errors(); ?>
+        </p>
+        <button class="remove-btn hover:scale-125 rounded-[50%] absolute top-2 duration-200 w-5 h-5 flex justify-center place-items-center right-2 p-1 bg-[#1f1f1f] hover:bg-red-500">
+          <span class="material-symbols-outlined text-[20px]">
+            close
+          </span>
+        </button>
       </div>
 
       <form id="loginForm" class="flex flex-col gap-5">
 
         <div class="flex flex-col gap-2">
           <h2>아이디</h2>
-          <input name="user_id" id="user_id"
+          <input name="user_id" id="user_id" value="<?= set_value('user_id') ?>"
             class="w-full duration-100 bg-[#3f3f3f] focus:border border-blue-400 hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] p-3 h-[50px] rounded outline-none"
             type="text" />
         </div>
 
         <div class="flex flex-col gap-2">
           <h2>비밀번호</h2>
-          <input name="user_pw" id="user_pw"
+          <input name="user_pw" id="user_pw" value="<?= set_value('user_pw') ?>"
             class="w-full font-black duration-100 focus:border border-blue-400 hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 h-[50px] rounded outline-none"
             type="password" />
           <div class="flex place-content-end gap-1">
@@ -30,13 +39,6 @@
               아이디 기억하기
             </label>
           </div>
-        </div>
-
-        <!-- 폼 벨리데이션 에러 -->
-        <div>
-          <p>
-            <?= validation_errors() ?>
-          </p>
         </div>
 
         <div class="text-center">

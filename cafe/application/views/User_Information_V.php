@@ -69,7 +69,7 @@
           <!-- 파일 업로드 -->
           <form id="upload_form" accept=".jpg, .jpeg, .png, .gif" enctype="multipart/form-data" class="flex flex-col gap-3 place-items-center place-content-center justify-center">
             <input type="file" name="userfile" 
-            class="cursor-pointer w-full
+            class="cursor-pointer w-full 
               file:mr-4 file:py-2 file:px-4
               file:rounded-full file:border-0
               file:text-sm file:font-semibold
@@ -488,9 +488,9 @@
         $('#basic_profile').addClass('hidden');
 
         $('#arrow_profile').removeClass('text-[#9f9f9f]');
-        $('#arrow_profile').removeClass('anumate-pulse');
+        // $('#arrow_profile').removeClass('anumate-pulse');
         $('#arrow_profile').addClass('text-green-500');
-        $('#arrow_profile').addClass('animate-bounce');
+        // $('#arrow_profile').addClass('animate-bounce');
         
         $('#upload_button').addClass('bg-green-500');
         $('#upload_button').addClass('border-green-500');
@@ -599,14 +599,15 @@
     if(!confirm(profileId + ' 프로필로 삭제하시겠습니까?')) {
       return;
     }
-
+    
     $.ajax({
       url: '/user_information_c/delete_profile',
       type: 'POST',
       data: { profileId: profileId },
       success: function(response) {
         // 성공적으로 처리됐을 때의 로직
-        console.log('성공: ', response);
+        $('#file_count').html($('#file_count').html() - 1);  // 프로필 개수 업데이트(감소)
+        // console.log('성공: ', response);
         button.closest('.profile-container').remove(); // 예를 들어, 각 프로필 요소가 .profile-container 클래스를 가지고 있다고 가정
       },
       error: function(error) {

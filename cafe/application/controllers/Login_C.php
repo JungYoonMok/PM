@@ -10,32 +10,41 @@ class Login_C extends CI_Controller {
   }
 
   public function index() {
-    // 세션 데이터를 뷰 페이지로 전달
-    $ssData = [
-      'user_name' => $this->session->userdata('user_name'),
-      'user_nickname' => $this->session->userdata('user_nickname'),
-      'user_frofile' => $this->session->userdata('user_frofile'),
-      'user_email' => $this->session->userdata('user_email'),
-      'user_phone' => $this->session->userdata('user_phone'),
-      'user_memo' => $this->session->userdata('user_memo'),
-      'user_id' => $this->session->userdata('user_id'),
-      'last_login' => $this->session->userdata('last_login'),
-      'last_logout' => $this->session->userdata('last_logout'),
-      'regdate' => $this->session->userdata('regdate'),
-      'login' => TRUE
-    ];
-
     // 세션에 로그인 상태일 때
-    if($ssData['user_id'] && $ssData['login'] == TRUE){
+    if($this->session->userdata('user_id') && $this->session->userdata('login') == TRUE){
       redirect('/');
     } else {
-      $this->layout->custom_view('login_V', $ssData);
+      $this->layout->custom_view('login_V');
     }
   }
 
   public function login() {
-    $this->form_validation->set_rules('username', '아이디', 'required');
-    $this->form_validation->set_rules('password', '비밀번호', 'required');
+    $form_config = [
+      [
+        'field' => 'username',
+        // 'field' => 'user_id',
+        'label' => '아이디',
+        'rules' => 'required|min_length[4]|max_length[10]|alpha_numeric',
+        'errors' => [
+          'required' => '아이디를 입력해 주세요',
+          'min_length' => '아이디는 최소 4자 이상 입력해 주세요',
+          'max_length' => '아이디는 최대 10자 이하 입력해 주세요',
+          'alpha_numeric' => '아이디는 영문과 숫자만 입력해 주세요'
+        ]
+      ],
+      [
+        'field' => 'password',
+        // 'field' => 'user_pw',
+        'label' => '비밀번호',
+        'rules' => 'required|min_length[6]|max_length[15]',
+        'errors' => [
+          'required' => '비밀번호를 입력해 주세요',
+          'min_length' => '비밀번호는 최소 6자 이상 입력해 주세요',
+          'max_length' => '비밀번호는 최대 15자 이하 입력해 주세요'
+        ]
+      ]
+    ];
+    $this->form_validation->set_rules($form_config);
 
     $username = $this->input->post('username');
     $password = $this->input->post('password');
@@ -46,8 +55,7 @@ class Login_C extends CI_Controller {
       if ($user) {
 
         // 마지막 로그인 시간 업데이트
-        $ID = $this->input->post('username');
-        $this->login_model->last_login_logout($ID, 'login');
+        $this->login_model->last_login_logout($username, 'login');
 
         $data = $this->login_model->userInfo($username);
         
@@ -71,11 +79,19 @@ class Login_C extends CI_Controller {
 
         echo json_encode([ 'state' => true, 'message' => '로그인 성공' ]);
       } else {
-        echo json_encode([ 'state' => false, 'message' => '로그인 정보를 다시 확인해 주세요' ]);
+        echo json_encode([ 
+          'state' => false,
+          'message' => '로그인 정보를 다시 확인해 주세요',
+          'detail' => '아이디 또는 비밀번호가 일치하지 않습니다'
+        ]);
       }
       
     } else {
-      echo json_encode([ 'state' => false, 'message' => '폼검증 실패', 'detail' => '아이디와 비밀번호를 확인해 주세요' ]);
+      echo json_encode([ 
+        'state' => false,
+        'message' => '폼검증 실패',
+        'detail' => validation_errors()
+      ]);
     }
   }
   
@@ -83,9 +99,9 @@ class Login_C extends CI_Controller {
   public function logout() {
     // 마지막 로그아웃 시간 업데이트
     $ID = $this->session->userdata('user_id');
-    $this->login_model->last_login_logout($ID, 'logout');
+    
+    if($this->login_model->last_login_logout($ID, 'logout')) {
 
-    try {
       $this->session->unset_userdata('user_name');
       $this->session->unset_userdata('user_nickname');
       $this->session->unset_userdata('user_frofile');
@@ -97,14 +113,14 @@ class Login_C extends CI_Controller {
       $this->session->unset_userdata('last_logout');
       $this->session->unset_userdata('regdate');
       $this->session->unset_userdata('login');
-
+  
       session_destroy();
-
+  
       echo json_encode([ 'state' => true, 'message' => '로그아웃 처리 성공' ]);
-    } catch (Exception $e) {
-      echo json_encode([ 'state' => false, 'message' => '로그아웃 처리 실패', 'Erorr: ' => $e.message ]);
+
+    } else {
+      echo json_encode([ 'state' => false, 'message' => '로그아웃 처리 실패', 'Erorr: ' => $this->db->error() ]);
     }
   }
-
 }
 ?>

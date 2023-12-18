@@ -1,23 +1,14 @@
 // 로그인
 $(document).ready( () => {
+
+  $('.remove-btn').on('click', e => {
+    e.preventDefault();
+    $('#error_txt').empty();
+    $('#error_form').addClass('hidden');
+  });
+
   $('#loginForm').on('submit', e => {
     e.preventDefault();
-    
-    if(!$('#user_id').val()){ // 아이디 검사
-      // 클래스 제거
-      $('#error_form').removeClass('hidden'); 
-
-      $('#error_txt').text('아이디를 입력해주세요.');
-      return; // 함수 실행 중지
-    }
-
-    if(!$('#user_pw').val()){ // 비밀번호 검사
-      // 클래스 제거
-      $('#error_form').removeClass('hidden'); 
-
-      $('#error_txt').text('비밀번호를 입력해주세요.');
-      return; // 함수 실행 중지
-    }
     
     $.ajax({
       url: '/Login_C/login',
@@ -35,8 +26,10 @@ $(document).ready( () => {
           location.href = '/';
         } else {
           // 클래스 제거
-          $('#error_form').removeClass('hidden'); 
-          $('#error_txt').text(response.message);
+          $('#error_txt').empty();
+          $('#error_form').removeClass('hidden');
+
+          $('#error_txt').append(response.detail);
         }
 
       },
