@@ -88,22 +88,24 @@
 <script>
   $('#logout_btn').click(function(e){
     e.preventDefault();
-    if(confirm('로그아웃 하시겠습니까?')){
+
+    if(!confirm('로그아웃 하시겠습니까?')){
+      return;
+    };
 
     $.ajax({
-        url: '/Login_C/logout',
-        type: 'post',
-        dataType: 'json',
-        success: function(response) {
-          if(response.state){
-            location.href = '/login';
-          } else {
-            console.log(response.error);
-          }},
-        error: function(response) {
-          console.log('오류', response);
-        }
-      });
-    }
+      url: '/Login_C/logout',
+      type: 'post',
+      dataType: 'json',
+      success: function(response) {
+        if(response.state){
+          location.href = '/login';
+        } else {
+          console.log('오류: ', response);
+        }},
+      error: function(response) {
+        console.log('오류', response);
+      }
+    });
   });
 </script>

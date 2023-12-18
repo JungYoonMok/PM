@@ -36,11 +36,11 @@ class Login_C extends CI_Controller {
         'field' => 'password',
         // 'field' => 'user_pw',
         'label' => '비밀번호',
-        'rules' => 'required|min_length[6]|max_length[15]',
+        'rules' => 'required|min_length[6]|max_length[20]',
         'errors' => [
           'required' => '비밀번호를 입력해 주세요',
           'min_length' => '비밀번호는 최소 6자 이상 입력해 주세요',
-          'max_length' => '비밀번호는 최대 15자 이하 입력해 주세요'
+          'max_length' => '비밀번호는 최대 20자 이하 입력해 주세요'
         ]
       ]
     ];
@@ -99,28 +99,24 @@ class Login_C extends CI_Controller {
   public function logout() {
     // 마지막 로그아웃 시간 업데이트
     $ID = $this->session->userdata('user_id');
-    
-    if($this->login_model->last_login_logout($ID, 'logout')) {
+    $this->login_model->last_login_logout($ID, 'logout');
 
-      $this->session->unset_userdata('user_name');
-      $this->session->unset_userdata('user_nickname');
-      $this->session->unset_userdata('user_frofile');
-      $this->session->unset_userdata('user_email');
-      $this->session->unset_userdata('user_phone');
-      $this->session->unset_userdata('user_memo');
-      $this->session->unset_userdata('user_id');
-      $this->session->unset_userdata('last_login');
-      $this->session->unset_userdata('last_logout');
-      $this->session->unset_userdata('regdate');
-      $this->session->unset_userdata('login');
-  
-      session_destroy();
-  
-      echo json_encode([ 'state' => true, 'message' => '로그아웃 처리 성공' ]);
+    $this->session->unset_userdata('user_name');
+    $this->session->unset_userdata('user_nickname');
+    $this->session->unset_userdata('user_frofile');
+    $this->session->unset_userdata('user_email');
+    $this->session->unset_userdata('user_phone');
+    $this->session->unset_userdata('user_memo');
+    $this->session->unset_userdata('user_id');
+    $this->session->unset_userdata('last_login');
+    $this->session->unset_userdata('last_logout');
+    $this->session->unset_userdata('regdate');
+    $this->session->unset_userdata('login');
 
-    } else {
-      echo json_encode([ 'state' => false, 'message' => '로그아웃 처리 실패', 'Erorr: ' => $this->db->error() ]);
-    }
+    session_destroy();
+
+    echo json_encode([ 'state' => true, 'message' => '로그아웃 처리 성공' ]);
+    return;
   }
 }
 ?>

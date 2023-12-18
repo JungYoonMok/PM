@@ -3,84 +3,51 @@ $(document).ready( function () {
   
   $('#registerButton').click( function(e) {
 
-    // 새로고침 방지
     e.preventDefault();
+    $('#error_txt').empty(); // 에러 메시지 초기화
+    $('#error_form').removeClass('hidden');
     
-    if(!$('#user_nickname').val()){ // 닉네임 검사
-      // 클래스 제거
-      $('#error_form').removeClass('hidden'); 
-
-      $('#error_txt').text('닉네임을 입력해주세요.');
-      return; // 함수 실행 중지
+    if($('#user_nickname').val().length < 2 || $('#user_nickname').val().length > 8) { // 닉네임 검사
+      $('#error_txt').text('닉네임은 2~8 글자로 입력해주세요.');
+      return;
     }
 
-    if(!$('#user_id').val()){ // 아이디 검사
-      // 클래스 제거
-      $('#error_form').removeClass('hidden'); 
-
-      $('#error_txt').text('아이디를 입력해주세요.');
-      return; // 함수 실행 중지
+    if($('#user_id').val().length < 4 || $('#user_id').val().length > 10) { // 아이디 검사
+      $('#error_txt').text('아이디는 4~10 글자로 입력해주세요.');
+      return;
     }
 
-    if(!$('#user_name').val()){ // 이름 검사
-      // 클래스 제거
-      $('#error_form').removeClass('hidden'); 
-
-      $('#error_txt').text('성함을 입력해주세요.');
-      return; // 함수 실행 중지
+    if($('#user_name').val().length < 2 || $('#user_name').val().length > 20) { // 성함 검사
+      $('#error_txt').text('성함은 2~20 글자로 입력해주세요.');
+      return;
     }
 
-    if(!$('#user_password_1').val()){ // 비밀번호 검사
-      // 클래스 제거
-      $('#error_form').removeClass('hidden'); 
-
-      $('#error_txt').text('비밀번호를 입력해주세요.');
-      return; // 함수 실행 중지
+    if($('#user_password_1').val().length < 6 || $('#user_password_1').val().length > 20) { // 비밀번호 검사
+      $('#error_txt').text('비밀번호는 6~20 글자로 입력해주세요.');
+      return;
     }
 
-    if(!$('#user_password_2').val()){ // 비밀번호 확인 검사
-      // 클래스 제거
-      $('#error_form').removeClass('hidden'); 
-
-      $('#error_txt').text('비밀번호 확인을 입력해주세요.');
-      return; // 함수 실행 중지
+    if($('#user_password_2').val().length < 6 || $('#user_password_2').val().length > 20) { // 비밀번호 검사
+      $('#error_txt').text('비밀번호 확인은 6~20 글자로 입력해주세요.');
+      return;
     }
 
     if($('#user_password_1').val() !== $('#user_password_2').val()){ // 비밀번호 일치 검사
-      // 클래스 제거
-      $('#error_form').removeClass('hidden'); 
-
       $('#error_txt').text('비밀번호가 서로 일치하지 않습니다.');
-      return; // 함수 실행 중지
+      return;
     }
 
-    if(!$('#user_phone_2').val() || !$('#user_phone_3').val()){ // 휴대폰 검사
-      // 클래스 제거
-      $('#error_form').removeClass('hidden'); 
-
-      $('#error_txt').text('휴대폰 번호를 입력해주세요.');
-      return; // 함수 실행 중지
-    }
-
-    if(!$('#user_email').val()){ // 이메일 검사
-      // 클래스 제거
-      $('#error_form').removeClass('hidden'); 
-
-      $('#error_txt').text('이메일을 입력해주세요.');
-      return; // 함수 실행 중지
+    if($('#user_phone_2').val().length < 3 || $('#user_phone_3').val().length > 4){ // 휴대폰 검사
+      $('#error_txt').text('휴대폰 번호는 3~4자 입력해주세요.');
+      return;
     }
 
     if($('#user_email').val()){ // 이메일 정규식 검사
-      // 클래스 제거
-      $('#error_form').removeClass('hidden'); 
-
       var regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
       if (!regEmail.test($('#user_email').val())) {
-        // alert('이메일 형식에 맞춰주세요.');
         $('#error_txt').text('이메일 형식이 맞지 않습니다.');
         return false;
       } else {
-        // 클래스 추가
         $('#error_form').addClass('hidden');
       }
     }
@@ -103,20 +70,15 @@ $(document).ready( function () {
       },
       success: response => {
         const name = $('#user_nickname').val();
+        $('#error_form').removeClass('hidden');
         if(response.state) {
           alert(name + '님 환영합니다! 회원가입이 완료되었습니다.');
           location.href = '/login';
         } else {
-          // 클래스 추가
-          // $('#test').addClass('inline');
-          // 클래스 제거
-          $('#error_form').removeClass('hidden');
-
-          $('#error_txt').text(response.message); // 에러 메시지 출력
+          $('#error_txt').text(response.detail);
         }
       },
       error: ( response, s, e ) => {
-        // 클래스 제거
         $('#error_form').removeClass('hidden');
         console.log('에러', response, s, e);
       }

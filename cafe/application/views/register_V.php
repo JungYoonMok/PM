@@ -6,9 +6,18 @@
       class="bg-[#2f2f2f] border border-[#4f4f4f] w-full md:w-[600px] p-5 rounded flex flex-col gap-5 relative drop-shadow-2xl">
 
       <!-- 계정 정보가 일치하지 않을시 -->
-      <div id='error_form' class="duration-200 hidden flex p-5 animate-pulse gap-3 border bg-red-500 w-full opacity-80 rounded">
-        <span class="material-symbols-outlined">error</span>
-        <p id='error_txt' class=""><?= validation_errors(); ?></p>
+      <div id='error_form' class="relative duration-200 shadow-xl hidden flex p-5 gap-3 border border-[#4f4f4f] bg-[#1f1f1f] w-full rounded">
+        <span class="material-symbols-outlined duration-200 animate-pulse text-red-400">
+          error
+        </span>
+        <p id='error_txt'>
+          <?= validation_errors(); ?>
+        </p>
+        <button class="remove-btn hover:scale-125 rounded-[50%] absolute top-2 duration-200 w-5 h-5 flex justify-center place-items-center right-2 p-1 bg-[#1f1f1f] hover:bg-red-500">
+          <span class="material-symbols-outlined text-[20px]">
+            close
+          </span>
+        </button>
       </div>
       
       <!-- 프로필사진 별명 -->
@@ -143,6 +152,12 @@
 <script src="/javascript/user/register.js"></script>
 
 <script>
+  $('.remove-btn').on('click', e => {
+    e.preventDefault();
+    $('#error_txt').empty();
+    $('#error_form').addClass('hidden');
+  });
+
   // 비밀번호 표시 토글 버튼에 대한 이벤트
   $(document).on('click', '#eye_on', function() {
     $('#user_password_1').attr('type', 'text');

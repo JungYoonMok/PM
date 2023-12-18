@@ -126,7 +126,7 @@
             <? endforeach ?>
           </table>
           <div class="<?= empty($board_list) ? '' : 'hidden' ?> relative">
-            <p class="flex justify-center place-items-center py-10">
+            <p class="flex justify-center place-items-center py-20">
               데이터가 없습니다
             </p>
           </div>
@@ -221,7 +221,7 @@
               <? endforeach ?>
             </table>
             <div class="<?= empty($board_notice) ? '' : 'hidden' ?> relative">
-              <p class="flex justify-center place-items-center py-10">
+              <p class="flex justify-center place-items-center py-20">
                 데이터가 없습니다
               </p>
             </div>
@@ -290,7 +290,7 @@
               <? endforeach ?>
             </table>
             <div class="<?= empty($get_comment) ? '' : 'hidden' ?> relative">
-              <p class="flex justify-center place-items-center py-10">
+              <p class="flex justify-center place-items-center py-20">
                 데이터가 없습니다
               </p>
             </div>
@@ -385,7 +385,7 @@
               <? endforeach ?>
             </table>
             <div class="<?= empty($board_freeboard) ? '' : 'hidden' ?> relative">
-              <p class="flex justify-center place-items-center py-10">
+              <p class="flex justify-center place-items-center py-20">
                 데이터가 없습니다
               </p>
             </div>
@@ -479,7 +479,7 @@
               <? endforeach ?>
             </table>
             <div class="<?= empty($board_hellow) ? '' : 'hidden' ?> relative">
-              <p class="flex justify-center place-items-center py-10">
+              <p class="flex justify-center place-items-center py-20">
                 데이터가 없습니다
               </p>
             </div>
