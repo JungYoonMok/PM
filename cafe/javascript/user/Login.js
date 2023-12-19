@@ -12,18 +12,8 @@ $(document).ready( () => {
     $('#error_txt').empty();
     $('#error_form').removeClass('hidden');
 
-    if($('#user_id').val() === '') {
-      $('#error_txt').text('아이디를 입력해주세요.');
-      return;
-    }
-
     if($('#user_id').val().length < 4 || $('#user_id').val().length > 10) {
       $('#error_txt').text('아이디는 4~10글자로 입력해주세요.');
-      return;
-    }
-
-    if($('#user_pw').val() === '') {
-      $('#error_txt').text('비밀번호를 입력해주세요.');
       return;
     }
 

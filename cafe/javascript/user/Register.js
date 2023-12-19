@@ -42,6 +42,11 @@ $(document).ready( function () {
       return;
     }
 
+    if($('#user_email').val().length < 1){ // 이메일 정규식 검사
+      $('#error_txt').text('이메일을 입력해 주세요.');
+      return;
+    }
+
     if($('#user_email').val()){ // 이메일 정규식 검사
       var regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
       if (!regEmail.test($('#user_email').val())) {
@@ -50,6 +55,11 @@ $(document).ready( function () {
       } else {
         $('#error_form').addClass('hidden');
       }
+    }
+
+    if($('#user_memo').val().length !== 0 && $('#user_memo').val().length > 100){ // 메모 유효성 검사
+      $('#error_txt').text('메모는 100자 이내로 입력해주세요.');
+      return;
     }
 
     $.ajax({
@@ -72,10 +82,11 @@ $(document).ready( function () {
         const name = $('#user_nickname').val();
         $('#error_form').removeClass('hidden');
         if(response.state) {
+          $('#error_form').addClass('hidden');
           alert(name + '님 환영합니다! 회원가입이 완료되었습니다.');
           location.href = '/login';
         } else {
-          $('#error_txt').text(response.detail);
+          $('#error_txt').append(response.detail);
         }
       },
       error: ( response, s, e ) => {

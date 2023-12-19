@@ -20,17 +20,39 @@ class Register_C extends CI_Controller {
 
   // 회원가입
   public function register() {
-    // 폼 벨리데이션으로 폼의 필수값을 지정
+    // 한글 정규식 확인
+    $name = $this->input->post('name');
+    $pattern = '/^[가-힣]{3,}$/';
+    if (!preg_match($pattern, $name, $macheResult)) {
+      echo json_encode([
+        'state' => FALSE,
+        'message' => '성함은 한글만 입력해 주세요',
+        'detail' => '성함은 한글만 입력해 주세요'
+      ]);
+      return;
+    }
+
+    $nName = $this->input->post('nName');
+    $pattern = '/^[가-힣]{3,}$/';
+    if (!preg_match($pattern, $nName, $macheResult)) {
+      echo json_encode([
+        'state' => FALSE,
+        'message' => '닉네임은 한글만 입력해 주세요',
+        'detail' => '닉네임은 한글만 입력해 주세요'
+      ]);
+      return;
+    }
+
+    // 폼 벨리데이션으로 폼의 필수값을 지정 korean_alpha_dash
     $form_config = [
       [
         'field' => 'nName',
         'label' => '닉네임',
-        'rules' => 'required|min_length[2]|max_length[8]|alpha_numeric',
+        'rules' => 'required|min_length[2]|max_length[8]',
         'errors' => [
           'required' => '닉네임을 입력해 주세요',
           'min_length' => '닉네임은 최소 2자 이상 입력해 주세요',
           'max_length' => '닉네임은 최대 8 이하 입력해 주세요',
-          'alpha_numeric' => '닉네임은 영문과 숫자만 입력해 주세요'
         ]
       ],
       [
@@ -41,18 +63,17 @@ class Register_C extends CI_Controller {
           'required' => '아이디를 입력해 주세요',
           'min_length' => '아이디는 최소 4자 이상 입력해 주세요',
           'max_length' => '아이디는 최대 10자 이하 입력해 주세요',
-          'alpha_numeric' => '아이디는 영문과 숫자만 입력해 주세요'
+          'alpha_numeric' => '아이디는 영문과 숫자만 입력해 주세요',
         ]
       ],
       [
         'field' => 'name',
         'label' => '이름',
-        'rules' => 'required|min_length[2]|max_length[20]|alpha',
+        'rules' => 'required|min_length[2]|max_length[20]',
         'errors' => [
           'required' => '이름을 입력해 주세요',
           'min_length' => '이름은 최소 2자 이상 입력해 주세요',
           'max_length' => '이름은 최대 20자 이하 입력해 주세요',
-          'alpha' => '이름은 글자만 입력해 주세요'
         ]
       ],
       [
@@ -63,7 +84,7 @@ class Register_C extends CI_Controller {
           'required' => '비밀번호를 입력해 주세요',
           'min_length' => '비밀번호는 최소 6자 이상 입력해 주세요',
           'max_length' => '비밀번호는 최대 20자 이하 입력해 주세요',
-          'matches' => '비밀번호가 일치하지 않습니다'
+          'matches' => '비밀번호가 일치하지 않습니다',
         ]
       ],
       [
@@ -73,7 +94,7 @@ class Register_C extends CI_Controller {
         'errors' => [
           'required' => '비밀번호 확인을 입력해 주세요',
           'min_length' => '비밀번호 확인은 최소 6자 이상 입력해 주세요',
-          'max_length' => '비밀번호 확인은 최대 20자 이하 입력해 주세요'
+          'max_length' => '비밀번호 확인은 최대 20자 이하 입력해 주세요',
         ]
       ],
       [
@@ -84,7 +105,7 @@ class Register_C extends CI_Controller {
           'required' => '휴대폰_1을 입력해 주세요',
           'min_length' => '휴대폰_1은 최소 3자 이상 입력해 주세요',
           'max_length' => '휴대폰_1은 최대 3자 이하 입력해 주세요',
-          'numeric' => '휴대폰_1은 숫자만 입력해 주세요'
+          'numeric' => '휴대폰_1은 숫자만 입력해 주세요',
         ]
       ],
       [
@@ -95,7 +116,7 @@ class Register_C extends CI_Controller {
           'required' => '휴대폰_2을 입력해 주세요',
           'min_length' => '휴대폰_2은 최소 3자 이상 입력해 주세요',
           'max_length' => '휴대폰_2은 최대 4자 이하 입력해 주세요',
-          'numeric' => '휴대폰_2은 숫자만 입력해 주세요'
+          'numeric' => '휴대폰_2은 숫자만 입력해 주세요',
         ]
       ],
       [
@@ -106,7 +127,7 @@ class Register_C extends CI_Controller {
           'required' => '휴대폰_3을 입력해 주세요',
           'min_length' => '휴대폰_3은 최소 3자 이상 입력해 주세요',
           'max_length' => '휴대폰_3은 최대 4자 이하 입력해 주세요',
-          'numeric' => '휴대폰_3은 숫자만 입력해 주세요'
+          'numeric' => '휴대폰_3은 숫자만 입력해 주세요',
         ]
       ],
       [
@@ -115,7 +136,7 @@ class Register_C extends CI_Controller {
         'rules' => 'required|valid_email',
         'errors' => [
           'required' => '이메일을 입력해 주세요',
-          'valid_email' => '이메일 형식이 올바르지 않습니다'
+          'valid_email' => '이메일 형식이 올바르지 않습니다',
         ]
       ],
       [
@@ -128,16 +149,7 @@ class Register_C extends CI_Controller {
         ]
       ]
     ];
-    // $this->form_validation->set_rules('nName', 'NickName', 'required');
-    // $this->form_validation->set_rules('id', 'ID', 'required');
-    // $this->form_validation->set_rules('name', 'Name', 'required');
-    // $this->form_validation->set_rules('password_1', 'Password', 'required|matches[password_2]');
-    // $this->form_validation->set_rules('password_2', 'Password Check', 'required');
-    // $this->form_validation->set_rules('phone_1', 'Phone_1', 'required');
-    // $this->form_validation->set_rules('phone_2', 'Phone_2', 'required');
-    // $this->form_validation->set_rules('phone_3', 'Phone_3', 'required');
-    // $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
-    
+
     $this->form_validation->set_rules($form_config);
 
     if ($this->form_validation->run()) {
