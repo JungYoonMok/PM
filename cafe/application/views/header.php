@@ -16,7 +16,7 @@
       </div>
       
       <div class="md:hidden fixed right-4 flex gap-3 text-gray-200">
-        <button>
+        <button id="mobile_menu_btn">
           <span class="material-symbols-outlined">
             list
           </span>
@@ -86,6 +86,12 @@
 </div>
 
 <script>
+  $('#mobile_menu_btn').click(function(e){
+    e.preventDefault();
+    // $('#mobile_menu').toggleClass('hidden');
+    alert('시간 관계상 구현되지 못하였습니다 😂');
+  });
+
   $('#logout_btn').click(function(e){
     e.preventDefault();
 

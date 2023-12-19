@@ -1,12 +1,6 @@
 // 로그인
 $(document).ready( () => {
 
-  $('.remove-btn').on('click', e => {
-    e.preventDefault();
-    $('#error_txt').empty();
-    $('#error_form').addClass('hidden');
-  });
-
   $('#loginForm').on('submit', e => {
     e.preventDefault();
     $('#error_txt').empty();

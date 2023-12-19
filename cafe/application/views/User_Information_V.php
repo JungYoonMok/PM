@@ -68,17 +68,25 @@
   
           <!-- 파일 업로드 -->
           <form id="upload_form" accept=".jpg, .jpeg, .png, .gif" enctype="multipart/form-data" class="flex flex-col gap-3 place-items-center place-content-center justify-center">
-            <input type="file" name="userfile" 
-            class="cursor-pointer w-full 
-              file:mr-4 file:py-2 file:px-4
-              file:rounded-full file:border-0
-              file:text-sm file:font-semibold
-            file:bg-[#3f3f3f] file:text-white
-            hover:file:bg-[#4f4f4f] duration-200" />
+            <div id="file_control" class="flex place-items-center justify-center w-full">
+              <label for="userfile" class="flex flex-col items-center w-full justify-center h-24 border-2 border-gray-500 border-dashed rounded-lg cursor-pointer hover:bg-[#2f2f2f] duration-200 bg-[#3f3f3f]">
+                <div class="flex flex-col gap-3 place-items-center justify-center text-sm">
+                  <div class="flex place-items-center gap-3 duration-200 animate-pulse">
+                    <span class="material-symbols-outlined flex gap-2 place-items-center">
+                      add_link
+                    </span>
+                    <p class="">
+                      파일을 첨부하려면 클릭하세요
+                    </p>
+                  </div>
+                </div>
+                <input name="userfile" id="userfile" type="file" class="hidden" />
+              </label>
+            </div>
             <button id="upload_button" class="hidden border border-blue-500 hover:border-[#3f3f3f] px-3 py-2 w-full bg-blue-500 rounded hover:translate-y-1 duration-200">
               적용하기
             </button>
-            <div class="flex gap-2 text-sm">
+            <div id="upload_file_type" class="flex gap-2 text-sm">
               <? $file_type = ['JPG', 'JPEG', 'PNG', 'GIF'] ?>
               <? foreach($file_type as $list):?>
                 <p class="bg-[#4f4f4f] px-2 py-0.5 rounded border border-[#5f5f5f]">
@@ -575,6 +583,9 @@
         $('#on_profile img').attr('src', e.target.result);
 
         $('#upload_button').removeClass('hidden');
+        
+        $('#file_control').addClass('hidden');
+        $('#upload_file_type').addClass('hidden');
       };
 
       // 파일 읽기 시작

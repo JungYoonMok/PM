@@ -90,7 +90,7 @@
                   class="material-symbols-outlined rounded-[50%] w-16 h-16 text-[#9f9f9f] duration-200">
                 </img>
               <? endif ?>
-              <div class="flex flex-col gap-1">
+              <div class="<?= empty($user->user_memo) ? 'place-items-center justify-center' : '' ?> flex flex-col gap-1">
                 <div class="flex gap-2 place-items-center">
                   <p class="text-sm px-2 py-0.5 bg-[#3f3f3f] rounded border border-[#4f4f4f]">
                     Lv.<?= $level_converter['level'] ?>
@@ -109,27 +109,27 @@
             </div>
           </div>
 
-          <div class="flex  overflow-x-auto overflow-y-hidden  md:flex-nowrap md:whitespace-nowrap gap-5 text-xs md:text-sm bg-[#3f3f3f] md:bg-[#2f2f2f] px-5 md:px-0 py-2 md:py-0 rounded md:rounded-none">
+          <div class="flex text-gray-300 overflow-x-auto overflow-y-hidden md:flex-nowrap md:whitespace-nowrap gap-5 text-xs md:text-sm bg-[#3f3f3f] md:bg-[#2f2f2f] px-5 md:px-0 py-2 md:py-0 rounded md:rounded-none">
             <div class="flex place-items-center gap-2">
-              <span class="material-symbols-outlined text-[20px] md:text-[25px]">
+              <span class="material-symbols-outlined text-[20px] md:text-[20px]">
                 visibility
               </span>
               <p><?= $hit->hit; ?></p>
             </div>
             <div class="flex place-items-center gap-2">
-              <span class="material-symbols-outlined text-[20px] md:text-[25px]">
+              <span class="material-symbols-outlined text-[20px] md:text-[20px]">
                 chat_bubble
               </span>
               <p><?= $comment_count->cnt ?></p>
             </div>
             <div class="flex place-items-center gap-2">
-              <span class="material-symbols-outlined text-[20px] md:text-[25px]">
+              <span class="material-symbols-outlined text-[20px] md:text-[20px]">
                 thumb_up
               </span>
               <p><?= $like_count1->cnt ?></p>
             </div>
             <div class="flex place-items-center gap-2">
-              <span class="material-symbols-outlined text-[20px] md:text-[25px]">
+              <span class="material-symbols-outlined text-[20px] md:text-[20px]">
                 thumb_down
               </span>
               <p><?= $like_count2->cnt ?></p>
@@ -137,7 +137,7 @@
 
             <input type="text" id="link" value="http://localhost/freeboard/<?= $post->idx; ?>" class="hidden" />
             <button onclick=CopyUrlToClipboard() class="flex place-items-center gap-2 hover:opacity-70 duration-200">
-              <span class="material-symbols-outlined text-[20px] md:text-[25px]">
+              <span class="material-symbols-outlined text-[20px] md:text-[20px]">
                 link
               </span>
               <p class="">URL 복사</p>
@@ -177,7 +177,7 @@
           <div class="text-center text-sm">
             <button
               onclick="like_up(<?= $post->idx ?>)"
-              class="hover:-translate-y-1 material-symbols-outlined text-3xl hover:text-white hover:bg-[#3f3f3f] w-16 h-16 rounded-[50%] duration-100">
+              class="hover:-translate-y-2 hover:text-blue-400 material-symbols-outlined text-3xl w-16 h-16 rounded-[50%] duration-100">
               thumb_up
             </button>
             <p class='bg-[#3f3f3f] rounded p-1 <?= $like_value !== 'none' ? $like_value ? 'bg-blue-500' : '싫어요'  : '' ?>'>좋아요</p>
@@ -185,7 +185,7 @@
           <div class="text-center text-sm">
             <button
             onclick="like_down(<?= $post->idx ?>)" 
-            class="hover:translate-y-1 material-symbols-outlined text-3xl hover:text-white hover:bg-[#3f3f3f] w-16 h-16 rounded-[50%] duration-100">
+            class="hover:translate-y-2 hover:text-red-400 material-symbols-outlined text-3xl w-16 h-16 rounded-[50%] duration-100">
             thumb_down
             </button>
             <p class='bg-[#3f3f3f] rounded p-1 <?= $like_value !== 'none' ? !$like_value ? 'bg-blue-500' : '싫어요'  : '' ?>'>싫어요</p>
@@ -244,7 +244,7 @@
         <div class="border border-[#4f4f4f] p-3 rounded flex flex-col md:flex-row gap-3 text-sm shadow-lg">
 
           <!-- 사용자 정보 -->
-          <div class="flex flex-col gap-2 w-full md:w-[35%]">
+          <div class="flex flex-col gap-2 w-full md:w-[35%] <?= empty($user->user_memo) ? 'justify-center' : '' ?>">
 
             <div class="flex gap-2 place-items-center">
 
@@ -266,7 +266,7 @@
               </div>
             </div>
 
-            <div class="bg-[#3f3f3f] px-3 py-4 rounded flex flex-col gap-2">
+            <div class="bg-[#3f3f3f] px-3 py-4 rounded flex flex-col gap-2 border border-[#3f3f3f]">
               <div class="flex justify-between">
                 <input hidden name='post_user' id="post_user" type="text" value="<?= $post->user_id ?>"/>
                 <p>포인트 <?= $user_point ?></p>
@@ -298,14 +298,19 @@
                 <p><?= $user->regdate ?></p>
               </div>
 
-              <div class="border-b border-[#4f4f4f]"></div>
+              <div class="<?= empty($user->user_memo) ? 'hidden' : '' ?>">
 
-              <div class="text-xs flex flex-col gap-1">
-                <p>자기소개</p>
-                <div class="px-2 py-3 rounded bg-[#2f2f2f]">
-                <?= mb_strimwidth($user->user_memo, 0, 50, ' ..') ?>
+                <div class="border-b border-[#4f4f4f] mb-2"></div>
+
+                <div class="text-xs flex flex-col gap-1">
+                  <p>자기소개</p>
+                  <div class="px-2 py-3 rounded bg-[#2f2f2f]">
+                    <?= mb_strimwidth($user->user_memo, 0, 50, ' ..') ?>
+                  </div>
                 </div>
+
               </div>
+
 
             </div>
 

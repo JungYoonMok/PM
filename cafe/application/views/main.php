@@ -4,12 +4,15 @@
   <!-- 메인 베이스 -->
   <div class="flex flex-col w-full">
 
-    <div>
-      <p></p>
-    </div>
+    <a href="#" class="p-5 m-5 flex place-items-center border border-[#4f4f4f] shadow-lg gap-2 duration-200 bg-[#2f2f2f] rounded-full hover:bg-[#1f1f1f]">
+      <span class="material-symbols-outlined text-lime-500 animate-bounce shadow-2xl text-3xl">
+        adb
+      </span>
+      <p>인지중인 버그 및 오류 현황</p>
+    </a>
 
     <!-- 이미지 배너 및 스와이프 -->
-    <!-- <div class="border border-[#5f5f5f] bg-[#2f2f2f] drop-shadow-xl mx-1 md:mx-5 mb-5 md:mb-0 mt-5 p-10 rounded-md ">
+    <div class="border border-[#4f4f4f] bg-[#2f2f2f] drop-shadow-xl mx-1 md:mx-5 mb-5 md:mb-0 p-10 rounded-md ">
       <div class="animate-pulse flex space-x-4">
         <div class="rounded-full bg-[#5f5f5f] h-14 w-14"></div>
         <div class="flex-1 space-y-6 py-1">
@@ -23,7 +26,7 @@
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
 
     <!-- 메인 -->
     <div class="w-full p-1 pt-5 md:p-5 flex flex-col gap-5">
