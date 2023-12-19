@@ -116,6 +116,21 @@
     <!-- 구분선 -->
     <div class="border-b border-gray-500"></div>
 
+    <!-- 계정 정보가 일치하지 않을시 -->
+    <div id='error_form' class="relative duration-200 shadow-xl hidden flex p-5 gap-3 border border-[#4f4f4f] bg-[#1f1f1f] w-full rounded">
+      <span class="material-symbols-outlined duration-200 animate-pulse text-red-400">
+        error
+      </span>
+      <p id='error_txt'>
+        <?= validation_errors(); ?>
+      </p>
+      <button class="alert_remove-btn hover:scale-125 rounded-[50%] absolute top-2 duration-200 w-5 h-5 flex justify-center place-items-center right-2 p-1 bg-[#1f1f1f] hover:bg-red-500">
+        <span class="material-symbols-outlined text-[20px]">
+          close
+        </span>
+      </button>
+    </div>
+
     <!-- 정보 수정 -->
     <div class="rounded-b-md flex flex-col gap-5 shadow-2xl border border-[#4f4f4f] bg-[#2f2f2f] px-5 py-10">
       
@@ -188,7 +203,7 @@
           <p class="px-1 hover:text-white hover:-translate-y-1 duration-200 cursor-default whitespace-nowrap max-w-min text-base">
             이메일
           </p>
-          <input id="email" type="email" placeholder="이메일 입력" value="<?= $user->user_email ?>"
+          <input id="email" type="email" placeholder="<?= $user->user_email ?>"
           class="pr-12 w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#4f4f4f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
           <!-- 이메일 수정 버튼 -->
           <div class="text-right">
@@ -198,17 +213,17 @@
           </div>
         </div>
 
-        <!-- 연락처 -->
+        <!-- 휴대폰 -->
         <div class="flex flex-col gap-3 w-full">
           <p class="px-1 hover:text-white hover:-translate-y-1 duration-200 cursor-default whitespace-nowrap max-w-min text-base">
-            연락처
+            휴대폰
           </p>
           <div class="flex gap-3">
             <input id="phone_1" type="number" placeholder="010" disabled
             class="cursor-not-allowed text-center font-bold w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#2f2f2f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
-            <input id="phone_2" type="number" placeholder="123" maxlength="4" value="<?= substr($user->user_phone, 4, 4) ?>"
+            <input id="phone_2" type="number" placeholder="<?= substr($user->user_phone, 4, 4) ?>" maxlength="4"
             class="text-center w-full px-5 font-bold py-3 hover:bg-opacity-80 rounded bg-[#4f4f4f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
-            <input id="phone_3" type="number" placeholder="456" maxlength="4" value="<?= substr($user->user_phone, 9, 4) ?>"
+            <input id="phone_3" type="number" placeholder="<?= substr($user->user_phone, 9, 4) ?>" maxlength="4"
             class="text-center w-full px-5 font-bold py-3 hover:bg-opacity-80 rounded bg-[#4f4f4f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
           </div>
           <!-- 연락처 수정 버튼 -->
@@ -226,7 +241,7 @@
         <p class="px-1 hover:text-white hover:-translate-y-1 duration-200 cursor-default whitespace-nowrap max-w-min text-base">
           소개 - <span class="hover:text-white text-sm text-gray-300 whitespace-nowrap">다른 회원이 <?= $user->user_nickname ?>님의 소개글을 볼 수 있습니다</span>
         </p>
-        <textarea id="memo" rows="5" type="text" class="w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#3f3f3f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200"><?= $user->user_memo ?></textarea>
+        <textarea id="memo" rows="5" type="text" placeholder="자신을 다른 사람에게 소개해 보세요~!" class="w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#3f3f3f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200"><?= $user->user_memo?></textarea>
         <!-- 소개 수정 버튼 -->
         <div class="text-right flex justify-end gap-5 duration-200">
           <button id="memo_update_btn" class="bg-[#3f3f3f] w-[50%] lg:w-[40%] py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
@@ -259,17 +274,31 @@
     const user_email = $('#email').val();
     const user_phone = '010-' + $('#phone_2').val() + '-' + $('#phone_3').val();
 
+  $('.alert_remove-btn').on('click', e => {
+    e.preventDefault();
+    $('#error_txt').empty();
+    $('#error_form').addClass('hidden');
+  });
+
   $('#nickname_update_btn').on('click', (e) => { // 닉네임 수정
     e.preventDefault();
 
-    if ($('#nickname').val() == '') {
-      alert('별명을 입력해주세요');
-      return false;
-    }
+    $('#error_txt').empty(); // 에러 메시지 초기화
+    $('#error_form').removeClass('hidden');
 
-    if(!confirm($('#nickname').val() + '으로 별명을 변경하시겠습니까?')) {
+    if($('#nickname').val().length < 2 || $('#nickname').val().length > 8) { // 닉네임 검사
+      $('#error_txt').text('닉네임은 2~8 글자로 입력해주세요.');
       return;
     }
+
+    if(!confirm($('#nickname').val() + '으로 닉네임을 변경하시겠습니까?')) {
+      $('#error_txt').empty();
+      $('#error_form').addClass('hidden');
+      return;
+    }
+    
+    $('#error_txt').empty();
+    $('#error_form').addClass('hidden');
 
     $.ajax({
       url: '/user_information_c/update_nickname',
@@ -280,10 +309,11 @@
       },
       success: (response) => {
         if (response.state) {
-          alert('별명이 변경되었습니다');
+          // alert('닉네임이 변경되었습니다');
           location.reload();
         } else {
-          alert('별명 변경에 실패했습니다');
+          $('#error_txt').append(response.detail);
+          // alert('닉네임 변경에 실패했습니다');
         }
       },
       error: (response, s, e) => {
@@ -297,24 +327,32 @@
   $('#password_update_btn').on('click', (e) => { // 비밀번호 수정
     e.preventDefault();
 
-    if (!$('#password_1').val()) {
-      alert('비밀번호를 입력해주세요');
-      return false;
+    $('#error_txt').empty(); // 에러 메시지 초기화
+    $('#error_form').removeClass('hidden');
+
+    if($('#password_1').val().length < 6 || $('#password_1').val().length > 20) { // 비밀번호 검사
+      $('#error_txt').text('비밀번호는 6~20 글자로 입력해주세요.');
+      return;
     }
 
-    if (!$('#password_2').val()) {
-      alert('비밀번호 확인을 입력해주세요');
-      return false;
+    if($('#password_2').val().length < 6 || $('#password_2').val().length > 20) { // 비밀번호 검사
+      $('#error_txt').text('비밀번호 확인은 6~20 글자로 입력해주세요.');
+      return;
     }
 
-    if($('#password_1').val() !== $('#password_2').val()) {
-      alert('비밀번호가 일치하지 않습니다');
-      return false;
+    if($('#password_1').val() !== $('#password_2').val()){ // 비밀번호 일치 검사
+      $('#error_txt').text('비밀번호가 서로 일치하지 않습니다.');
+      return;
     }
 
     if(!confirm('비밀번호를 변경하시겠습니까?')) {
+      $('#error_txt').empty(); // 에러 메시지 초기화
+      $('#error_form').addClass('hidden');
       return;
     }
+
+    $('#error_txt').empty(); // 에러 메시지 초기화
+    $('#error_form').addClass('hidden');
 
     $.ajax({
       url: '/user_information_c/update_password',
@@ -322,13 +360,15 @@
       dataType: 'json',
       data: {
         password: $('#password_1').val(),
+        password_check: $('#password_2').val(),
       },
-      success: (response) => {
+      success: response => {
         if (response.state) {
-          alert('비밀번호가 변경되었습니다');
+          // alert('비밀번호가 변경되었습니다');
           location.reload();
         } else {
-          alert('비밀번호 변경에 실패했습니다');
+          $('#error_txt').append(response.detail);
+          // alert('비밀번호 변경에 실패했습니다');
         }
       },
       error: (response, s, e) => {
@@ -342,19 +382,38 @@
   $('#email_update_btn').on('click', (e) => { // 이메일 수정
     e.preventDefault();
 
-    if (!$('#email').val()) {
-      alert('이메일을 입력해주세요');
-      return false;
-    }
+    $('#error_txt').empty(); // 에러 메시지 초기화
+    $('#error_form').removeClass('hidden');
 
-    if(user_email == $('#email').val()) {
-      alert('현재 이메일과 동일합니다');
-      return false;
-    }
-
-    if(!confirm('이메일을 변경하시겠습니까?')) {
+    if($('#email').val().length < 1){ // 이메일 정규식 검사
+      $('#error_txt').text('이메일을 입력해 주세요.');
       return;
     }
+
+    if($('#email').val()){ // 이메일 정규식 검사
+      var regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+      if (!regEmail.test($('#email').val())) {
+        $('#error_txt').text('이메일 형식이 맞지 않습니다.');
+        return false;
+      } else {
+        $('#error_form').addClass('hidden');
+      }
+    }
+    
+    if(user_email == $('#email').val()) {
+      $('#error_form').removeClass('hidden');
+      $('#error_txt').text('현재 이메일과 동일합니다.');
+      return false;
+    }
+
+    if(!confirm($('#email').val() + ' 로 이메일을 변경하시겠습니까?')) {
+      $('#error_txt').empty(); // 에러 메시지 초기화
+      $('#error_form').addClass('hidden');
+      return;
+    }
+
+    $('#error_txt').empty(); // 에러 메시지 초기화
+    $('#error_form').addClass('hidden');
 
     $.ajax({
       url: '/user_information_c/update_email',
@@ -363,12 +422,13 @@
       data: {
         email: $('#email').val(),
       },
-      success: (response) => {
+      success: response => {
         if (response.state) {
-          alert('이메일이 변경되었습니다');
+          // alert('이메일이 변경되었습니다');
           location.reload();
         } else {
-          alert('이메일 변경에 실패했습니다');
+          // alert('이메일 변경에 실패했습니다');
+          $('#error_txt').append(response.detail); // 에러 메시지 초기화
         }
       },
       error: (response, s, e) => {
@@ -379,32 +439,31 @@
     });
   });
 
-  $('#phone_update_btn').on('click', (e) => { // 연락처 수정
+  $('#phone_update_btn').on('click', e => { // 연락처 수정
+
     e.preventDefault();
 
-    if (!$('#phone_2').val() || !$('#phone_3').val()) {
-      alert('연락처를 입력해주세요');
-      return false;
-    }
+    $('#error_txt').empty(); // 에러 메시지 초기화
+    $('#error_form').removeClass('hidden');
 
-    if(($('#phone_2').val().length < 4) || ($('#phone_3').val().length < 4)) {
-      alert('연락처는 4 글자씩 입력해주세요');
-      return false;
-    }
-
-    if(($('#phone_2').val().length > 4) || ($('#phone_3').val().length > 4)) {
-      alert('연락처는 4 글자씩 입력해주세요');
-      return false;
+    if($('#phone_2').val().length != 4 || $('#phone_3').val().length != 4){ // 휴대폰 검사
+      $('#error_txt').text('휴대폰 번호는 4자 입력해주세요.');
+      return;
     }
 
     if(user_phone == '010-' + $('#phone_2').val() + '-' + $('#phone_3').val()) {
-      alert('현재 연락처와 동일합니다');
+      $('#error_txt').text('현재 휴대폰 번호와 동일합니다.');
       return false;
     }
 
-    if(!confirm('연락처를 변경하시겠습니까?')) {
+    if( ! confirm('연락처를 변경하시겠습니까?') ) {
+      $('#error_txt').empty(); // 에러 메시지 초기화
+      $('#error_form').addClass('hidden');
       return;
     }
+
+    $('#error_txt').empty(); // 에러 메시지 초기화
+    $('#error_form').addClass('hidden');
 
     $.ajax({
       url: '/user_information_c/update_phone',
@@ -415,10 +474,11 @@
       },
       success: (response) => {
         if (response.state) {
-          alert('연락처가 변경되었습니다');
+          // alert('연락처가 변경되었습니다');
           location.reload();
         } else {
-          alert('연락처 변경에 실패했습니다');
+          // alert('연락처 변경에 실패했습니다');
+          $('#error_txt').append(response.detail); // 에러 메시지 초기화
         }
       },
       error: (response, s, e) => {
@@ -429,17 +489,31 @@
     });
   });
 
-  $('#memo_update_btn').on('click', (e) => { // 소개 수정
+  $('#memo_update_btn').on('click', function(e) { // 소개 수정
+
     e.preventDefault();
 
-    if (!$('#memo').val()) {
-      alert('소개를 입력해주세요');
-      return false;
+    $('#error_txt').empty(); // 에러 메시지 초기화
+    $('#error_form').removeClass('hidden');
+
+    if($('#memo').val().length === 0) { // 메모 유효성 검사
+      $('#error_txt').text('메모는 10자 이상 입력해주세요.');
+      return;
+    } else {
+      if($('#memo').val().length > 100) {
+        $('#error_txt').text('메모는 100자 이내로 입력해주세요.');
+        return;
+      }
     }
 
     if(!confirm('소개를 변경하시겠습니까?')) {
+      $('#error_txt').empty(); // 에러 메시지 초기화
+      $('#error_form').addClass('hidden');
       return;
     }
+
+    $('#error_txt').empty(); // 에러 메시지 초기화
+    $('#error_form').addClass('hidden');
 
     $.ajax({
       url: '/user_information_c/update_memo',
@@ -450,10 +524,11 @@
       },
       success: (response) => {
         if (response.state) {
-          alert('메모가 변경되었습니다');
+          // alert('메모가 변경되었습니다');
           location.reload();
         } else {
-          alert('메모 변경에 실패했습니다');
+          // alert('메모 변경에 실패했습니다');
+          $('#error_txt').append(response.detail); // 에러 메시지 초기화
         }
       },
       error: (response, s, e) => {
@@ -482,7 +557,7 @@
       }
 
       // 파일 읽기가 완료되었을 때 실행될 함수 정의
-      reader.onload = function(e) {
+      reader.onload = e => {
         // 미리보기 이미지의 src 속성을 변경
         $('#on_profile').removeClass('hidden');
         $('#basic_profile').addClass('hidden');

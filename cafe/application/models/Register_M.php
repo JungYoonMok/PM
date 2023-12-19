@@ -57,16 +57,29 @@ class Register_M extends CI_Model {
   }
 
   // 유저 아이디 중복 체크
-  public function userid_check($ID) {
-    if (empty($ID)) {
-      return false;
+  public function userid_check($ID, $phone, $email) {
+
+    // 빈 값 체크
+    if (empty($ID) || empty($email) || empty($phone)) {
+      return ['status' => false, 'message' => '아이디, 이메일, 연락처를 확인해주세요'];
     }
 
-    // 쿼리 빌더를 사용하여 중복 아이디 체크
-    $query = $this->db->get_where('members', ['user_id' => $ID]);
-    // 타입과 값이 0인지
-    return $query->num_rows() === 0;
+    // 아이디 중복 검사
+    if ($this->db->get_where('members', ['user_id' => $ID])->num_rows() > 0) {
+      return ['status' => false, 'message' => '아이디가 이미 존재합니다'];
+    }
 
+    // 휴대폰 번호 중복 검사
+    if ($this->db->get_where('members', ['user_phone' => $phone])->num_rows() > 0) {
+      return ['status' => false, 'message' => '휴대폰 번호가 이미 존재합니다'];
+    }
+
+    // 이메일 중복 검사
+    if ($this->db->get_where('members', ['user_email' => $email])->num_rows() > 0) {
+      return ['status' => false, 'message' => '이메일이 이미 존재합니다'];
+    }
+
+    return ['status' => true];
   }
 }
 

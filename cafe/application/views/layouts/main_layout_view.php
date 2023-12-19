@@ -154,7 +154,7 @@
 <body>
 
   <!-- 베이스 -->
-  <div class="flex duration-200 justify-between <?= ($this->uri->segment(1) == 'login' ? 'h-full' : ($this->uri->segment(1) == 'register' ? 'h-full' : ($this->uri->segment(1) == '' ? 'h-full' : '' ) ) ) ?>">
+  <div class="flex duration-200 justify-between <?= ($this->uri->segment(1) == 'login' ? 'h-full' : ($this->uri->segment(1) == 'register' ? 'h-full' : ($this->uri->segment(1) == 'find_account_c' ? 'h-full' : ($this->uri->segment(1) == '' ? 'h-full' : '' ) ) ) ) ?>">
 
     <!-- 사이드 -->
     <div class="w-full max-w-[300px] z-30 <?= $this->session->userdata('user_id') ? 'hidden lg:inline-block' : 'hidden'?>">

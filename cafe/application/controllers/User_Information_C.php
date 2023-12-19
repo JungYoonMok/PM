@@ -111,122 +111,214 @@ class User_information_C extends CI_Controller {
   }
 
   public function update_nickname() {
-    $data = [
-      'user_id' => $this->session->userdata('user_id'),
-      'user_nickname' => $this->input->post('nickname', TRUE),
+    $form_config = [
+      [
+        'field' => 'nickname',
+        'label' => '닉네임',
+        'rules' => 'required|min_length[2]|max_length[8]',
+        'errors' => [
+          'required' => '닉네임을 입력해 주세요',
+          'min_length' => '닉네임은 최소 2자 이상 입력해 주세요',
+          'max_length' => '닉네임은 최대 8 이하 입력해 주세요',
+        ]
+      ],
     ];
 
-    $result = $this->model->update_nickname($data);
-    if($result){
-      // 세션 데이터 업데이트
-      $this->session->set_userdata(['user_nickname' => $data['user_nickname']]);
-      echo json_encode([ 'state' => TRUE, 'message' => '별명이 변경되었습니다' ]);
+    $this->form_validation->set_rules($form_config);
+
+    if ($this->form_validation->run() == FALSE) {
+      echo json_encode([ 
+        'state' => FALSE, 
+        'detail' => validation_errors(), 
+      ]);
+      return;
     } else {
-      echo json_encode([ 'state' => FALSE, 'message' => '별명 변경에 실패했습니다' ]);
+      $data = [
+        'user_id' => $this->session->userdata('user_id'),
+        'user_nickname' => $this->input->post('nickname', TRUE),
+      ];
+  
+      $result = $this->model->update_nickname($data);
+      if($result){
+        // 세션 데이터 업데이트
+        $this->session->set_userdata(['user_nickname' => $data['user_nickname']]);
+        echo json_encode([ 'state' => TRUE, 'message' => '별명이 변경되었습니다' ]);
+      } else {
+        echo json_encode([ 'state' => FALSE, 'message' => '별명 변경에 실패했습니다' ]);
+      }
     }
   }
 
   public function update_password() {
-    $data = [
-      'user_id' => $this->session->userdata('user_id'),
-      'user_password' => $this->input->post('password', TRUE),
+    $form_config = [
+      [
+        'field' => 'password',
+        'label' => '비밀번호',
+        'rules' => 'required|min_length[6]|max_length[20]',
+        'errors' => [
+          'required' => '비밀번호를 입력해 주세요',
+          'min_length' => '비밀번호는 최소 6자 이상 입력해 주세요',
+          'max_length' => '비밀번호는 최대 20자 이하 입력해 주세요',
+        ]
+      ],
+      [
+        'field' => 'password_check',
+        'label' => '비밀번호 확인',
+        'rules' => 'required|matches[password]',
+        'errors' => [
+          'required' => '비밀번호 확인을 입력해 주세요',
+          'matches' => '비밀번호가 일치하지 않습니다',
+        ]
+      ],
     ];
 
-    $result = $this->model->update_password($data);
-    if($result){
-      echo json_encode([ 'state' => TRUE, 'message' => '비밀번호가 변경되었습니다' ]);
+    $this->form_validation->set_rules($form_config);
+
+    if ($this->form_validation->run() == FALSE) {
+      echo json_encode([ 
+        'state' => FALSE, 
+        'detail' => validation_errors(), 
+      ]);
+      return;
     } else {
-      echo json_encode([ 'state' => FALSE, 'message' => '비밀번호 변경에 실패했습니다' ]);
+      $data = [
+        'user_id' => $this->session->userdata('user_id'),
+        'user_password' => $this->input->post('password', TRUE),
+      ];
+  
+      $result = $this->model->update_password($data);
+      if($result){
+        echo json_encode([ 'state' => TRUE, 'message' => '비밀번호가 변경되었습니다' ]);
+      } else {
+        echo json_encode([ 'state' => FALSE, 'message' => '비밀번호 변경에 실패했습니다' ]);
+      }
     }
   }
 
   public function update_email() {
-    $data = [
-      'user_id' => $this->session->userdata('user_id'),
-      'user_email' => $this->input->post('email', TRUE),
+    $form_config = [
+      [
+        'field' => 'email',
+        'label' => '이메일',
+        'rules' => 'required|valid_email',
+        'errors' => [
+          'required' => '이메일을 입력해 주세요',
+          'valid_email' => '이메일 형식이 올바르지 않습니다',
+        ]
+      ],
     ];
 
-    $result = $this->model->update_email($data);
-    if($result){
-      // 세션 데이터 업데이트
-      $this->session->set_userdata(['user_email' => $data['user_email']]);
-      echo json_encode([ 'state' => TRUE, 'message' => '이메일이 변경되었습니다' ]);
+    $this->form_validation->set_rules($form_config);
+
+    if ($this->form_validation->run() == FALSE) {
+      echo json_encode([ 
+        'state' => FALSE, 
+        'detail' => validation_errors(), 
+      ]);
+      return;
     } else {
-      echo json_encode([ 'state' => FALSE, 'message' => '이메일 변경에 실패했습니다' ]);
+      $data = [
+        'user_id' => $this->session->userdata('user_id'),
+        'user_email' => $this->input->post('email', TRUE),
+      ];
+  
+      $result = $this->model->update_email($data);
+      if($result){
+        // 세션 데이터 업데이트
+        $this->session->set_userdata(['user_email' => $data['user_email']]);
+        echo json_encode([ 'state' => TRUE, 'message' => '이메일이 변경되었습니다' ]);
+      } else {
+        echo json_encode([ 'state' => FALSE, 'message' => '이메일 변경에 실패했습니다' ]);
+      }
     }
+
+    // $data = [
+    //   'user_id' => $this->session->userdata('user_id'),
+    //   'user_email' => $this->input->post('email', TRUE),
+    // ];
+
+    // $result = $this->model->update_email($data);
+    // if($result){
+    //   // 세션 데이터 업데이트
+    //   $this->session->set_userdata(['user_email' => $data['user_email']]);
+    //   echo json_encode([ 'state' => TRUE, 'message' => '이메일이 변경되었습니다' ]);
+    // } else {
+    //   echo json_encode([ 'state' => FALSE, 'message' => '이메일 변경에 실패했습니다' ]);
+    // }
   }
 
   public function update_phone() {
-    $data = [
-      'user_id' => $this->session->userdata('user_id'),
-      'user_phone' => $this->input->post('phone', TRUE),
+    $form_config = [
+      [
+        'field' => 'phone',
+        'label' => '휴대폰',
+        'rules' => 'required',
+        'errors' => [
+          'required' => '휴대폰 번호를 입력해 주세요',
+        ]
+      ],
     ];
 
-    $result = $this->model->update_phone($data);
-    if($result){
-      // 세션 데이터 업데이트
-      $this->session->set_userdata(['user_phone' => $data['user_phone']]);
-      echo json_encode([ 'state' => TRUE, 'message' => '연락처가 변경되었습니다' ]);
+    $this->form_validation->set_rules($form_config);
+
+    if ($this->form_validation->run() == FALSE) {
+      echo json_encode([ 
+        'state' => FALSE, 
+        'detail' => validation_errors(), 
+      ]);
+      return;
     } else {
-      echo json_encode([ 'state' => FALSE, 'message' => '연락처 변경에 실패했습니다' ]);
+      $data = [
+        'user_id' => $this->session->userdata('user_id'),
+        'user_phone' => $this->input->post('phone', TRUE),
+      ];
+  
+      $result = $this->model->update_phone($data);
+      if($result){
+        // 세션 데이터 업데이트
+        $this->session->set_userdata(['user_phone' => $data['user_phone']]);
+        echo json_encode([ 'state' => TRUE, 'message' => '연락처가 변경되었습니다' ]);
+      } else {
+        echo json_encode([ 'state' => FALSE, 'message' => '연락처 변경에 실패했습니다' ]);
+      }
     }
   }
 
   public function update_memo() {
-    $data = [
-      'user_id' => $this->session->userdata('user_id'),
-      'user_memo' => $this->input->post('memo', TRUE),
+    $form_config = [
+      [
+        'field' => 'memo',
+        'label' => '소개',
+        'rules' => 'min_length[10]|max_length[100]',
+        'errors' => [
+          'min_length' => '소개는 최소 10자 이상 입력해 주세요',
+          'max_length' => '소개는 최대 100자 이하 입력해 주세요',
+        ]
+      ]
     ];
+    
+    $this->form_validation->set_rules($form_config);
 
-    $result = $this->model->update_memo($data);
-    if($result){
-      // 세션 데이터 업데이트
-      $this->session->set_userdata(['user_memo' => $data['user_memo']]);
-      echo json_encode([ 'state' => TRUE, 'message' => '소개가 변경되었습니다' ]);
+    if ($this->form_validation->run() == FALSE) {
+      echo json_encode([ 
+        'state' => FALSE, 
+        'detail' => validation_errors(), 
+      ]);
+      return;
     } else {
-      echo json_encode([ 'state' => FALSE, 'message' => '소개 변경에 실패했습니다' ]);
-    }
-  }
-
-  // 방치된 코드
-  public function update_user_data() {
-    $user_id = $this->session->userdata('user_id');
-
-    $nickname = $this->input->post('nickname', TRUE) == $this->session->userdata('user_nickname') ? NULL : $this->input->post('nickname', TRUE);
-    $password_1 = $this->input->post('password_1', TRUE);
-    $password_2 = $this->input->post('password_2', TRUE);
-    $password = password_verify($password_1, $this->session->userdata('user_password')) ? NULL : password_hash($password_1, PASSWORD_DEFAULT);
-    $email = $this->input->post('email', TRUE) == $this->session->userdata('user_email') ? NULL : $this->input->post('email', TRUE);
-    $phone_1 = $this->input->post('phone_1', TRUE);
-    $phone_2 = $this->input->post('phone_2', TRUE);
-    $phone_3 = $this->input->post('phone_3', TRUE);
-    $phone = $phone_1.'-'.$phone_2.'-'.$phone_3 == $this->session->userdata('user_phone') ? NULL : $phone_1.'-'.$phone_2.'-'.$phone_3;
-    $memo = $this->input->post('memo', TRUE) == $this->session->userdata('user_memo') ? NULL : $this->input->post('memo', TRUE);
-
-    $data = [
-      $nickname ? 'user_nickname' : NULL => $nickname,
-      $password ? 'user_password' : NULL => $password,
-      $email ? 'user_email' : NULL => $email,
-      $phone ? 'user_phone' : NULL => $phone,
-      $memo ? 'user_memo' : NULL => $memo,
-    ];
-
-    // $data = [
-    //   'nickname' => $this->input->post('nickname', TRUE),
-    //   'password_1' => $this->input->post('password', TRUE),
-    //   'password_2' => $this->input->post('password', TRUE),
-    //   'email' => $this->input->post('email', TRUE),
-    //   'phone_1' => $this->input->post('email', TRUE),
-    //   'phone_2' => $this->input->post('email', TRUE),
-    //   'phone_3' => $this->input->post('email', TRUE),
-    //   'memo' => $this->input->post('email', TRUE),
-    // ];
-
-    $result = $this->model->update_user_data($user_id, $data);
-    if($result){
-      echo json_encode([ 'state' => TRUE, 'message' => '회원정보가 변경되었습니다' ]);
-    } else {
-      echo json_encode([ 'state' => FALSE, 'message' => '회원정보 변경에 실패했습니다' ]);
+      $data = [
+        'user_id' => $this->session->userdata('user_id'),
+        'user_memo' => $this->input->post('memo', TRUE),
+      ];
+  
+      $result = $this->model->update_memo($data);
+      if($result){
+        // 세션 데이터 업데이트
+        $this->session->set_userdata(['user_memo' => $data['user_memo']]);
+        echo json_encode([ 'state' => TRUE, 'message' => '소개가 변경되었습니다' ]);
+      } else {
+        echo json_encode([ 'state' => FALSE, 'message' => '소개 변경에 실패했습니다' ]);
+      }
     }
   }
 

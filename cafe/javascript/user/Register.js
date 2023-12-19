@@ -37,8 +37,8 @@ $(document).ready( function () {
       return;
     }
 
-    if($('#user_phone_2').val().length < 3 || $('#user_phone_3').val().length > 4){ // 휴대폰 검사
-      $('#error_txt').text('휴대폰 번호는 3~4자 입력해주세요.');
+    if($('#user_phone_2').val().length != 4 || $('#user_phone_3').val().length != 4){ // 휴대폰 검사
+      $('#error_txt').text('휴대폰 번호는 4자 입력해주세요.');
       return;
     }
 
@@ -57,9 +57,11 @@ $(document).ready( function () {
       }
     }
 
-    if($('#user_memo').val().length !== 0 && $('#user_memo').val().length > 100){ // 메모 유효성 검사
-      $('#error_txt').text('메모는 100자 이내로 입력해주세요.');
-      return;
+    if($('#user_memo').val().length > 0) { // 메모 유효성 검사
+      if($('#user_memo').val().length > 100) {
+        $('#error_txt').text('메모는 100자 이내로 입력해주세요.');
+        return;
+      }
     }
 
     $.ajax({

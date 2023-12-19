@@ -43,7 +43,7 @@ class Register_C extends CI_Controller {
       return;
     }
 
-    // 폼 벨리데이션으로 폼의 필수값을 지정 korean_alpha_dash
+    // 폼 벨리데이션으로 폼의 필수값을 지정
     $form_config = [
       [
         'field' => 'nName',
@@ -156,19 +156,33 @@ class Register_C extends CI_Controller {
 
       // 유저 아이디 중복 체크
       $user_id = $this->input->post('id');
-      $user_check = $this->register_model->userid_check($user_id);
+      $phone = $this->input->post('phone_1') . "-" . $this->input->post('phone_2') . "-" . $this->input->post('phone_3');
+      $email = $this->input->post('email');
 
-      if ($user_check) {
+      $user_check = $this->register_model->userid_check($user_id, $phone, $email);
+
+      if ($user_check['status']) {
         // 모델의 register 함수 호출
         $response = $this->register_model->register();
         echo json_encode($response);
       } else {
         echo json_encode([ 
           'state' => FALSE,
-          'message' => '아이디가 이미 존재합니다',
-          'detail' => '이미 존재하는 아이디입니다'
+          'detail' => $user_check['message']
         ]);
       }
+
+      // if ($user_check) {
+      //   // 모델의 register 함수 호출
+      //   $response = $this->register_model->register();
+      //   echo json_encode($response);
+      // } else {
+      //   echo json_encode([ 
+      //     'state' => FALSE,
+      //     'message' => '아이디가 이미 존재합니다',
+      //     'detail' => '이미 존재하는 아이디입니다'
+      //   ]);
+      // }
 
     } else {
       // 폼 벨리데이션 실패 시 오류 메시지 반환
