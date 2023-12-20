@@ -49,28 +49,67 @@ class Free_Board_Create_C extends CI_Controller {
       return;
     }
 
-    // 폼 데이터 처리
-    $post_data = [
-      'board_type' => $this->input->post('post_type'),
-      'title' => $this->input->post('post_title'),
-      'content' => $this->input->post('post_value'),
-      'user_id' => $this->session->userdata('user_id'),
-      'board_state' => $this->input->post('post_open'),
-      'board_comment' => $this->input->post('comment_open'),
-      'depth' => 1,
-      'regdate' => date("Y-m-d H:i:s")
+    $form_config = [
+      [
+        'field' => 'post_type',
+        'label' => '게시판 분류',
+        'rules' => 'required',
+        'errors' => [
+          'required' => '게시판의 분류를 선택해 주세요',
+        ]
+      ],
+      [
+        'field' => 'post_title',
+        'label' => '게시판 제목',
+        'rules' => 'required|min_length[2]|max_length[50]',
+        'errors' => [
+          'required' => '게시판의 제목을 입력해 주세요',
+          'min_length' => '게시판의 제목은 2자 이상 입력해 주세요',
+          'max_length' => '게시판의 제목은 50자 이내로 입력해 주세요',
+        ]
+      ],
+      [
+        'field' => 'post_value',
+        'label' => '게시판 내용',
+        'rules' => 'required|min_length[2]|max_length[10000]',
+        'errors' => [
+          'required' => '게시판의 분류를 선택해 주세요',
+          'min_length' => '게시판의 내용은 2자 이상 입력해 주세요',
+          'max_length' => '게시판의 내용은 10000자 이내로 입력해 주세요',
+        ]
+      ],
     ];
 
-    try {
+    $this->form_validation->set_rules($form_config);
+
+    if ($this->form_validation->run() == FALSE) {
+      $errors = $this->form_validation->error_array();
+      echo json_encode([
+        'state' => FALSE, 
+        'message' => validation_errors(), 
+        'errors' => $errors]);
+      return;
+    } else {
+      // 폼 데이터 처리
+      $post_data = [
+        'board_type' => $this->input->post('post_type'),
+        'title' => $this->input->post('post_title'),
+        'content' => $this->input->post('post_value'),
+        'user_id' => $this->session->userdata('user_id'),
+        'board_state' => $this->input->post('post_open'),
+        'board_comment' => $this->input->post('comment_open'),
+        'depth' => 1,
+        'regdate' => date("Y-m-d H:i:s")
+      ];
+
       $result = $this->FBM->create($post_data);
       $last_id = $result['last_id'];
       
       $this->upload_file($last_id);
 
       echo json_encode(['state' => TRUE, 'message' => '게시글 등록 성공', 'data' => $result, 'last_id' => $last_id]);
-    } catch(Exception $e) {
-      echo json_encode(['state' => FALSE, 'message' => '게시글 등록 실패: ' . $e->getMessage()]);
     }
+
   }
 
   public function upload_file($last_id) {

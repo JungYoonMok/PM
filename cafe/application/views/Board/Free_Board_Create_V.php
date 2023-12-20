@@ -230,8 +230,8 @@
         formData.append('image', blob);
         $.ajax({
           url: '/free_board_create_c/upload_image', // 이미지를 업로드할 서버의 URL
-          data: formData,
           type: 'POST',
+          data: formData,
           processData: false,
           contentType: false,
           success: (response) => {
@@ -312,7 +312,7 @@
           location.href =  '/' + $('#post_type').val() + '/' + response.last_id;
           // location.href =  '/' + $('#board_type').val() + '/' + response.last_id;
         } else {
-          console.log('실패: ', response);
+          // console.log('실패: ', response);
           alert('게시글 등록 실패: ' + response.message);
         }
       }, error: function(xhr, status, error) {
@@ -342,14 +342,14 @@
     const fileInput = $('#userfile')[0];
     if (fileInput.files.length > 0) {
       if(selectedFiles.length > 5) {
-          alert('파일은 최대 5개까지 업로드 가능합니다.');
-          return;
-        } else {
+        alert('파일은 최대 5개까지 업로드 가능합니다.');
+        return;
+      } else {
 
-          for (const file of selectedFiles) {
-            formData.append('userfile[]', file);
-          }
+        for (const file of selectedFiles) {
+          formData.append('userfile[]', file);
         }
+      }
     }
 
     // AJAX 요청으로 게시글 생성 및 이미지 업로드 처리
