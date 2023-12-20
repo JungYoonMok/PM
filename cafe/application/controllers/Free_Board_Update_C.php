@@ -13,7 +13,6 @@ class Free_Board_Update_C extends CI_Controller {
       [ 'state' => FALSE, 'message' => '로그인이 필요합니다' ];
     }
 
-
     $this->load->model('Free_Board_Update_M', 'FBM');
     $this->load->model('Free_Board_Create_M');
   }
@@ -24,7 +23,7 @@ class Free_Board_Update_C extends CI_Controller {
 
     // 작성자가 맞는지
     if($data['post']->user_id != $this->session->userdata('user_id')) {
-      return redirect('/freeboard');
+      return redirect('/');
     }
 
     $this->layout->custom_view('board/free_board_update_v', $data);
@@ -44,6 +43,12 @@ class Free_Board_Update_C extends CI_Controller {
   }
 
   public function post_update() {
+
+    // 공지사항 사용자 체크
+    if($this->input->post('post_type') == 'notice' && $this->session->userdata('user_id') != 'admin') {
+      echo json_encode([ 'state' => FALSE, 'message' => '관리자만 공지사항을 작성할 수 있습니다' ]);
+      return;
+    }
 
     $max_files = 5; // 최대 파일 개수
     $config['upload_path'] = './uploads/';
@@ -108,10 +113,9 @@ class Free_Board_Update_C extends CI_Controller {
     // $this->form_validation->set_rules('post_value', 'Post_Value', 'required');
     // $this->form_validation->set_rules('post_open', 'Post_Open', 'required');
     // $this->form_validation->set_rules('comment_open', 'Comment_Open', 'required');
-
     $type = $this->input->post('post_type');
     $data = [
-      'board_type' => ($type == '자유게시판' ? 'freeboard' : ($type == '공지사항' ? 'notice' : ($type == '가입인사' ? 'hellow' : 'anonymous') ) ),
+      'board_type' => ($type === '공지사항' ? 'notice' : ($type === '자유게시판' ? 'freeboard' : ($type === '가입인사' ? 'hellow' : $type ) ) ),
       'title' => $this->input->post('post_title'),
       'content' => $this->input->post('post_value'),
       'board_state' => $this->input->post('post_open'),

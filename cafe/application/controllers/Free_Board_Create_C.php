@@ -43,6 +43,12 @@ class Free_Board_Create_C extends CI_Controller {
       return;
     }
 
+    // 공지사항 사용자 체크
+    if($this->input->post('post_type') == 'notice' && $this->session->userdata('user_id') != 'admin') {
+      echo json_encode([ 'state' => FALSE, 'message' => '관리자만 공지사항을 작성할 수 있습니다' ]);
+      return;
+    }
+
     // 폼 데이터 처리
     $post_data = [
       'board_type' => $this->input->post('post_type'),

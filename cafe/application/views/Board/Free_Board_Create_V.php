@@ -23,7 +23,7 @@
 
       <div class="text-center py-10 rounded">
         <p class="font-[s-core5] text-xl relative">
-          <?= $this->uri->segment(1) == 'post_create' ? '<p title="편 - 안" class="absolute whitespace-nowrap lg:cursor-help font-[s-core5] text-xl duration-200 lg:rotate-[25deg] lg:hover:rotate-0">글쓰기</p>' : '' ;?>
+          <?= $this->uri->segment(1) == 'post_create' ? '<p id="post_title_txt" class="absolute whitespace-nowrap font-[s-core5] text-xl duration-200">글쓰기</p>' : '' ;?>
           <?= $this->uri->segment(1) == 'post_create_reply' ? '"'.$board->title.'" 글에 답글쓰기' : NULL?>
         </p>
       </div>
@@ -43,7 +43,9 @@
               <select id='post_type' name='post_type' required
                 class="outline-none w-full text-whith rounded bg-[#3f3f3f] border border-[#4f4f4f] p-3">
                 <option class="" hidden disabled selected>게시판 선택</option>
-                <option value="notice">공지사항</option>
+                <option value="notice" class="<?= $this->session->userdata('user_id') == 'admin' ? '' : 'hidden' ?>">
+                  공지사항
+                </option>
                 <option value="freeboard">자유게시판</option>
                 <option value="hellow">가입인사</option>
               </select>
@@ -135,7 +137,7 @@
           <!-- 첨부파일 미리보기 -->
           <div id="file_preview" class="flex flex-col gap-2">
             <p>첨부 파일</p>
-            <div id="preview" class="shadow-xl w-full grid grid-cols-2 md:flex md:flex-wrap place-items-center border border-[#4f4f4f] justify-center gap-3 duration-200 min-h-[208px] bg-[#3f3f3f] rounded p-3">
+            <div id="preview" class="shadow-xl w-full grid grid-cols-4 md:grid-cols-2 md:flex md:flex-wrap place-items-center border border-[#4f4f4f] justify-center gap-3 duration-200 min-h-[208px] bg-[#3f3f3f] rounded p-3">
             </div>
           </div>
 
@@ -148,7 +150,7 @@
                     add_link
                   </span>
                   <p class="">
-                    파일을 첨부하려면 클릭하세요
+                    파일을 첨부하려면 클릭하세요 (최대 5개)
                   </p>
                 </div>
                 <div class="flex gap-2">
@@ -158,7 +160,6 @@
                       <?= $list ?>
                     </p>
                   <? endforeach ?>
-                  <!-- <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p> -->
                 </div>
               </div>
               <input name="userfile[]" id="userfile" multiple type="file" class="hidden" />
@@ -248,6 +249,14 @@
       }
     }
   });
+  
+  document.getElementById('post_type').addEventListener('change', function(e) {
+    $('#post_title_txt').text(
+      e.target.value == 'notice' ? '공지사항에 글쓰기' :
+      e.target.value == 'freeboard' ? '자유게시판에 글쓰기' :
+      e.target.value == 'hellow' ? '가입인사에 글쓰기' : '글쓰기'
+    );
+  });
 
   $('#create_btn').click((e) => { // 게시글 등록
     e.preventDefault();
@@ -259,6 +268,14 @@
     // formData.append('post_value', editor.getMarkdown());
     formData.append('post_open', $('input[name="post_open"]:checked').val());
     formData.append('comment_open', $('input[name="comment_open"]:checked').val());
+
+    // 어드민만 공지사항 사용
+    if($('#post_type').val() == 'notice') {
+      if('<?= $this->session->userdata('user_id') ?>' != 'admin') {
+        alert('관리자만 공지사항을 사용할 수 있습니다.');
+        return;
+      }
+    }
 
     // 파일 입력 필드 검증
     const fileInput = $('#userfile')[0];
@@ -370,7 +387,7 @@
       div.innerHTML = `
         <div class="flex gap-3">
           <div class="relative">
-            <img src="${e.target.result}" class="w-40 h-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none" />
+            <img src="${e.target.result}" class="w-20 h-20 md:w-40 md:h-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none" />
             <button class="remove-btn rounded-[50%] absolute top-2 duration-200 w-8 h-8 flex justify-center place-items-center right-2 p-2 bg-[#1f1f1f] hover:bg-red-500">
               <span class="material-symbols-outlined">
                 close

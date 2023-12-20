@@ -48,7 +48,9 @@
                   <?= $post->board_type == 'freeboard' ? '자유게시판' : '' ?>
                   <?= $post->board_type == 'hellow' ? '가입인사' : '' ?>
                 </option>
-                <option value="notice">공지사항</option>
+                <option value="notice" class="<?= $this->session->userdata('user_id') == 'admin' ? '' : 'hidden' ?>">
+                  공지사항
+                </option>
                 <option value="freeboard">자유게시판</option>
                 <option value="hellow">가입인사</option>
               </select>
@@ -140,7 +142,7 @@
           <!-- 첨부파일 미리보기 -->
           <div id="file_preview" class="flex flex-col gap-2">
             <p>첨부 파일</p>
-            <div id="preview" class="shadow-xl w-full grid grid-cols-2 md:flex md:flex-wrap place-items-center border border-[#4f4f4f] justify-center gap-3 duration-200 min-h-[208px] bg-[#3f3f3f] rounded p-3">
+            <div id="preview" class="shadow-xl w-full grid grid-cols-3 md:grid-cols-5 md:flex md:flex-wrap place-items-center border border-[#4f4f4f] justify-center gap-3 duration-200 min-h-[208px] bg-[#3f3f3f] rounded p-3">
             </div>
           </div>
 
@@ -153,7 +155,7 @@
                     add_link
                   </span>
                   <p class="">
-                    파일을 첨부하려면 클릭하세요
+                    파일을 첨부하려면 클릭하세요 (최대 5개)
                   </p>
                 </div>
                 <div class="flex gap-2">
@@ -163,7 +165,6 @@
                       <?= $list ?>
                     </p>
                   <? endforeach ?>
-                  <!-- <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p> -->
                 </div>
               </div>
               <input name="userfile[]" id="userfile" multiple type="file" class="hidden" />
@@ -201,6 +202,12 @@
 
 // ajax 게시글 등록
 $(document).ready( () => {
+
+  // 게시판 타입 변경 체크
+  // document.getElementById('post_type').addEventListener('change', function(e) {
+  //   console.log(e.target.value);
+  //   $('#post_type').val() == e.target.value;
+  // });
 
   // 첨부파일 미리보기 div의 가시성 설정
   updateFilePreviewVisibility();
@@ -262,11 +269,19 @@ $(document).ready( () => {
 
     formData.append('old_file', existingFiles.length);
 
+    // 어드민만 공지사항 사용
+    if($('#post_type').val() == 'notice') {
+      if('<?= $this->session->userdata('user_id') ?>' != 'admin') {
+        alert('관리자만 공지사항을 사용할 수 있습니다.');
+        return;
+      }
+    }
+
     const fileInput = $('input[type="file"]')[0];
     // 이미지 파일이 있으면 formData에 추가
 
-    console.log('추가 ', 'selectedFiles', selectedFiles.length);
-    console.log('기존 ', 'existingFiles', existingFiles.length);
+    // console.log('추가 ', 'selectedFiles', selectedFiles.length);
+    // console.log('기존 ', 'existingFiles', existingFiles.length);
     // console.log('크리에이트 버튼', 'fileInput', fileInput.files.length);
 
     if(selectedFiles.length + existingFiles.length > 5) {
@@ -315,7 +330,7 @@ $(document).ready( () => {
     div.innerHTML = `
       <div class="gap-3">
         <div class="relative">
-          <img src="/uploads/${file.file_name}" class="w-40 h-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none" />
+          <img src="/uploads/${file.file_name}" class="w-32 h-32 lg:w-40 lg:h-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none" />
           <button class="remove-btn existing-file-btn rounded-[50%] absolute top-2 duration-200 w-8 h-8 flex justify-center place-items-center right-2 p-2 bg-[#1f1f1f] hover:bg-red-500" data-file-id="${file.id}" data-file-name="${file.file_name}">
             <span class="material-symbols-outlined">
               close
@@ -331,7 +346,7 @@ $(document).ready( () => {
       div.innerHTML = `
         <div class="gap-3">
           <div class="relative">
-            <img src="${e.target.result}" class="w-40 h-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none" />
+            <img src="${e.target.result}" class="w-32 h-32 lg:w-40 lg:h-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none" />
             <button class="remove-btn rounded-[50%] absolute top-2 duration-200 w-8 h-8 flex justify-center place-items-center right-2 p-2 bg-[#1f1f1f] hover:bg-red-500">
               <span class="material-symbols-outlined">
                 close
@@ -418,7 +433,7 @@ $(document).ready( () => {
         div.innerHTML = `
           <div class="flex gap-3">
             <div class="relative">
-              <img src="${e.target.result}" class="w-40 h-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none" />
+              <img src="${e.target.result}" class="w-20 h-20 md:w-32 md:h-32 lg:w-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none" />
               <button class="remove-btn rounded-[50%] absolute top-2 duration-200 w-8 h-8 flex justify-center place-items-center right-2 p-2 bg-[#1f1f1f] hover:bg-red-500">
                 <span class="material-symbols-outlined">
                   close

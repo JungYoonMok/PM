@@ -232,19 +232,6 @@ class User_information_C extends CI_Controller {
       }
     }
 
-    // $data = [
-    //   'user_id' => $this->session->userdata('user_id'),
-    //   'user_email' => $this->input->post('email', TRUE),
-    // ];
-
-    // $result = $this->model->update_email($data);
-    // if($result){
-    //   // 세션 데이터 업데이트
-    //   $this->session->set_userdata(['user_email' => $data['user_email']]);
-    //   echo json_encode([ 'state' => TRUE, 'message' => '이메일이 변경되었습니다' ]);
-    // } else {
-    //   echo json_encode([ 'state' => FALSE, 'message' => '이메일 변경에 실패했습니다' ]);
-    // }
   }
 
   public function update_phone() {
