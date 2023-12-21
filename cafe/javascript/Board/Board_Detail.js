@@ -1,31 +1,5 @@
 $(document).ready( function () {
 
-  function board_state_chack() {
-    $.ajax({
-      url: '/free_board_detail_c/board_like',
-      type: 'post',
-      dataType: 'json',
-      data: { 
-        boards_idx: $idx,
-        like_type: '1',
-      },
-      success: response => {
-        if(response.state) {
-          alert(response.message);
-          location.reload();
-        } else {
-          alert(response.message);
-          $('#error_txt').text(response.message); // 에러 메시지 출력
-        }
-      },
-      error: ( response, s, e ) => {
-        console.log('에러', response, s, e);
-      }
-    });
-  }
-
-  board_state_chack();
-
   // ajax 게시글 등록
   function like_up($idx){
     // if(!confirm('좋아요를 누르시겠습니까? (변경은 불가능합니다)')) {

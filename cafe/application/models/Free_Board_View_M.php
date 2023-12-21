@@ -61,7 +61,7 @@ class Free_Board_View_M extends CI_Model {
     return $board;
   }
 
-  public function GetBoardList($seg, $limit, $start) {
+  public function GetBoardList($seg, $limit, $start, $list_type) {
     $this->db->select('boards.*,');
     $this->db->select('(SELECT COUNT(*) FROM board_like WHERE like_type = 1 AND boards_idx = boards.idx) as like_count', FALSE);
     $this->db->select('(SELECT COUNT(*) FROM board_like WHERE like_type = 0 AND boards_idx = boards.idx) as dislike_count', FALSE);
@@ -73,7 +73,34 @@ class Free_Board_View_M extends CI_Model {
     $this->db->where('board_type', $seg);
     $this->db->where('group_order', '0'); // 답글이 아닌 경우 제외
     $this->db->where('board_delete', '0'); // 삭제된글 제외
-    $this->db->order_by('idx', 'desc');
+
+    switch($list_type) {
+      case 'new':
+        $this->db->order_by('idx', 'desc');
+        break;
+      case 'old':
+        $this->db->order_by('idx', 'asc');
+        break;
+      case 'like':
+        $this->db->order_by('like_count', 'desc');
+        break;
+      case 'dislike':
+        $this->db->order_by('dislike_count', 'desc');
+        break;
+      case 'reply':
+        $this->db->order_by('reply_count', 'desc');
+        break;
+      case 'comment':
+        $this->db->order_by('comment_count', 'desc');
+        break;
+      case 'hit':
+        $this->db->order_by('hit', 'desc');
+        break;
+      default:
+        $this->db->order_by('idx', 'desc');
+        break;
+    } 
+
     $this->db->limit($limit, $start);
     $query = $this->db->get('boards');
 
@@ -85,7 +112,7 @@ class Free_Board_View_M extends CI_Model {
     return $result;
   }
 
-  public function search($seg, $type, $search_text, $limit, $start) {
+  public function search($seg, $type, $search_text, $limit, $start, $list_type) {
     $this->db->select('boards.*,');
     $this->db->select('(SELECT COUNT(*) FROM board_like WHERE like_type = 1 AND boards_idx = boards.idx) as like_count', FALSE);
     $this->db->select('(SELECT COUNT(*) FROM board_like WHERE like_type = 0 AND boards_idx = boards.idx) as dislike_count', FALSE);
@@ -97,7 +124,6 @@ class Free_Board_View_M extends CI_Model {
     $this->db->where('board_type', $seg);
     $this->db->where('group_order', '0'); // 답글이 아닌 경우 제외
     $this->db->where('board_delete', '0'); // 삭제된글 제외
-    $this->db->order_by('idx', 'desc');
     $this->db->from('boards');
     
     // 검색 타입에 따른 컬럼 설정
@@ -111,7 +137,33 @@ class Free_Board_View_M extends CI_Model {
       // 기타 검색 타입들...
     }
     
-    $this->db->order_by('idx', 'desc');
+    switch($list_type) {
+      case 'new':
+        $this->db->order_by('idx', 'desc');
+        break;
+      case 'old':
+        $this->db->order_by('idx', 'asc');
+        break;
+      case 'like':
+        $this->db->order_by('like_count', 'desc');
+        break;
+      case 'dislike':
+        $this->db->order_by('dislike_count', 'desc');
+        break;
+      case 'reply':
+        $this->db->order_by('reply_count', 'desc');
+        break;
+      case 'comment':
+        $this->db->order_by('comment_count', 'desc');
+        break;
+      case 'hit':
+        $this->db->order_by('hit', 'desc');
+        break;
+      default:
+        $this->db->order_by('idx', 'desc');
+        break;
+    } 
+
     $this->db->limit($limit, $start);
     $this->db->where('group_order', '0');
     // 결과 반환

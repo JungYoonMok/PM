@@ -114,6 +114,11 @@
               <select id='list_type' name='list_type' class="duration-200 cursor-pointer outline-none w-full text-whith rounded bg-[#1f1f1f]  p-1">
                 <option value="new">최신순</option>
                 <option value="old">오래된 순</option>
+                <option value="hit">조회수 순</option>
+                <option value="like">좋아요 순</option>
+                <option value="dislike">싫어요 순</option>
+                <option value="reply">답글 순</option>
+                <option value="comment">댓글 순</option>
               </select>
             </div>
           </div>
@@ -181,10 +186,6 @@
 <script>
 
 $(document).ready(function() {
-
-  document.getElementById('list_type').addEventListener('change', function(e) {
-    console.log($('#list_type').val());
-  });
 
   // AJAX 요청 성공 시 호출되는 함수
   function updateTableWithFetchedData(list, links) {
@@ -505,10 +506,13 @@ $(document).on('click', '#post_reply_show_btn', function(e) {
 // 게시판 목록을 가져오는 AJAX 호출
 function fetchBoardList(type, page) {
   $.ajax({
+    // url: '/Free_Board_View_C/list_freeboard,
     url: '/Free_Board_View_C/list_' + type + '/'+ page,
     type: 'GET',
     dataType: 'json',
-    // data: { type: $('#list_type').val() },
+    data: {
+      type: $('#list_type').val()
+    },
     success: function(response) {
       if (response.state) {
         // 게시판 목록을 DOM에 업데이트하는 함수 호출
@@ -556,7 +560,12 @@ function fetchBoardList(type, page) {
   $.ajax({
     url: "/Free_Board_View_C/search", // AJAX를 처리할 컨트롤러 메소드
     type: "GET", // 데이터를 가져오므로 GET 사용
-    data: { type: searchType, text: searchText, segment: $('#seg').val() },
+    data: { 
+      type: searchType,
+      list_type: $('#list_type').val(),
+      text: searchText,
+      segment: $('#seg').val()
+    },
     dataType: "json",
     success: function(response) {
       if(response.state) {
@@ -582,5 +591,17 @@ function fetchBoardList(type, page) {
     }
     });
   });
+
+  // 리스트 정렬
+  document.getElementById('list_type').addEventListener('change', function(e) {
+    // 테이블의 tbody 요소를 선택
+    var tableBody = $('#table');
+    // 기존의 내용을 비움
+    tableBody.empty();
+
+    fetchBoardList($('#seg').val());
+  });
+
+  
 });
 </script>

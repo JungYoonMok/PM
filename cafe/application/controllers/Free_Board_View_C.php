@@ -64,7 +64,8 @@ class Free_Board_View_C extends CI_Controller {
     $this->pagination->initialize($config); // 설정을 라이브러리에 초기화
     $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0; // 현재 페이지 번호
     
-    $list = $this->FBM->GetBoardList($seg, $config['per_page'], $page);
+    $list_type = $this->input->get('type');
+    $list = $this->FBM->GetBoardList($seg, $config['per_page'], $page, $list_type);
     $total = $this->FBM->GetBoardTotal($seg);
 
     // AJAX 요청에 대한 응답
@@ -126,7 +127,8 @@ class Free_Board_View_C extends CI_Controller {
     $this->pagination->initialize($config); // 설정을 라이브러리에 초기화
     $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0; // 현재 페이지 번호
     
-    $list = $this->FBM->GetBoardList($seg, $config['per_page'], $page);
+    $list_type = $this->input->get('type');
+    $list = $this->FBM->GetBoardList($seg, $config['per_page'], $page, $list_type);
     $notice_list = $this->FBM->notice_list();
     $total = $this->FBM->GetBoardTotal($seg);
 
@@ -198,7 +200,8 @@ class Free_Board_View_C extends CI_Controller {
     $this->pagination->initialize($config); // 설정을 라이브러리에 초기화
     $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0; // 현재 페이지 번호
     
-    $list = $this->FBM->GetBoardList($seg, $config['per_page'], $page);
+    $list_type = $this->input->get('type');
+    $list = $this->FBM->GetBoardList($seg, $config['per_page'], $page, $list_type);
     $total = $this->FBM->GetBoardTotal($seg);
     $notice_list = $this->FBM->notice_list();
 
@@ -266,7 +269,8 @@ class Free_Board_View_C extends CI_Controller {
 
     $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0; // 현재 페이지 번호
     
-    $data['list'] = $this->FBM->search($seg, $type, $search_text, $config['per_page'], $page);
+    $list_type = $this->input->get('list_type');
+    $data['list'] = $this->FBM->search($seg, $type, $search_text, $config['per_page'], $page, $list_type);
     if(!empty($data['list'])) {
       echo json_encode(['state' => TRUE, 'data' => $data['list'], 'links' => $this->pagination->create_links() ]);
     } else {
