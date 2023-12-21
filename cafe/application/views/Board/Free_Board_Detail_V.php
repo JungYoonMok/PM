@@ -548,7 +548,7 @@
                   <!-- 기능 -->
                   <div class="flex gap-3 justify-between place-items-center">
                     <div>
-                      기능들
+                      <!-- 기능들 -->
                     </div>
                     <div class="">
                       <button type="submit"
@@ -623,7 +623,7 @@
             <!-- 기능 -->
             <div class="flex gap-3 justify-between place-items-center">
               <div>
-                <p>기능들</p>
+                <!-- <p>기능들</p> -->
               </div>
               <div class="">
                 <button type="submit"

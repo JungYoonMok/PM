@@ -95,6 +95,12 @@ class Free_board_Detail_C extends CI_Controller {
     $data['get_post'] = $this->FBM->get_post_comment('boards', $data['post']->user_id);
     $data['get_comment'] = $this->FBM->get_post_comment('boards_comment', $data['post']->user_id);
 
+    // 게시글 작성자와 로그인한 유저가 같은지 확인 비밀글 체크
+    $hide_check = $data['post']->user_id == $this->session->userdata('user_id');
+    if($hide_check === FALSE && $data['post']->board_state === '0') {
+      redirect('/' . $data['post']->board_type . '/list');
+    }
+
     $data['file'] = $this->FBM->get_file($idx);
 
     $data['user_point'] = $this->FBM->point_exp_total('point', $data['post']->user_id);
@@ -117,12 +123,6 @@ class Free_board_Detail_C extends CI_Controller {
       $data['like_value'] = $like_value->like_type;
     } else {
       $data['like_value'] = 'none';
-    }
-
-    // 게시글 작성자와 로그인한 유저가 같은지 확인 비밀글 체크
-    $hide_check = $data['post']->user_id == $this->session->userdata('user_id');
-    if($hide_check === FALSE && $data['post']->board_state === '0') {
-      return redirect('/' . $data['post']->board_type . '/list');
     }
     
     $this->layout->custom_view('board/free_board_detail_v', $data);

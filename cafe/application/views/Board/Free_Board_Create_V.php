@@ -10,15 +10,6 @@
   <!-- 메인 -->
   <div class="md:mb-20 w-full p-1 md:p-5 flex flex-col gap-5">
 
-    <!-- 계정 정보가 일치하지 않을시 -->
-    <div id='error_form'
-      class="duration-200 hidden flex p-5 animate-pulse gap-3 border bg-red-500 w-full opacity-80 rounded">
-      <span class="material-symbols-outlined">error</span>
-      <p id='error_txt' class="">
-        <?= validation_errors(); ?>
-      </p>
-    </div>
-
     <div class="bg-[#2f2f2f] p-5 flex flex-col gap-5 border border-[#4f4f4f] shadow-2xl rounded">
 
       <div class="text-center py-10 rounded">
@@ -169,6 +160,21 @@
           <!-- 구분선 -->
           <div class="border-b border-gray-500"></div>
 
+          <!-- 정보가 일치하지 않을시 -->
+          <div id='error_form' class="relative duration-200 shadow-xl hidden flex p-5 gap-3 border border-[#4f4f4f] bg-[#1f1f1f] w-full rounded">
+            <span class="material-symbols-outlined duration-200 animate-pulse text-red-400">
+              error
+            </span>
+            <p id='error_txt'>
+              <?= validation_errors(); ?>
+            </p>
+            <button class="remove-btn hover:scale-125 rounded-[50%] absolute top-2 duration-200 w-5 h-5 flex justify-center place-items-center right-2 p-1 bg-[#1f1f1f] hover:bg-red-500">
+              <span class="material-symbols-outlined text-[20px]">
+                close
+              </span>
+            </button>
+          </div>
+
           <!-- 게시글 등록 -->
           <div class="w-full text-right">
             <button id='create_btn' name='create_btn'
@@ -202,10 +208,16 @@
 <!-- <script src="/javascript/board/board_create.js"></script> -->
 
 <script>
-  
-  let editor;
 
   $(document).ready(() => {
+
+    $('.remove-btn').on('click', e => {
+      e.preventDefault();
+      $('#error_txt').empty();
+      $('#error_form').addClass('hidden');
+    });
+  
+    let editor;
 
     // 첨부파일 미리보기
     var selectedFiles = [];
@@ -261,6 +273,29 @@
   $('#create_btn').click((e) => { // 게시글 등록
     e.preventDefault();
 
+    $('#error_txt').empty(); // 에러 메시지 초기화
+    $('#error_form').removeClass('hidden');
+    
+    if($('#post_type').val() == null) { // 게시글 타입
+      $('#error_txt').text('게시판을 선택해주세요.');
+      return;
+    }
+
+    if($('#post_title').val().length < 2 || $('#post_title').val().length > 50 ) { // 게시글 제목
+      $('#error_txt').text('게시판 제목은 2~50자 이내로 입력해주세요.');
+      return;
+    }
+
+    if(editor.getHTML().length < 20) { // 게시글 내용
+      $('#error_txt').text('게시판 내용은 10자 이상 작성해주세요.');
+      return;
+    }
+
+    if(editor.getHTML().length > 10000 ) { // 게시글 내용
+      $('#error_txt').text('게시판 내용은 10000자 이상 입력할 수 없습니다.');
+      return;
+    }
+
     const formData = new FormData();
     formData.append('post_type', $('#post_type').val());
     formData.append('post_title', $('#post_title').val());
@@ -272,7 +307,7 @@
     // 어드민만 공지사항 사용
     if($('#post_type').val() == 'notice') {
       if('<?= $this->session->userdata('user_id') ?>' != 'admin') {
-        alert('관리자만 공지사항을 사용할 수 있습니다.');
+        $('#error_txt').text('관리자만 공지사항을 사용할 수 있습니다.');
         return;
       }
     }
@@ -285,20 +320,16 @@
       if (fileInput.files.length > 0) {
 
         if(selectedFiles.length > 5) {
-          alert('파일은 최대 5개까지 업로드 가능합니다.');
+          $('#error_txt').text('파일은 최대 5개까지 업로드 가능합니다.');
           return;
         } else {
-
           for (const file of selectedFiles) {
             formData.append('userfile[]', file);
           }
         }
-
       }
-    } else {
-      console.log("파일 입력 필드를 찾을 수 없습니다.");
     }
-    
+
     // AJAX 요청으로 게시글 생성 및 이미지 업로드 처리
     $.ajax({
       url: '/free_board_create_c/create',
@@ -309,23 +340,38 @@
       dataType: 'json',
       success: (response) => {
         if (response.state) {
+          $('#error_form').addClass('hidden');
           location.href =  '/' + $('#post_type').val() + '/' + response.last_id;
-          // location.href =  '/' + $('#board_type').val() + '/' + response.last_id;
         } else {
-          // console.log('실패: ', response);
-          alert('게시글 등록 실패: ' + response.message);
+          $('#error_txt').append(response.message);
         }
       }, error: function(xhr, status, error) {
         // 여기서 xhr는 XMLHttpRequest 객체, status는 문자열 상태, error는 오류
-        console.log('오류: ', xhr.responseText);
-        console.log('오류: ', status);
-        console.log('오류: ', error);
+        console.log('오류: ', xhr.responseText, status, error);
       }
     });
   });
 
   $('#create_reply_btn').click((e) => { // 답글 등록
     e.preventDefault();
+
+    $('#error_txt').empty(); // 에러 메시지 초기화
+    $('#error_form').removeClass('hidden');
+    
+    if($('#post_title').val().length < 2 || $('#post_title').val().length > 50 ) { // 게시글 제목
+      $('#error_txt').text('게시판 제목은 2~50자 이내로 입력해주세요.');
+      return;
+    }
+
+    if(editor.getHTML().length < 20) { // 게시글 내용
+      $('#error_txt').text('게시판 내용은 10자 이상 작성해주세요.');
+      return;
+    }
+
+    if(editor.getHTML().length > 10000 ) { // 게시글 내용
+      $('#error_txt').text('게시판 내용은 10000자 이상 입력할 수 없습니다.');
+      return;
+    }
 
     const formData = new FormData();
     formData.append('board_id', $('#board_id').val());
@@ -342,7 +388,7 @@
     const fileInput = $('#userfile')[0];
     if (fileInput.files.length > 0) {
       if(selectedFiles.length > 5) {
-        alert('파일은 최대 5개까지 업로드 가능합니다.');
+        $('#error_txt').text('파일은 최대 5개까지 업로드 가능합니다.');
         return;
       } else {
 
@@ -362,9 +408,10 @@
       dataType: 'json',
       success: (response) => {
         if (response.state) {
+          $('#error_form').addClass('hidden');
           location.href =  '/' + $('#board_type').val() + '/' + response.last_id;
         } else {
-          alert('게시글 답글 등록 실패: ' + response.message);
+          $('#error_txt').append(response.message);
         }
       }, error: () => {
         alert('게시글 답글 등록 중 서버 오류가 발생했습니다.');

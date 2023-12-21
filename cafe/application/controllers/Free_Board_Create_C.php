@@ -71,10 +71,10 @@ class Free_Board_Create_C extends CI_Controller {
       [
         'field' => 'post_value',
         'label' => '게시판 내용',
-        'rules' => 'required|min_length[2]|max_length[10000]',
+        'rules' => 'required|min_length[20]|max_length[10000]',
         'errors' => [
           'required' => '게시판의 분류를 선택해 주세요',
-          'min_length' => '게시판의 내용은 2자 이상 입력해 주세요',
+          'min_length' => '게시판의 내용은 20자 이상 입력해 주세요',
           'max_length' => '게시판의 내용은 10000자 이내로 입력해 주세요',
         ]
       ],
@@ -181,31 +181,81 @@ class Free_Board_Create_C extends CI_Controller {
 
   public function create_reply() {
 
-    // 폼 데이터 처리
-    $post_data = [
-      'board_id' => $this->input->post('board_id'),
-      'group_idx' => $this->input->post('group_idx'),
-      'group_order' => $this->input->post('group_order'),
-      'depth' => $this->input->post('depth'),
-      'board_type' => $this->input->post('post_type_reply'),
-      'title' => $this->input->post('post_title'),
-      'content' => $this->input->post('post_value'),
-      'user_id' => $this->session->userdata('user_id'),
-      'board_state' => $this->input->post('post_open'),
-      'board_comment' => $this->input->post('comment_open'),
-      // 'file_path' => $filePathsString ?? '', // 파일 경로 추가
-      'regdate' => date("Y-m-d H:i:s")
+    $form_config = [
+      [
+        'field' => 'post_type_reply',
+        'label' => '게시판 분류',
+        'rules' => 'required',
+        'errors' => [
+          'required' => '게시판의 분류를 선택해 주세요',
+        ]
+      ],
+      [
+        'field' => 'post_title',
+        'label' => '게시판 제목',
+        'rules' => 'required|min_length[2]|max_length[50]',
+        'errors' => [
+          'required' => '게시판의 제목을 입력해 주세요',
+          'min_length' => '게시판의 제목은 2자 이상 입력해 주세요',
+          'max_length' => '게시판의 제목은 50자 이내로 입력해 주세요',
+        ]
+      ],
+      [
+        'field' => 'post_value',
+        'label' => '게시판 내용',
+        'rules' => 'required|min_length[20]|max_length[10000]',
+        'errors' => [
+          'required' => '게시판의 분류를 선택해 주세요',
+          'min_length' => '게시판의 내용은 20자 이상 입력해 주세요',
+          'max_length' => '게시판의 내용은 10000자 이내로 입력해 주세요',
+        ]
+      ],
+      [
+        'field' => 'post_open',
+        'label' => '게시글 공개 여부',
+        'rules' => 'required',
+        'errors' => [
+          'required' => '게시글 공개 여부를 선택해 주세요',
+        ]
+      ],
+      [
+        'field' => 'comment_open',
+        'label' => '댓글 공개 여부',
+        'rules' => 'required',
+        'errors' => [
+          'required' => '댓글 공개 여부를 선택해 주세요',
+        ]
+      ],
     ];
 
-    // 폼 벨리데이션
-    // $this->form_validation->set_rules('post_type', 'Post_Type', 'required');
-    // $this->form_validation->set_rules('post_title', 'Post_Title', 'required');
-    // $this->form_validation->set_rules('post_value', 'Post_Value', 'required');
-    // $this->form_validation->set_rules('post_open', 'Post_Open', 'required');
-    // $this->form_validation->set_rules('comment_open', 'Comment_Open', 'required');
+    $this->form_validation->set_rules($form_config);
 
-    // 데이터베이스에 데이터 저장
-    // if ($this->form_validation->run()) {
+    if ($this->form_validation->run() == FALSE) {
+      $errors = $this->form_validation->error_array();
+      echo json_encode([
+        'state' => FALSE, 
+        'message' => validation_errors(), 
+        'errors' => $errors
+      ]);
+      return;
+    } else {
+      // 폼 데이터 처리
+      $post_data = [
+        'board_id' => $this->input->post('board_id'),
+        'group_idx' => $this->input->post('group_idx'),
+        'group_order' => $this->input->post('group_order'),
+        'depth' => $this->input->post('depth'),
+        'board_type' => $this->input->post('post_type_reply'),
+        'title' => $this->input->post('post_title'),
+        'content' => $this->input->post('post_value'),
+        'user_id' => $this->session->userdata('user_id'),
+        'board_state' => $this->input->post('post_open'),
+        'board_comment' => $this->input->post('comment_open'),
+        // 'file_path' => $filePathsString ?? '', // 파일 경로 추가
+        'regdate' => date("Y-m-d H:i:s")
+      ];
+  
+      // 데이터베이스에 데이터 저장
       $result = $this->FBM->create_reply($post_data);
       if($result['state']) {
         $last_id = $result['last_id'];
@@ -214,11 +264,7 @@ class Free_Board_Create_C extends CI_Controller {
       } else {
         echo json_encode(['state' => FALSE, 'message' => '답글 등록 실패']);
       }
-    // } else {
-      // $errors = $this->form_validation->error_array();
-      // echo json_encode(['state' => FALSE, 'message' => '입력 데이터 검증 실패', 'errors' => $errors]);
-    // }
-    
+    }
   }
   
 }

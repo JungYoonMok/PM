@@ -11,12 +11,6 @@
   <!-- 메인 -->
   <div class="md:mb-20 w-full p-1 md:p-5 flex flex-col gap-5">
 
-    <!-- 계정 정보가 일치하지 않을시 -->
-    <div id='error_form' class="duration-200 hidden flex p-5 animate-pulse gap-3 border bg-red-500 w-full opacity-80 rounded">
-      <span class="material-symbols-outlined">error</span>
-      <p id='error_txt' class=""><?= validation_errors(); ?></p>
-    </div>
-
     <div class="bg-[#2f2f2f] p-5 flex flex-col gap-5 border border-gray-500 rounded">
       
       <div class="">
@@ -174,6 +168,21 @@
           <!-- 구분선 -->
           <div class="border-b border-gray-500"></div>
 
+          <!-- 정보가 일치하지 않을시 -->
+          <div id='error_form' class="relative duration-200 shadow-xl hidden flex p-5 gap-3 border border-[#4f4f4f] bg-[#1f1f1f] w-full rounded">
+            <span class="material-symbols-outlined duration-200 animate-pulse text-red-400">
+              error
+            </span>
+            <p id='error_txt'>
+              <?= validation_errors(); ?>
+            </p>
+            <button class="remove-btn hover:scale-125 rounded-[50%] absolute top-2 duration-200 w-5 h-5 flex justify-center place-items-center right-2 p-1 bg-[#1f1f1f] hover:bg-red-500">
+              <span class="material-symbols-outlined text-[20px]">
+                close
+              </span>
+            </button>
+          </div>
+
           <!-- 게시글 수정 -->
           <div class="w-full text-right">
             <button id='create_btn' name='create_btn' class="p-3 w-full md:w-[400px] rounded bg-blue-500 duration-200 hover:opacity-80">
@@ -258,6 +267,29 @@ $(document).ready( () => {
     
     e.preventDefault();
 
+    $('#error_txt').empty(); // 에러 메시지 초기화
+    $('#error_form').removeClass('hidden');
+    
+    if($('#post_type').val() == null) { // 게시글 타입
+      $('#error_txt').text('게시판을 선택해주세요.');
+      return;
+    }
+
+    if($('#post_title').val().length < 2 || $('#post_title').val().length > 50 ) { // 게시글 제목
+      $('#error_txt').text('게시판 제목은 2~50자 이내로 입력해주세요.');
+      return;
+    }
+
+    if(editor.getHTML().length < 20) { // 게시글 내용
+      $('#error_txt').text('게시판 내용은 10자 이상 작성해주세요.');
+      return;
+    }
+
+    if(editor.getHTML().length > 10000 ) { // 게시글 내용
+      $('#error_txt').text('게시판 내용은 10000자 이상 입력할 수 없습니다.');
+      return;
+    }
+
     const formData = new FormData();
     formData.append('idx', $('#bd_id').val());
     formData.append('post_type', $('#post_type').val());
@@ -272,7 +304,7 @@ $(document).ready( () => {
     // 어드민만 공지사항 사용
     if($('#post_type').val() == 'notice') {
       if('<?= $this->session->userdata('user_id') ?>' != 'admin') {
-        alert('관리자만 공지사항을 사용할 수 있습니다.');
+        $('#error_txt').text('관리자만 공지사항을 사용할 수 있습니다.');
         return;
       }
     }
@@ -305,11 +337,10 @@ $(document).ready( () => {
       dataType: 'json',
       success: (response) => {
         if (response.state) {
+          $('#error_form').addClass('hidden');
           location.href = '/' + $('#board_type').val() +'/' + $('#bd_id').val();
-          // location.reload();
-          // return console.log('게시글 수정 성공: ', response);
         } else {
-          alert('게시글 수정 실패: ' + response.message);
+          $('#error_txt').append(response.message);
         }
       },
       error: () => {

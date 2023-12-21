@@ -44,6 +44,64 @@ class Free_Board_Update_C extends CI_Controller {
 
   public function post_update() {
 
+    $form_config = [
+      [
+        'field' => 'post_type',
+        'label' => '게시판 분류',
+        'rules' => 'required',
+        'errors' => [
+          'required' => '게시판의 분류를 선택해 주세요',
+        ]
+      ],
+      [
+        'field' => 'post_title',
+        'label' => '제목',
+        'rules' => 'required|min_length[2]|max_length[50]',
+        'errors' => [
+          'required' => '제목을 입력해 주세요',
+          'min_length' => '제목은 최소 2자 이상 입력해 주세요',
+          'max_length' => '제목은 최대 50자 이하 입력해 주세요',
+        ]
+      ],
+      [
+        'field' => 'post_value',
+        'label' => '내용',
+        'rules' => 'required|min_length[2]|max_length[10000]',
+        'errors' => [
+          'required' => '내용을 입력해 주세요',
+          'min_length' => '내용은 최소 2자 이상 입력해 주세요',
+          'max_length' => '내용은 최대 10000자 이하 입력해 주세요',
+        ]
+      ],
+      [
+        'field' => 'post_open',
+        'label' => '게시글 공개 여부',
+        'rules' => 'required',
+        'errors' => [
+          'required' => '게시글 공개 여부를 선택해 주세요',
+        ]
+      ],
+      [
+        'field' => 'comment_open',
+        'label' => '댓글 공개 여부',
+        'rules' => 'required',
+        'errors' => [
+          'required' => '댓글 공개 여부를 선택해 주세요',
+        ]
+      ],
+    ];
+
+    $this->form_validation->set_rules($form_config);
+
+    if ($this->form_validation->run() == FALSE) {
+      $errors = $this->form_validation->error_array();
+      echo json_encode([
+        'state' => FALSE, 
+        'message' => validation_errors(), 
+        'errors' => $errors]);
+      return;
+    }
+
     // 공지사항 사용자 체크
     if($this->input->post('post_type') == 'notice' && $this->session->userdata('user_id') != 'admin') {
       echo json_encode([ 'state' => FALSE, 'message' => '관리자만 공지사항을 작성할 수 있습니다' ]);

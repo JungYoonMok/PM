@@ -54,7 +54,7 @@
               
             <div class="text-gray-50 w-full py-6 px-2 lg:justify-center relative flex gap-3 overflow-x-auto overflow-y-auto">
             <? foreach ($notice_list as $li) : ?>
-              <a href="/<?= $li->board_type?>/<?= $li->idx?>" class="flex flex-col justify-between shadow-xl hover:shadow-lg hover:shadow-blue-400 w-full max-w-[300px] min-w-[250px] xl:min-w-min h-full min-h-[150px] gap-3 bg-[#0f0f0f] border border-[#4f4f4f] hover:border-[#0f0f0f] p-3 rounded duration-200 hover:translate-y-1">
+              <a href="/<?= $li->board_type?>/<?= $li->idx?>" class="flex flex-col justify-between shadow-xl hover:shadow-lg hover:shadow-[#4f4f4f] hover:rounded-none w-full max-w-[300px] min-w-[250px] xl:min-w-min h-full min-h-[150px] gap-3 bg-[#0f0f0f] border border-[#4f4f4f] hover:border-[#0f0f0f] p-3 rounded duration-200 hover:translate-y-1">
   
                 <div class="flex gap-3 text-sm">
                   <p class="duration-200 hover:text-white">
@@ -68,7 +68,10 @@
                   <div class="border-b border-gray-500 place-items-center"></div>
   
                   <div class="flex justify-around place-items-center mt-2">
-                    <div class="flex gap-2 place-items-center">
+                    <p class="bg-red-500 text-sm rounded px-2 py-0.5 border border-[#3f3f3f]">
+                      공지
+                    </p>
+                    <div class="flex gap-2 justify-between place-items-center">
                       <img src="/uploads/<?= $li->profile ?>" alt="img" class="p-0.5 border border-[#4f4f4f] w-8 h-8 mt-1 rounded-[50%] <?= $li -> profile ? '' : 'hidden'?>">
                       <p class="material-symbols-outlined w-8 h-8 p-0.5 rounded-[50%] mt-1 text-gray-400 flex place-items-center justify-center <?= $li -> profile ? 'hidden' : '' ?>">
                         person
@@ -104,10 +107,15 @@
           <a href="/post_create" class="border outline-none border-[#4f4f4f] py-3 px-16 rounded hover:bg-[#2f2f2f] duration-200 bg-[#1f1f1f]">
             <p>글쓰기</p>
           </a>
-          <div class="flex gap-5 bg-[#1f1f1f] px-5 py-3">
-            <p class="">정렬</p>
+          <div class="flex gap-5 bg-[#1f1f1f] px-5 py-3 place-items-center whitespace-nowrap rounded border border-[#4f4f4f]">
+            <p class="text-[#9f9f9f]">정렬</p>
             <p class="text-[#4f4f4f]">|</p>
-            <p class="">최신순</p>
+            <div class="w-full <?= $this->uri->segment(1) == 'post_create_reply' ? 'hidden' : '' ;?>">
+              <select id='list_type' name='list_type' class="duration-200 cursor-pointer outline-none w-full text-whith rounded bg-[#1f1f1f]  p-1">
+                <option value="new">최신순</option>
+                <option value="old">오래된 순</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -174,6 +182,10 @@
 
 $(document).ready(function() {
 
+  document.getElementById('list_type').addEventListener('change', function(e) {
+    console.log($('#list_type').val());
+  });
+
   // AJAX 요청 성공 시 호출되는 함수
   function updateTableWithFetchedData(list, links) {
   // 테이블의 tbody 요소를 선택
@@ -192,10 +204,10 @@ $(document).ready(function() {
       ">
 
       
-      <div class="relative
-      border border-[#4f4f4f] duration-200 rounded shadow-md hover:shadow-xl p-2 flex flex-col gap-3
-      ${(li.board_state == true && li.board_delete == false) ? 'bg-[#1f1f1f] hover:bg-[#2f2f2f]' : 'bg-[#2f2f2f] '}
-      ">
+        <div class="relative
+        border border-[#4f4f4f] duration-200 rounded shadow-md hover:shadow-xl p-2 flex flex-col gap-3
+        ${(li.board_state == true && li.board_delete == false) ? 'bg-[#1f1f1f] hover:bg-[#2f2f2f]' : 'bg-[#2f2f2f] '}
+        ">
           
           <div class="absolute top-0 text-center w-full ${(new Date(li.regdate).toDateString() === new Date().toDateString()) ? '' : 'hidden'}">
             <p class="flex place-content-center justify-center">
@@ -229,11 +241,9 @@ $(document).ready(function() {
             </div>
             
           </div>
-
-          <a href="${(li.board_state == true && li.board_delete == false) ? `/${li.board_type}/${li.idx}` : '#' }" 
+          <a href="${(li.board_state == true && `'` + li.user_id + `'`  == '<?= $this->session->userdata('user_id') ?>') ? `/${li.board_type}/${li.idx}` : `/${li.board_type}/${li.idx}` }" 
           class="
-          ${(li.board_state == true && li.board_delete == false) ? 'hover:translate-y-1' : '' }
-          w-full flex gap-1 duration-200 hover:text-white
+          w-full flex gap-1 duration-200 hover:text-white hover:translate-y-1
           ">
 
             <div class="flex gap-2">
@@ -432,8 +442,6 @@ $(document).on('click', '#post_reply_show_btn', function(e) {
                     </span>
                   </div>
 
-                </a>
-
               </div>
 
               <div class="flex text-xs text-[#9f9f9f] duration-200 place-items-center">
@@ -500,6 +508,7 @@ function fetchBoardList(type, page) {
     url: '/Free_Board_View_C/list_' + type + '/'+ page,
     type: 'GET',
     dataType: 'json',
+    // data: { type: $('#list_type').val() },
     success: function(response) {
       if (response.state) {
         // 게시판 목록을 DOM에 업데이트하는 함수 호출
