@@ -1,277 +1,273 @@
 <title>카페 | 내 정보</title>
 
-<div class="">
+<!-- 메인 틀 -->
+<div class="flex flex-col gap-5 mt-5 m-1 lg:m-5 rounded text-gray-50">
 
-  <!-- 메인 틀 -->
-  <div class="flex flex-col gap-5 mt-5 m-1 lg:m-5 rounded text-gray-50">
-
-    <!-- 내정보, 프사 -->
-    <div class="flex flex-col md:flex-row w-full gap-3">
-      <div class="flex flex-col w-full gap-3 rounded-tl-md rounded-tr-md shadow-2xl border border-[#4f4f4f] bg-[#2f2f2f]">
-        <div class="p-5">
-          <p>내 정보</p>
-          <p>...</p>
-        </div>
+  <!-- 내정보, 프사 -->
+  <div class="flex flex-col md:flex-row w-full gap-3">
+    <div class="flex flex-col w-full gap-3 rounded-tl-md rounded-tr-md shadow-2xl border border-[#4f4f4f] bg-[#2f2f2f]">
+      <div class="p-5">
+        <p>내 정보</p>
+        <p class="text-gray-400"><span class="animate-pulse">`시간`</span>님께서 허락하신다면 구현 예정입니다</p>
       </div>
-        
-      <!-- 프로필 사진 -->
-      <div class="flex flex-col w-full rounded-tl-md rounded-tr-md shadow-2xl border border-[#4f4f4f] bg-[#2f2f2f]">
-  
-        <div class="p-5 w-full flex flex-col gap-10">
-  
-          <div class="flex justify-around place-items-center">
-  
-            <!-- 현재 프로필 -->
-            <div class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border-2 border-gray-500 h-20 w-20 bg-[#3f3f3f]">
-              <? if ($this->session->userdata('user_profile') == '' || null) : ?>
-                <p class="material-symbols-outlined text-5xl text-gray-400 flex place-items-center justify-center">
-                  person
-                </p>
-              <? else : ?>
-                <img src="/uploads/<?= $this->session->userdata('user_profile') ?>"
-                  class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400 duration-200">
-                </img>
-                <div class="absolute -bottom-3 w-full">
-                  <p class="text-xs text-center bg-[#3f3f3f] rounded px-1">
-                    현재
-                  </p>
-                </div>
-              <? endif ?>
-            </div>
+    </div>
+      
+    <!-- 프로필 사진 -->
+    <div class="flex flex-col w-full rounded-tl-md rounded-tr-md shadow-2xl border border-[#4f4f4f] bg-[#2f2f2f]">
 
-            <div>
-              <span id="arrow_profile" class="material-symbols-outlined cursor-default rotate-[270deg] duration-200 animate-pulse text-[#9f9f9f] text-4xl">
-                stat_minus_2
-              </span>
-            </div>
-  
-            <!-- 변경할 프로필 -->
-            <div class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border-2 border-blue-500 h-20 w-20 bg-[#3f3f3f]">
-              <p id="basic_profile" class="material-symbols-outlined text-5xl text-gray-400 flex place-items-center justify-center">
+      <div class="p-5 w-full flex flex-col gap-10">
+
+        <div class="flex justify-around place-items-center">
+
+          <!-- 현재 프로필 -->
+          <div class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border-2 border-gray-500 h-20 w-20 bg-[#3f3f3f]">
+            <? if ($this->session->userdata('user_profile') == '' || null) : ?>
+              <p class="material-symbols-outlined text-5xl text-gray-400 flex place-items-center justify-center">
                 person
               </p>
+            <? else : ?>
+              <img src="/uploads/<?= $this->session->userdata('user_profile') ?>"
+                class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400 duration-200">
+              </img>
+              <div class="absolute -bottom-3 w-full">
+                <p class="text-xs text-center bg-[#3f3f3f] rounded px-1">
+                  현재
+                </p>
+              </div>
+            <? endif ?>
+          </div>
+
+          <div>
+            <span id="arrow_profile" class="material-symbols-outlined cursor-default rotate-[270deg] duration-200 animate-pulse text-[#9f9f9f] text-4xl">
+              stat_minus_2
+            </span>
+          </div>
+
+          <!-- 변경할 프로필 -->
+          <div class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border-2 border-blue-500 h-20 w-20 bg-[#3f3f3f]">
+            <p id="basic_profile" class="material-symbols-outlined text-5xl text-gray-400 flex place-items-center justify-center">
+              person
+            </p>
+            <div class="absolute -bottom-3 w-full">
+              <p class="text-xs text-center bg-blue-500 rounded px-1">
+                변경
+              </p>
+            </div>
+            <div id="on_profile" class="hidden">
+              <img class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400 duration-200"></img>
               <div class="absolute -bottom-3 w-full">
                 <p class="text-xs text-center bg-blue-500 rounded px-1">
                   변경
                 </p>
               </div>
-              <div id="on_profile" class="hidden">
-                <img class="material-symbols-outlined rounded-[50%] text-5xl w-full h-full text-gray-400 duration-200"></img>
-                <div class="absolute -bottom-3 w-full">
-                  <p class="text-xs text-center bg-blue-500 rounded px-1">
-                    변경
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 파일 업로드 -->
+        <form id="upload_form" accept=".jpg, .jpeg, .png, .gif" enctype="multipart/form-data" class="flex flex-col gap-3 place-items-center place-content-center justify-center">
+          <div id="file_control" class="flex place-items-center justify-center w-full">
+            <label for="userfile" class="flex flex-col items-center w-full justify-center h-24 border-2 border-gray-500 border-dashed rounded-lg cursor-pointer hover:bg-[#2f2f2f] duration-200 bg-[#3f3f3f]">
+              <div class="flex flex-col gap-3 place-items-center justify-center text-sm">
+                <div class="flex place-items-center gap-3 duration-200 animate-pulse">
+                  <span class="material-symbols-outlined flex gap-2 place-items-center">
+                    add_link
+                  </span>
+                  <p class="">
+                    사진을 첨부하려면 클릭하세요
                   </p>
                 </div>
               </div>
-            </div>
-  
+              <input name="userfile" id="userfile" type="file" class="hidden" />
+            </label>
           </div>
-  
-          <!-- 파일 업로드 -->
-          <form id="upload_form" accept=".jpg, .jpeg, .png, .gif" enctype="multipart/form-data" class="flex flex-col gap-3 place-items-center place-content-center justify-center">
-            <div id="file_control" class="flex place-items-center justify-center w-full">
-              <label for="userfile" class="flex flex-col items-center w-full justify-center h-24 border-2 border-gray-500 border-dashed rounded-lg cursor-pointer hover:bg-[#2f2f2f] duration-200 bg-[#3f3f3f]">
-                <div class="flex flex-col gap-3 place-items-center justify-center text-sm">
-                  <div class="flex place-items-center gap-3 duration-200 animate-pulse">
-                    <span class="material-symbols-outlined flex gap-2 place-items-center">
-                      add_link
-                    </span>
-                    <p class="">
-                      사진을 첨부하려면 클릭하세요
-                    </p>
-                  </div>
-                </div>
-                <input name="userfile" id="userfile" type="file" class="hidden" />
-              </label>
-            </div>
-            <button id="upload_button" class="hidden border border-blue-500 hover:border-[#3f3f3f] px-3 py-2 w-full bg-blue-500 rounded hover:translate-y-1 duration-200">
-              적용하기
-            </button>
-            <div id="upload_file_type" class="flex gap-2 text-sm">
-              <? $file_type = ['JPG', 'JPEG', 'PNG', 'GIF'] ?>
-              <? foreach($file_type as $list):?>
-                <p class="bg-[#4f4f4f] px-2 py-0.5 rounded border border-[#5f5f5f]">
-                  <?= $list ?>
-                </p>
-              <? endforeach ?>
-            </div>
-          </form>
-  
-        </div>
-  
-        <div class="p-5 w-full flex flex-col gap-3">
-  
-          <div class="flex justify-between">
-            <p>과거 프로필 사진</p>
-            <div class="flex gap-1 text-[#9f9f9f] text-sm">
-              <p id="file_count"></p>
-              <p>/ 50개</p>
-            </div>
-          </div>
-
-          <!-- 동적 생성 -->
-          <div 
-            id="profile_old" 
-            class="
-            flex flex-wrap gap-3 w-full border bg-[#1f1f1f] shadow-md border-[#3f3f3f] justify-center place-items-center h-full max-h-52 p-3 rounded overflow-y-auto
-            ">
-          </div>
-  
-        </div>
-  
-      </div>
-    </div>
-      
-    <!-- 구분선 -->
-    <div class="border-b border-gray-500"></div>
-
-    <!-- 계정 정보가 일치하지 않을시 -->
-    <div id='error_form' class="relative duration-200 shadow-xl hidden flex p-5 gap-3 border border-[#4f4f4f] bg-[#1f1f1f] w-full rounded">
-      <span class="material-symbols-outlined duration-200 animate-pulse text-red-400">
-        error
-      </span>
-      <p id='error_txt'>
-        <?= validation_errors(); ?>
-      </p>
-      <button class="alert_remove-btn hover:scale-125 rounded-[50%] absolute top-2 duration-200 w-5 h-5 flex justify-center place-items-center right-2 p-1 bg-[#1f1f1f] hover:bg-red-500">
-        <span class="material-symbols-outlined text-[20px]">
-          close
-        </span>
-      </button>
-    </div>
-
-    <!-- 정보 수정 -->
-    <div class="rounded-b-md flex flex-col gap-5 shadow-2xl border border-[#4f4f4f] bg-[#2f2f2f] px-5 py-10">
-      
-      <!-- 별명 -->
-      <div class="flex flex-col gap-3">
-        <p class="px-1 hover:text-white hover:-translate-y-1 duration-200 cursor-default whitespace-nowrap max-w-min text-base">
-          별명 (닉네임) - <span class="hover:text-white text-sm text-gray-300">카페에서 주로 보이는 활동 이름</span>
-        </p>
-        <input id="nickname" required type="text" placeholder="<?= $user->user_nickname ?>" 
-        class="w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#3f3f3f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
-        <!-- 별명 수정 버튼 -->
-        <div class="text-right">
-          <button id="nickname_update_btn" class="bg-[#3f3f3f] w-[50%] lg:w-[40%] py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
-            별명 수정하기
+          <button id="upload_button" class="hidden border border-blue-500 hover:border-[#3f3f3f] px-3 py-2 w-full bg-blue-500 rounded hover:translate-y-1 duration-200">
+            적용하기
           </button>
-        </div>
+          <div id="upload_file_type" class="flex gap-2 text-sm">
+            <? $file_type = ['JPG', 'JPEG', 'PNG', 'GIF'] ?>
+            <? foreach($file_type as $list):?>
+              <p class="bg-[#4f4f4f] px-2 py-0.5 rounded border border-[#5f5f5f]">
+                <?= $list ?>
+              </p>
+            <? endforeach ?>
+          </div>
+        </form>
+
       </div>
-      
-      <!-- 구분선 -->
-      <div class="border-b mt-2 border-gray-500"></div>
-      
-      <!-- 비밀번호 변경 -->
-      <div class="grid lg:flex lg:justify-between gap-5">
-        
-        <!-- 비밀번호 -->
-        <div class="flex flex-col gap-3 w-full">
-          <p class="px-1 hover:text-white hover:-translate-y-1 duration-200 cursor-default whitespace-nowrap max-w-min text-base">
-            비밀번호
-          </p>
-          <div class="relative">
-            <input type="password" id="password_1" placeholder="비밀번호 입력" 
-            class="pr-12 w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#4f4f4f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
-            <button id="eye_on" class="hover:-translate-x-1 hover:text-white hover:opacity-80 text-[#9f9f9f] duration-200 absolute right-3 top-4 material-symbols-outlined">
-              visibility
-            </button>
+
+      <div class="p-5 w-full flex flex-col gap-3">
+
+        <div class="flex justify-between">
+          <p>과거 프로필 사진</p>
+          <div class="flex gap-1 text-[#9f9f9f] text-sm">
+            <p id="file_count"></p>
+            <p>/ 50개</p>
           </div>
         </div>
 
-        <!-- 비밀번호 확인 -->
-        <div class="flex flex-col gap-3 w-full">
-          <p class="px-1 hover:text-white hover:-translate-y-1 duration-200 cursor-default whitespace-nowrap max-w-min text-base">
-            비밀번호 확인
-          </p>
-          <div class="relative">
-            <input type="password" id="password_2" placeholder="비밀번호 입력 확인" 
-            class="pr-12 w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#4f4f4f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
-            <button id="eye_on2" class="hover:-translate-x-1 hover:text-white hover:opacity-80 text-[#9f9f9f] duration-200 absolute right-3 top-4 material-symbols-outlined">
-              visibility
-            </button>
-          </div>
+        <!-- 동적 생성 -->
+        <div 
+          id="profile_old" 
+          class="
+          flex flex-wrap gap-3 w-full border bg-[#1f1f1f] shadow-md border-[#3f3f3f] justify-center place-items-center h-full max-h-52 p-3 rounded overflow-y-auto
+          ">
         </div>
-        
+
       </div>
 
-      <!-- 비밀번호 수정 버튼 -->
+    </div>
+  </div>
+    
+  <!-- 구분선 -->
+  <div class="border-b border-gray-500"></div>
+
+  <!-- 계정 정보가 일치하지 않을시 -->
+  <div id='error_form' class="relative duration-200 shadow-xl hidden flex p-5 gap-3 border border-[#4f4f4f] bg-[#1f1f1f] w-full rounded">
+    <span class="material-symbols-outlined duration-200 animate-pulse text-red-400">
+      error
+    </span>
+    <p id='error_txt'>
+      <?= validation_errors(); ?>
+    </p>
+    <button class="alert_remove-btn hover:scale-125 rounded-[50%] absolute top-2 duration-200 w-5 h-5 flex justify-center place-items-center right-2 p-1 bg-[#1f1f1f] hover:bg-red-500">
+      <span class="material-symbols-outlined text-[20px]">
+        close
+      </span>
+    </button>
+  </div>
+
+  <!-- 정보 수정 -->
+  <div class="rounded-b-md flex flex-col gap-5 shadow-2xl border border-[#4f4f4f] bg-[#2f2f2f] px-5 py-10">
+    
+    <!-- 별명 -->
+    <div class="flex flex-col gap-3">
+      <p class="px-1 hover:text-white hover:-translate-y-1 duration-200 cursor-default whitespace-nowrap max-w-min text-base">
+        별명 (닉네임) - <span class="hover:text-white text-sm text-gray-300">카페에서 주로 보이는 활동 이름</span>
+      </p>
+      <input id="nickname" required type="text" placeholder="<?= $user->user_nickname ?>" 
+      class="w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#3f3f3f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
+      <!-- 별명 수정 버튼 -->
       <div class="text-right">
-        <button id="password_update_btn" class="bg-[#3f3f3f] w-[50%] lg:w-[40%] py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
-          비밀번호 수정하기
+        <button id="nickname_update_btn" class="bg-[#3f3f3f] w-[50%] lg:w-[40%] py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
+          별명 수정하기
         </button>
       </div>
+    </div>
+    
+    <!-- 구분선 -->
+    <div class="border-b mt-2 border-gray-500"></div>
+    
+    <!-- 비밀번호 변경 -->
+    <div class="grid lg:flex lg:justify-between gap-5">
       
-      <!-- 구분선 -->
-      <div class="border-b mt-2 border-gray-500"></div>
-
-      <!-- 이메일, 연락처 변경 -->
-      <div class="grid lg:flex lg:justify-between gap-5">
-
-        <!-- 이메일 -->
-        <div class="flex flex-col gap-3 w-full">
-          <p class="px-1 hover:text-white hover:-translate-y-1 duration-200 cursor-default whitespace-nowrap max-w-min text-base">
-            이메일
-          </p>
-          <input id="email" type="email" placeholder="<?= $user->user_email ?>"
-          class="pr-12 w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#4f4f4f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
-          <!-- 이메일 수정 버튼 -->
-          <div class="text-right">
-            <button id="email_update_btn" class="bg-[#3f3f3f] w-[50%] lg:w-[40%] py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
-              이메일 수정하기
-            </button>
-          </div>
-        </div>
-
-        <!-- 휴대폰 -->
-        <div class="flex flex-col gap-3 w-full">
-          <p class="px-1 hover:text-white hover:-translate-y-1 duration-200 cursor-default whitespace-nowrap max-w-min text-base">
-            휴대폰
-          </p>
-          <div class="flex gap-3">
-            <input id="phone_1" type="number" placeholder="010" disabled
-            class="cursor-not-allowed text-center font-bold w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#2f2f2f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
-            <input id="phone_2" type="number" placeholder="<?= substr($user->user_phone, 4, 4) ?>" maxlength="4"
-            class="text-center w-full px-5 font-bold py-3 hover:bg-opacity-80 rounded bg-[#4f4f4f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
-            <input id="phone_3" type="number" placeholder="<?= substr($user->user_phone, 9, 4) ?>" maxlength="4"
-            class="text-center w-full px-5 font-bold py-3 hover:bg-opacity-80 rounded bg-[#4f4f4f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
-          </div>
-          <!-- 연락처 수정 버튼 -->
-          <div class="text-right">
-            <button id="phone_update_btn" class="bg-[#3f3f3f] w-[50%] lg:w-[40%] py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
-            연락처 수정하기
-            </button>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- 소개 -->
+      <!-- 비밀번호 -->
       <div class="flex flex-col gap-3 w-full">
         <p class="px-1 hover:text-white hover:-translate-y-1 duration-200 cursor-default whitespace-nowrap max-w-min text-base">
-          소개 - <span class="hover:text-white text-sm text-gray-300 whitespace-nowrap">다른 회원이 <?= $user->user_nickname ?>님의 소개글을 볼 수 있습니다</span>
+          비밀번호
         </p>
-        <textarea id="memo" rows="5" type="text" placeholder="자신을 다른 사람에게 소개해 보세요~!" class="w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#3f3f3f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200"><?= $user->user_memo?></textarea>
-        <!-- 소개 수정 버튼 -->
-        <div class="text-right flex justify-end gap-5 duration-200">
-          <button id="memo_update_btn" class="bg-[#3f3f3f] w-[50%] lg:w-[40%] py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
-          소개 수정하기
+        <div class="relative">
+          <input type="password" id="password_1" placeholder="비밀번호 입력" 
+          class="pr-12 w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#4f4f4f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
+          <button id="eye_on" class="hover:-translate-x-1 hover:text-white hover:opacity-80 text-[#9f9f9f] duration-200 absolute right-3 top-4 material-symbols-outlined">
+            visibility
           </button>
         </div>
       </div>
 
-      <!-- 모달 -->
-      <!-- <div>
-        <button id="modal_btn" class="bg-blue-500 px-5 py-3 rounded">
-          show modal
-        </button>
-        <dialog id="modal" class="min-w-[30%] min-h-[50%] p-5 duration-200 shadow-2xl bg-[#3f3f3f] border border-[#4f4f4f] text-gray-50 rounded">
-          Hellow I'm a modal!
-            <button value="close">Close</button>
-            <button value="confirm">Confirm</button>
-        </dialog>
-      </div> -->
+      <!-- 비밀번호 확인 -->
+      <div class="flex flex-col gap-3 w-full">
+        <p class="px-1 hover:text-white hover:-translate-y-1 duration-200 cursor-default whitespace-nowrap max-w-min text-base">
+          비밀번호 확인
+        </p>
+        <div class="relative">
+          <input type="password" id="password_2" placeholder="비밀번호 입력 확인" 
+          class="pr-12 w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#4f4f4f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
+          <button id="eye_on2" class="hover:-translate-x-1 hover:text-white hover:opacity-80 text-[#9f9f9f] duration-200 absolute right-3 top-4 material-symbols-outlined">
+            visibility
+          </button>
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- 비밀번호 수정 버튼 -->
+    <div class="text-right">
+      <button id="password_update_btn" class="bg-[#3f3f3f] w-[50%] lg:w-[40%] py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
+        비밀번호 수정하기
+      </button>
+    </div>
+    
+    <!-- 구분선 -->
+    <div class="border-b mt-2 border-gray-500"></div>
+
+    <!-- 이메일, 연락처 변경 -->
+    <div class="grid lg:flex lg:justify-between gap-5">
+
+      <!-- 이메일 -->
+      <div class="flex flex-col gap-3 w-full">
+        <p class="px-1 hover:text-white hover:-translate-y-1 duration-200 cursor-default whitespace-nowrap max-w-min text-base">
+          이메일
+        </p>
+        <input id="email" type="email" placeholder="<?= $user->user_email ?>"
+        class="pr-12 w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#4f4f4f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
+        <!-- 이메일 수정 버튼 -->
+        <div class="text-right">
+          <button id="email_update_btn" class="bg-[#3f3f3f] w-[50%] lg:w-[40%] py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
+            이메일 수정하기
+          </button>
+        </div>
+      </div>
+
+      <!-- 휴대폰 -->
+      <div class="flex flex-col gap-3 w-full">
+        <p class="px-1 hover:text-white hover:-translate-y-1 duration-200 cursor-default whitespace-nowrap max-w-min text-base">
+          휴대폰
+        </p>
+        <div class="flex gap-3">
+          <input id="phone_1" type="number" placeholder="010" disabled
+          class="cursor-not-allowed text-center font-bold w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#2f2f2f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
+          <input id="phone_2" type="number" placeholder="<?= substr($user->user_phone, 4, 4) ?>" maxlength="4"
+          class="text-center w-full px-5 font-bold py-3 hover:bg-opacity-80 rounded bg-[#4f4f4f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
+          <input id="phone_3" type="number" placeholder="<?= substr($user->user_phone, 9, 4) ?>" maxlength="4"
+          class="text-center w-full px-5 font-bold py-3 hover:bg-opacity-80 rounded bg-[#4f4f4f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200">
+        </div>
+        <!-- 연락처 수정 버튼 -->
+        <div class="text-right">
+          <button id="phone_update_btn" class="bg-[#3f3f3f] w-[50%] lg:w-[40%] py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
+          연락처 수정하기
+          </button>
+        </div>
+      </div>
 
     </div>
+
+    <!-- 소개 -->
+    <div class="flex flex-col gap-3 w-full">
+      <p class="px-1 hover:text-white hover:-translate-y-1 duration-200 cursor-default whitespace-nowrap max-w-min text-base">
+        소개 - <span class="hover:text-white text-sm text-gray-300 whitespace-nowrap">다른 회원이 <?= $user->user_nickname ?>님의 소개글을 볼 수 있습니다</span>
+      </p>
+      <textarea id="memo" rows="5" type="text" placeholder="자신을 다른 사람에게 소개해 보세요~!" class="w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#3f3f3f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200"><?= $user->user_memo?></textarea>
+      <!-- 소개 수정 버튼 -->
+      <div class="text-right flex justify-end gap-5 duration-200">
+        <button id="memo_update_btn" class="bg-[#3f3f3f] w-[50%] lg:w-[40%] py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">
+        소개 수정하기
+        </button>
+      </div>
+    </div>
+
+    <!-- 모달 -->
+    <!-- <div>
+      <button id="modal_btn" class="bg-blue-500 px-5 py-3 rounded">
+        show modal
+      </button>
+      <dialog id="modal" class="min-w-[30%] min-h-[50%] p-5 duration-200 shadow-2xl bg-[#3f3f3f] border border-[#4f4f4f] text-gray-50 rounded">
+        Hellow I'm a modal!
+          <button value="close">Close</button>
+          <button value="confirm">Confirm</button>
+      </dialog>
+    </div> -->
 
   </div>
 

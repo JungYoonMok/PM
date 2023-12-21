@@ -59,8 +59,14 @@
             <?= ($post->board_type == 'notice' ? '공지사항' : ($post->board_type == 'freeboard' ? '자유게시판' : ($post->board_type == 'hellow' ? '가입인사' : 'what?' ) ) ) ?>
           </a>
           <p>〉</p>
-          <button class="font-bold text-lg duration-200 hover:translate-y-1"
-            onclick=location.reload(true);><?= $post->title ?></button>
+          <button class="flex gap-2 font-bold text-lg duration-200 hover:translate-y-1" onclick=location.reload(true);>
+            <p class="<?= $post->group_order == 0 ? 'hidden' : ''?> bg-[#4f4f4f] rounded px-2">
+              RE:
+            </p>
+            <p>
+              <?= $post->title ?>
+            </p>
+          </button>
         </div>
         <div class="flex place-items-center gap-3 opacity-80 text-sm">
           <span class="material-symbols-outlined">

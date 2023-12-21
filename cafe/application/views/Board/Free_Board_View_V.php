@@ -35,7 +35,7 @@
           
           <div class="
           <?= $this->uri->segment(1) == 'notice' ? 'hidden' : '' ?> 
-          bg-[#2f2f2f] border shadow-2xl border-[#4f4f4f] opacity-90 flex flex-col duration-200 hover:bg-[#1f1f1f]
+          bg-[#2f2f2f] border shadow-2xl border-[#4f4f4f] hover:border-[#3f3f3f] opacity-90 flex flex-col duration-200 hover:bg-[#1f1f1f]
           ">
             <div class="flex gap-3 place-items-center py-3 px-5 bg-[#1f1f1f] rounded-b-xl border-b border-[#4f4f4f]">
               <span class="material-symbols-outlined duration-200">
@@ -43,7 +43,7 @@
               </span>
               <div class="flex justify-between w-full">
                 <p>공지사항</p>
-                <a href="/notice/list" class="flex gap-2 place-items-center duration-200 hover:translate-x-1">
+                <a href="/notice/list" class="flex gap-2 place-items-center duration-200 hover:translate-x-1 active:translate-x-2">
                   <p>더보기</p>
                   <span class="material-symbols-outlined text-[20px]">
                     arrow_forward_ios
@@ -130,10 +130,10 @@
               <p class="text-[#9f9f9f] cursor-default">게시글</p>
               <p class="text-[#4f4f4f] cursor-default">|</p>
               <select id='list_limit' name='list_limit' title="리스트에 몇 개의 게시글을 표시할까요 ?" class="hover:rounded-none duration-200 cursor-pointer outline-none w-full text-whith rounded bg-[#1f1f1f] p-1 px-2 hover:bg-[#0f0f0f]">
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="30">30</option>
+                <option value="5">5 개</option>
+                <option value="10">10 개</option>
+                <option value="20">20 개</option>
+                <option value="30">30 개</option>
               </select>
             </div>
 
@@ -142,6 +142,7 @@
               <p class="text-[#9f9f9f] cursor-default">순서</p>
               <p class="text-[#4f4f4f] cursor-default">|</p>
               <select id='list_type' name='list_type' title="게시글의 순서를 어떻게 보여드릴까요 ?" class="hover:rounded-none duration-200 w-full cursor-pointer outline-none  text-whith rounded bg-[#1f1f1f] p-1 px-2 hover:bg-[#0f0f0f]">
+                <option disabled >내림차 순서</option>
                 <option value="new">최신순</option>
                 <option value="old">오래된 순</option>
                 <option value="hit">조회수 순</option>
@@ -160,7 +161,7 @@
       
       <div class="bg-[#2f2f2f] border border-[#4f4f4f] w-full p-5 rounded flex flex-col gap-5 relative drop-shadow-2xl">
         <!-- 검색 기능 -->
-        <div class="flex flex-col md:flex-row gap-2">
+        <div class="flex flex-col md:flex-row gap-5 md:gap-2">
 
           <!-- 게시글, 댓글 -->
           <select id='search_type' name='search_type' class="
@@ -171,7 +172,7 @@
           </select>
 
           <!-- 검색어 -->
-          <form class="flex flex-col md:flex-row w-full gap-1 md:gap-3">
+          <form class="flex flex-col md:flex-row w-full gap-2">
 
             <div class="relative w-full">
               <p class="material-symbols-outlined absolute top-3 left-3 text-gray-500 cursor-default">
@@ -251,7 +252,7 @@ $(document).ready(function() {
           
           <div class="absolute top-0 text-center w-full ${(new Date(li.regdate).toDateString() === new Date().toDateString()) ? '' : 'hidden'}">
             <p class="flex place-content-center justify-center">
-              <span class="bg-[#3f3f3f] px-10 py-0 rounded-b-2xl duration-200 animate-pulse border border-[#5f5f5f] border-t-0">
+              <span class="bg-[#3f3f3f] px-10 py-0 rounded-b-2xl duration-200 border border-[#5f5f5f] border-t-0">
                 new
               </span>
             </p>
