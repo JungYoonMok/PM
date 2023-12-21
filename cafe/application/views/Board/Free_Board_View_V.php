@@ -35,7 +35,7 @@
           
           <div class="
           <?= $this->uri->segment(1) == 'notice' ? 'hidden' : '' ?> 
-          bg-[#2f2f2f] border shadow-2xl border-[#4f4f4f] opacity-90 flex flex-col
+          bg-[#2f2f2f] border shadow-2xl border-[#4f4f4f] opacity-90 flex flex-col duration-200 hover:bg-[#1f1f1f]
           ">
             <div class="flex gap-3 place-items-center py-3 px-5 bg-[#1f1f1f] rounded-b-xl border-b border-[#4f4f4f]">
               <span class="material-symbols-outlined duration-200">
@@ -54,7 +54,9 @@
               
             <div class="text-gray-50 w-full py-6 p-5 px-2 lg:justify-center relative flex gap-3 overflow-x-auto overflow-y-auto">
             <? foreach ($notice_list as $li) : ?>
-              <a href="/<?= $li->board_type?>/<?= $li->idx?>" class="flex flex-col justify-between shadow-xl hover:shadow-lg hover:shadow-[#4f4f4f] hover:rounded-none w-full max-w-[300px] min-w-[250px] xl:min-w-min h-full min-h-[150px] gap-3 bg-[#0f0f0f] border border-[#4f4f4f] hover:border-[#0f0f0f] p-3 rounded duration-200 hover:translate-y-1">
+              <a href="/<?= $li->board_type?>/<?= $li->idx?>" class="
+              flex hover:bg-[#2f2f2f] active:-translate-y-2 flex-col justify-between shadow-xl hover:shadow-lg hover:shadow-[#2f2f2f] hover:rounded-none w-full max-w-[300px] min-w-[250px] xl:min-w-min h-full min-h-[150px] gap-3 bg-[#0f0f0f] border border-[#4f4f4f] p-3 rounded duration-200 hover:translate-y-1
+              ">
   
                 <div class="flex gap-3 text-sm">
                   <p class="duration-200 hover:text-white">
@@ -105,25 +107,29 @@
         <!-- 상단 메뉴 -->
         <div class="flex gap-3 md:gap-0 flex-col md:flex-row justify-between place-items-center">
 
-          <a href="/post_create" class="border text-center w-full md:w-min outline-none border-[#4f4f4f] whitespace-nowrap py-4 px-20 rounded hover:bg-[#2f2f2f] duration-200 bg-[#1f1f1f]">
+          <a href="/post_create" class="
+          flex justify-center gap-5 border w-full md:w-min outline-none hover:rounded-none border-[#4f4f4f] whitespace-nowrap py-4 px-20 rounded hover:bg-[#2f2f2f] duration-200 bg-[#1f1f1f]
+          ">
+            <span class="material-symbols-outlined text-[#9f9f9f]">
+              post_add
+            </span>
             <p>글쓰기</p>
           </a>
 
           <div class="flex w-full md:w-min gap-1 place-items-center">
 
             <!-- 새로고침 -->
-            <div class="bg-[#1f1f1f] rounded border border-[#4f4f4f] text-center">
-              <button id="refresh_btn" title="새로고침" class="material-symbols-outlined duration-200 hover:animate-spin py-4 px-5">
+            <div class="bg-[#1f1f1f] rounded border border-[#4f4f4f] text-center hover:bg-[#2f2f2f] duration-200 hover:rounded-none">
+              <button id="refresh_btn" title="화면을 초기 설정으로 새로고침합니다" class="material-symbols-outlined duration-200 hover:animate-spin py-4 px-5">
                 refresh
               </button>
             </div>
 
-            <!-- 페이지 리밋 -->
-            <div class="flex w-full md:w-max gap-5 bg-[#1f1f1f] px-5 py-3 place-items-center whitespace-nowrap rounded border border-[#4f4f4f]">
-              <p class="text-[#9f9f9f]">페이지</p>
-              <p class="text-[#4f4f4f]">|</p>
-              <select id='list_limit' name='list_limit' class="duration-200 cursor-pointer outline-none w-full text-whith rounded bg-[#1f1f1f]  p-1">
-                <option value="3">3</option>
+            <!-- 게시글 제한 -->
+            <div class="flex w-full md:w-max gap-5 bg-[#1f1f1f] px-5 py-3 hover:bg-[#2f2f2f] duration-200 place-items-center hover:rounded-none whitespace-nowrap rounded border border-[#4f4f4f]">
+              <p class="text-[#9f9f9f] cursor-default">게시글</p>
+              <p class="text-[#4f4f4f] cursor-default">|</p>
+              <select id='list_limit' name='list_limit' title="리스트에 몇 개의 게시글을 표시할까요 ?" class="hover:rounded-none duration-200 cursor-pointer outline-none w-full text-whith rounded bg-[#1f1f1f] p-1 px-2 hover:bg-[#0f0f0f]">
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="20">20</option>
@@ -131,11 +137,11 @@
               </select>
             </div>
 
-            <!-- 정렬 -->
-            <div class="flex w-full md:w-max gap-5 bg-[#1f1f1f] px-5 py-3 place-items-center whitespace-nowrap rounded border border-[#4f4f4f]">
-              <p class="text-[#9f9f9f]">정렬</p>
-              <p class="text-[#4f4f4f]">|</p>
-              <select id='list_type' name='list_type' class="duration-200 w-full cursor-pointer outline-none  text-whith rounded bg-[#1f1f1f]  p-1">
+            <!-- 순서 -->
+            <div class="flex w-full md:w-max gap-5 bg-[#1f1f1f] px-5 py-3 hover:bg-[#2f2f2f] duration-200 place-items-center hover:rounded-none whitespace-nowrap rounded border border-[#4f4f4f]">
+              <p class="text-[#9f9f9f] cursor-default">순서</p>
+              <p class="text-[#4f4f4f] cursor-default">|</p>
+              <select id='list_type' name='list_type' title="게시글의 순서를 어떻게 보여드릴까요 ?" class="hover:rounded-none duration-200 w-full cursor-pointer outline-none  text-whith rounded bg-[#1f1f1f] p-1 px-2 hover:bg-[#0f0f0f]">
                 <option value="new">최신순</option>
                 <option value="old">오래된 순</option>
                 <option value="hit">조회수 순</option>
@@ -155,24 +161,32 @@
       <div class="bg-[#2f2f2f] border border-[#4f4f4f] w-full p-5 rounded flex flex-col gap-5 relative drop-shadow-2xl">
         <!-- 검색 기능 -->
         <div class="flex flex-col md:flex-row gap-2">
+
           <!-- 게시글, 댓글 -->
-          <select id='search_type' name='search_type'
-            class="outline-none w-full md:max-w-[20%] text-whith rounded bg-[#3f3f3f] p-3 h-12">
+          <select id='search_type' name='search_type' class="
+          outline-none w-full md:max-w-[20%] text-whith rounded bg-[#1f1f1f] p-3 h-12 border border-[#4f4f4f] hover:bg-[#2f2f2f] focus:bg-[#0f0f0f] focus:rounded-none duration-200 cursor-pointer
+          ">
             <option value="제목만">제목만</option>
             <option value="글작성자">글작성자</option>
           </select>
+
           <!-- 검색어 -->
           <form class="flex flex-col md:flex-row w-full gap-1 md:gap-3">
+
             <div class="relative w-full">
-              <p class="material-symbols-outlined absolute top-3 left-3 text-gray-500">
+              <p class="material-symbols-outlined absolute top-3 left-3 text-gray-500 cursor-default">
                 search
               </p>
-              <input id="search_text" name="search_text" type="text" class="focus:bg-[#2f2f2f] duration-200 pl-12 w-full outline-none text-whith rounded bg-[#3f3f3f] p-3">
+              <input id="search_text" name="search_text" type="text" class="
+              pl-12 w-full outline-none text-whith rounded bg-[#1f1f1f] p-3 border border-[#4f4f4f] hover:bg-[#2f2f2f] focus:bg-[#0f0f0f] focus:rounded-none duration-200
+              ">
             </div>
+
             <!-- 검색버튼 -->
-            <button type="submit" id="search_btn" name="search_btn" class="w-full md:w-[30%] border outline-none border-[#4f4f4f] py-3 rounded hover:bg-[#2f2f2f] duration-200 bg-[#1f1f1f]">
+            <button type="submit" id="search_btn" name="search_btn" class="w-full md:w-[30%] border outline-none border-[#4f4f4f] py-3 rounded hover:bg-[#0f0f0f] duration-200 bg-[#1f1f1f] hover:rounded-none">
               검색
             </button>
+
           </form>
         </div>
 
@@ -194,7 +208,7 @@
         </div>
 
         <!-- 페이지네이션 -->
-        <div class="">
+        <div class="pagination">
           <?= $links; ?>
         </div>
         
@@ -229,7 +243,6 @@ $(document).ready(function() {
       <div class="
       ${(li.board_state == true && li.board_delete == false) ? '' : 'opacity-80' }
       ">
-
       
         <div class="relative
         border border-[#4f4f4f] duration-200 rounded shadow-md hover:shadow-xl p-2 flex flex-col gap-3
@@ -238,15 +251,21 @@ $(document).ready(function() {
           
           <div class="absolute top-0 text-center w-full ${(new Date(li.regdate).toDateString() === new Date().toDateString()) ? '' : 'hidden'}">
             <p class="flex place-content-center justify-center">
-              <span class="bg-[#4f4f4f] px-10 py-0 rounded-b-2xl duration-200 animate-pulse border border-[#5f5f5f] border-t-0">
+              <span class="bg-[#3f3f3f] px-10 py-0 rounded-b-2xl duration-200 animate-pulse border border-[#5f5f5f] border-t-0">
                 new
               </span>
             </p>
           </div>
-          
-          <div class="flex justify-between place-items-center">
 
-            <div class="flex gap-1 place-items-center py-2 px-5 bg-[#1f1f1f] border border-[#5f5f5f] rounded rounded-r-2xl">
+          <div class="flex justify-between place-items-center">
+          
+            <div class="flex gap-1 place-items-center py-2 bg-[#1f1f1f] px-2 rounded rounded-r-2xl">
+
+              <div class="mr-2 w-12 h-8 text-sm rounded-[25%] bg-[#2f2f2f] flex justify-center place-items-center">
+                <p class="">
+                  ${li.idx}
+                </p>
+              </div>
 
               <img src="/uploads/${li.profile}" alt="img" class="rounded-[50%] border border-[#4f4f4f] w-10 h-10 ${li.profile ? '' : 'hidden'}">
               <p class="material-symbols-outlined text-4xl text-gray-400 flex place-items-center justify-center ${li.profile ? 'hidden' : ''}">
