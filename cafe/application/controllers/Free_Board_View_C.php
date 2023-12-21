@@ -89,7 +89,10 @@ class Free_Board_View_C extends CI_Controller {
     $config['base_url'] = "/$seg/list"; // 기본 URL 설정
     $config['total_rows'] = $this->FBM->pagination($seg);
     // $config['total_rows'] = $this->FBM->board_comment_count_pagination($idx); // 전체 행의 수
-    $config['per_page'] = 10; // 페이지당 표시할 행의 수
+    
+    $config['per_page'] = 5; // 페이지당 표시할 행의 수
+    // $config['per_page'] =  intval($this->input->get('limit')); // 페이지당 표시할 행의 수
+    
     $config['uri_segment'] = 3; // URL의 몇 번째 세그먼트에 페이지 번호가 포함될지 설정
     $config['num_links'] = 3; // 현재 페이지 양쪽에 표시될 "숫자" 링크의 수
     // 페이지 숫자 표시

@@ -243,11 +243,24 @@ class Free_Board_Detail_M extends CI_Model {
 
   // 조회수 증가
   public function board_hit_plus($idx) {
-    // 조회수 가져오기
-    $board_hit = $this->db->get_where('boards', [ 'idx' => $idx ])->row();
-    // 가져온 값에 +1
-    $this->db->where('idx', $idx);
-    $this->db->update('boards', [ 'hit' => $board_hit->hit+1 ]);
+    $get_hit = $this->db->get_where('boards_hit', [ 'boards_idx' => $idx, 'user_id' => $this->session->userdata('user_id') ])->row();
+    if($get_hit) {
+      return false;
+    } else {
+      $this->db->insert('boards_hit', ['boards_idx' => $idx, 'ip' => $this->input->ip_address(),'user_id' => $this->session->userdata('user_id'), 'regdate' => date("Y-m-d H:i:s") ]);
+      // 조회수 가져오기
+      $board_hit = $this->db->get_where('boards', [ 'idx' => $idx ])->row();
+      // 가져온 값에 +1
+      $this->db->where('idx', $idx);
+      $this->db->update('boards', [ 'hit' => $board_hit->hit+1 ]);
+    }
+
+    // $this->db->insert('board_hit', ['boards_idx' => $idx, 'user_id' => $this->session->userdata('user_id'), 'hit_date' => date("Y-m-d H:i:s") ]);
+    // // 조회수 가져오기
+    // $board_hit = $this->db->get_where('boards', [ 'idx' => $idx ])->row();
+    // // 가져온 값에 +1
+    // $this->db->where('idx', $idx);
+    // $this->db->update('boards', [ 'hit' => $board_hit->hit+1 ]);
   }
 
   // 댓글 개수 가져오기

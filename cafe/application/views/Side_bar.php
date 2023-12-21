@@ -301,6 +301,10 @@
           <p>총 방문</p>
           <p><?= $visit_total ?> 회</p>
         </div>
+        
+        <p class="text-xs text-center text-[#9f9f9f]">
+          방문자 수는 로그인기록 기준입니다
+        </p>
 
         <!-- 구분선 -->
         <div class="border-b border-gray-400"></div>        

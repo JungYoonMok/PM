@@ -35,9 +35,9 @@
           
           <div class="
           <?= $this->uri->segment(1) == 'notice' ? 'hidden' : '' ?> 
-          bg-[#2f2f2f] border shadow-2xl border-[#4f4f4f] opacity-90 p-5 flex flex-col
+          bg-[#2f2f2f] border shadow-2xl border-[#4f4f4f] opacity-90 flex flex-col
           ">
-            <div class="flex gap-3 place-items-center">
+            <div class="flex gap-3 place-items-center py-3 px-5 bg-[#1f1f1f] rounded-b-xl border-b border-[#4f4f4f]">
               <span class="material-symbols-outlined duration-200">
                 notifications
               </span>
@@ -52,7 +52,7 @@
               </div>
             </div>
               
-            <div class="text-gray-50 w-full py-6 px-2 lg:justify-center relative flex gap-3 overflow-x-auto overflow-y-auto">
+            <div class="text-gray-50 w-full py-6 p-5 px-2 lg:justify-center relative flex gap-3 overflow-x-auto overflow-y-auto">
             <? foreach ($notice_list as $li) : ?>
               <a href="/<?= $li->board_type?>/<?= $li->idx?>" class="flex flex-col justify-between shadow-xl hover:shadow-lg hover:shadow-[#4f4f4f] hover:rounded-none w-full max-w-[300px] min-w-[250px] xl:min-w-min h-full min-h-[150px] gap-3 bg-[#0f0f0f] border border-[#4f4f4f] hover:border-[#0f0f0f] p-3 rounded duration-200 hover:translate-y-1">
   
@@ -103,15 +103,39 @@
         <? endif ?>
 
         <!-- 상단 메뉴 -->
-        <div class="flex justify-between place-items-center">
-          <a href="/post_create" class="border outline-none border-[#4f4f4f] py-3 px-16 rounded hover:bg-[#2f2f2f] duration-200 bg-[#1f1f1f]">
+        <div class="flex gap-3 md:gap-0 flex-col md:flex-row justify-between place-items-center">
+
+          <a href="/post_create" class="border text-center w-full md:w-min outline-none border-[#4f4f4f] whitespace-nowrap py-4 px-20 rounded hover:bg-[#2f2f2f] duration-200 bg-[#1f1f1f]">
             <p>글쓰기</p>
           </a>
-          <div class="flex gap-5 bg-[#1f1f1f] px-5 py-3 place-items-center whitespace-nowrap rounded border border-[#4f4f4f]">
-            <p class="text-[#9f9f9f]">정렬</p>
-            <p class="text-[#4f4f4f]">|</p>
-            <div class="w-full <?= $this->uri->segment(1) == 'post_create_reply' ? 'hidden' : '' ;?>">
-              <select id='list_type' name='list_type' class="duration-200 cursor-pointer outline-none w-full text-whith rounded bg-[#1f1f1f]  p-1">
+
+          <div class="flex w-full md:w-min gap-1 place-items-center">
+
+            <!-- 새로고침 -->
+            <div class="bg-[#1f1f1f] rounded border border-[#4f4f4f] text-center">
+              <button id="refresh_btn" title="새로고침" class="material-symbols-outlined duration-200 hover:animate-spin py-4 px-5">
+                refresh
+              </button>
+            </div>
+
+            <!-- 페이지 리밋 -->
+            <div class="flex w-full md:w-max gap-5 bg-[#1f1f1f] px-5 py-3 place-items-center whitespace-nowrap rounded border border-[#4f4f4f]">
+              <p class="text-[#9f9f9f]">페이지</p>
+              <p class="text-[#4f4f4f]">|</p>
+              <select id='list_limit' name='list_limit' class="duration-200 cursor-pointer outline-none w-full text-whith rounded bg-[#1f1f1f]  p-1">
+                <option value="3">3</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+              </select>
+            </div>
+
+            <!-- 정렬 -->
+            <div class="flex w-full md:w-max gap-5 bg-[#1f1f1f] px-5 py-3 place-items-center whitespace-nowrap rounded border border-[#4f4f4f]">
+              <p class="text-[#9f9f9f]">정렬</p>
+              <p class="text-[#4f4f4f]">|</p>
+              <select id='list_type' name='list_type' class="duration-200 w-full cursor-pointer outline-none  text-whith rounded bg-[#1f1f1f]  p-1">
                 <option value="new">최신순</option>
                 <option value="old">오래된 순</option>
                 <option value="hit">조회수 순</option>
@@ -121,7 +145,9 @@
                 <option value="comment">댓글 순</option>
               </select>
             </div>
+
           </div>
+
         </div>
 
       </div>
@@ -131,12 +157,12 @@
         <div class="flex flex-col md:flex-row gap-2">
           <!-- 게시글, 댓글 -->
           <select id='search_type' name='search_type'
-            class="outline-none w-full md:max-w-[20%] text-whith rounded bg-[#3f3f3f] p-3">
+            class="outline-none w-full md:max-w-[20%] text-whith rounded bg-[#3f3f3f] p-3 h-12">
             <option value="제목만">제목만</option>
             <option value="글작성자">글작성자</option>
           </select>
           <!-- 검색어 -->
-          <div class="flex w-full gap-1 md:gap-3">
+          <form class="flex flex-col md:flex-row w-full gap-1 md:gap-3">
             <div class="relative w-full">
               <p class="material-symbols-outlined absolute top-3 left-3 text-gray-500">
                 search
@@ -144,10 +170,10 @@
               <input id="search_text" name="search_text" type="text" class="focus:bg-[#2f2f2f] duration-200 pl-12 w-full outline-none text-whith rounded bg-[#3f3f3f] p-3">
             </div>
             <!-- 검색버튼 -->
-            <button id="search_btn" name="search_btn" class="border outline-none border-[#4f4f4f] py-3 w-[30%] rounded hover:bg-[#2f2f2f] duration-200 bg-[#1f1f1f]">
+            <button type="submit" id="search_btn" name="search_btn" class="w-full md:w-[30%] border outline-none border-[#4f4f4f] py-3 rounded hover:bg-[#2f2f2f] duration-200 bg-[#1f1f1f]">
               검색
             </button>
-          </div>
+          </form>
         </div>
 
         <!-- 구분선 -->
@@ -385,11 +411,11 @@ $(document).on('click', '#post_reply_show_btn', function(e) {
                       : reply.regdate.substr(0, 10);
             // 답글 데이터를 HTML로 변환하여 추가
             replyBox.append(`
-            <div class="border-b border-gray-500 justify-center flex flex-col md:flex-row md:justify-between place-items-center p-5 bg-[#3f3f3f] md:bg-[#0f0f0f] duration-200 rounded shadow-md">
+            <div class="border-b border-gray-500 p-5 flex justify-center place-items-center bg-[#0f0f0f] md:bg-[#0f0f0f] duration-200 rounded shadow-md">
 
-              <div class="flex place-items-center gap-3 md:w-full duration-200">
+              <div class="flex flex-col md:flex-row justify-center place-items-center gap-3 md:w-full duration-200">
               
-                <span class="material-symbols-outlined rotate-180 text-[#9f9f9f] ">
+                <span class="material-symbols-outlined rotate-180 text-[#9f9f9f] hidden md:block">
                   reply
                 </span>
 
@@ -420,7 +446,7 @@ $(document).on('click', '#post_reply_show_btn', function(e) {
 
                   </div>
 
-                  <div class="flex gap-2 place-items-center place-content-center">
+                  <div class="flex gap-2 place-items-center place-content-center whitespace-nowrap">
                     <a href="/${reply.board_type}/${reply.idx}">
                       ${reply.title}
                     </a>
@@ -511,7 +537,8 @@ function fetchBoardList(type, page) {
     type: 'GET',
     dataType: 'json',
     data: {
-      type: $('#list_type').val()
+      type: $('#list_type').val(),
+      limit: $('#list_limit').val(),
     },
     success: function(response) {
       if (response.state) {
@@ -563,6 +590,7 @@ function fetchBoardList(type, page) {
     data: { 
       type: searchType,
       list_type: $('#list_type').val(),
+      limit: $('#list_limit').val(),
       text: searchText,
       segment: $('#seg').val()
     },
@@ -597,9 +625,26 @@ function fetchBoardList(type, page) {
     // 테이블의 tbody 요소를 선택
     var tableBody = $('#table');
     // 기존의 내용을 비움
-    tableBody.empty();
+    // tableBody.empty();
 
     fetchBoardList($('#seg').val());
+  });
+
+  // 리스트 리밋
+  document.getElementById('list_limit').addEventListener('change', function(e) {
+    // 테이블의 tbody 요소를 선택
+    var tableBody = $('#table');
+    // 기존의 내용을 비움
+    // tableBody.empty();
+
+    console.log(parseInt($('#list_limit').val()));
+
+    fetchBoardList($('#seg').val());
+  });
+
+  // 새로고침 버튼
+  $('#refresh_btn').click(function(e) {
+    location.reload();
   });
 
   
