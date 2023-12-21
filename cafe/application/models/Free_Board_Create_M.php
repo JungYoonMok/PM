@@ -42,7 +42,6 @@ class Free_Board_Create_M extends CI_Model {
 
       // 포인트 및 경험치 지급
       $this->user_point_exp_m->point_exp_add('활동 포인트 지급', $last_id.'번 게시글 작성');
-      
 
       return ['state' => TRUE, 'data' => $data, 'last_id' => $last_id ];
     } else {
@@ -112,7 +111,7 @@ class Free_Board_Create_M extends CI_Model {
 
       // 포인트 및 경험치 지급
       $this->user_point_exp_m->point_exp_add('활동 포인트 지급', $data['group_idx'].'번 게시글의 답글 작성');
-      return ['state' => TRUE, 'data' => $data, 'last_id' => $last_id ];;
+      return ['state' => TRUE, 'data' => $data, 'last_id' => $last_id ];
     }
   }
 

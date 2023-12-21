@@ -24,8 +24,8 @@
     <p class="material-symbols-outlined">scan_delete</p>
     <p>삭제한 게시글</p>
   </a>
-
+  
   <!-- 구분선 -->
   <div class="border-b mt-2 border-[#3f3f3f]"></div>
-
+  
 </div>

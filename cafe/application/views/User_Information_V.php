@@ -10,6 +10,7 @@
       <div class="flex flex-col w-full gap-3 rounded-tl-md rounded-tr-md shadow-2xl border border-[#4f4f4f] bg-[#2f2f2f]">
         <div class="p-5">
           <p>내 정보</p>
+          <p>...</p>
         </div>
       </div>
         
