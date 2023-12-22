@@ -40,6 +40,11 @@
       return $result;
     }
 
+    public function pagination_exp_point() {
+      // $result = $this->db->get_where('point_exp_log', 'user_id' => $this->session->userdata('user_id'));
+      // return $result;
+    }
+
     public function get_post($limit, $start) {
       $user_id = $this->session->userdata('user_id');
       $this->db->select('boards.*,

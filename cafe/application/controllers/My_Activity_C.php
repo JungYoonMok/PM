@@ -133,6 +133,20 @@ date_default_timezone_set('Asia/Seoul');
       $this->layout->custom_view('/My_Activity/Delete_Post_V', $data);
     }
 
+    public function exp_point() {
+      $pagi = $this->My_Activity_M->pagination_exp_point();
+      $data['page'] = $pagi;
+      $per_page = 20;
+
+      $this->initialize_pagination("/my_activity/exp_point", $pagi, $per_page, 3 ?? 0, 3);
+
+      $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0; // 현재 페이지 번호
+      $data['links'] = $this->pagination->create_links(); // 페이지네이션 링크 생성
+      
+      $data['delete_post'] = $this->My_Activity_M->get_delete_post($per_page, $page);
+      $this->layout->custom_view('/My_Activity/Exp_Point_V', $data);
+    }
+
   }
 
 ?>

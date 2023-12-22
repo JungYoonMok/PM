@@ -50,5 +50,8 @@ $route['my_activity/post_notlike/(:num)'] = 'my_activity_c/post_notlike/$1';
 $route['my_activity/delete_post'] = 'my_activity_c/delete_post';
 $route['my_activity/delete_post/(:num)'] = 'my_activity_c/delete_post/$1';
 
+$route['my_activity/exp_point'] = 'my_activity_c/exp_point';
+$route['my_activity/exp_point/(:num)'] = 'my_activity_c/exp_point/$1';
+
 $route['login'] = '/login_C';
 $route['register'] = '/register_C';

@@ -131,7 +131,7 @@ class Free_Board_View_M extends CI_Model {
       case '제목만':
         $this->db->like('title', $search_text);
         break;
-      case '글작성자':
+      case '아이디':
         $this->db->like('user_id', $search_text);
         break;
       // 기타 검색 타입들...

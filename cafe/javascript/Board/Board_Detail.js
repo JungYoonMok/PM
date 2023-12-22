@@ -1,5 +1,3 @@
-$(document).ready( function () {
-
   // ajax 게시글 등록
   function like_up($idx){
     // if(!confirm('좋아요를 누르시겠습니까? (변경은 불가능합니다)')) {
@@ -56,9 +54,11 @@ $(document).ready( function () {
   };
   
 function post_delete($idx){
-  if(!confirm('게시글을 삭제 하시겠습니까?')){
+
+  if(!confirm('게시글을 삭제 하시겠습니까?asdasd')){
     return;
   }
+
   $.ajax({
     url: '/free_board_detail_c/post_delete',
     type: 'post',
@@ -255,5 +255,3 @@ function comment_problem($idx){
     document.body.removeChild(dummy);
     alert('url이 복사 되었습니다.');
   }
-
-});

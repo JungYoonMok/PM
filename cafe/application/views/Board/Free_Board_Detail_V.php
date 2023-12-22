@@ -13,18 +13,19 @@
   <!-- 메인 -->
   <div class="md:mb-20 w-full p-1 mt-4 md:mt-0 md:p-5 flex flex-col gap-5 drop-shadow-2xl">
 
-    <!-- 수정하기, 이전, 다음, 목록 -->
-    <div class="flex justify-between place-items-center gap-3 opacity-90 whitespace-nowrap overflow-x-auto overflow-y-hidden">
-      <div class="<?= $this->session->userdata('user_id') == $post->user_id ? '' : 'hidden' ?> flex gap-1">
-        <a href="/<?= $post->board_type ?>/update/<?= $post->idx ?>">
-          <p class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-[9px] rounded">
-            수정하기
-          </p>
-        </a>
-        <button
-          onclick="post_delete(<?= $post->idx ?>)"
-          class="cursor-pointer bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
-          삭제하기
+      <!-- 수정하기, 이전, 다음, 목록 -->
+      <div class="flex justify-between place-items-center gap-3 opacity-90 whitespace-nowrap overflow-x-auto overflow-y-hidden">
+
+        <div class="<?= $this->session->userdata('user_id') == $post->user_id ? '' : 'hidden' ?> flex gap-1">
+          <a href="/<?= $post->board_type ?>/update/<?= $post->idx ?>">
+            <p class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-[9px] rounded">
+              수정하기
+            </p>
+          </a>
+          <button
+            onclick="post_delete(<?= $post->idx ?>)"
+            class="cursor-pointer bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
+            삭제하기
         </button>
       </div>
 
@@ -106,9 +107,9 @@
                     ( <?= $post->user_id; ?> )
                   </a>
                 </div>
-                <div class="max-w-[300px] whitespace-normal">
+                <div class="max-w-[300px]">
                   <p class="text-sm">
-                    <?= mb_strimwidth($user->user_memo, 0, 50, ' ..') ?>
+                    <?= mb_strimwidth($user->user_memo, 0, 40, ' ..') ?>
                   </p>
                 </div>
               </div>
@@ -161,6 +162,11 @@
 
             </div>
             
+            <div>
+              <input id="pui" type="text" hidden value="<?= $post->user_id ?>">
+              <input id="pusi" type="text" hidden value="<?= $this->session->userdata('user_id') ?>">
+            </div>
+
             <script>
               //전체(ALL)용 CDN을 사용할 경우
               const editor = toastui.Editor.factory({
@@ -221,15 +227,27 @@
                 </span>
                 <div class="flex justify-between w-full">
                   <a href="/uploads/<?=$file->file_name ?>" download class="duration-200 hover:translate-x-3 flex gap-2 place-items-center">
-                    <img src="/uploads/<?= $file->file_name ?>" width="100%" alt="img" class="w-10 rounded duration-200 hover:scale-[3.0]">
+                    <? if(empty($file->file_type)) :?>
+                      <span class="material-symbols-outlined text-[#9f9f9f]">
+                        insert_drive_file
+                      </span>
+                    <? else :?>
+                      <img src="/uploads/<?= $file->file_name ?>" width="100%" alt="img" class="w-10 rounded duration-200 hover:scale-[3.0]">
+                    <? endif ?>
                     <p>
                       <?= $file->file_name ?>
                     </p>
                   </a>
                   <div class="flex place-items-center gap-3 text-xs text-[#8f8f8f] font-bold">
-                    <p class="duration-200 hidden md:inline-block">
-                      <?= $file->width ?> x <?= $file->height ?>
-                    </p>
+
+                    <? if(empty($file->file_type)) :?>
+
+                    <? else :?>
+                      <p class="duration-200 hidden md:inline-block">
+                        <?= $file->width ?> x <?= $file->height ?>
+                      </p>
+                    <? endif ?>
+
                     <p class="hidden md:inline-block">|</p>
                     <p class="duration-200">
                       <?= $file->file_size ?> KB
@@ -445,7 +463,9 @@
                       <a href="#" class="text-base hover:underline hover:opacity-80 duration-200">
                         <?= empty($com->user_id) ? null : $com->user_id; ?>
                       </a>
-                      <p>(등급)</p>
+                      <p class="bg-[#4f4f4f] rounded px-1 py-0.5">
+                        레벨 <?= $level_converter['level'] ?>
+                      </p>
                     </div>
                     <div class="flex gap-2 text-sm text-gray-400 pr-2">
                       <p class="material-symbols-outlined text-md">
@@ -503,13 +523,13 @@
                           <button onclick='comment_delete(<?= $com->idx ?>)' class="hover:underline hover:underline-offset-4 px-2 py-1 rounded">
                             삭제
                           </button>
-                          <p class="text-[5px] py-1 text-[#5f5f5f]">
+                          <!-- <p class="text-[5px] py-1 text-[#5f5f5f]">
                             ●
-                          </p>
+                          </p> -->
                         </div>
-                        <button onclick='comment_problem(<?= $com->idx ?>)' class="text-red-400 hover:underline hover:underline-offset-4 px-2 py-1 rounded">
+                        <!-- <button onclick='comment_problem(<?= $com->idx ?>)' class="text-red-400 hover:underline hover:underline-offset-4 px-2 py-1 rounded">
                           신고
-                        </button>
+                        </button> -->
                       </div>
 
                     </div>
@@ -577,6 +597,11 @@
           <p>
             댓글이 존재하지 않습니다
           </p>
+        </div>
+
+        <!-- 페이지네이션 -->
+        <div class="pagination">
+          <?= $links; ?>
         </div>
 
         <!-- 댓글 작성 비허용 -->
@@ -728,4 +753,277 @@
 
 </div>
 
-<script src="/javascript/board/board_detail.js"></script>
+<!-- <script src="/javascript/board/board_detail.js"></script> -->
+
+<script>
+    // ajax 게시글 등록
+    function like_up($idx){
+    // if(!confirm('좋아요를 누르시겠습니까? (변경은 불가능합니다)')) {
+    //   return;
+    // }
+    $.ajax({
+      url: '/free_board_detail_c/board_like',
+      type: 'post',
+      dataType: 'json',
+      data: { 
+        boards_idx: $idx,
+        like_type: '1',
+      },
+      success: response => {
+        if(response.state) {
+          alert(response.message);
+          location.reload();
+        } else {
+          alert(response.message);
+          $('#error_txt').text(response.message); // 에러 메시지 출력
+        }
+      },
+      error: ( response, s, e ) => {
+        console.log('에러', response, s, e);
+      }
+    });
+  };
+
+  function like_down($idx){
+    // if(!confirm('싫어요를 누르시겠습니까? (변경은 불가능합니다)')) {
+    //   return;
+    // }
+    $.ajax({
+      url: '/free_board_detail_c/board_like',
+      type: 'post',
+      dataType: 'json',
+      data: { 
+        boards_idx: $idx,
+        like_type: '0',
+      },
+      success: response => {
+        if(response.state) {
+          alert(response.message);
+          location.reload();
+        } else {
+          alert(response.message);
+          $('#error_txt').text(response.message); // 에러 메시지 출력
+        }
+      },
+      error: ( response, s, e ) => {
+        console.log('에러', response, s, e);
+      }
+    });
+  };
+  
+function post_delete($idx){
+
+  if($('#pui').val() != $('#pusi').val()) {
+    alert('작성자만 삭제할 수 있습니다.');
+    return;
+  }
+
+  if(!confirm('게시글을 삭제 하시겠습니까?')){
+    return;
+  }
+  $.ajax({
+    url: '/free_board_detail_c/post_delete',
+    type: 'post',
+    dataType: 'json',
+    data: { 
+      idx: $idx,
+      boards_idx: $('#bd_id').val(),
+    },
+    success: response => {
+      if(response.state) {
+        location.reload();
+      } else {
+        alert(response.message);
+        // console.log(response);
+        // $('#error_txt').text(response.message); // 에러 메시지 출력
+      }
+    },
+    error: ( response, s, e ) => {
+      console.log('에러', response);
+      console.log('에러', s);
+      console.log('에러', e);
+    }
+  });
+
+};
+
+// 댓글 수정
+function comment_update($idx){
+  $.ajax({
+    url: '/free_board_detail_c/reply_update',
+    type: 'post',
+    dataType: 'json',
+    data: { 
+      idx: $idx,
+      boards_idx: $('#bd_id').val(),
+      content: $('#comment_update_value' + $idx).val(),
+    },
+    success: response => {
+      if(response.state) {
+        location.reload();
+      } else {
+        alert(response.message);
+      }
+    },
+    error: ( response, s, e ) => {
+      console.log('에러', response, s, e);
+    }
+  });
+};
+
+// 댓글 삭제
+function comment_delete($idx){
+
+  // console.log($('#pui').val());
+  // console.log($('#pusi').val());
+
+  // if($('#pcui').val() != $('#pusi').val()) {
+  //   alert('작성자만 삭제할 수 있습니다.');
+  //   return;
+  // }
+
+  if(!confirm('댓글을 삭제 하시겠습니까?')) {
+    return;
+  }
+  $.ajax({
+    url: '/free_board_detail_c/reply_delete',
+    type: 'post',
+    dataType: 'json',
+    data: { 
+      idx: $idx,
+    },
+    success: response => {
+      if(response.state) {
+        location.reload();
+      } else {
+        alert(response.message);
+        // console.log(response);
+        // $('#error_txt').text(response.message); // 에러 메시지 출력
+      }
+    },
+    error: ( response, s, e ) => {
+      console.log('에러', response, s, e);
+    }
+  });
+};
+
+// 댓글 신고
+function comment_problem($idx){
+  return alert('신고 기능은 구현 중입니다');
+  $.ajax({
+    url: '/free_board_detail_c/reply_problem',
+    type: 'post',
+    dataType: 'json',
+    data: { 
+      idx: $idx,
+    },
+    success: response => {
+      if(response.state) {
+        console.log(response);
+        // location.reload();
+      } else {
+        console.log(response);
+        $('#error_txt').text(response.message); // 에러 메시지 출력
+      }
+    },
+    error: ( response, s, e ) => {
+      console.log('에러', response, s, e);
+    }
+  });
+};
+
+// 댓글 등록시 댓글 화면으로 이동 (구분선쪽)
+  // window.location = window.location.href.split('#')[0] + '#comments';
+
+  // 댓글등록 ajax
+  // 문서 준비가 끝나면 실행
+  // $(document).ready(function() {
+  //   // 댓글 폼 제출 이벤트 핸들러
+  //   $('#test').on('submit', function(e) {
+  //     e.preventDefault(); // 기본 제출 이벤트 방지
+
+  //     // AJAX 요청
+  //     $.ajax({
+  //       url: '/free_board_detail/comment_create', // 댓글 생성 URL
+  //       type: 'POST',
+  //       data: $(this).serialize(), // 폼 데이터 직렬화
+  //       success: function(response) {
+  //         // 성공 시 UI 업데이트
+  //         console.log('댓글이 추가되었습니다.');
+  //         location.reload();
+  //         // 댓글 리스트에 새 댓글을 추가하는 코드
+  //         },
+  //       error: function(xhr, status, error) {
+  //         // 에러 처리
+  //         console.error('댓글 추가에 실패했습니다.');
+  //       }
+  //       });
+  //     });
+  // });
+
+  function reply_btn(num) {
+    let reply = document.getElementById('reply_onoff' + num);
+    document.getElementById('reply_onoff' + num).classList.remove('hidden');
+    if (reply.getElementById === 'open') {
+      reply.getElementById = 'close';
+      document.getElementById('reply_onoff' + num).classList.remove('inline');
+      document.getElementById('reply_onoff' + num).className += ' hidden';
+
+      $("#reply_btn" + num).html('답변 달기');
+    } else {
+      reply.getElementById = 'open';
+      document.getElementById('reply_onoff' + num).className += ' inline';
+
+      $("#reply_btn" + num).html('답변 취소');
+    }
+  }
+
+  function reply_update(num) {
+    let reply = document.getElementById('reply_update' + num);
+    document.getElementById('reply_update' + num).classList.remove('hidden');
+    if (reply.getElementById === 'open') {
+      reply.getElementById = 'close';
+      document.getElementById('reply_update' + num).classList.remove('inline');
+      document.getElementById('reply_update' + num).className += ' hidden';
+
+      // 수정 버튼 클릭시
+      document.getElementById('reply_value' + num).classList.remove('hidden');
+      document.getElementById('reply_btn' + num).classList.remove('hidden');
+      // document.getElementById('reply_arrow' + num).classList.remove('hidden');
+      document.getElementById('reply_arrow' + num).classList.remove('mt-[-248px]');
+      
+      $("#btn-update" + num).html('수정');
+
+    } else {
+      reply.getElementById = 'open';
+      document.getElementById('reply_update' + num).className += ' inline';
+      
+      // 수정 버튼 클릭시
+      document.getElementById('reply_value' + num).className += ' hidden';
+      document.getElementById('reply_btn' + num).className += ' hidden';
+      // document.getElementById('reply_arrow' + num).className += ' hidden';
+      document.getElementById('reply_arrow' + num).className += ' mt-[-248px]';
+      $("#btn-update" + num).html('수정 취소');
+
+      // 수정 버튼 클릭시 답글 창 닫기
+      let reply2 = document.getElementById('reply_onoff' + num);
+      reply2.getElementById = 'close';
+      $("#reply_btn" + num).html('답변 달기');
+      document.getElementById('reply_onoff' + num).className += ' hidden';
+    }
+  }
+
+  // 주소복사
+  function CopyUrlToClipboard(){
+    var dummy   = document.createElement("input");
+    var text    = location.href;
+    // var text    = location.href;
+    
+    document.body.appendChild(dummy);
+    dummy.value = text;
+    dummy.select();
+    document.execCommand("copy");
+    document.body.removeChild(dummy);
+    alert('url이 복사 되었습니다.');
+  }
+</script>

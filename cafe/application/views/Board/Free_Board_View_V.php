@@ -168,7 +168,7 @@
           outline-none w-full md:max-w-[20%] text-whith rounded bg-[#1f1f1f] p-3 h-12 border border-[#4f4f4f] hover:bg-[#2f2f2f] focus:bg-[#0f0f0f] focus:rounded-none duration-200 cursor-pointer
           ">
             <option value="제목만">제목만</option>
-            <option value="글작성자">글작성자</option>
+            <option value="아이디">아이디</option>
           </select>
 
           <!-- 검색어 -->

@@ -36,7 +36,7 @@
           <div class="flex place-content-end gap-1">
             <input class="outline-none cursor-pointer hover:opacity-70" id="check1" type="checkbox" />
             <label class="text-md cursor-pointer hover:opacity-70" for="check1">
-              아이디 기억하기
+              아이디 기억하기(미구현)
             </label>
           </div>
         </div>

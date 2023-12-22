@@ -18,15 +18,14 @@ class Free_board_Detail_C extends CI_Controller {
   public function post_delete() {
 
     // 작성자가 아니면 삭제 불가능
-    $board_id = $this->input->post('boards_idx');
-    $board = $this->FBM->get_post($board_id)->user_id;
+    // $board_id = $this->input->post('boards_idx');
+    // $board = $this->FBM->get_post($board_id)->user_id;
 
-    $user_id = $board;
-    if($user_id != $this->session->userdata('user_id')) {
-      echo json_encode([ 'state' => FALSE, 'message' => $this->input->post('post_user_id') ]);
-      // return;
-      exit;
-    }
+    // if($board != $this->session->userdata('user_id')) {
+    //   echo json_encode([ 'state' => FALSE, 'message' => $this->input->post('post_user_id') ]);
+    //   // return;
+    //   exit;
+    // }
 
     $result =  $this->FBM->post_delete();
     if($result) {
@@ -259,11 +258,12 @@ class Free_board_Detail_C extends CI_Controller {
     $board = $this->FBM->get_post($board_id);
     
     // 댓글 작성 비활성일 때
-    if($board->board_comment == 0) {
-      // echo json_encode([ 'state' => FALSE, 'message' => '댓글이 비활성화 되어 있습니다' ]);
-      redirect("/" . $board->board_type . '/list');
-      return;
-    } 
+    // if($board->board_comment == 0) {
+    //   echo json_encode([ 'state' => FALSE, 'message' => '댓글이 비활성화 되어 있습니다' ]);
+    //   // redirect("/");
+    //   // redirect('/' . $board->board_type . '/list');
+    //   return;
+    // } 
 
     $idx = $this->input->post('idx');
     $result = $this->FBM->reply_delete($idx);
