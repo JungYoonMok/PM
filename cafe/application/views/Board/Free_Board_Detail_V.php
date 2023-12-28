@@ -161,12 +161,7 @@
             <div class="toast-custom-viewer text-white <?= $post->board_delete ? 'hidden' : ''?>">
 
             </div>
-            
-            <div>
-              <input id="pui" type="text" hidden value="<?= $post->user_id ?>">
-              <input id="pusi" type="text" hidden value="<?= $this->session->userdata('user_id') ?>">
-            </div>
-
+  
             <script>
               //전체(ALL)용 CDN을 사용할 경우
               const editor = toastui.Editor.factory({
@@ -641,13 +636,10 @@
           <div class="border-b border-[#4f4f4f]"></div>
 
           <!-- 댓글 메인 -->
-          <form action="/free_board_detail/comment_create" method="post" class="flex flex-col gap-3">
+          <div method="post" class="flex flex-col gap-3">
 
             <!-- 내용 -->
             <div class="">
-              <input name="board_id" type="number" hidden value="<?= $post->idx ?>"></input>
-              <input name="board_type" type="text" hidden value="<?= $post->board_type ?>"></input>
-              <input name="user_id" type="text" hidden value="<?= $this->session->userdata('user_id') ?>"></input>
               <textarea name="contents" placeholder="댓글을 적어주세요" required cols="30" rows="5"
               class="w-full rounded bg-[#2f2f2f] p-3 outline-none duration-200 hover:bg-[#3f3f3f] focus:bg-[#3f3f3f]"></textarea>
             </div>
@@ -658,7 +650,7 @@
                 <!-- <p>기능들</p> -->
               </div>
               <div class="">
-                <button type="submit"
+                <button id="comment_create_btn"
                   class="bg-[#3f3f3f] outline-none duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-5 py-3 rounded w-40">
                   댓글 등록
                 </button>
@@ -815,7 +807,7 @@
   
 function post_delete($idx){
 
-  if($('#pui').val() != $('#pusi').val()) {
+  if('<?= $post->user_id ?>' != '<?= $this->session->userdata('user_id') ?>') {
     alert('작성자만 삭제할 수 있습니다.');
     return;
   }
@@ -847,6 +839,56 @@ function post_delete($idx){
     }
   });
 
+};
+
+// 댓글 등록
+$('#comment_create_btn').on('click', function(e) {
+  e.preventDefault(); // 기본 제출 이벤트 방지
+
+  // AJAX 요청
+  $.ajax({
+    url: '/free_board_detail/comment_create', // 댓글 생성 URL
+    type: 'POST',
+    data: {
+      board_id: '<?= $post->idx ?>',
+      board_type: '<?= $post->board_type ?>',
+      user_id: '<?= $this->session->userdata('user_id') ?>',
+      contents: $('textarea[name=contents]').val(),
+    }, // 폼 데이터 직렬화
+    success: function(response) {
+      // 성공 시 UI 업데이트
+      console.log('댓글이 추가되었습니다.');
+      location.reload();
+      // 댓글 리스트에 새 댓글을 추가하는 코드
+      },
+    error: function(xhr, status, error) {
+      // 에러 처리
+      console.error('댓글 추가에 실패했습니다.');
+    }
+    });
+  });
+
+function comment_insert($idx){
+  $.ajax({
+    url: '/free_board_detail/comment_create',
+    type: 'post',
+    dataType: 'json',
+    data: { 
+      board_id: '<?= $post->idx ?>',
+      board_type: '<?= $post->board_type ?>',
+      user_id: '<?= $this->session->userdata('user_id') ?>',
+    },
+    success: response => {
+      if(response.state) {
+        location.reload();
+      } else {
+        alert(response.message);
+      }
+    },
+    error: ( response, s, e ) => {
+      console.log('에러', response, s, e);
+    }
+  });
 };
 
 // 댓글 수정
