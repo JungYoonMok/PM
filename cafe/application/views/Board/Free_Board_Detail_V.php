@@ -33,12 +33,12 @@
 
       <div class="flex gap-1">
         <? if (isset($prev)): ?>
-          <a title="이전글 - <?= $prev->group_order == 0 ? '' : '[답글] ' ?><?= $prev->title ?>" href="/<?= $this->uri->segment(1)?>/<?= $prev->idx?>" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
+          <a title="이전글 - <?= $prev->group_order == 0 ? '' : '[답글] ' ?><?= mb_strimwidth($prev->title, 0, 25, " ..") ?>" href="/<?= $this->uri->segment(1)?>/<?= $prev->idx?>" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
             이전글
           </a>
         <? endif; ?>
         <? if (isset($next)): ?>
-          <a title="다음글 - <?= $next->group_order == 0 ? '' : '[답글] ' ?><?= $next->title ?>" href="/<?= $this->uri->segment(1)?>/<?= $next->idx?>" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
+          <a title="다음글 - <?= $next->group_order == 0 ? '' : '[답글] ' ?><?= mb_strimwidth($next->title, 0, 25, " ..") ?>" href="/<?= $this->uri->segment(1)?>/<?= $next->idx?>" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
             다음글
           </a>
         <? endif; ?>
@@ -65,7 +65,7 @@
               RE:
             </p>
             <p>
-              <?= $post->title ?>
+              <?= html_escape($post->title) ?>
             </p>
           </button>
         </div>
@@ -178,7 +178,9 @@
             </script>
 
             <div class="w-full <?= $post->board_delete ? '' : 'hidden'?>">
-              <p class="p-3 bg-red-500 text-center rounded animate-pulse">해당 게시글은 삭제되었습니다.</p>
+              <p class="p-3 bg-red-500 text-center rounded animate-pulse">
+                해당 게시글은 삭제되었습니다.
+              </p>
             </div>
 
           </div>
@@ -265,10 +267,10 @@
           </div>
 
         <!-- 작성자 프로필 -->
-        <div class="border border-[#4f4f4f] p-3 rounded flex flex-col md:flex-row gap-3 text-sm shadow-lg">
+        <div class="border border-[#4f4f4f] p-3 rounded flex flex-col lg:flex-row gap-3 text-sm shadow-lg">
 
           <!-- 사용자 정보 -->
-          <div class="flex flex-col gap-2 w-full md:w-[35%] <?= empty($user->user_memo) ? 'justify-center' : '' ?>">
+          <div class="flex flex-col gap-2 w-full whitespace-nowrap lg:w-[35%] <?= empty($user->user_memo) ? 'justify-center' : '' ?>">
 
             <div class="flex gap-2 place-items-center">
 
@@ -342,9 +344,9 @@
           <div class="md:hidden border-b border-[#4f4f4f]"></div>
 
           <!-- 사용자 활동 -->
-          <div class="flex p-3 rounded gap-5 md:justify-center md:place-items-center flex-col md:flex-row w-full md:w-[65%]">
+          <div class="flex p-3 rounded gap-5 md:justify-center md:place-items-center overflow-x-auto flex-col md:flex-row w-full">
 
-            <div class="w-full min-w-1/2 whitespace-nowrap h-full flex flex-col gap-5">
+            <div class="w-full whitespace-nowrap h-full flex flex-col gap-5">
               <p class="px-3 py-1 bg-[#3f3f3f] rounded">
                 작성자의 최근 게시글
               </p>
@@ -379,7 +381,7 @@
 
             <div class="md:hidden border-b border-[#4f4f4f]"></div>
 
-            <div class="w-full min-w-1/2 whitespace-nowrap h-full flex flex-col gap-5">
+            <div class="w-full whitespace-nowrap h-full flex flex-col gap-5">
               <p class="px-3 py-1 bg-[#3f3f3f] rounded">
                 작성자의 최근 댓글
               </p>
@@ -390,9 +392,9 @@
                     <span class="material-symbols-outlined -scale-x-100">
                       arrow_left
                     </span>
-                    <p>
+                    <a href="/freeboard/<?= $row->boards_idx ?>/#comments" class="duration-200 hover:text-[#9f9f9f]">
                       <?= strpos($row->content, 'removed') ? '⛑️ 관리자에 의해 차단' : mb_strimwidth($row->content, 0, 30, ' ..') ?>
-                    </p>
+                    </a>
                   </div>
                   <div class="flex gap-1 place-items-center">
                     <span class="material-symbols-outlined text-sm">
@@ -417,7 +419,7 @@
         </div>
 
         <!-- 구분선 댓글 달릴시 이동되는 구간 -->
-        <div id="comments" class="border-b border-[#4f4f4f]"></div>
+        <div id="comments" class="border-b mb-5 border-[#4f4f4f]"></div>
 
         <!-- 댓글 리스트 있을때 and 리플 -->
         <div class="flex flex-col duration-200 rounded-md gap-5 w-full <?= empty($comment) || !$post->board_comment ? 'hidden' : '' ?>">
@@ -593,7 +595,7 @@
         </div>
 
         <!-- 댓글 리스트 없을때 -->
-        <div class="flex justify-center bg-[#1f1f1f] p-5 border border-[#4f4f4f] <?= empty($comment) ? '' : 'hidden' ?>">
+        <div class="flex justify-center mb-5 bg-[#1f1f1f] p-5 border border-[#4f4f4f] <?= empty($comment) ? '' : 'hidden' ?>">
           <p>
             댓글이 존재하지 않습니다
           </p>
@@ -622,7 +624,7 @@
         <div class="border-b border-[#4f4f4f]"></div>
 
         <!-- 댓글 작성 -->
-        <div class="<?= $this->session->userdata('user_id') && $post->board_comment ? '' : 'hidden' ?> w-full drop-shadow-2xl text-sm flex flex-col gap-5 bg-[#1f1f1f] p-5 border border-[#4f4f4f]">
+        <div class="<?= $this->session->userdata('user_id') && $post->board_comment ? '' : 'hidden' ?> w-full mt-5 drop-shadow-2xl text-sm flex flex-col gap-5 bg-[#1f1f1f] p-5 border border-[#4f4f4f]">
         
           <div class="flex flex-wrap justify-between">
             <div class="gap-5 flex">
@@ -672,7 +674,7 @@
     </div>
 
     <!-- 글쓰기, 답글, 이전, 다음, 목록 -->
-    <div class="flex justify-between gap-3 opacity-90">
+    <div class="flex justify-between mb-5 gap-3 opacity-90">
       <div class="flex gap-2 <?= $this->session->userdata('user_id') ? '' : 'hidden' ?> ">
         <a href="/post_create/" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
           글쓰기
@@ -683,12 +685,12 @@
       </div>
       <div class="flex gap-1">
         <? if (isset($prev)): ?>
-          <a title="이전글 - <?= $prev->group_order == 0 ? '' : '[답글] ' ?><?= $prev->title ?>" href="/<?= $this->uri->segment(1)?>/<?= $prev->idx?>" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
+          <a title="이전글 - <?= $prev->group_order == 0 ? '' : '[답글] ' ?><?= mb_strimwidth($prev->title, 0, 25, " ..") ?>" href="/<?= $this->uri->segment(1)?>/<?= $prev->idx?>" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
             이전글
           </a>
         <? endif; ?>
         <? if (isset($next)): ?>
-          <a title="다음글 - <?= $next->group_order == 0 ? '' : '[답글] ' ?><?= $next->title ?>" href="/<?= $this->uri->segment(1)?>/<?= $next->idx?>" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
+          <a title="다음글 - <?= $next->group_order == 0 ? '' : '[답글] ' ?><?= mb_strimwidth($next->title, 0, 25, " ..") ?>" href="/<?= $this->uri->segment(1)?>/<?= $next->idx?>" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
             다음글
           </a>
         <? endif; ?>

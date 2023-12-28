@@ -135,7 +135,7 @@ class User_information_C extends CI_Controller {
     } else {
       $data = [
         'user_id' => $this->session->userdata('user_id'),
-        'user_nickname' => $this->input->post('nickname', TRUE),
+        'user_nickname' => $this->input->post('nickname'),
       ];
   
       $result = $this->model->update_nickname($data);

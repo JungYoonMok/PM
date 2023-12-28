@@ -36,7 +36,11 @@
               <tbody class="duration-200 hover:bg-[#4f4f4f]">
             <tr class="border-b border-[#4f4f4f]">
               <td class="p-2">
-                <?= (date("Y-m-d") == substr($li->regdate, 0, 10)) ? '<p class="text-blue-400 px-2 py-0.5 rounded text-sm">new</p>' : $li->idx ?>
+                <? if($li->board_delete == 0) :?>
+                  <?= (date("Y-m-d") == substr($li->regdate, 0, 10)) ? '<p class="text-blue-400 px-2 py-0.5 rounded text-sm">new</p>' : $li->idx ?>
+                <? else : ?>
+                  <?= '<p class="text-red-400 px-2 py-0.5 rounded text-sm">삭제</p>' ?>
+                <? endif?>
               </td>
               <td class="p-2">
                 <?= ($li->board_type == 'notice' ? '공지사항' : ($li->board_type == 'freeboard' ? '자유게시판' : ($li->board_type == 'hellow' ? '가입인사' : '' ) ) ) ?>
@@ -63,7 +67,7 @@
                   <a href="/<?= $li->board_type ?>/<?= $li->idx ?>/#comments" class="underline-offset-4 duration-200 hover:underline decoration-2 text-[#9f9f9f] <?= $li->comment_count == 0 ? 'hidden' : '' ?>">
                     (<?= $li->comment_count ?? 0 ?>)
                   </a>
-                  <p class="text-[#9f9f9f] <?= $li->reply_count == 0 ? 'hidden' : '' ?>">
+                  <p class="text-[#9f9f9f] ml-2 <?= $li->reply_count == 0 ? 'hidden' : '' ?>">
                     답글<?= $li->reply_count ?? 0 ?>
                   </p>
                 </a>

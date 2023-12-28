@@ -207,7 +207,7 @@ $(document).ready( () => {
   $('.remove-btn').on('click', e => {
     e.preventDefault();
     $('#error_txt').empty();
-    $('#error_form').removeClass('hidden');
+    $('#error_form').addClass('hidden');
   });
 
   $(document).on('click', '#fine_id_btn', e => { // 유저 아이디 찾기
@@ -238,22 +238,24 @@ $(document).ready( () => {
         if(response.state) {
           $('#id_group').show();
           $('#form_id').addClass('hidden');
-
+          
           $('#id_ok').show();
           $('#id_ok_1').show();
           $('#id_ok_2').show();
-          $('#id_ok_2').html(response.data);
 
           $('#error_txt').empty(); // 에러 메시지 초기화
           $('#error_form').addClass('hidden');
-        } else {
 
+          $('#id_ok_2').html(response.data);
+        } else {
+          
           $('#id_ok').hide();
           $('#id_ok_1').hide();
           $('#id_ok_2').hide();
-
+          
           $('#error_txt').empty(); // 에러 메시지 초기화
-          $('#error_form').append(response.detail);
+          $('#error_form').removeClass('hidden');
+          $('#error_txt').append(response.detail);
         }
       },
       error: () => {

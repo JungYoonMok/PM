@@ -296,6 +296,12 @@
       return;
     }
 
+    if('<?= $this->session->userdata('user_nickname') ?>' == $('#nickname').val()) {
+      $('#error_form').removeClass('hidden');
+      $('#error_txt').text('현재 닉네임과 동일합니다.');
+      return false;
+    }
+
     if(!confirm($('#nickname').val() + '으로 닉네임을 변경하시겠습니까?')) {
       $('#error_txt').empty();
       $('#error_form').addClass('hidden');
@@ -411,6 +417,12 @@
       return false;
     }
 
+    if('<?= $this->session->userdata('user_email') ?>' == $('#email').val()) {
+      $('#error_form').removeClass('hidden');
+      $('#error_txt').text('현재 이메일과 동일합니다.');
+      return false;
+    }
+
     if(!confirm($('#email').val() + ' 로 이메일을 변경하시겠습니까?')) {
       $('#error_txt').empty(); // 에러 메시지 초기화
       $('#error_form').addClass('hidden');
@@ -456,7 +468,8 @@
       return;
     }
 
-    if(user_phone == '010-' + $('#phone_2').val() + '-' + $('#phone_3').val()) {
+    if('<?= $this->session->userdata('user_phone') ?>' == '010-' + $('#phone_2').val() + '-' + $('#phone_3').val()) {
+      $('#error_form').removeClass('hidden');
       $('#error_txt').text('현재 휴대폰 번호와 동일합니다.');
       return false;
     }
@@ -509,6 +522,12 @@
         $('#error_txt').text('메모는 100자 이내로 입력해주세요.');
         return;
       }
+    }
+
+    if('<?= $this->session->userdata('user_memo') ?>' == $('#memo').val()) {
+      $('#error_form').removeClass('hidden');
+      $('#error_txt').text('현재 소개와 동일합니다.');
+      return false;
     }
 
     if(!confirm('소개를 변경하시겠습니까?')) {

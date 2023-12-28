@@ -87,9 +87,11 @@ class Free_Board_Create_C extends CI_Controller {
       echo json_encode([
         'state' => FALSE, 
         'message' => validation_errors(), 
-        'errors' => $errors]);
+        'errors' => $errors
+      ]);
       return;
     } else {
+
       // 폼 데이터 처리
       $post_data = [
         'board_type' => $this->input->post('post_type'),
@@ -115,7 +117,7 @@ class Free_Board_Create_C extends CI_Controller {
   public function upload_file($last_id) {
     $max_files = 5; // 최대 파일 개수
     $config['upload_path'] = './uploads/';
-    $config['allowed_types'] = 'gif|jpg|png';
+    $config['allowed_types'] = 'gif|jpg|png|jpeg|txt|zip';
     $config['max_size'] = 0; // 1MB, 1024KB
     $this->load->library('upload', $config);
     

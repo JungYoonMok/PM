@@ -59,7 +59,7 @@
       $this->db->from('boards');
       $this->db->join('board_like', 'boards.idx = board_like.boards_idx', 'left');
       $this->db->where('boards.user_id', $user_id);
-      // $this->db->where('boards.board_type', 'freeboard');
+      // $this->db->where('boards.board_delete', '0');
       $this->db->order_by('boards.idx', 'desc');
       $this->db->limit($limit, $start);
       
