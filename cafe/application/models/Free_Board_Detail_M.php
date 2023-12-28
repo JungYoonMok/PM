@@ -151,7 +151,7 @@ class Free_Board_Detail_M extends CI_Model {
   
       // 포인트 및 경험치 지급
       $this->user_point_exp_m->point_exp_add('활동 포인트 지급', $this->input->post('board_id').'번 글의 댓글');
-      
+
     } else {
       log_message('error', '댓글 작성 실패: ' . $this->db->error()['message']);
       return false;
@@ -188,7 +188,7 @@ class Free_Board_Detail_M extends CI_Model {
       'group_idx' => $group_idx,
       'group_order' => $new_group_order,
       'depth' => $depth + 1, // 대댓글은 상위 댓글의 depth에서 1을 더해줍니다.
-      'content' => $this->input->post('contents'),
+      'content' => $this->input->post('reply_contents'),
       'user_id' => $this->input->post('user_id'),
       'regdate' => date("Y-m-d H:i:s")
     ];

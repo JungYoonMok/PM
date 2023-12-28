@@ -550,21 +550,22 @@
               </div>
               <div class="w-full">
                 <!-- 댓글 메인 -->
-                <form action="/free_board_detail/reply_comment_create" method="post" class=" rounded p-3 drop-shadow-2xl border border-[#4f4f4f] bg-[#3f3f3f] flex flex-col gap-3">
+                <div class=" rounded p-3 drop-shadow-2xl border border-[#4f4f4f] bg-[#3f3f3f] flex flex-col gap-3">
 
                   <!-- 내용 -->
                   <div class="">
+                    <!-- <input id='bd_id' name="board_id" type="number" hidden value="<?= $post->idx ?>"></input>
                     <input name="comment_id" type="number" hidden value="<?= $com->idx ?>"></input>
                     <input name="group_idx" type="number" hidden value="<?= $com->group_idx ?>"></input>
-                    <input name="group_order" type="number" hidden value="<?= $com->group_order ?>"></input>
                     <input name="depth" type="number" hidden value="<?= $com->depth ?>"></input>
-                    
-                    <input id='bd_id' name="board_id" type="number" hidden value="<?= $post->idx ?>"></input>
-                    <input id='post_user_id' name="post_user_id" type="text" hidden value="<?= $post->user_id ?>"></input>
-                    <input name="board_type" type="text" hidden value="<?= $post->board_type ?>"></input>
+
                     <input name="user_id" type="text" hidden value="<?= $this->session->userdata('user_id') ?>"></input>
 
-                    <textarea name="contents" placeholder="답변을 적어주세요" required cols="30" rows="5" class="w-full rounded duration-200 focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 outline-none"></textarea>
+                    <input name="group_order" type="number" hidden value="<?= $com->group_order ?>"></input>
+                    <input id='post_user_id' name="post_user_id" type="text" hidden value="<?= $post->user_id ?>"></input>
+                    <input name="board_type" type="text" hidden value="<?= $post->board_type ?>"></input> -->
+
+                    <textarea id="reply_contents" value="<?= $com->idx ?>" name="reply_contents" placeholder="답변을 적어주세요" required cols="30" rows="5" class="w-full rounded duration-200 focus:bg-[#2f2f2f] bg-[#3f3f3f] p-3 outline-none"></textarea>
                   </div>
 
                   <!-- 기능 -->
@@ -573,14 +574,14 @@
                       <!-- 기능들 -->
                     </div>
                     <div class="">
-                      <button type="submit"
+                      <button id="reply_create_btn" value="<?= $com->idx ?>"
                         class="outline-none duration-200 bg-[#2f2f2f] hover:bg-[#1f1f1f] border border-[#4f4f4f] px-5 py-3 rounded w-40">
                         답변 등록
                       </button>
                     </div>
                   </div>
 
-                </form>
+                </div>
 
               </div>
             </div>
@@ -868,6 +869,47 @@ $('#comment_create_btn').on('click', function(e) {
     success: function(response) {
       // 성공 시 UI 업데이트
       location.reload();
+      // 댓글 리스트에 새 댓글을 추가하는 코드
+      },
+    error: function(xhr, status, error) {
+      // 에러 처리
+      alert('댓글 추가에 실패했습니다.');
+    }
+    });
+  });
+
+  // 리플 댓글 등록
+$(document).on('click', '#reply_create_btn', function(e) {
+// $('#reply_create_btn').on('click', function(e) {
+  e.preventDefault(); // 기본 제출 이벤트 방지
+  console.log('댓글 등록 버튼 클릭');
+
+  // if($('#reply_contents').val().length < 5) { // 게시글 내용
+  //   alert('댓글 내용은 5자 이상 작성해주세요.');
+  //   return;
+  // }
+
+  // if($('#reply_contents').val().length > 150 ) { // 게시글 내용
+  //   alert('댓글 내용은 150자 이상 입력할 수 없습니다.');
+  //   return;
+  // }
+
+  // AJAX 요청
+  $.ajax({
+    url: '/free_board_detail/reply_comment_create', // 댓글 생성 URL
+    type: 'POST',
+    data: {
+      board_id: '<?= $post->idx ?>',
+      comment_id: '<?= $com->idx ?>',
+      group_idx: '<?= $com->group_idx ?>',
+      depth: '<?= $com->depth ?>',
+      reply_contents: $('#reply_contents').val(),
+    }, // 폼 데이터 직렬화
+    success: function(response) {
+      // 성공 시 UI 업데이트
+      console.log('댓글이 추가되었습니다.');
+      return;
+      // location.reload();
       // 댓글 리스트에 새 댓글을 추가하는 코드
       },
     error: function(xhr, status, error) {
