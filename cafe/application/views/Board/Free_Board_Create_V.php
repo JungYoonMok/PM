@@ -364,7 +364,7 @@
     }
 
     if(editor.getHTML().length < 20) { // 게시글 내용
-      $('#error_txt').text('게시판 내용은 10자 이상 작성해주세요.');
+      $('#error_txt').text('게시판 내용은 20자 이상 작성해주세요.');
       return;
     }
 

@@ -142,15 +142,20 @@ class Free_Board_Detail_M extends CI_Model {
       'group_order' => 0 // 최상위 댓글의 순서는 0으로 시작
     ];
 
-    $this->db->insert('boards_comment', $data);
-    $insert_id = $this->db->insert_id();
-
-    // 댓글의 group_idx를 댓글 자신의 idx로 설정합니다.
-    $this->db->where('idx', $insert_id);
-    $this->db->update('boards_comment', ['group_idx' => $insert_id]);
-
-    // 포인트 및 경험치 지급
-    $this->user_point_exp_m->point_exp_add('활동 포인트 지급', $this->input->post('board_id').'번 글의 댓글');
+    if($this->db->insert('boards_comment', $data)) {
+      $insert_id = $this->db->insert_id();
+  
+      // 댓글의 group_idx를 댓글 자신의 idx로 설정합니다.
+      $this->db->where('idx', $insert_id);
+      $this->db->update('boards_comment', ['group_idx' => $insert_id]);
+  
+      // 포인트 및 경험치 지급
+      $this->user_point_exp_m->point_exp_add('활동 포인트 지급', $this->input->post('board_id').'번 글의 댓글');
+      
+    } else {
+      log_message('error', '댓글 작성 실패: ' . $this->db->error()['message']);
+      return false;
+    }
   }
 
   public function reply_create() {

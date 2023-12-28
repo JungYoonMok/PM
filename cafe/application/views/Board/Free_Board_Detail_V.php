@@ -424,7 +424,7 @@
 
               <!-- 답글일 경우 -->
               <div class="ml-[<?= 20 * $com -> depth - 1 ?>px;] flex justify-center place-items-center <?= $com->group_order !== '0' ? 'inline' : 'hidden' ?>">
-                <span id="reply_arrow<?= $com->idx ?>" class="material-symbols-outlined text-4xl rotate-180 -mt-24 ml-5 text-[#4f4f4f]">
+                <span id="reply_arrow<?= $com->idx ?>" class="material-symbols-outlined text-4xl rotate-180 -mt-16 ml-5 text-[#4f4f4f]">
                   arrow_top_left
                 </span>
               </div>
@@ -445,7 +445,7 @@
                       </img>
                     <? endif ?>
                   </div>
-                  <div class="<?= $post->user_id == $com->user_id ? 'inline-block' : 'hidden' ?> absolute top-12 w-full">
+                  <div class="<?= $post->user_id == $com->user_id ? 'inline-block' : 'hidden' ?> absolute top-14 w-full">
                     <p class="text-xs text-center bg-blue-500 rounded px-1">
                       작성자
                     </p>
@@ -464,12 +464,12 @@
                         레벨 <?= $level_converter['level'] ?>
                       </p>
                     </div>
-                    <div class="flex gap-2 text-sm text-gray-400 pr-2">
+                    <div class="flex gap-2 text-sm text-[#8f8f8f] pr-2">
                       <p class="material-symbols-outlined text-md">
                         <?= date("Y-m-d") == substr($com->regdate, 0, 10) ? 'schedule' : 'today'; ?>                            
                       </p>
                       <p class="">
-                        <?= (empty($com->regdate) ? '-' : date("Y-m-d") == substr($com->regdate, 0, 10)) ? substr($com->regdate, 10, 18) : substr($com->regdate, 0, 16); ?>
+                        <?= date("Y-m-d") == substr($com->regdate, 0, 10) ? substr($com->regdate, 10, 6) : substr($com->regdate, 0, 10); ?>
                       </p>
                     </div>
                   </div>
@@ -636,11 +636,11 @@
           <div class="border-b border-[#4f4f4f]"></div>
 
           <!-- 댓글 메인 -->
-          <div method="post" class="flex flex-col gap-3">
+          <div class="flex flex-col gap-3">
 
             <!-- 내용 -->
             <div class="">
-              <textarea name="contents" placeholder="댓글을 적어주세요" required cols="30" rows="5"
+              <textarea id="contents" name="contents" placeholder="댓글을 적어주세요" required cols="30" rows="5"
               class="w-full rounded bg-[#2f2f2f] p-3 outline-none duration-200 hover:bg-[#3f3f3f] focus:bg-[#3f3f3f]"></textarea>
             </div>
 
@@ -657,7 +657,7 @@
               </div>
             </div>
 
-          </form>
+          </div>
 
         </div>
 
@@ -845,6 +845,16 @@ function post_delete($idx){
 $('#comment_create_btn').on('click', function(e) {
   e.preventDefault(); // 기본 제출 이벤트 방지
 
+  if($('#contents').val().length < 5) { // 게시글 내용
+    alert('댓글 내용은 5자 이상 작성해주세요.');
+    return;
+  }
+
+  if($('#contents').val().length > 150 ) { // 게시글 내용
+    alert('댓글 내용은 150자 이상 입력할 수 없습니다.');
+    return;
+  }
+
   // AJAX 요청
   $.ajax({
     url: '/free_board_detail/comment_create', // 댓글 생성 URL
@@ -853,43 +863,43 @@ $('#comment_create_btn').on('click', function(e) {
       board_id: '<?= $post->idx ?>',
       board_type: '<?= $post->board_type ?>',
       user_id: '<?= $this->session->userdata('user_id') ?>',
-      contents: $('textarea[name=contents]').val(),
+      contents: $('#contents').val(),
     }, // 폼 데이터 직렬화
     success: function(response) {
       // 성공 시 UI 업데이트
-      console.log('댓글이 추가되었습니다.');
       location.reload();
       // 댓글 리스트에 새 댓글을 추가하는 코드
       },
     error: function(xhr, status, error) {
       // 에러 처리
-      console.error('댓글 추가에 실패했습니다.');
+      alert('댓글 추가에 실패했습니다.');
     }
     });
   });
 
-function comment_insert($idx){
-  $.ajax({
-    url: '/free_board_detail/comment_create',
-    type: 'post',
-    dataType: 'json',
-    data: { 
-      board_id: '<?= $post->idx ?>',
-      board_type: '<?= $post->board_type ?>',
-      user_id: '<?= $this->session->userdata('user_id') ?>',
-    },
-    success: response => {
-      if(response.state) {
-        location.reload();
-      } else {
-        alert(response.message);
-      }
-    },
-    error: ( response, s, e ) => {
-      console.log('에러', response, s, e);
-    }
-  });
-};
+// function comment_insert($idx){
+//   $.ajax({
+//     url: '/free_board_detail/comment_create',
+//     type: 'post',
+//     dataType: 'json',
+//     data: { 
+//       board_id: '<?= $post->idx ?>',
+//       board_type: '<?= $post->board_type ?>',
+//       user_id: '<?= $this->session->userdata('user_id') ?>',
+//       contents: $('textarea[name=contents]').val(),
+//     },
+//     success: response => {
+//       if(response.state) {
+//         location.reload();
+//       } else {
+//         alert(response.message);
+//       }
+//     },
+//     error: ( response, s, e ) => {
+//       console.log('에러', response, s, e);
+//     }
+//   });
+// };
 
 // 댓글 수정
 function comment_update($idx){
