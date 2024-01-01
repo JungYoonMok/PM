@@ -143,7 +143,8 @@ date_default_timezone_set('Asia/Seoul');
       $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0; // 현재 페이지 번호
       $data['links'] = $this->pagination->create_links(); // 페이지네이션 링크 생성
       
-      $data['delete_post'] = $this->My_Activity_M->get_delete_post($per_page, $page);
+      $data['exp_point_total'] = $this->My_Activity_M->exp_point_total();
+      $data['exp_point_log'] = $this->My_Activity_M->exp_point_log($per_page, $page);
       $this->layout->custom_view('/My_Activity/Exp_Point_V', $data);
     }
 

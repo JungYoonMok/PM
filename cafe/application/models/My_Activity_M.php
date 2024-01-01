@@ -41,8 +41,32 @@
     }
 
     public function pagination_exp_point() {
-      // $result = $this->db->get_where('point_exp_log', 'user_id' => $this->session->userdata('user_id'));
-      // return $result;
+      $this->db->where('members_user_id', $this->session->userdata('user_id'));
+      // $this->db->where('board_delete', '1');
+      $result = $this->db->count_all_results('point_exp_log');
+      return $result;
+    }
+
+    public function exp_point_total() {
+      $this->db->where('members_user_id', $this->session->userdata('user_id'));
+      $query = $this->db->get('point_exp_log');
+      if($query->num_rows() > 0) {
+        return $query->num_rows();
+      } else {
+        return false;
+      }
+    }
+
+    public function exp_point_log($limit, $start) {
+      $this->db->where('members_user_id', $this->session->userdata('user_id'));
+      $this->db->order_by('idx', 'desc');
+      $this->db->limit($limit, $start);
+      $query = $this->db->get('point_exp_log');
+      if($query->num_rows() > 0) {
+        return $query->result();
+      } else {
+        return false;
+      }
     }
 
     public function get_post($limit, $start) {

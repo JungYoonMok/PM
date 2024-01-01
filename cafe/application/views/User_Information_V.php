@@ -5,10 +5,110 @@
 
   <!-- 내정보, 프사 -->
   <div class="flex flex-col md:flex-row w-full gap-3">
+
     <div class="flex flex-col w-full gap-3 rounded-tl-md rounded-tr-md shadow-2xl border border-[#4f4f4f] bg-[#2f2f2f]">
-      <div class="p-5">
-        <p>내 정보</p>
-        <p>미구현</p>
+      <div class="p-5 flex flex-col gap-3 text-sm">
+
+        <div class="flex gap-3 place-items-center justify-center">
+          <span class="material-symbols-outlined">
+            person
+          </span>
+          <p>내 정보</p>
+        </div>
+
+        <div class="flex flex-col gap-3 mt-5 bg-[#4f4f4f] px-3 py-5 rounded">
+
+          <div class="flex gap-3 justify-around">
+            <div class="flex gap-3">
+              <p>아이디</p>
+              <p>
+                <?= $this->session->userdata('user_id') ?>
+              </p>
+            </div>
+
+            <p class="text-[#9f9f9f]">|</p>
+
+            <div class="flex gap-3">
+              <p>닉네임</p>
+              <p>
+                <?= $this->session->userdata('user_nickname') ?>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-3 bg-[#4f4f4f] px-3 py-5 rounded">
+
+          <div class="flex gap-5">
+            <p>이름</p>
+            <p>
+              <?= $this->session->userdata('user_name') ?>
+            </p>
+          </div>
+
+          <div class="flex gap-5">
+            <p>이메일</p>
+            <p>
+              <?= $this->session->userdata('user_email') ?>
+            </p>
+          </div>
+
+          <div class="flex gap-5">
+            <p>휴대폰</p>
+            <p>
+              <?= $this->session->userdata('user_phone') ?>
+            </p>
+          </div>
+
+          <div class="flex gap-5">
+            <p>가입날짜</p>
+            <p>
+              <?= $this->session->userdata('regdate') ?>
+            </p>
+          </div>
+
+        </div>
+
+        <!-- 마지막 로그인 및 로그아웃 -->
+        <div class="bg-[#4f4f4f] rounded p-3 flex flex-col gap-3">
+          <div class="flex gap-2 justify-center place-items-center bg-[#3f3f3f] rounded p-3">
+            <span class="material-symbols-outlined text-yellow-500">
+              shield
+            </span>
+            <p>본인이 로그인 및 로그아웃 한 사실이 없다면, 비밀번호 변경 후 고객센터로 문의바랍니다.</p>
+          </div>
+          <div class="flex gap-5 justify-around">
+            <div class="flex flex-col justify-center place-items-center gap-3 bg-[#2f2f2f] w-full p-3">
+              <p>마지막 로그인</p>
+              <p>
+                <?= $last_login->regdate ?>
+              </p>
+            </div>
+            <div class="flex flex-col justify-center place-items-center gap-3 bg-[#2f2f2f] w-full p-3">
+              <p>마지막 로그아웃</p>
+              <p>
+                <?= $last_logout->regdate ?>
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-5 justify-around">
+            <div class="flex flex-col justify-center place-items-center gap-3 bg-[#2f2f2f] w-full p-3">
+              <p>접속 국가</p>
+              <p class="text-[#9f9f9f]">
+                -추후 지원-
+              </p>
+            </div>
+            <div class="flex flex-col justify-center place-items-center gap-3 bg-[#2f2f2f] w-full p-3">
+              <p>사용 브라우저</p>
+              <p class="text-[#9f9f9f]">
+                -추후 지원-
+              </p>
+            </div>
+          </div>
+
+        </div>
+
       </div>
     </div>
       
