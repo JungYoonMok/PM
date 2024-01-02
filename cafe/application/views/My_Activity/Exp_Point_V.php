@@ -33,7 +33,7 @@
                     <?= $li->idx ?>
                   </p>
                   <p class="text-[#9f9f9f] hidden md:inline-block">|</p>
-                  <p>
+                  <p class="text-[#9f9f9f]">
                     <?= $li->title ?>
                   </p>
                   <p class="text-[#9f9f9f]">|</p>
@@ -50,7 +50,7 @@
               <div class="flex justify-between gap-5 opacity-80">
                 
                 <div class="flex gap-5">
-                  <div title="획득한 경험치" class="bg-[#2f2f2f] rounded px-3 py-1 flex gap-3 place-items-center">
+                  <div title="획득한 경험치" class="bg-[#2f2f2f] cursor-help rounded px-3 py-1 flex gap-3 place-items-center">
                     <span class="material-symbols-outlined text-green-500">
                       expand_circle_up
                     </span>
@@ -58,7 +58,7 @@
                       <?= $li->exp ?> exp
                     </p>
                   </div>
-                  <div title="획득한 포인트" class="bg-[#2f2f2f] rounded px-3 py-1 flex gap-3 place-items-center">
+                  <div title="획득한 포인트" class="bg-[#2f2f2f] cursor-help rounded px-3 py-1 flex gap-3 place-items-center">
                     <span class="material-symbols-outlined text-yellow-500">
                       payments
                     </span>

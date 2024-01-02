@@ -15,7 +15,7 @@
       
       <div class="">
         <div class="flex gap-3">
-          <p>"<?= $post->title ?>"</p>
+          <p>"<?= htmlspecialchars($post->title) ?>"</p>
           <p>수정하기 🪄</p>
         </div>
         <input id="bd_id" name="bd_id" type="number" hidden value="<?= $post->idx ?>">
@@ -52,7 +52,7 @@
   
             <!-- 제목입력 -->
             <div class="w-full md:w-[70%]">
-              <input id='post_title' name='post_title' value="<?= $post->title ?>" class="w-full outline-none text-whith rounded bg-[#4f4f4f] p-3" required name="title" type="text" placeholder="제목을 입력해주세요"/>
+              <input id='post_title' name='post_title' value="<?= htmlspecialchars($post->title) ?>" class="w-full outline-none text-whith rounded bg-[#4f4f4f] p-3" required name="title" type="text" placeholder="제목을 입력해주세요"/>
             </div>
   
           </div>

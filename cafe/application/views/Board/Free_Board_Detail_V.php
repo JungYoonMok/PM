@@ -65,7 +65,9 @@
               RE:
             </p>
             <p>
-              <?= html_escape($post->title) ?>
+              <?= htmlspecialchars($post->title) ?>
+              <!-- <?= htmlspecialchars_decode($post->title) ?> -->
+              <!-- <?= $post->title ?> -->
             </p>
           </button>
         </div>
@@ -353,7 +355,7 @@
                       arrow_left
                     </span>
                     <a href="/<?= $row->board_type ?>/<?= $row->idx ?>" class="duration-200 hover:text-[#9f9f9f]">
-                      <?= mb_strimwidth($row->title, 0, 30, ' ..') ?>
+                      <?= htmlspecialchars(mb_strimwidth($row->title, 0, 30, ' ..')) ?>
                     </a>
                   </div>
                   <div class="flex gap-1 place-items-center">
@@ -388,7 +390,7 @@
                       arrow_left
                     </span>
                     <a href="/freeboard/<?= $row->boards_idx ?>/#comments" class="duration-200 hover:text-[#9f9f9f]">
-                      <?= strpos($row->content, 'removed') ? '⛑️ 관리자에 의해 차단' : mb_strimwidth($row->content, 0, 30, ' ..') ?>
+                      <?= strpos($row->content, 'removed') ? '⛑️ 관리자에 의해 차단' : htmlspecialchars(mb_strimwidth($row->content, 0, 30, ' ..')) ?>
                     </a>
                   </div>
                   <div class="flex gap-1 place-items-center">
@@ -485,7 +487,7 @@
                       </p>
                       
                       <p id="reply_value<?= $com->idx ?>" class="<?= $com->delete_state ? 'hidden' : '' ?> w-full h-full">
-                        <?= strpos($com->content, 'removed') ? '⛑️ 관리자에 의해 차단' : $com->content ?>
+                        <?= strpos($com->content, 'removed') ? '⛑️ 관리자에 의해 차단' : htmlspecialchars($com->content) ?>
                         <!-- 리플 수정 -->
                         <div id="reply_update<?= $com->idx ?>" class="w-full flex flex-col gap-3  text-sm hidden duration-200">
                           <!-- 원본 글 및 수정할 내용 -->
@@ -624,7 +626,7 @@
         
           <div class="flex flex-wrap justify-between">
             <div class="gap-5 flex">
-              <p><?= $post->title ?></p>
+              <p><?= htmlspecialchars($post->title) ?></p>
               <p> 〉</p>
               <p>댓글</p>
             </div>
@@ -678,12 +680,12 @@
       </div>
       <div class="flex gap-1">
         <? if (isset($prev)): ?>
-          <a title="이전글 - <?= $prev->group_order == 0 ? '' : '[답글] ' ?><?= mb_strimwidth($prev->title, 0, 25, " ..") ?>" href="/<?= $this->uri->segment(1)?>/<?= $prev->idx?>" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
+          <a title="이전글 - <?= $prev->group_order == 0 ? '' : '[답글] ' ?><?= htmlspecialchars(mb_strimwidth($prev->title, 0, 25, " ..")) ?>" href="/<?= $this->uri->segment(1)?>/<?= $prev->idx?>" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
             이전글
           </a>
         <? endif; ?>
         <? if (isset($next)): ?>
-          <a title="다음글 - <?= $next->group_order == 0 ? '' : '[답글] ' ?><?= mb_strimwidth($next->title, 0, 25, " ..") ?>" href="/<?= $this->uri->segment(1)?>/<?= $next->idx?>" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
+          <a title="다음글 - <?= $next->group_order == 0 ? '' : '[답글] ' ?><?= htmlspecialchars(mb_strimwidth($next->title, 0, 25, " ..")) ?>" href="/<?= $this->uri->segment(1)?>/<?= $next->idx?>" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
             다음글
           </a>
         <? endif; ?>
@@ -718,7 +720,9 @@
                 <p class="bg-[#4f4f4f] rounded-full px-2 py-1 text-xs <?= $li->group_order > 0 ? '' : 'hidden' ?>">
                   답글
                 </p>
-                <p><?= $li->title ?></p>
+                <p>
+                  <?= htmlspecialchars($li->title) ?>
+                </p>
               </a>
             </td>
             <td class="flex justify-center place-items-center gap-2 px-5">

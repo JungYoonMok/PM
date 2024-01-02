@@ -15,7 +15,7 @@
       <div class="text-center py-10 rounded">
         <p class="font-[s-core5] text-xl relative">
           <?= $this->uri->segment(1) == 'post_create' ? '<p id="post_title_txt" class="absolute whitespace-nowrap font-[s-core5] text-xl duration-200">글쓰기</p>' : '' ;?>
-          <?= $this->uri->segment(1) == 'post_create_reply' ? '"'.$board->title.'" 글에 답글쓰기' : NULL?>
+          <?= $this->uri->segment(1) == 'post_create_reply' ? '"'.htmlspecialchars($board->title).'" 글에 답글쓰기' : NULL ?>
         </p>
       </div>
 

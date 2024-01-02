@@ -8,13 +8,11 @@ class User_Information_M extends CI_Model {
     parent::__construct();
   }
 
-  public function user_last_login_logout($user_id, $type) {
-    // $this->db->select('idx, title, group_order');
+  public function user_last_login_logout($user_id) {
     $this->db->where('user_id', $user_id);
-    $this->db->where('state', $type);
-    $this->db->order_by('idx', 'desc');
-    $this->db->limit(1);
-    $data = $this->db->get('members_login_logout')->row();
+    // $this->db->limit(1);
+    // $this->db->order_by('idx', 'desc');
+    $data = $this->db->get('members')->row();
     return $data;
   }
 

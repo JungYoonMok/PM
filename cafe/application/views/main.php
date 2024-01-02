@@ -98,7 +98,7 @@
                         답글
                       </p>
                       <p class="">
-                        <?= $li->title ?>
+                        <?= htmlspecialchars($li->title) ?>
                       </p>
                       <div class="">
                         <span class="material-symbols-outlined text-[16px]">
@@ -193,7 +193,7 @@
                           답글
                         </p>
                         <p class="">
-                          <?= mb_strimwidth($li->title,0, 40, ' ..') ?>
+                          <?= htmlspecialchars(mb_strimwidth($li->title,0, 40, ' ..')) ?>
                         </p>
                         <div>
                           <span class="material-symbols-outlined text-[16px]">
@@ -272,7 +272,7 @@
                           chat_bubble
                         </span>
                         <p class="">
-                          <?= mb_strimwidth($li->content,0, 40, ' ..') ?>
+                          <?= htmlspecialchars(mb_strimwidth($li->content,0, 40, ' ..')) ?>
                         </p>
                       </a>
                     </td>
@@ -357,7 +357,7 @@
                           답글
                         </p>
                         <p class="">
-                          <?= mb_strimwidth($li->title,0, 40, ' ..') ?>
+                          <?= htmlspecialchars(mb_strimwidth($li->title,0, 40, ' ..')) ?>
                         </p>
                         <div>
                           <span class="material-symbols-outlined text-[16px]">
@@ -451,7 +451,7 @@
                           답글
                         </p>
                         <p class="">
-                          <?= mb_strimwidth($li->title,0, 40, ' ..') ?>
+                          <?= htmlspecialchars(mb_strimwidth($li->title,0, 40, ' ..')) ?>
                         </p>
                         <div>
                           <span class="material-symbols-outlined text-[16px]">

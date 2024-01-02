@@ -205,10 +205,10 @@
             <div class="flex place-content-around">
               <p class="">공지사항</p>
               <p class="
-              w-8 duration-200 border border-blue-400 opacity-80 drop-shadow-2xl animate-pulse absolute right-2 bg-blue-500 px-2 py-1 rounded text-xs flex place-content-center
+                whitespace-nowrap w-8 duration-200 border border-blue-400 opacity-80 drop-shadow-2xl animate-pulse absolute right-2 bg-blue-500 px-2 py-1 rounded text-xs flex place-content-center
               <?= $notice_total == 0 ? "hidden" : "" ?>
               ">
-              <?= $notice_total ?>
+                <?= $notice_total ?>
               </p>
             </div>
           </span>
@@ -223,7 +223,7 @@
             <div class="flex place-content-around">
               <p class="">자유게시판</p>
               <p class="
-              w-8 duration-200 border border-blue-400 opacity-80 drop-shadow-2xl animate-pulse absolute right-2 bg-blue-500 px-2 py-1 rounded text-xs flex place-content-center
+                whitespace-nowrap w-8 duration-200 border border-blue-400 opacity-80 drop-shadow-2xl animate-pulse absolute right-2 bg-blue-500 px-2 py-1 rounded text-xs flex place-content-center
               <?= $freeboard_total == 0 ? "hidden" : "" ?>
               ">
                 <?= $freeboard_total ?>
@@ -240,10 +240,11 @@
             </span>
             <div class="flex place-content-around">
               <p class="">가입인사</p>
-              <p class="w-8 duration-200 border border-blue-400 opacity-80 drop-shadow-2xl animate-pulse absolute right-2 bg-blue-500 px-2 py-1 rounded text-xs flex place-content-center
+                <p class="
+                whitespace-nowrap w-8 duration-200 border border-blue-400 opacity-80 drop-shadow-2xl animate-pulse absolute right-2 bg-blue-500 px-2 py-1 rounded text-xs flex place-content-center
               <?= $hellow_total == 0 ? "hidden" : "" ?>
               ">
-              <?= $hellow_total ?>
+                <?= $hellow_total ?>
               </p>
             </div>
           </span>

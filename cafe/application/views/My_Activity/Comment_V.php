@@ -42,7 +42,7 @@
                 <div class="flex flex-col gap-3">
                   <div class="flex place-items-center gap-2">
                     <a href="/<?= $li->board_type ?>/<?= $li->boards_idx ?>">
-                      <?= $li->title ?>
+                      <?= htmlspecialchars($li->title) ?>
                     </a>
                     <a href="/<?= $li->board_type ?>/<?= $li->boards_idx ?>/#comments" class="underline-offset-4 duration-200 hover:underline decoration-2 text-[#9f9f9f] <?= $li->comment_count == 0 ? 'hidden' : '' ?>">
                       (<?= $li->comment_count ?? 0 ?>)
@@ -57,7 +57,7 @@
                     </span>
                     <p class="px-3 py-2 rounded w-full bg-[#2f2f2f]">
                       <a href="/<?= $li->board_type ?>/<?= $li->boards_idx ?>/#comments">
-                        <?= $li->content ?>
+                        <?= htmlspecialchars($li->content) ?>
                       </a>
                     </p>
                   </div>

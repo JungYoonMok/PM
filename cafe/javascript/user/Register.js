@@ -1,6 +1,6 @@
 // ajax 회원가입
 $(document).ready( function () {
-  
+
   $('#registerButton').click( function(e) {
 
     e.preventDefault();
@@ -8,11 +8,15 @@ $(document).ready( function () {
     $('#error_form').removeClass('hidden');
     
     if($('#user_nickname').val().length < 2 || $('#user_nickname').val().length > 8) { // 닉네임 검사
+      $(window).scrollTop(0);
+      console.log('상단');
       $('#error_txt').text('닉네임은 2~8 글자로 입력해주세요.');
       return;
     }
 
     if($('#user_id').val().length < 4 || $('#user_id').val().length > 10) { // 아이디 검사
+      $(window).scrollTop(0);
+      console.log('상단');
       $('#error_txt').text('아이디는 4~10 글자로 입력해주세요.');
       return;
     }

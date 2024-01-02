@@ -9,20 +9,20 @@ class Register_M extends CI_Model {
   }
 
   public function register() {
-    $nickName = $this->input->post('nName');
-    $ID = $this->input->post('id');
-    $Name = $this->input->post('name');
+    $nickName = $this->input->post('nName', TRUE);
+    $ID = $this->input->post('id', TRUE);
+    $Name = $this->input->post('name', TRUE);
     $Frofile = ""; // 나중에 구현
 
-    $Password_1 = $this->input->post('password_1');
-    $Password_2 = $this->input->post('password_2');
+    $Password_1 = $this->input->post('password_1', TRUE);
+    $Password_2 = $this->input->post('password_2', TRUE);
 
     $Phone_1 = "010";
-    $Phone_2 = $this->input->post('phone_2');
-    $Phone_3 = $this->input->post('phone_3');
+    $Phone_2 = $this->input->post('phone_2', TRUE);
+    $Phone_3 = $this->input->post('phone_3', TRUE);
 
-    $Email = $this->input->post('email');
-    $Memo = $this->input->post('memo');
+    $Email = $this->input->post('email', TRUE);
+    $Memo = $this->input->post('memo', TRUE);
     
     // 비밀번호 일치 여부를 확인
     if ($Password_1 !== $Password_2) {

@@ -19,8 +19,7 @@ class User_information_C extends CI_Controller {
     $user_id = $this->session->userdata('user_id');
     $data['user'] = $this->model->user_data($user_id);
     
-    $data['last_login'] = $this->model->user_last_login_logout($user_id, 'login');
-    $data['last_logout'] = $this->model->user_last_login_logout($user_id, 'logout');
+    $data['last_login_logout'] = $this->model->user_last_login_logout($user_id);
 
     $this->layout->custom_view('User_information_V', $data);
   }

@@ -54,7 +54,7 @@
                     답글
                   </p>
                   <p class="">
-                    <?= mb_strimwidth($li->title, 0, 50, ' ..') ?>
+                    <?= htmlspecialchars(mb_strimwidth($li->title, 0, 50, ' ..')) ?>
                     <div class="">
                       <span class="material-symbols-outlined text-[16px] <?= strpos($li->content, '<img') ? '' : 'hidden' ?>">
                         <?= strpos($li->content, '<img') ? 'image' : '' ?>

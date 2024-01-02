@@ -17,7 +17,7 @@
 
       <div class="p-5 flex flex-col gap-3 text-sm">
 
-        <div class="flex flex-col gap-3 mt-12 bg-[#4f4f4f] px-3 py-5 rounded">
+        <div class="flex flex-col gap-3 mt-12 bg-[#3f3f3f] px-3 py-5 rounded rounded-t-3xl">
 
           <div class="flex gap-3 justify-around">
             <div class="flex gap-3">
@@ -35,37 +35,59 @@
                 <?= $this->session->userdata('user_nickname') ?>
               </p>
             </div>
+
           </div>
+
         </div>
 
-        <div class="flex flex-col gap-3 bg-[#4f4f4f] px-3 py-5 rounded">
+        <div class="flex flex-col gap-3 bg-[#3f3f3f] px-3 py-5 rounded">
 
-          <div class="flex gap-5">
-            <p class="w-14">이름</p>
-            <p>
-              <?= $this->session->userdata('user_name') ?>
-            </p>
+          <div class="flex justify-between place-items-center">
+            <div class="flex gap-5">
+              <p class="w-14">이름</p>
+              <p>
+                <?= $this->session->userdata('user_name') ?>
+              </p>
+            </div>
+            <span class="material-symbols-outlined text-[#9f9f9f]">
+              face
+            </span>
           </div>
 
-          <div class="flex gap-5">
-            <p class="w-14">이메일</p>
-            <p>
-              <?= $this->session->userdata('user_email') ?>
-            </p>
+          <div class="flex justify-between place-items-center">
+            <div class="flex gap-5">
+              <p class="w-14">이메일</p>
+              <p>
+                <?= $this->session->userdata('user_email') ?>
+              </p>
+            </div>
+            <span class="material-symbols-outlined text-[#9f9f9f]">
+              mail
+            </span>
           </div>
 
-          <div class="flex gap-5">
-            <p class="w-14">휴대폰</p>
-            <p>
-              <?= $this->session->userdata('user_phone') ?>
-            </p>
+          <div class="flex justify-between place-items-center">
+            <div class="flex gap-5">
+              <p class="w-14">휴대폰</p>
+              <p>
+                <?= $this->session->userdata('user_phone') ?>
+              </p>
+            </div>
+            <span class="material-symbols-outlined text-[#9f9f9f]">
+              phone_iphone
+            </span>
           </div>
 
-          <div class="flex gap-5">
-            <p>가입날짜</p>
-            <p>
-              <?= $this->session->userdata('regdate') ?>
-            </p>
+          <div class="flex justify-between place-items-center">
+            <div class="flex gap-5">
+              <p>가입날짜</p>
+              <p>
+                <?= $this->session->userdata('regdate') ?>
+              </p>
+            </div>
+            <span class="material-symbols-outlined text-[#9f9f9f]">
+              calendar_month
+            </span>
           </div>
 
         </div>
@@ -82,13 +104,13 @@
             <div class="flex flex-col justify-center place-items-center gap-3 bg-[#2f2f2f] w-full p-3">
               <p>마지막 로그인</p>
               <p class="text-[#9f9f9f]">
-                <?= $last_login->regdate ?>
+                <?= $last_login_logout->last_login ?>
               </p>
             </div>
             <div class="flex flex-col justify-center place-items-center gap-3 bg-[#2f2f2f] w-full p-3">
               <p>마지막 로그아웃</p>
               <p class="text-[#9f9f9f]">
-                <?= $last_logout->regdate ?>
+                <?= $last_login_logout->last_logout ?>
               </p>
             </div>
           </div>
@@ -97,7 +119,7 @@
             <div class="flex flex-col justify-center place-items-center gap-3 bg-[#2f2f2f] w-full p-3">
               <p>접속 국가</p>
               <p class="text-[#9f9f9f]">
-                대한민국
+                대한민국(ko-kr)
               </p>
             </div>
             <div class="flex flex-col justify-center place-items-center gap-3 bg-[#2f2f2f] w-full p-3">
@@ -211,7 +233,7 @@
         <div class="flex justify-between">
           <p>과거 프로필 사진</p>
           <div class="flex gap-1 text-[#9f9f9f] text-sm">
-            <p id="file_count"></p>
+            <p id="file_count">0</p>
             <p>/ 50개</p>
           </div>
         </div>
@@ -357,7 +379,7 @@
       <p class="px-1 hover:text-white hover:-translate-y-1 duration-200 cursor-default whitespace-nowrap max-w-min text-base">
         소개 - <span class="hover:text-white text-sm text-gray-300 whitespace-nowrap">다른 회원이 <?= $user->user_nickname ?>님의 소개글을 볼 수 있습니다</span>
       </p>
-      <textarea id="memo" rows="5" type="text" placeholder="자신을 다른 사람에게 소개해 보세요~!" class="w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#3f3f3f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200"><?= $user->user_memo?></textarea>
+      <textarea id="memo" rows="5" type="text" placeholder="자신을 다른 사람에게 소개해 보세요~!" class="w-full px-5 py-3 hover:bg-opacity-80 rounded bg-[#3f3f3f] focus:bg-[#3f3f3f] border border-[#5f5f5f] focus:rounded-none outline-none duration-200"><?= htmlspecialchars($user->user_memo) ?></textarea>
       <!-- 소개 수정 버튼 -->
       <div class="text-right flex justify-end gap-5 duration-200">
         <button id="memo_update_btn" class="bg-[#3f3f3f] w-[50%] lg:w-[40%] py-2 border border-[#5f5f5f] hover:border-yellow-500 duration-200 rounded">

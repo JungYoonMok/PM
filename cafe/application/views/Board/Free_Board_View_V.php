@@ -60,7 +60,7 @@
   
                 <div class="flex gap-3 text-sm">
                   <p class="duration-200 hover:text-white">
-                    <?= mb_strimwidth($li->title, 0, 70, ' ..') ?>
+                    <?= htmlspecialchars(mb_strimwidth($li->title, 0, 70, ' ..')) ?>
                   </p>
                 </div>
                 
@@ -319,7 +319,7 @@ $(document).ready(function() {
             </div>
 
             <p class="">
-              ${li.title}
+              ${$("<div>").text(li.title).html()}
             </p>
 
             <div class="text-[#9f9f9f]">
@@ -327,7 +327,7 @@ $(document).ready(function() {
                 ${li.content.indexOf('<img') != -1 ? 'image' : ''}
               </span>
               <span class="material-symbols-outlined">
-                ${li.file > 0? 'attachment' : ''}
+                ${li.file > 0 ? 'attachment' : ''}
               </span>
             </div>
           
@@ -468,7 +468,7 @@ $(document).on('click', '#post_reply_show_btn', function(e) {
 
                   <div class="flex gap-2 place-items-center place-content-center whitespace-nowrap">
                     <a href="/${reply.board_type}/${reply.idx}">
-                      ${reply.title}
+                      ${$("<div>").text(reply.title).html()}
                     </a>
                     <a href="/${reply.board_type}/${reply.idx}/#comments" class="flex place-items-center duration-200 text-[#9f9f9f] hover:text-white">
                       <div class="flex gap-2 place-items-center">

@@ -21,11 +21,14 @@
 
       <form id="loginForm" class="flex flex-col gap-5">
 
-        <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-2 relative">
           <h2>아이디</h2>
           <input name="user_id" id="user_id" value="<?= set_value('user_id') ?>"
-            class="w-full duration-100 bg-[#3f3f3f] focus:border border-blue-400 hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] p-3 h-[50px] rounded outline-none"
+            class="w-full duration-100 pr-10 bg-[#3f3f3f] focus:border border-blue-400 hover:bg-[#4f4f4f] focus:bg-[#2f2f2f] p-3 h-[50px] rounded outline-none"
             type="text" />
+          <span id="auto_icon" title="📌 아이디 기억하기 기능이 켜져있습니다" class="hidden cursor-help material-symbols-outlined absolute top-11 right-2 text-yellow-500 shadow-2xl">
+            motion_photos_auto
+          </span>
         </div>
 
         <div class="flex flex-col gap-2">
@@ -128,6 +131,9 @@ $('#loginForm').on('submit', e => {
     $('#error_txt').text('비밀번호는 6~20자 입력해주세요.');
     return;
   }
+
+  $('#error_txt').empty();
+  $('#error_form').addClass('hidden');
   
   $.ajax({
     url: '/Login_C/login',
@@ -182,10 +188,18 @@ if(localStorage.getItem('auto_id') === 'true') {
 // 아이디 기억하기
 $('#check1').on('click', (e) => {
   if($('#check1').prop('checked')) {
+
+    $('#auto_icon').removeClass('hidden');
+
     if(!confirm('🔔 보안상의 이유로 공공장소에서는 사용을 자제해주세요\n📌 그래도 아이디를 기억하시겠습니까?')) {
       $('#check1').prop('checked', false);
       return;
     }
+
+  } else {
+
+    $('#auto_icon').addClass('hidden');
+
   }
   localStorage.setItem('auto_id', $('#check1').prop('checked'));
 });
