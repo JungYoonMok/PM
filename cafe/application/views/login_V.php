@@ -36,7 +36,7 @@
           <div class="flex place-content-end gap-1">
             <input class="outline-none cursor-pointer hover:opacity-70" id="check1" type="checkbox" />
             <label class="text-md cursor-pointer hover:opacity-70" for="check1">
-              아이디 기억하기(미구현)
+              아이디 기억하기
             </label>
           </div>
         </div>
@@ -107,12 +107,90 @@
 
 </div>
 
-<script src="/javascript/user/login.js"></script>
+<!-- <script src="/javascript/user/login.js"></script> -->
 
 <script>
-  $('.remove-btn').on('click', e => {
-    e.preventDefault();
-    $('#error_txt').empty();
-    $('#error_form').addClass('hidden');
+
+  // 로그인
+$(document).ready( () => {
+
+$('#loginForm').on('submit', e => {
+  e.preventDefault();
+  $('#error_txt').empty();
+  $('#error_form').removeClass('hidden');
+
+  if($('#user_id').val().length < 4 || $('#user_id').val().length > 10) {
+    $('#error_txt').text('아이디는 4~10글자로 입력해주세요.');
+    return;
+  }
+
+  if($('#user_pw').val().length < 6 || $('#user_pw').val().length > 20) {
+    $('#error_txt').text('비밀번호는 6~20자 입력해주세요.');
+    return;
+  }
+  
+  $.ajax({
+    url: '/Login_C/login',
+    type: 'post',
+    dataType: 'json',
+    data: { 
+      username: $('#user_id').val(),
+      password: $('#user_pw').val(),
+    },
+    success: response => {
+
+      if (response.state) { // 로그인 성공시 메인페이지로 이동
+
+        if(localStorage.getItem('auto_id') === 'true') {
+          localStorage.setItem('user_id', $('#user_id').val());
+        } else {
+          localStorage.removeItem('user_id');
+        }
+
+        // 클래스 추가
+        $('#error_form').addClass('hidden');
+        location.href = '/';
+      } else {
+        // 클래스 제거
+        $('#error_txt').empty();
+        $('#error_form').removeClass('hidden');
+
+        $('#error_txt').append(response.detail);
+      }
+
+    },
+    error: ( response, s, e ) => {
+      console.log('오류', response, s, e);
+    }
   });
+});
+
+$('.remove-btn').on('click', e => {
+  e.preventDefault();
+  $('#error_txt').empty();
+  $('#error_form').addClass('hidden');
+});
+
+if(localStorage.getItem('auto_id') === 'true') {
+  $('#check1').prop('checked', true);
+  $('#user_id').val(localStorage.getItem('user_id'));
+} else {
+  $('#check1').prop('checked', false);
+  $('#user_id').val('');
+}
+
+// 아이디 기억하기
+$('#check1').on('click', (e) => {
+  if($('#check1').prop('checked')) {
+    if(!confirm('🔔 보안상의 이유로 공공장소에서는 사용을 자제해주세요\n📌 그래도 아이디를 기억하시겠습니까?')) {
+      $('#check1').prop('checked', false);
+      return;
+    }
+  }
+  localStorage.setItem('auto_id', $('#check1').prop('checked'));
+});
+
+});
+
+
 </script>

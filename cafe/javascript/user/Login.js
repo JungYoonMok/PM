@@ -27,6 +27,13 @@ $(document).ready( () => {
       success: response => {
 
         if (response.state) { // 로그인 성공시 메인페이지로 이동
+
+          if(localStorage.getItem('auto_id') === 'true') {
+            localStorage.setItem('user_id', $('#user_id').val());
+          } else {
+            localStorage.removeItem('user_id');
+          }
+
           // 클래스 추가
           $('#error_form').addClass('hidden');
           location.href = '/';
@@ -44,4 +51,5 @@ $(document).ready( () => {
       }
     });
   });
+
 });
