@@ -73,7 +73,7 @@
           <span class="material-symbols-outlined">
             <?= date("Y-m-d") == substr($post->regdate, 0, 10) ? 'schedule' : 'edit_calendar'; ?>
           </span>
-          <p class=""><?= (empty($post->regdate) ? '-' : date("Y-m-d") == substr($post->regdate, 0, 10)) ? substr($post->regdate, 10, 18) : substr($post->regdate, 0, 16); ?></p>
+          <p class=""><?= date("Y-m-d") == substr($post->regdate, 0, 10) ? substr($post->regdate, 10, 6) : substr($post->regdate, 0, 16); ?></p>
         </div>
       </div>
 

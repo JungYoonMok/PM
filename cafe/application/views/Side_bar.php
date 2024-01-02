@@ -74,12 +74,12 @@
       
       <!-- 경험치, 포인트 -->
       <div class="flex flex-col gap-3 p-3 duration-200 rounded border border-[#4f4f4f] bg-[#3f3f3f] text-sm font-[s-core5]">
-        <div class="flex justify-between">
+        <a href="/my_activity/exp_point" class="flex justify-between hover:underline underline-offset-4 hover:opacity-90 duration-200 decoration-2 decoration-white">
           <p>경험치 <?= $level_converter['exp'] ?> / <?= $level_converter['end_exp'] ?></p>
           <p class="text-right">
             <?= $exp_per ?>%
           </p>
-        </div>
+        </a>
         <div class="w-full h-4 mb-4 rounded-full bg-gray-600 duration-200">
           <div 
             class="h-4 mb-1 rounded-full duration-200 hover:scale-105 
@@ -88,7 +88,9 @@
             " 
             style="width: <?= $exp_per ?>%">
           </div>
-          <p>포인트 <?= $point_total ?></p>
+          <a href="/my_activity/exp_point" class="hover:underline underline-offset-4 hover:opacity-90 duration-200 decoration-2 decoration-white">
+            포인트 <?= $point_total ?>
+          </a>
         </div>
       </div>
 

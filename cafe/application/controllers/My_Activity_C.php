@@ -136,7 +136,7 @@ date_default_timezone_set('Asia/Seoul');
     public function exp_point() {
       $pagi = $this->My_Activity_M->pagination_exp_point();
       $data['page'] = $pagi;
-      $per_page = 20;
+      $per_page = 10;
 
       $this->initialize_pagination("/my_activity/exp_point", $pagi, $per_page, 3 ?? 0, 3);
 

@@ -34,7 +34,7 @@
   <div class="border-b mt-2 border-[#3f3f3f]"></div>
   
   <a href="/my_activity/exp_point" class="<?= $this->uri->segment(2) == 'exp_point' ? 'bg-[#1f1f1f] hover:opacity-80' : 'bg-[#3f3f3f] hover:bg-[#2f2f2f] hover:translate-y-[2px]' ?> flex gap-3 whitespace-nowrap px-3 py-4 border border-[#4f4f4f] rounded duration-200">
-    <p class="material-symbols-outlined">scan_delete</p>
+    <p class="material-symbols-outlined">expand_all</p>
     <p>경혐치 & 포인트</p>
   </a>
 

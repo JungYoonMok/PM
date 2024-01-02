@@ -6,17 +6,18 @@
   <!-- 내정보, 프사 -->
   <div class="flex flex-col md:flex-row w-full gap-3">
 
-    <div class="flex flex-col w-full gap-3 rounded-tl-md rounded-tr-md shadow-2xl border border-[#4f4f4f] bg-[#2f2f2f]">
+    <div class="relative flex flex-col w-full gap-3 rounded-tl-md rounded-tr-md shadow-2xl border border-[#4f4f4f] bg-[#2f2f2f]">
+
+      <div class="absolute top-0 bg-[#3f3f3f] shadow-2xl p-3 rounded-b-2xl border-[#4f4f4f] border-b w-full flex gap-3 place-items-center justify-center">
+        <span class="material-symbols-outlined">
+          person
+        </span>
+        <p>내 정보</p>
+      </div>
+
       <div class="p-5 flex flex-col gap-3 text-sm">
 
-        <div class="flex gap-3 place-items-center justify-center">
-          <span class="material-symbols-outlined">
-            person
-          </span>
-          <p>내 정보</p>
-        </div>
-
-        <div class="flex flex-col gap-3 mt-5 bg-[#4f4f4f] px-3 py-5 rounded">
+        <div class="flex flex-col gap-3 mt-12 bg-[#4f4f4f] px-3 py-5 rounded">
 
           <div class="flex gap-3 justify-around">
             <div class="flex gap-3">
@@ -40,21 +41,21 @@
         <div class="flex flex-col gap-3 bg-[#4f4f4f] px-3 py-5 rounded">
 
           <div class="flex gap-5">
-            <p>이름</p>
+            <p class="w-14">이름</p>
             <p>
               <?= $this->session->userdata('user_name') ?>
             </p>
           </div>
 
           <div class="flex gap-5">
-            <p>이메일</p>
+            <p class="w-14">이메일</p>
             <p>
               <?= $this->session->userdata('user_email') ?>
             </p>
           </div>
 
           <div class="flex gap-5">
-            <p>휴대폰</p>
+            <p class="w-14">휴대폰</p>
             <p>
               <?= $this->session->userdata('user_phone') ?>
             </p>
@@ -80,13 +81,13 @@
           <div class="flex gap-5 justify-around">
             <div class="flex flex-col justify-center place-items-center gap-3 bg-[#2f2f2f] w-full p-3">
               <p>마지막 로그인</p>
-              <p>
+              <p class="text-[#9f9f9f]">
                 <?= $last_login->regdate ?>
               </p>
             </div>
             <div class="flex flex-col justify-center place-items-center gap-3 bg-[#2f2f2f] w-full p-3">
               <p>마지막 로그아웃</p>
-              <p>
+              <p class="text-[#9f9f9f]">
                 <?= $last_logout->regdate ?>
               </p>
             </div>
@@ -96,13 +97,13 @@
             <div class="flex flex-col justify-center place-items-center gap-3 bg-[#2f2f2f] w-full p-3">
               <p>접속 국가</p>
               <p class="text-[#9f9f9f]">
-                -추후 지원-
+                대한민국
               </p>
             </div>
             <div class="flex flex-col justify-center place-items-center gap-3 bg-[#2f2f2f] w-full p-3">
-              <p>사용 브라우저</p>
+              <p>접속 브라우저</p>
               <p class="text-[#9f9f9f]">
-                -추후 지원-
+                chrome(beta)
               </p>
             </div>
           </div>
@@ -115,9 +116,17 @@
     <!-- 프로필 사진 -->
     <div class="flex flex-col w-full rounded-tl-md rounded-tr-md shadow-2xl border border-[#4f4f4f] bg-[#2f2f2f]">
 
-      <div class="p-5 w-full flex flex-col gap-10">
+      <div class="relative  w-full flex flex-col gap-10">
 
-        <div class="flex justify-around place-items-center">
+        <div class="absolute top-0 bg-[#3f3f3f] shadow-2xl p-3 rounded-b-2xl border-[#4f4f4f] border-b w-full flex gap-3 place-items-center justify-center">
+          <span class="material-symbols-outlined">
+            party_mode
+          </span>
+          <p>내 프로필 사진</p>
+        </div>
+
+        <div class="flex mt-20 justify-around place-items-center">
+
 
           <!-- 현재 프로필 -->
           <div class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border-2 border-gray-500 h-20 w-20 bg-[#3f3f3f]">
@@ -166,7 +175,7 @@
         </div>
 
         <!-- 파일 업로드 -->
-        <form id="upload_form" accept=".jpg, .jpeg, .png, .gif" enctype="multipart/form-data" class="flex flex-col gap-3 place-items-center place-content-center justify-center">
+        <form id="upload_form" accept=".jpg, .jpeg, .png, .gif" enctype="multipart/form-data" class="flex px-5 flex-col gap-3 place-items-center place-content-center justify-center">
           <div id="file_control" class="flex place-items-center justify-center w-full">
             <label for="userfile" class="flex flex-col items-center w-full justify-center h-24 border-2 border-gray-500 border-dashed rounded-lg cursor-pointer hover:bg-[#2f2f2f] duration-200 bg-[#3f3f3f]">
               <div class="flex flex-col gap-3 place-items-center justify-center text-sm">
@@ -211,7 +220,7 @@
         <div 
           id="profile_old" 
           class="
-          flex flex-wrap gap-3 w-full border bg-[#1f1f1f] shadow-md border-[#3f3f3f] justify-center place-items-center h-full max-h-52 p-3 rounded overflow-y-auto
+          flex flex-wrap gap-3 w-full border min-h-44 bg-[#1f1f1f] shadow-md border-[#3f3f3f] justify-center place-items-center h-full max-h-52 p-3 rounded overflow-y-auto
           ">
         </div>
 
