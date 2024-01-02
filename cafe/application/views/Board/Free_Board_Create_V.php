@@ -153,7 +153,7 @@
                   <? endforeach ?>
                 </div>
               </div>
-              <input name="userfile[]" id="userfile" multiple type="file" class="hidden" />
+              <input name="userfile[]" accept=".jpg, .jpeg, .png, .gif, .txt, .zip" id="userfile" multiple type="file" class="hidden" />
             </label>
           </div>
 
@@ -418,51 +418,80 @@
       }
     });
   });
-  
+
   document.getElementById('userfile').addEventListener('change', function(e) {
-  var preview = document.getElementById('preview');
-  preview.innerHTML = '';
-  selectedFiles = [...e.target.files]; // 파일 목록 갱신
+    var preview = document.getElementById('preview');
+    preview.innerHTML = '';
+    selectedFiles = [...e.target.files]; // 파일 목록 갱신
+    
+    for (let i = 0; i < e.target.files.length; i++) {
+      let file = e.target.files[i];
+      let reader = new FileReader();
+      reader.onload = function(e) {
+        let div = document.createElement('div');
+        div.classList.add('preview-item');
+        div.setAttribute('data-index', i); // 파일 인덱스 저장
 
-  for (let i = 0; i < e.target.files.length; i++) {
-    let file = e.target.files[i];
-    let reader = new FileReader();
-    reader.onload = function(e) {
-      let div = document.createElement('div');
-      div.classList.add('preview-item');
-      div.setAttribute('data-index', i); // 파일 인덱스 저장
-      div.innerHTML = `
-        <div class="flex gap-3">
-          <div class="relative">
-            <img src="${e.target.result}" class="w-20 h-20 md:w-40 md:h-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none" />
-            <button class="remove-btn rounded-[50%] absolute top-2 duration-200 w-8 h-8 flex justify-center place-items-center right-2 p-2 bg-[#1f1f1f] hover:bg-red-500">
-              <span class="material-symbols-outlined">
-                close
-              </span>
-            </button>
+        div.innerHTML = `
+          <div class="flex gap-3">
+            <div class="relative">
+              <img src="${e.target.result}" class="w-20 h-20 md:w-32 md:h-32 lg:w-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none" />
+              <button class="remove-btn rounded-[50%] absolute top-2 duration-200 w-8 h-8 flex justify-center place-items-center right-2 p-2 bg-[#1f1f1f] hover:bg-red-500">
+                <span class="material-symbols-outlined">
+                  close
+                </span>
+              </button>
+            </div>
           </div>
-        </div>
-      `;
+        `;
 
-      div.querySelector('.remove-btn').addEventListener('click', function() {
-        let index = parseInt(div.getAttribute('data-index')); // 저장된 인덱스 사용
-        selectedFiles.splice(index, 1); // 파일 목록에서 제거
+        // if(e.target.result.match(/image/g)) {
+        //   div.innerHTML = `
+        //     <div class="flex gap-3">
+        //       <div class="relative">
+        //         <img src="${e.target.result}" class="w-20 h-20 md:w-32 md:h-32 lg:w-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none" />
+        //         <button class="remove-btn rounded-[50%] absolute top-2 duration-200 w-8 h-8 flex justify-center place-items-center right-2 p-2 bg-[#1f1f1f] hover:bg-red-500">
+        //           <span class="material-symbols-outlined">
+        //             close
+        //           </span>
+        //         </button>
+        //       </div>
+        //     </div>
+        //   `;
+        // } else {
+        //   div.innerHTML = `
+        //     <div class="flex gap-3">
+        //       <div class="relative">
+        //         <span class="material-symbols-outlined flex place-items-center justify-center text-6xl w-20 h-20 md:w-32 md:h-32 lg:w-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none"">
+        //           description
+        //         </span>
+        //         <button class="remove-btn rounded-[50%] absolute top-2 duration-200 w-8 h-8 flex justify-center place-items-center right-2 p-2 bg-[#1f1f1f] hover:bg-red-500">
+        //           <span class="material-symbols-outlined">
+        //             close
+        //           </span>
+        //         </button>
+        //       </div>
+        //     </div>
+        //   `;
+        // }
 
-        div.remove(); // 미리보기 제거
-        // 인덱스 업데이트
-        updateFileIndexes();
+        div.querySelector('.remove-btn').addEventListener('click', function() {
+          let index = parseInt(div.getAttribute('data-index')); // 저장된 인덱스 사용
+          div.remove(); // 미리보기 제거
+          selectedFiles.splice(index, 1); // selectedFiles 배열에서 제거
+          updateFileIndexes(); // 인덱스 업데이트
+          
+          // 첨부파일 미리보기 div의 가시성 설정
+          updateFilePreviewVisibility();
+        });
 
-        // 첨부파일 미리보기 div의 가시성 설정
-        updateFilePreviewVisibility();
-      });
-
-      preview.appendChild(div);
-    };
-    reader.readAsDataURL(file);
-  }
-  // 첨부파일 미리보기 div의 가시성 설정
-  updateFilePreviewVisibility();
-});
+        preview.appendChild(div);
+      };
+      reader.readAsDataURL(file);
+    }
+    // 첨부파일 미리보기 div의 가시성 설정
+    updateFilePreviewVisibility();
+  });
 
   // 파일 미리보기 div 가시성 업데이트 함수
   function updateFilePreviewVisibility() {

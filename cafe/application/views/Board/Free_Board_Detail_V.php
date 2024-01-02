@@ -226,8 +226,8 @@
                 </span>
                 <div class="flex justify-between w-full">
                   <a href="/uploads/<?=$file->file_name ?>" download class="duration-200 hover:translate-x-3 flex gap-2 place-items-center">
-                    <? if(empty($file->file_type)) :?>
-                      <span class="material-symbols-outlined text-[#9f9f9f]">
+                    <? if(substr($file->full_name, 0, 5) !== 'image') :?>
+                      <span class="material-symbols-outlined text-[#9f9f9f] text-4xl">
                         insert_drive_file
                       </span>
                     <? else :?>
@@ -239,7 +239,7 @@
                   </a>
                   <div class="flex place-items-center gap-3 text-xs text-[#8f8f8f] font-bold">
 
-                    <? if(empty($file->file_type)) :?>
+                    <? if(substr($file->full_name, 0, 5) !== 'image') :?>
 
                     <? else :?>
                       <p class="duration-200 hidden md:inline-block">
@@ -247,7 +247,9 @@
                       </p>
                     <? endif ?>
 
-                    <p class="hidden md:inline-block">|</p>
+                    <p class="hidden md:inline-block">
+                    <?= substr($file->full_name, 0, 5) !== 'image' ? '' : '|' ?>
+                    </p>
                     <p class="duration-200">
                       <?= $file->file_size ?> KB
                     </p>

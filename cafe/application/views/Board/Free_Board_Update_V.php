@@ -358,6 +358,7 @@ $(document).ready( () => {
     // 파일 미리보기 HTML 구성 (기존 파일과 새 파일에 따라 다를 수 있음)
     if (isExistingFile) {
     // 기존 파일 미리보기
+    
     div.innerHTML = `
       <div class="gap-3">
         <div class="relative">

@@ -22,7 +22,7 @@ class Free_Board_Create_C extends CI_Controller {
 
   public function upload_image() {
     $config['upload_path'] = './uploads/';
-    $config['allowed_types'] = 'gif|jpg|png';
+    $config['allowed_types'] = 'gif|jpg|png|jpeg';
     $config['max_size'] = 0;
     $this->load->library('upload', $config);
 
@@ -117,7 +117,8 @@ class Free_Board_Create_C extends CI_Controller {
   public function upload_file($last_id) {
     $max_files = 5; // 최대 파일 개수
     $config['upload_path'] = './uploads/';
-    $config['allowed_types'] = 'gif|jpg|png|jpeg|txt|zip';
+    $config['allowed_types'] = '*';
+    // $config['allowed_types'] = 'gif|jpg|png|jpeg|txt|zip';
     $config['max_size'] = 0; // 1MB, 1024KB
     $this->load->library('upload', $config);
     
@@ -153,6 +154,8 @@ class Free_Board_Create_C extends CI_Controller {
             'boards_idx' => $last_id, // 초기값
             'file_type' => $uploadData['image_type'],
             'file_name' => $uploadData['file_name'],
+            'full_name' => $uploadData['file_type'],
+            // 'full_name' => $uploadData['file_type'],
             'width' => $uploadData['image_width'],
             'height' => $uploadData['image_height'],
             'file_size' => $uploadData['file_size'],
