@@ -2,7 +2,7 @@
 
   <div class="">
 
-    <div class="absolute top-0 duration-200 cursor-default w-full bg-[#1f1f1f] rounded-b-2xl border-b-2 border-[#4f4f4f] shadow-2xl py-2 gap-3 -ml-5 -mr-5 flex justify-center place-items-center">
+    <div class="absolute top-0 duration-200 cursor-default w-full bg-[#1f1f1f] rounded-b-2xl border-b border-green-500 shadow-2xl py-2 gap-3 -ml-5 -mr-5 flex justify-center place-items-center">
       <span class="material-symbols-outlined text-green-500 duration-200 hover:-rotate-45">
         local_cafe
       </span>
@@ -353,7 +353,7 @@
 
       </div>
 
-      <div class="fixed bottom-0 hover:text-white text-sm text-[#9f9f9f] tracking-wider duration-200 cursor-default w-[299px] bg-[#3f3f3f] border-t border-[#4f4f4f] shadow-2xl py-2 gap-3 -ml-5 -mr-5 flex justify-center place-items-center">
+      <div class="fixed bottom-0 hover:text-white text-sm text-[#9f9f9f] tracking-wider duration-200 cursor-default w-[299px] bg-[#3f3f3f] border-t rounded-t-2xl border-[#4f4f4f] shadow-2xl py-2 gap-3 -ml-5 -mr-5 flex justify-center place-items-center">
         <span id="sky_icon" class="material-symbols-outlined duration-200 animate-pulse">
           weather_snowy
         </span>
