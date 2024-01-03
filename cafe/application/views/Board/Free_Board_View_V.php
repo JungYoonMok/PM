@@ -9,9 +9,9 @@
 
       <div class="flex flex-col gap-5">
 
+        <!-- 상단 정보 및 정보 -->
         <div class="bg-[#2f2f2f] border shadow-2xl border-[#4f4f4f] opacity-90 p-5 flex flex-col gap-5">
 
-          <!-- 상단 정보 및 정보 -->
           <div class="flex gap-1">
             <p>
               <?= 
@@ -26,7 +26,10 @@
           </div>
 
           <div class="<?= $this->uri->segment(1) == 'notice' ? 'hidden' : '' ?> border border-[#4f4f4f] p-3 rounded bg-[#1f1f1f]">
-            <p>자유로운 소통의 공간입니다, 악의적인 글은 삼가해 주세요 😉</p>
+            <p>
+            <?= $this->uri->segment(1) == 'freeboard' ? '자유로운 소통의 공간입니다, 악의적인 글은 삼가해 주세요 😉' : '' ?>
+            <?= $this->uri->segment(1) == 'hellow' ? '가입인사를 나누는 공간입니다, 악의적인 글은 삼가해 주세요 😉' : '' ?>
+            </p>
           </div>
 
         </div>
@@ -178,7 +181,7 @@
               <p class="material-symbols-outlined absolute top-3 left-3 text-gray-500 cursor-default">
                 search
               </p>
-              <input id="search_text" name="search_text" type="text" class="
+              <input id="search_text" name="search_text" type="text" placeholder="검색어를 입력해주세요" class="
               pl-12 w-full outline-none text-whith rounded bg-[#1f1f1f] p-3 border border-[#4f4f4f] hover:bg-[#2f2f2f] focus:bg-[#0f0f0f] focus:rounded-none duration-200
               ">
             </div>

@@ -1,4 +1,4 @@
-<div class="bg-[#3f3f3f] text-gray-50 w-full duration-200">
+<div class="relative bg-[#3f3f3f] text-gray-50 w-full duration-200">
 
   <div class="w-full flex place-items-center h-[70px] bg-[#2f2f2f] rounded-b border-b border-[#4f4f4f] drop-shadow-xl">
   
@@ -81,6 +81,11 @@
 
     </div>
     
+  </div>
+  
+  <!-- side bar -->
+  <div id="side_bar" class="hidden">
+    <p>hi</p>
   </div>
 
 </div>

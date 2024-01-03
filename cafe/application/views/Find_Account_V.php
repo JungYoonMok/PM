@@ -10,7 +10,7 @@
     </div>
 
     <!-- 계정 정보가 일치하지 않을시 -->
-    <div id='error_form' class="relative duration-200 shadow-xl hidden flex p-5 gap-3 border border-[#4f4f4f] bg-[#1f1f1f] w-full rounded">
+    <div id='error_form' class="relative duration-200 animate-bounce shadow-xl hidden flex p-5 gap-3 border border-[#4f4f4f] bg-[#1f1f1f] w-full rounded">
       <span class="material-symbols-outlined duration-200 animate-pulse text-red-400">
         error
       </span>
@@ -323,7 +323,7 @@ $(document).ready( () => {
     $('#error_form').removeClass('hidden');
     
     if($('#password_1').val().length < 6 || $('#password_1').val().length > 20) { // 비밀번호 검사
-      $('#error_txt').text('비밀번호 확인은 6~20 글자로 입력해주세요.');
+      $('#error_txt').text('비밀번호는 6~20 글자로 입력해주세요.');
       return;
     }
 
@@ -338,8 +338,13 @@ $(document).ready( () => {
     }
 
     if(!confirm('비밀번호를 변경하시겠습니까?')) {
+      $('#error_txt').empty(); // 에러 메시지 초기화
+      $('#error_form').addClass('hidden');
       return;
     }
+
+    $('#error_txt').empty(); // 에러 메시지 초기화
+    $('#error_form').addClass('hidden');
     
     $.ajax({
       url: '/Find_Account_C/update_password',
@@ -353,9 +358,6 @@ $(document).ready( () => {
       },
       success: response => {
         if(response.state) {
-          $('#error_txt').empty(); // 에러 메시지 초기화
-          $('#error_form').addClass('hidden');
-
           alert('비밀번호가 성공적으로 변경되었습니다');
           return location.href = '/login';
         } else {

@@ -21,8 +21,8 @@
 
           <div class="flex gap-3 justify-around">
             <div class="flex gap-3">
-              <p>아이디</p>
-              <p>
+              <p class="text-[#9f9f9f]">아이디</p>
+              <p class="tracking-wider">
                 <?= $this->session->userdata('user_id') ?>
               </p>
             </div>
@@ -30,8 +30,8 @@
             <p class="text-[#9f9f9f]">|</p>
 
             <div class="flex gap-3">
-              <p>닉네임</p>
-              <p>
+              <p class="text-[#9f9f9f]">닉네임</p>
+              <p class="tracking-wider">
                 <?= $this->session->userdata('user_nickname') ?>
               </p>
             </div>
@@ -44,8 +44,8 @@
 
           <div class="flex justify-between place-items-center">
             <div class="flex gap-5">
-              <p class="w-14">이름</p>
-              <p>
+              <p class="w-14 text-[#9f9f9f]">이름</p>
+              <p class="tracking-wider">
                 <?= $this->session->userdata('user_name') ?>
               </p>
             </div>
@@ -56,8 +56,8 @@
 
           <div class="flex justify-between place-items-center">
             <div class="flex gap-5">
-              <p class="w-14">이메일</p>
-              <p>
+              <p class="w-14 text-[#9f9f9f]">이메일</p>
+              <p class="tracking-wider">
                 <?= $this->session->userdata('user_email') ?>
               </p>
             </div>
@@ -68,8 +68,8 @@
 
           <div class="flex justify-between place-items-center">
             <div class="flex gap-5">
-              <p class="w-14">휴대폰</p>
-              <p>
+              <p class="w-14 text-[#9f9f9f]">휴대폰</p>
+              <p class="tracking-wider">
                 <?= $this->session->userdata('user_phone') ?>
               </p>
             </div>
@@ -80,8 +80,8 @@
 
           <div class="flex justify-between place-items-center">
             <div class="flex gap-5">
-              <p>가입날짜</p>
-              <p>
+              <p class="text-[#9f9f9f]">가입날짜</p>
+              <p class="tracking-wider">
                 <?= $this->session->userdata('regdate') ?>
               </p>
             </div>
@@ -103,13 +103,13 @@
           <div class="flex gap-5 justify-around">
             <div class="flex flex-col justify-center place-items-center gap-3 bg-[#2f2f2f] w-full p-3">
               <p>마지막 로그인</p>
-              <p class="text-[#9f9f9f]">
+              <p class="text-[#9f9f9f] tracking-wider">
                 <?= $last_login_logout->last_login ?>
               </p>
             </div>
             <div class="flex flex-col justify-center place-items-center gap-3 bg-[#2f2f2f] w-full p-3">
               <p>마지막 로그아웃</p>
-              <p class="text-[#9f9f9f]">
+              <p class="text-[#9f9f9f] tracking-wider">
                 <?= $last_login_logout->last_logout ?>
               </p>
             </div>
@@ -118,13 +118,13 @@
           <div class="flex gap-5 justify-around">
             <div class="flex flex-col justify-center place-items-center gap-3 bg-[#2f2f2f] w-full p-3">
               <p>접속 국가</p>
-              <p class="text-[#9f9f9f]">
+              <p class="text-[#9f9f9f] tracking-wider">
                 대한민국(ko-kr)
               </p>
             </div>
             <div class="flex flex-col justify-center place-items-center gap-3 bg-[#2f2f2f] w-full p-3">
               <p>접속 브라우저</p>
-              <p class="text-[#9f9f9f]">
+              <p class="text-[#9f9f9f] tracking-wider">
                 chrome(beta)
               </p>
             </div>
@@ -255,7 +255,7 @@
   <div class="border-b border-gray-500"></div>
 
   <!-- 계정 정보가 일치하지 않을시 -->
-  <div id='error_form' class="relative duration-200 shadow-xl hidden flex p-5 gap-3 border border-[#4f4f4f] bg-[#1f1f1f] w-full rounded">
+  <div id='error_form' class="relative duration-200 animate-bounce shadow-xl hidden flex p-5 gap-3 border border-[#4f4f4f] bg-[#1f1f1f] w-full rounded">
     <span class="material-symbols-outlined duration-200 animate-pulse text-red-400">
       error
     </span>

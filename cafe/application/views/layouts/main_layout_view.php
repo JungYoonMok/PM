@@ -158,6 +158,7 @@
 
     <!-- 사이드 -->
     <div class="w-full max-w-[300px] z-30 <?= $this->session->userdata('user_id') ? 'hidden lg:inline-block' : 'hidden'?>">
+
       <!-- 메뉴 -->
       <div class="fixed bg-[#2f2f2f] w-[300px] border-r border-[#5f5f5f] h-full overflow-y-auto">
         <?= $side ?>
@@ -202,32 +203,32 @@
 <script> 
 
   // snow
-  // const MIN_DURATION = 10;
-  // const body = document.querySelector('body');
-  // function makeSnowflake() {
-  //   const snowflake = document.createElement('div');
-  //   const delay = Math.random() * 10;
-  //   const initialOpacity = Math.random();
-  //   const duration = Math.random() * 20 + MIN_DURATION;
-  //   snowflake.classList.add('snowflake');
-  //   snowflake.style.left = Math.random() * window.innerWidth + 'px';
-  //   snowflake.style.animationDelay = delay + 's';
-  //   snowflake.style.opacity = initialOpacity;
-  //   snowflake.style.animation = `fall ${duration}s linear`;
-  //   body.appendChild(snowflake);
-  //   setTimeout(() => {
-  //     body.removeChild(snowflake);
-  //     makeSnowflake();
-  //   }, (duration + delay) * 1000);
-  // }
+  const MIN_DURATION = 10;
+  const body = document.querySelector('body');
+  function makeSnowflake() {
+    const snowflake = document.createElement('div');
+    const delay = Math.random() * 10;
+    const initialOpacity = Math.random();
+    const duration = Math.random() * 20 + MIN_DURATION;
+    snowflake.classList.add('snowflake');
+    snowflake.style.left = Math.random() * window.innerWidth + 'px';
+    snowflake.style.animationDelay = delay + 's';
+    snowflake.style.opacity = initialOpacity;
+    snowflake.style.animation = `fall ${duration}s linear`;
+    body.appendChild(snowflake);
+    setTimeout(() => {
+      body.removeChild(snowflake);
+      makeSnowflake();
+    }, (duration + delay) * 1000);
+  }
   // // snow end
 
   // effect on off switch
   if(localStorage.getItem('effect') == 'on'){
     $('#wave').removeClass('hidden');
-    // for(let index = 0; index < 50; index++) {
-    //   setTimeout(makeSnowflake, 500 * index);
-    // }
+    for(let index = 0; index < 50; index++) {
+      setTimeout(makeSnowflake, 500 * index);
+    }
   } else {
     $('#wave').addClass('hidden');
   }

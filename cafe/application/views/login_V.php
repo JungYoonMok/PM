@@ -5,7 +5,7 @@
     <div class="bg-[#2f2f2f] border border-[#4f4f4f] px-5 py-10 rounded flex flex-col gap-5 relative drop-shadow-2xl">
 
       <!-- 계정 정보가 일치하지 않을시 -->
-      <div id='error_form' class="relative duration-200 shadow-xl hidden flex p-5 gap-3 border border-[#4f4f4f] bg-[#1f1f1f] w-full rounded">
+      <div id='error_form' class="relative duration-200 animate-bounce shadow-xl hidden flex p-5 gap-3 border border-[#4f4f4f] bg-[#1f1f1f] w-full rounded">
         <span class="material-symbols-outlined duration-200 animate-pulse text-red-400">
           error
         </span>
@@ -185,21 +185,27 @@ if(localStorage.getItem('auto_id') === 'true') {
   $('#user_id').val('');
 }
 
+if($('#check1').prop('checked')) {
+  $('#auto_icon').removeClass('hidden');
+  if(localStorage.getItem('user_id')) $('#user_id').val(localStorage.getItem('user_id'));
+  } else {
+    $('#user_id').val('');
+  $('#auto_icon').addClass('hidden');
+}
+
 // 아이디 기억하기
 $('#check1').on('click', (e) => {
   if($('#check1').prop('checked')) {
-
     $('#auto_icon').removeClass('hidden');
-
+    if(localStorage.getItem('user_id')) $('#user_id').val(localStorage.getItem('user_id'));
     if(!confirm('🔔 보안상의 이유로 공공장소에서는 사용을 자제해주세요\n📌 그래도 아이디를 기억하시겠습니까?')) {
+      $('#auto_icon').addClass('hidden');
       $('#check1').prop('checked', false);
       return;
     }
-
   } else {
-
     $('#auto_icon').addClass('hidden');
-
+    $('#user_id').val('');
   }
   localStorage.setItem('auto_id', $('#check1').prop('checked'));
 });

@@ -17,12 +17,12 @@
 
   <a href="/my_activity/post_like" class="<?= $this->uri->segment(2) == 'post_like' ? 'bg-[#1f1f1f] hover:opacity-80' : 'bg-[#3f3f3f] hover:bg-[#2f2f2f] hover:translate-y-[2px]' ?> flex gap-3 whitespace-nowrap px-3 py-4 border border-[#4f4f4f] rounded duration-200">
     <p class="material-symbols-outlined">thumb_up</p>
-    <p>좋아요한 글</p>
+    <p>좋아요 글</p>
   </a>
 
   <a href="/my_activity/post_notlike" class="<?= $this->uri->segment(2) == 'post_notlike' ? 'bg-[#1f1f1f] hover:opacity-80' : 'bg-[#3f3f3f] hover:bg-[#2f2f2f] hover:translate-y-[2px]' ?> flex gap-3 whitespace-nowrap px-3 py-4 border border-[#4f4f4f] rounded duration-200">
     <p class="material-symbols-outlined">thumb_down</p>
-    <p>싫요한 글</p>
+    <p>싫어요 글</p>
   </a>
 
   <a href="/my_activity/delete_post" class="<?= $this->uri->segment(2) == 'delete_post' ? 'bg-[#1f1f1f] hover:opacity-80' : 'bg-[#3f3f3f] hover:bg-[#2f2f2f] hover:translate-y-[2px]' ?> flex gap-3 whitespace-nowrap px-3 py-4 border border-[#4f4f4f] rounded duration-200">

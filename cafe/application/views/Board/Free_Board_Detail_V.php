@@ -226,7 +226,7 @@
                 </span>
                 <div class="flex justify-between w-full">
                   <a href="/uploads/<?=$file->file_name ?>" download class="duration-200 hover:translate-x-3 flex gap-2 place-items-center">
-                    <? if(substr($file->full_name, 0, 5) !== 'image') :?>
+                    <? if(empty($file->file_type)) :?>
                       <span class="material-symbols-outlined text-[#9f9f9f] text-4xl">
                         insert_drive_file
                       </span>
@@ -239,7 +239,7 @@
                   </a>
                   <div class="flex place-items-center gap-3 text-xs text-[#8f8f8f] font-bold">
 
-                    <? if(substr($file->full_name, 0, 5) !== 'image') :?>
+                    <? if(empty($file->file_type)) :?>
 
                     <? else :?>
                       <p class="duration-200 hidden md:inline-block">
@@ -248,7 +248,7 @@
                     <? endif ?>
 
                     <p class="hidden md:inline-block">
-                    <?= substr($file->full_name, 0, 5) !== 'image' ? '' : '|' ?>
+                    <?= empty($file->file_type) ? '' : '|' ?>
                     </p>
                     <p class="duration-200">
                       <?= $file->file_size ?> KB
@@ -418,7 +418,7 @@
         </div>
 
         <!-- 구분선 댓글 달릴시 이동되는 구간 -->
-        <div id="comments" class="border-b mb-5 border-[#4f4f4f]"></div>
+        <div id="comments" class="border-b border-[#4f4f4f]"></div>
 
         <!-- 댓글 리스트 있을때 and 리플 -->
         <div class="flex flex-col duration-200 rounded-md gap-5 w-full <?= empty($comment) || !$post->board_comment ? 'hidden' : '' ?>">
@@ -595,14 +595,14 @@
         </div>
 
         <!-- 댓글 리스트 없을때 -->
-        <div class="flex justify-center mb-5 bg-[#1f1f1f] p-5 border border-[#4f4f4f] <?= empty($comment) ? '' : 'hidden' ?>">
+        <div class="flex justify-center bg-[#1f1f1f] p-5 border border-[#4f4f4f] <?= empty($comment) ? '' : 'hidden' ?>">
           <p>
             댓글이 존재하지 않습니다
           </p>
         </div>
 
         <!-- 페이지네이션 -->
-        <div class="pagination">
+        <div class="pagination <?= empty($links) ? 'hidden' : '' ?>">
           <?= $links; ?>
         </div>
 
@@ -624,7 +624,7 @@
         <div class="border-b border-[#4f4f4f]"></div>
 
         <!-- 댓글 작성 -->
-        <div class="<?= $this->session->userdata('user_id') && $post->board_comment ? '' : 'hidden' ?> w-full mt-5 drop-shadow-2xl text-sm flex flex-col gap-5 bg-[#1f1f1f] p-5 border border-[#4f4f4f]">
+        <div class="<?= $this->session->userdata('user_id') && $post->board_comment ? '' : 'hidden' ?> w-full drop-shadow-2xl text-sm flex flex-col gap-5 bg-[#1f1f1f] p-5 border border-[#4f4f4f]">
         
           <div class="flex flex-wrap justify-between">
             <div class="gap-5 flex">
@@ -671,7 +671,7 @@
     </div>
 
     <!-- 글쓰기, 답글, 이전, 다음, 목록 -->
-    <div class="flex justify-between mb-5 gap-3 opacity-90">
+    <div class="flex justify-between gap-3 opacity-90">
       <div class="flex gap-2 <?= $this->session->userdata('user_id') ? '' : 'hidden' ?> ">
         <a href="/post_create/" class="bg-[#1f1f1f] duration-200 hover:bg-[#2f2f2f] border border-[#4f4f4f] px-3 py-2 rounded">
           글쓰기

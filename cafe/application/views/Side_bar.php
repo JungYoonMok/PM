@@ -1,22 +1,18 @@
-<div class="flex flex-col p-5 duration-200 bg-[#2f2f2f] text-gray-100">
+<div class="flex relative flex-col p-5 duration-200 bg-[#2f2f2f] text-gray-100">
 
-  <div class="relative">
-    <!-- 비회원 전용 -->
-    <div class="<?= $this->session->userdata('user_id') ? 'hidden' : 'inline' ?> flex flex-col justify-center place-items-center h-full w-full">
-      <div class="">
-        <span class="material-symbols-outlined">
-          account_circle_off
-        </span>
-      </div>
-      <div class="bg-[#4f4f4f] rounded px-2 py-3 text-sm w-full">
-        <p>계정이 있으시다면 로그인을 해주세요 비회원은 카페를 한정적으로 이용할 수 있습니다.</p>
-      </div>
+  <div class="">
+
+    <div class="absolute top-0 duration-200 cursor-default w-full bg-[#1f1f1f] rounded-b-2xl border-b-2 border-[#4f4f4f] shadow-2xl py-2 gap-3 -ml-5 -mr-5 flex justify-center place-items-center">
+      <span class="material-symbols-outlined text-green-500 duration-200 hover:-rotate-45">
+        local_cafe
+      </span>
+      <p>나만의 카페</p>
     </div>
 
     <!-- 회원 전용 -->
     <div class="<?= $this->session->userdata('user_id') ? 'inline' : 'hidden' ?> flex flex-col gap-3">
 
-      <div class="flex my-3 gap-3">
+      <div class="flex my-3 gap-3 mt-12">
         <!-- 프로필 -->
         <div
           class="relative drop-shadow-2xl flex rounded-[50%] place-content-center border-2 border-gray-500 h-20 w-20  bg-[#3f3f3f]">
@@ -80,9 +76,9 @@
             <?= $exp_per ?>%
           </p>
         </a>
-        <div class="w-full h-4 mb-4 rounded-full bg-gray-600 duration-200">
+        <div class="w-full h-4 mb-7 rounded-full bg-gray-600 duration-200">
           <div 
-            class="h-4 mb-1 rounded-full duration-200 hover:scale-105 
+            class="h-4 mb-3 rounded-full duration-200 hover:scale-105
             <?= ($exp_per > 90 ? 'bg-red-500' : 'bg-blue-500') ?>
             <?= ($exp_per > 95 ? 'animate-pulse' : 'bg-blue-500') ?>
             " 
@@ -357,12 +353,28 @@
 
       </div>
 
+      <div class="fixed bottom-0 hover:text-white text-sm text-[#9f9f9f] tracking-wider duration-200 cursor-default w-[299px] bg-[#3f3f3f] border-t border-[#4f4f4f] shadow-2xl py-2 gap-3 -ml-5 -mr-5 flex justify-center place-items-center">
+        <span id="sky_icon" class="material-symbols-outlined duration-200 animate-pulse">
+          weather_snowy
+        </span>
+        <p>
+          Light House
+        </p>
+      </div>
+
     </div>
   </div>
 
 </div>
 
 <script>
+
+  if(localStorage.getItem('effect') == 'on') {
+    $('#sky_icon').addClass('animate-pulse');
+  } else {
+    $('#sky_icon').removeClass('animate-pulse');
+  }
+
   if(!localStorage.getItem('board_list_btn')) {
     localStorage.setItem('board_list_btn', 'on');
   } else {

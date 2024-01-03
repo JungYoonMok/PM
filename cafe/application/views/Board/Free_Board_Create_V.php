@@ -161,7 +161,7 @@
           <div class="border-b border-gray-500"></div>
 
           <!-- 정보가 일치하지 않을시 -->
-          <div id='error_form' class="relative duration-200 shadow-xl hidden flex p-5 gap-3 border border-[#4f4f4f] bg-[#1f1f1f] w-full rounded">
+          <div id='error_form' class="relative duration-200 animate-bounce shadow-xl hidden flex p-5 gap-3 border border-[#4f4f4f] bg-[#1f1f1f] w-full rounded">
             <span class="material-symbols-outlined duration-200 animate-pulse text-red-400">
               error
             </span>
@@ -330,6 +330,9 @@
       }
     }
 
+    $('#error_txt').empty(); // 에러 메시지 초기화
+    $('#error_form').addClass('hidden');
+
     // AJAX 요청으로 게시글 생성 및 이미지 업로드 처리
     $.ajax({
       url: '/free_board_create_c/create',
@@ -435,7 +438,7 @@
         div.innerHTML = `
           <div class="flex gap-3">
             <div class="relative">
-              <img src="${e.target.result}" class="w-20 h-20 md:w-32 md:h-32 lg:w-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none" />
+              <img src="${e.target.result}" class="w-20 h-20 md:w-32 md:h-32 lg:w-40 lg:h-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none" />
               <button class="remove-btn rounded-[50%] absolute top-2 duration-200 w-8 h-8 flex justify-center place-items-center right-2 p-2 bg-[#1f1f1f] hover:bg-red-500">
                 <span class="material-symbols-outlined">
                   close
