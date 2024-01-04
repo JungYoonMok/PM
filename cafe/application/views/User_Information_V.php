@@ -110,7 +110,7 @@
             <div class="flex flex-col justify-center place-items-center gap-3 bg-[#2f2f2f] w-full p-3">
               <p>마지막 로그아웃</p>
               <p class="text-[#9f9f9f] tracking-wider">
-                <?= $last_login_logout->last_logout ?>
+                <?= substr($last_login_logout->last_logout, 0, 4) == '0000' ? '-' : $last_login_logout->last_logout ?>
               </p>
             </div>
           </div>

@@ -211,7 +211,7 @@
                         person
                       </p>
                       <p class="mt-1">
-                        <?= $li->nickname ?>
+                        <?= mb_strimwidth($li->nickname,0, 10, ' ..') ?>
                       </p>
                     </td>
                     <td class="px-3">
@@ -282,7 +282,7 @@
                         person
                       </p>
                       <p class="mt-1">
-                        <?= $li->nickname ?>
+                        <?= mb_strimwidth($li->nickname,0, 10, ' ..') ?>
                       </p>
                     </td>
                     <td class="px-3">
@@ -375,7 +375,7 @@
                         person
                       </p>
                       <p class="mt-1">
-                        <?= $li->nickname ?>
+                        <?= mb_strimwidth($li->nickname,0, 10, ' ..') ?>
                       </p>
                     </td>
                     <td class="px-3">
@@ -469,7 +469,7 @@
                         person
                       </p>
                       <p class="mt-1">
-                        <?= $li->nickname ?>
+                        <?= mb_strimwidth($li->nickname,0, 10, ' ..') ?>
                       </p>
                     </td>
                     <td class="px-3">

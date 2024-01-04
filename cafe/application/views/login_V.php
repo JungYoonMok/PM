@@ -46,7 +46,7 @@
 
         <div class="text-center">
           <button type="submit"
-            class="bg-[#4f4f4f] font-bold duration-200 my-5 hover:opacity-80 p-4 rounded w-full outline-none">
+            class="bg-blue-500 font-bold duration-200 my-5 hover:opacity-80 p-4 rounded w-full outline-none">
             로그인
           </button>
         </div>
@@ -199,6 +199,7 @@ $('#check1').on('click', (e) => {
     $('#auto_icon').removeClass('hidden');
     if(localStorage.getItem('user_id')) $('#user_id').val(localStorage.getItem('user_id'));
     if(!confirm('🔔 보안상의 이유로 공공장소에서는 사용을 자제해주세요\n📌 그래도 아이디를 기억하시겠습니까?')) {
+      $('#user_id').val('');
       $('#auto_icon').addClass('hidden');
       $('#check1').prop('checked', false);
       return;

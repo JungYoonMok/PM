@@ -2,8 +2,8 @@
 
   <div class="">
 
-    <div class="absolute top-0 duration-200 cursor-default w-full bg-[#1f1f1f] rounded-b-2xl border-b border-green-500 shadow-2xl py-2 gap-3 -ml-5 -mr-5 flex justify-center place-items-center">
-      <span class="material-symbols-outlined text-green-500 duration-200 hover:-rotate-45">
+    <div class="absolute peer top-0 duration-200 cursor-default w-full bg-[#1f1f1f] rounded-b-2xl border-b border-[#4f4f4f] hover:border-green-500 shadow-2xl py-2 gap-3 -ml-5 -mr-5 flex justify-center place-items-center">
+      <span class="material-symbols-outlined peer-hover:bg-red-500 text-green-500 duration-200 active:-rotate-90 hover:-rotate-45">
         local_cafe
       </span>
       <p>나만의 카페</p>
@@ -91,7 +91,7 @@
       </div>
 
       <!-- 구분선 -->
-      <div class="border-b mb-3 border-gray-400"></div>
+      <!-- <div class="border-b mb-3 border-gray-400"></div> -->
 
       <!-- 기타 -->
       <div class="flex gap-2 flex-col text-sm">
@@ -165,7 +165,7 @@
       </div> -->
 
       <!-- 구분선 -->
-      <div class="border-b my-3 border-gray-400"></div>
+      <div class="border-b my-3 border-[#4f4f4f]"></div>
 
       <!-- 메뉴 -->
       <div class="flex flex-col gap-1 bg-[#3f3f3f] p-2 rounded shadow-lg border border-[#4f4f4f] duration-200 hover:scale-[103%]">
@@ -190,7 +190,7 @@
         </div>
 
         <!-- 구분선 -->
-        <div id="line" class="border-b border-gray-400"></div>
+        <div id="line" class="border-b-2 border-[#4f4f4f]"></div>
 
         <a href="/notice/list" id="notice"
           class="deration-500 relative w-full duration-100 p-2 rounded hover:text-gray-100 <?= $this->uri->segment(1) == 'notice' ? 'bg-[#2f2f2f] hover:translate-x-1' : 'hover:bg-[#4f4f4f]' ?>">
@@ -249,10 +249,10 @@
       </div>
 
       <!-- 구분선 -->
-      <div class="border-b my-3 border-gray-400"></div>
+      <div class="border-b my-3 border-[#4f4f4f]"></div>
 
       <!-- 방문자 및 회원수 -->
-      <div class="relative bg-[#3f3f3f] p-3 rounded text-sm flex flex-col gap-3 border border-[#4f4f4f] shadow-lg duration-200 hover:scale-[103%]">
+      <div class="relative bg-[#3f3f3f] p-3 mb-12 rounded text-sm flex flex-col gap-3 border border-[#4f4f4f] shadow-lg duration-200 hover:scale-[103%]">
 
         <!-- 라벨 -->
         <!-- <div class="bg-blue-500 absolute -top-0 -left-3 -rotate-45 rounded-sm shadow-2xl font-[s-core2]">
@@ -306,7 +306,7 @@
         </p>
 
         <!-- 구분선 -->
-        <div class="border-b border-gray-400"></div>        
+        <div class="border-b-2 border-[#4f4f4f]"></div>        
 
         <div class="flex flex-col gap-3">
           <div class="flex justify-between">
@@ -353,7 +353,7 @@
 
       </div>
 
-      <div class="fixed bottom-0 hover:text-white text-sm text-[#9f9f9f] tracking-wider duration-200 cursor-default w-[299px] bg-[#3f3f3f] border-t rounded-t-2xl border-[#4f4f4f] shadow-2xl py-2 gap-3 -ml-5 -mr-5 flex justify-center place-items-center">
+      <div class="fixed bottom-0 hover:text-white text-sm text-[#9f9f9f] tracking-wider duration-200 cursor-default w-[299px] bg-[#3f3f3f] border-t border-[#4f4f4f] shadow-2xl py-2 gap-3 -ml-5 -mr-5 flex justify-center place-items-center">
         <span id="sky_icon" class="material-symbols-outlined duration-200 animate-pulse">
           weather_snowy
         </span>
