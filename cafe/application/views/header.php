@@ -9,7 +9,7 @@
           <div class="rounded-[50%] w-[50px] duration-200 hover:animate-spin">
             <img src="/assets/image/world1.gif" alt="logo_img">
           </div>
-          <p class="duration-200 text-md md:text-base">
+          <p class="duration-200 text-base">
             hellow world !!
           </p>
         </a>

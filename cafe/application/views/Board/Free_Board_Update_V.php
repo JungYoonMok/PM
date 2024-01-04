@@ -371,10 +371,42 @@ $(document).ready( () => {
         </div>
       </div>
     `;
+
+    // if(e.target.result.match(/image/g)) {
+    //       div.innerHTML = `
+    //         <div class="flex gap-3">
+    //           <div class="relative">
+    //             <img src="${e.target.result}" class="w-20 h-20 md:w-32 md:h-32 lg:w-40 lg:h-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none" />
+    //             <button class="remove-btn rounded-[50%] absolute top-2 duration-200 w-8 h-8 flex justify-center place-items-center right-2 p-2 bg-[#1f1f1f] hover:bg-red-500">
+    //               <span class="material-symbols-outlined">
+    //                 close
+    //               </span>
+    //             </button>
+    //           </div>
+    //         </div>
+    //       `;
+    //     } else {
+    //       div.innerHTML = `
+    //         <div class="flex gap-3">
+    //           <div class="relative">
+    //             <span class="material-symbols-outlined flex place-items-center justify-center text-6xl w-20 h-20 md:w-32 md:h-32 lg:w-40 lg:h-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none"">
+    //               description
+    //             </span>
+    //             <button class="remove-btn rounded-[50%] absolute top-2 duration-200 w-8 h-8 flex justify-center place-items-center right-2 p-2 bg-[#1f1f1f] hover:bg-red-500">
+    //               <span class="material-symbols-outlined">
+    //                 close
+    //               </span>
+    //             </button>
+    //           </div>
+    //         </div>
+    //       `;
+    //     }
+
   } else {
     // 새 파일 미리보기
     var reader = new FileReader();
     reader.onload = function(e) {
+
       div.innerHTML = `
         <div class="gap-3">
           <div class="relative">
@@ -387,6 +419,37 @@ $(document).ready( () => {
           </div>
         </div>
       `;
+
+      // if(e.target.result.match(/image/g)) {
+      //     div.innerHTML = `
+      //       <div class="flex gap-3">
+      //         <div class="relative">
+      //           <img src="${e.target.result}" class="w-20 h-20 md:w-32 md:h-32 lg:w-40 lg:h-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none" />
+      //           <button class="remove-btn rounded-[50%] absolute top-2 duration-200 w-8 h-8 flex justify-center place-items-center right-2 p-2 bg-[#1f1f1f] hover:bg-red-500">
+      //             <span class="material-symbols-outlined">
+      //               close
+      //             </span>
+      //           </button>
+      //         </div>
+      //       </div>
+      //     `;
+      //   } else {
+      //     div.innerHTML = `
+      //       <div class="flex gap-3">
+      //         <div class="relative">
+      //           <span class="material-symbols-outlined flex place-items-center justify-center text-6xl w-20 h-20 md:w-32 md:h-32 lg:w-40 lg:h-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none"">
+      //             description
+      //           </span>
+      //           <button class="remove-btn rounded-[50%] absolute top-2 duration-200 w-8 h-8 flex justify-center place-items-center right-2 p-2 bg-[#1f1f1f] hover:bg-red-500">
+      //             <span class="material-symbols-outlined">
+      //               close
+      //             </span>
+      //           </button>
+      //         </div>
+      //       </div>
+      //     `;
+      //   }
+
     };
     reader.readAsDataURL(file);
   }

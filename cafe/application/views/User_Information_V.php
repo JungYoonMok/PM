@@ -645,8 +645,8 @@
     $('#error_form').removeClass('hidden');
 
     if($('#memo').val().length === 0) { // 메모 유효성 검사
-      $('#error_txt').text('메모는 10자 이상 입력해주세요.');
-      return;
+      // $('#error_txt').text('메모는 10자 이상 입력해주세요.');
+      // return;
     } else {
       if($('#memo').val().length > 100) {
         $('#error_txt').text('메모는 100자 이내로 입력해주세요.');

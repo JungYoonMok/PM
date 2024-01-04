@@ -277,9 +277,8 @@ class User_information_C extends CI_Controller {
       [
         'field' => 'memo',
         'label' => '소개',
-        'rules' => 'min_length[10]|max_length[100]',
+        'rules' => 'max_length[100]',
         'errors' => [
-          'min_length' => '소개는 최소 10자 이상 입력해 주세요',
           'max_length' => '소개는 최대 100자 이하 입력해 주세요',
         ]
       ]
