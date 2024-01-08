@@ -171,7 +171,7 @@
 
       <div class="">
         <!-- 헤더 -->
-        <div class="">
+        <div class="mb-20 md:mb-0">
           <?= $header ?>
         </div>
           

@@ -26,7 +26,7 @@ class Free_Board_View_C extends CI_Controller {
     $config['base_url'] = "/$seg/list"; // 기본 URL 설정
     $config['total_rows'] = $this->FBM->pagination($seg);
     // $config['total_rows'] = $this->FBM->board_comment_count_pagination($idx); // 전체 행의 수
-    $config['per_page'] = 10; // 페이지당 표시할 행의 수
+    $config['per_page'] = $this->input->get('limit'); // 페이지당 표시할 행의 수
     $config['uri_segment'] = 3; // URL의 몇 번째 세그먼트에 페이지 번호가 포함될지 설정
     $config['num_links'] = 3; // 현재 페이지 양쪽에 표시될 "숫자" 링크의 수
     // 페이지 숫자 표시
@@ -50,10 +50,10 @@ class Free_Board_View_C extends CI_Controller {
     $config['cur_tag_open'] = "<div class='font-bold border py-2 px-5 rounded border-gray-500 bg-[#1f1f1f] shadow-xl'>";
     $config['cur_tag_close'] = "</div>";
     // 처음으로, 마지막으로
-    $config['first_link'] = '처음';
+    $config['first_link'] = '<span class="material-symbols-outlined">first_page</span>';
     $config['first_tag_open'] = '<div>';
     $config['first_tag_close'] = '</div>';
-    $config['last_link'] = '마지막';
+    $config['last_link'] = '<span class="material-symbols-outlined">last_page</span>';
     $config['last_tag_open'] = '<div>';
     $config['last_tag_close'] = '</div>';
     // 페이지 이동시 화면이동
@@ -115,10 +115,10 @@ class Free_Board_View_C extends CI_Controller {
     $config['cur_tag_open'] = "<div class='font-bold border py-2 px-5 rounded border-gray-500 bg-[#1f1f1f] shadow-xl'>";
     $config['cur_tag_close'] = "</div>";
     // 처음으로, 마지막으로
-    $config['first_link'] = '처음';
+    $config['first_link'] = '<span class="material-symbols-outlined">first_page</span>';
     $config['first_tag_open'] = '<div>';
     $config['first_tag_close'] = '</div>';
-    $config['last_link'] = '마지막';
+    $config['last_link'] = '<span class="material-symbols-outlined">last_page</span>';
     $config['last_tag_open'] = '<div>';
     $config['last_tag_close'] = '</div>';
     // 페이지 이동시 화면이동
@@ -164,7 +164,7 @@ class Free_Board_View_C extends CI_Controller {
     $config['base_url'] = "/$seg/list"; // 기본 URL 설정
     $config['total_rows'] = $this->FBM->pagination($seg);
     // $config['total_rows'] = $this->FBM->board_comment_count_pagination($idx); // 전체 행의 수
-    $config['per_page'] = 10; // 페이지당 표시할 행의 수
+    $config['per_page'] = $this->input->get('limit'); // 페이지당 표시할 행의 수
     $config['uri_segment'] = 3; // URL의 몇 번째 세그먼트에 페이지 번호가 포함될지 설정
     $config['num_links'] = 3; // 현재 페이지 양쪽에 표시될 "숫자" 링크의 수
     // 페이지 숫자 표시
@@ -188,10 +188,10 @@ class Free_Board_View_C extends CI_Controller {
     $config['cur_tag_open'] = "<div class='font-bold border py-2 px-5 rounded border-gray-500 bg-[#1f1f1f] shadow-xl'>";
     $config['cur_tag_close'] = "</div>";
     // 처음으로, 마지막으로
-    $config['first_link'] = '처음';
+    $config['first_link'] = '<span class="material-symbols-outlined">first_page</span>';
     $config['first_tag_open'] = '<div>';
     $config['first_tag_close'] = '</div>';
-    $config['last_link'] = '마지막';
+    $config['last_link'] = '<span class="material-symbols-outlined">last_page</span>';
     $config['last_tag_open'] = '<div>';
     $config['last_tag_close'] = '</div>';
     // 페이지 이동시 화면이동

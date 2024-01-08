@@ -119,7 +119,7 @@ class Free_Board_Create_C extends CI_Controller {
     $config['upload_path'] = './uploads/';
     $config['allowed_types'] = '*';
     // $config['allowed_types'] = 'gif|jpg|png|jpeg|txt|zip';
-    $config['max_size'] = 0; // 1MB, 1024KB
+    $config['max_size'] = 0; // 1 = 1KB |1MB, 1024KB
     $this->load->library('upload', $config);
     
     $uploadData = [];

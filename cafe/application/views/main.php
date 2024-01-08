@@ -1,5 +1,5 @@
 <!-- 메인 틀 -->
-<div id="base" class="duration-200  bg-[#3f3f3f] text-gray-50">
+<div id="base" class="duration-200 bg-[#3f3f3f] text-gray-50">
 
   <!-- 메인 베이스 -->
   <div class="flex flex-col w-full">
@@ -29,7 +29,7 @@
     </div> -->
 
     <!-- 메인 -->
-    <div class="w-full p-1 pt-5 md:p-5 flex flex-col gap-5">
+    <div class="w-full p-1 md:p-5 flex flex-col gap-5">
 
       <!-- 최근게시글 -->
       <div class="w-full drop-shadow-xl">

@@ -143,35 +143,31 @@ defined('BASEPATH') or exit('No direct script access allowed');
       return $total_count->num_rows() ?? 0;
     }
 
-    function custom_view( $view = "", $page_view_data = [] ) {
+    function custom_view( $view = "", $page_view_data = array() ) {
 
       // 헤더에서 사용할 데이터 뽑기
-      $side_view_data['login_total'] = $this->login_total();
-
-      $side_view_data['post_total'] = $this->post_comment_total('boards');
-      $side_view_data['comment_total'] = $this->post_comment_total('boards_comment');
-
-      $side_view_data['point_total'] = $this->point_exp_total('point');
-      $side_view_data['exp_total'] = $this->point_exp_total('exp');
-      $side_view_data['level_converter'] = $this->level_converter($this->point_exp_total('exp'));
-      
-      $side_view_data['notice_total'] = $this->board_total('notice');
-      $side_view_data['freeboard_total'] = $this->board_total('freeboard');
-      $side_view_data['hellow_total'] = $this->board_total('hellow');
-      
-      $side_view_data['site_visit_today'] = $this->site_visit('today');
-      $side_view_data['site_visit_yesterday'] = $this->site_visit('yesterday');
-
-      $side_view_data['user_register_today'] = $this->user_register('today');
-      $side_view_data['user_register_yesterday'] = $this->user_register('yesterday');
-
-      $side_view_data['visit_total'] = $this->visit_total();
-      $side_view_data['member_total'] = $this->member_total();
+      $side_view_data = [
+        'login_total' => $this->login_total(),
+        'post_total' => $this->post_comment_total('boards'),
+        'comment_total' => $this->post_comment_total('boards_comment'),
+        'point_total' => $this->point_exp_total('point'),
+        'exp_total' => $this->point_exp_total('exp'),
+        'level_converter' => $this->level_converter($this->point_exp_total('exp')),
+        'notice_total' => $this->board_total('notice'),
+        'freeboard_total' => $this->board_total('freeboard'),
+        'hellow_total' => $this->board_total('hellow'),
+        'site_visit_today' => $this->site_visit('today'),
+        'site_visit_yesterday' => $this->site_visit('yesterday'),
+        'user_register_today' => $this->user_register('today'),
+        'user_register_yesterday' => $this->user_register('yesterday'),
+        'visit_total' => $this->visit_total(),
+        'member_total' => $this->member_total(),
+      ];
 
       //사이드에서 사용할 데이터 뽑기
       $layout_view_data = [
         "contents" => $this->obj->load->view($view, $page_view_data, TRUE),
-        "header" => $this->obj->load->view('header', NULL, TRUE),
+        "header" => $this->obj->load->view('header', $side_view_data, TRUE),
         "side" => $this->obj->load->view('side_bar', $side_view_data, TRUE),
       ];
 

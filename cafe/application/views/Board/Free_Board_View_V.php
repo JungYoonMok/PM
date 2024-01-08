@@ -374,7 +374,7 @@ $(document).ready(function() {
             </div>
 
             <div class="${li.reply_count > 0 ? '' : 'hidden'} p-2 flex duration-200 gap-2 place-items-center">
-              <span class="material-symbols-outlined rotate-180 text-[#9f9f9f]">
+              <span id="reply_icon${li.idx}" class="material-symbols-outlined duration-200 -rotate-180 text-[#9f9f9f]">
                 reply
               </span>
               <button id="post_reply_show_btn" value="${li.idx}" class="hover:-translate-x-1 decoration-2 hover:opacity-80 duration-200 hover:underline flex gap-1">
@@ -406,7 +406,13 @@ $(document).on('click', '#post_reply_show_btn', function(e) {
 
   if($('#post_reply_text' + $(this).val() ).text() == '답글접기') {
     $('#post_reply_text' + $(this).val() ).text('답글보기');
+
+    $('#reply_icon' + $(this).val()).removeClass('-rotate-90');
+    $('#reply_icon' + $(this).val()).addClass('-rotate-180');
   } else {
+    $('#reply_icon' + $(this).val()).removeClass('-rotate-180');
+    $('#reply_icon' + $(this).val()).addClass('-rotate-90');
+
     $('#post_reply_text' + $(this).val() ).text('답글접기');
   }
 
