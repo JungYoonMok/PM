@@ -435,48 +435,48 @@
         div.classList.add('preview-item');
         div.setAttribute('data-index', i); // 파일 인덱스 저장
 
-        div.innerHTML = `
-          <div class="flex gap-3">
-            <div class="relative">
-              <img src="${e.target.result}" class="w-20 h-20 md:w-32 md:h-32 lg:w-40 lg:h-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none" />
-              <button class="remove-btn rounded-[50%] absolute top-2 duration-200 w-8 h-8 flex justify-center place-items-center right-2 p-2 bg-[#1f1f1f] hover:bg-red-500">
-                <span class="material-symbols-outlined">
-                  close
-                </span>
-              </button>
-            </div>
-          </div>
-        `;
-
-        // if(e.target.result.match(/image/g)) {
-        //   div.innerHTML = `
-        //     <div class="flex gap-3">
-        //       <div class="relative">
-        //         <img src="${e.target.result}" class="w-20 h-20 md:w-32 md:h-32 lg:w-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none" />
-        //         <button class="remove-btn rounded-[50%] absolute top-2 duration-200 w-8 h-8 flex justify-center place-items-center right-2 p-2 bg-[#1f1f1f] hover:bg-red-500">
-        //           <span class="material-symbols-outlined">
-        //             close
-        //           </span>
-        //         </button>
-        //       </div>
-        //     </div>
-        //   `;
-        // } else {
-        //   div.innerHTML = `
-        //     <div class="flex gap-3">
-        //       <div class="relative">
-        //         <span class="material-symbols-outlined flex place-items-center justify-center text-6xl w-20 h-20 md:w-32 md:h-32 lg:w-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none"">
-        //           description
+        // div.innerHTML = `
+        //   <div class="flex gap-3">
+        //     <div class="relative">
+        //       <img src="${e.target.result}" class="w-20 h-20 md:w-32 md:h-32 lg:w-40 lg:h-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none" />
+        //       <button class="remove-btn rounded-[50%] absolute top-2 duration-200 w-8 h-8 flex justify-center place-items-center right-2 p-2 bg-[#1f1f1f] hover:bg-red-500">
+        //         <span class="material-symbols-outlined">
+        //           close
         //         </span>
-        //         <button class="remove-btn rounded-[50%] absolute top-2 duration-200 w-8 h-8 flex justify-center place-items-center right-2 p-2 bg-[#1f1f1f] hover:bg-red-500">
-        //           <span class="material-symbols-outlined">
-        //             close
-        //           </span>
-        //         </button>
-        //       </div>
+        //       </button>
         //     </div>
-        //   `;
-        // }
+        //   </div>
+        // `;
+
+        if(e.target.result.match(/image/g)) {
+          div.innerHTML = `
+            <div class="flex gap-3">
+              <div class="relative">
+                <img src="${e.target.result}" class="w-20 h-20 md:w-32 md:h-32 lg:w-40 lg:h-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none" />
+                <button class="remove-btn rounded-[50%] absolute top-2 duration-200 w-8 h-8 flex justify-center place-items-center right-2 p-2 bg-[#1f1f1f] hover:bg-red-500">
+                  <span class="material-symbols-outlined">
+                    close
+                  </span>
+                </button>
+              </div>
+            </div>
+          `;
+        } else {
+          div.innerHTML = `
+            <div class="flex gap-3">
+              <div class="relative">
+                <span class="material-symbols-outlined flex place-items-center justify-center text-6xl w-20 h-20 md:w-32 md:h-32 lg:w-40 lg:h-40 border border-gray-500 rounded duration-200 hover:scale-95 hover:rounded-none"">
+                  description
+                </span>
+                <button class="remove-btn rounded-[50%] absolute top-2 duration-200 w-8 h-8 flex justify-center place-items-center right-2 p-2 bg-[#1f1f1f] hover:bg-red-500">
+                  <span class="material-symbols-outlined">
+                    close
+                  </span>
+                </button>
+              </div>
+            </div>
+          `;
+        }
 
         div.querySelector('.remove-btn').addEventListener('click', function() {
           let index = parseInt(div.getAttribute('data-index')); // 저장된 인덱스 사용

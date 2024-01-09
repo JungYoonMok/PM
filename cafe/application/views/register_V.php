@@ -70,7 +70,7 @@
         
         <!-- 비밀번호 -->
         <div class="flex flex-col gap-3 w-full">
-          <p class="px-1 hover:text-white hover:-translate-y-1 duration-200 cursor-default whitespace-nowrap max-w-min">
+          <p class="px-1 duration-200 whitespace-nowrap max-w-min">
             비밀번호
           </p>
           <div class="relative">
@@ -84,7 +84,7 @@
 
         <!-- 비밀번호 확인 -->
         <div class="flex flex-col gap-3 w-full">
-          <p class="px-1 hover:text-white hover:-translate-y-1 duration-200 cursor-default whitespace-nowrap max-w-min">
+          <p class="px-1 duration-200 whitespace-nowrap max-w-min">
             비밀번호 확인
           </p>
           <div class="relative">
