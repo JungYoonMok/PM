@@ -108,7 +108,7 @@ class Free_Board_View_C extends CI_Controller {
     $config["num_tag_close"] = "</div>";
     // 전체 틀
     $config['full_tag_open'] = '<div class=
-      "pagination bg-[#2f2f2f] rounded flex place-items-center justify-center gap-5 duration-200"
+      "overflow-x-auto pagination bg-[#2f2f2f] rounded flex place-items-center justify-center gap-5 duration-200"
       >';
     $config['full_tag_close'] = '</div>';
     // 현제 페이지

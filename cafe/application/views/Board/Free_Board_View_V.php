@@ -666,7 +666,7 @@ function fetchBoardList(type, page) {
     // 기존의 내용을 비움
     // tableBody.empty();
 
-    console.log(parseInt($('#list_limit').val()));
+    // console.log(parseInt($('#list_limit').val()));
 
     fetchBoardList($('#seg').val());
   });

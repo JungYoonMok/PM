@@ -226,9 +226,9 @@
                           insert_drive_file
                         </span>
                       <? else :?>
-                        <img src="/uploads/<?= $file->file_name ?>" width="100%" alt="img" class="w-10 rounded duration-200 hover:scale-[3.0]">
+                        <img src="/uploads/<?= $file->file_name ?>" width="100%" alt="img" class="w-10 h-10 rounded duration-200 hover:bg-[#1f1f1f] hover:border border-[#6f6f6f] hover:scale-[3.0]">
                       <? endif ?>
-                      <p>
+                      <p class="tracking-wider">
                         <?= $file->file_name ?>
                       </p>
                     </a>
